@@ -345,6 +345,7 @@ c
       if (.not.inp_a(test)) then
         call errquit("dft_input: xc huh?",0,UERR)
       endif
+      using_nwxc = .false.
       if (test(1:3).eq."old") then
         call xc_input(rtdb, 'dft')
       else if (test(1:3).eq."new") then
