@@ -752,6 +752,25 @@ c
       end
 
 
+      subroutine nwxc_get_user_cam(param, val)
+      implicit none
+#include "nwxcP.fh"
+#include "errquit.fh"      
+      character*1 param
+      double precision val
+
+      if (param == 'g') then
+         nwxc_cam_gamma = val
+      else if (param == 'a') then
+         nwxc_cam_alpha = val
+      else if (param == 'b') then
+         nwxc_cam_beta = val
+      else
+         call errquit('Error: Undefined choice for argument param '//
+     &        'of nwxc_get_user_cam.', 1, UERR)
+      endif
+      
+      end
 
 C> @}
 c $Id$

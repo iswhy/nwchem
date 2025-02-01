@@ -1,0 +1,9 @@
+prefix=/usr/local
+libdir=/usr/local/lib
+
+Name: scalapack
+Description: SCALAPACK reference implementation
+Version: 2.2.1
+URL: http://www.netlib.org/scalapack/
+Libs: -L/usr/local/lib -lscalapack
+Requires: mpi lapack blas

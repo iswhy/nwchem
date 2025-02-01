@@ -1,0 +1,1 @@
+-I/home/packages/compilers/intel/mpi/2021.5.1/include/gfortran -I/home/packages/compilers/intel/mpi/2021.5.1/include -I/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/tools/install/include

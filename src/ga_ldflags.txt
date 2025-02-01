@@ -1,0 +1,1 @@
+-L/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/lib -L/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/lib -L/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/lib -L/home/packages/compilers/intel/mpi/2021.5.1/lib/release -L/home/packages/compilers/intel/mpi/2021.5.1/lib -L/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/tools/install/lib

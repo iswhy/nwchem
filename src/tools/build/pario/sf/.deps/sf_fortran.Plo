@@ -1,0 +1,46 @@
+pario/sf/sf_fortran.lo: ../ga-5.8.2/pario/sf/sf_fortran.c \
+ /usr/include/stdc-predef.h ./config.h /usr/include/string.h \
+ /usr/include/bits/libc-header-start.h /usr/include/features.h \
+ /usr/include/sys/cdefs.h /usr/include/bits/wordsize.h \
+ /usr/include/bits/long-double.h /usr/include/gnu/stubs.h \
+ /usr/include/gnu/stubs-64.h \
+ /home/packages/compilers/intel/compiler/2022.0.2/linux/bin/intel64/../../compiler/include/icc/stddef.h \
+ /usr/include/bits/types/locale_t.h /usr/include/bits/types/__locale_t.h \
+ /usr/include/strings.h ../ga-5.8.2/pario/sf/sf.h gaf2c/typesf2c.h \
+ ../ga-5.8.2/pario/sf/sff2c.h gaf2c/farg.h
+
+/usr/include/stdc-predef.h:
+
+./config.h:
+
+/usr/include/string.h:
+
+/usr/include/bits/libc-header-start.h:
+
+/usr/include/features.h:
+
+/usr/include/sys/cdefs.h:
+
+/usr/include/bits/wordsize.h:
+
+/usr/include/bits/long-double.h:
+
+/usr/include/gnu/stubs.h:
+
+/usr/include/gnu/stubs-64.h:
+
+/home/packages/compilers/intel/compiler/2022.0.2/linux/bin/intel64/../../compiler/include/icc/stddef.h:
+
+/usr/include/bits/types/locale_t.h:
+
+/usr/include/bits/types/__locale_t.h:
+
+/usr/include/strings.h:
+
+../ga-5.8.2/pario/sf/sf.h:
+
+gaf2c/typesf2c.h:
+
+../ga-5.8.2/pario/sf/sff2c.h:
+
+gaf2c/farg.h:

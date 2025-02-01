@@ -1,0 +1,6 @@
+tcgmsg/tcgmsg-mpi/checkbyte.lo: ../ga-5.8.2/tcgmsg/tcgmsg-mpi/checkbyte.c \
+ /usr/include/stdc-predef.h ./config.h
+
+/usr/include/stdc-predef.h:
+
+./config.h:

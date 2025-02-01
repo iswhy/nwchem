@@ -1,0 +1,673 @@
+The system is: Linux - 4.18.0-553.5.1.el8_10.x86_64 - x86_64
+Compiling the C compiler identification source file "CMakeCCompilerId.c" succeeded.
+Compiler: /home/packages/compilers/intel/mpi/2021.5.1/bin/mpicc 
+Build flags: ;-Wno-error=implicit-function-declaration;;-DInt=long
+Id flags:  
+
+The output was:
+0
+
+
+Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "a.out"
+
+The C compiler identification is Intel, found in "/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/CMakeFiles/3.24.0/CompilerIdC/a.out"
+
+Compiling the Fortran compiler identification source file "CMakeFortranCompilerId.F" succeeded.
+Compiler: /home/packages/compilers/intel/mpi/2021.5.1/bin/mpif90 
+Build flags: ;-i8
+Id flags: -v 
+
+The output was:
+0
+mpif90 for the Intel(R) MPI Library 2021.5 for Linux*
+Copyright Intel Corporation.
+ifort version 2021.5.0
+/home/packages/compilers/intel/compiler/2022.0.2/linux/bin/intel64/../../bin/intel64/fpp    -D__INTEL_COMPILER=2021 -D__INTEL_COMPILER_UPDATE=5 -D__unix__ -D__unix -D__linux__ -D__linux -D__gnu_linux__ -Dunix -Dlinux -D__ELF__ -D__x86_64 -D__x86_64__ -D__amd64 -D__amd64__ -D__INTEL_COMPILER_BUILD_DATE=20211109 -D__INTEL_OFFLOAD -D__MMX__ -D__SSE__ -D__SSE_MATH__ -D__SSE2__ -D__SSE2_MATH__ -D__pentium4 -D__pentium4__ -D__tune_pentium4__ -I. -I/home/packages/compilers/intel/mpi/2021.5.1/include/ilp64/gfortran -I/home/packages/compilers/intel/mpi/2021.5.1/include -I/home/packages/compilers/intel/vpl/2022.0.0/include -I/home/packages/compilers/intel/tbb/2021.5.1/env/../include -I/home/packages/compilers/intel/mpi/2021.5.1//include -I/home/packages/compilers/intel/mkl/2022.0.2/include -I/home/packages/compilers/intel/ipp/2021.5.2/include -I/home/packages/compilers/intel/ippcp/2021.5.1/include -I/home/packages/compilers/intel/ipp/2021.5.2/include -I/home/packages/compilers/intel/dpl/2021.6.0/linux/include -I/home/packages/compilers/intel/dpcpp-ct/2022.0.0/include -I/home/packages/compilers/intel/dnnl/2022.0.2/cpu_dpcpp_gpu_dpcpp/lib -I/home/packages/compilers/intel/dev-utilities/2021.5.2/include -I/home/packages/compilers/intel/dal/2021.5.3/include -I/home/packages/compilers/intel/ccl/2021.5.1/include/cpu_gpu_dpcpp -I/home/packages/compilers/intel/mpi/2021.5.1//include -I/home/packages/compilers/intel/mkl/2022.0.2/include -I/home/packages/compilers/intel/compiler/2022.0.2/linux/bin/intel64/../../compiler/include/intel64 -I/home/packages/compilers/intel/compiler/2022.0.2/linux/bin/intel64/../../compiler/include/icc -I/home/packages/compilers/intel/compiler/2022.0.2/linux/bin/intel64/../../compiler/include -I/usr/local/include -I/usr/lib/gcc/x86_64-redhat-linux/8/include -I/usr/include/ -I/usr/include -fixed -4Ycpp -4Ncvf -f_com=yes -MX CMakeFortranCompilerId.F /tmp/ifortdx1pkQ.i
+#include "..." search starts here:
+#include <...> search starts here:
+ .
+ /home/packages/compilers/intel/mpi/2021.5.1/include/ilp64/gfortran
+ /home/packages/compilers/intel/mpi/2021.5.1/include
+ /home/packages/compilers/intel/vpl/2022.0.0/include
+ /home/packages/compilers/intel/tbb/2021.5.1/env/../include
+ /home/packages/compilers/intel/mpi/2021.5.1//include
+ /home/packages/compilers/intel/mkl/2022.0.2/include
+ /home/packages/compilers/intel/ipp/2021.5.2/include
+ /home/packages/compilers/intel/ippcp/2021.5.1/include
+ /home/packages/compilers/intel/ipp/2021.5.2/include
+ /home/packages/compilers/intel/dpl/2021.6.0/linux/include
+ /home/packages/compilers/intel/dpcpp-ct/2022.0.0/include
+ /home/packages/compilers/intel/dnnl/2022.0.2/cpu_dpcpp_gpu_dpcpp/lib
+ /home/packages/compilers/intel/dev-utilities/2021.5.2/include
+ /home/packages/compilers/intel/dal/2021.5.3/include
+ /home/packages/compilers/intel/ccl/2021.5.1/include/cpu_gpu_dpcpp
+ /home/packages/compilers/intel/mpi/2021.5.1//include
+ /home/packages/compilers/intel/mkl/2022.0.2/include
+ /home/packages/compilers/intel/compiler/2022.0.2/linux/bin/intel64/../../compiler/include/intel64
+ /home/packages/compilers/intel/compiler/2022.0.2/linux/bin/intel64/../../compiler/include/icc
+ /home/packages/compilers/intel/compiler/2022.0.2/linux/bin/intel64/../../compiler/include
+ /usr/local/include
+ /usr/lib/gcc/x86_64-redhat-linux/8/include
+ /usr/include/
+ /usr/include
+End of search list.
+/home/packages/compilers/intel/compiler/2022.0.2/linux/bin/intel64/../../bin/intel64/fortcom    -D__INTEL_COMPILER=2021 -D__INTEL_COMPILER_UPDATE=5 -D__unix__ -D__unix -D__linux__ -D__linux -D__gnu_linux__ -Dunix -Dlinux -D__ELF__ -D__x86_64 -D__x86_64__ -D__amd64 -D__amd64__ -D__INTEL_COMPILER_BUILD_DATE=20211109 -D__INTEL_OFFLOAD -D__MMX__ -D__SSE__ -D__SSE_MATH__ -D__SSE2__ -D__SSE2_MATH__ -D__pentium4 -D__pentium4__ -D__tune_pentium4__ -I. -I/home/packages/compilers/intel/mpi/2021.5.1/include/ilp64/gfortran -I/home/packages/compilers/intel/mpi/2021.5.1/include -I/home/packages/compilers/intel/vpl/2022.0.0/include -I/home/packages/compilers/intel/tbb/2021.5.1/env/../include -I/home/packages/compilers/intel/mpi/2021.5.1//include -I/home/packages/compilers/intel/mkl/2022.0.2/include -I/home/packages/compilers/intel/ipp/2021.5.2/include -I/home/packages/compilers/intel/ippcp/2021.5.1/include -I/home/packages/compilers/intel/ipp/2021.5.2/include -I/home/packages/compilers/intel/dpl/2021.6.0/linux/include -I/home/packages/compilers/intel/dpcpp-ct/2022.0.0/include -I/home/packages/compilers/intel/dnnl/2022.0.2/cpu_dpcpp_gpu_dpcpp/lib -I/home/packages/compilers/intel/dev-utilities/2021.5.2/include -I/home/packages/compilers/intel/dal/2021.5.3/include -I/home/packages/compilers/intel/ccl/2021.5.1/include/cpu_gpu_dpcpp -I/home/packages/compilers/intel/mpi/2021.5.1//include -I/home/packages/compilers/intel/mkl/2022.0.2/include -I/home/packages/compilers/intel/compiler/2022.0.2/linux/bin/intel64/../../compiler/include/intel64 -I/home/packages/compilers/intel/compiler/2022.0.2/linux/bin/intel64/../../compiler/include/icc -I/home/packages/compilers/intel/compiler/2022.0.2/linux/bin/intel64/../../compiler/include -I/usr/local/include -I/usr/lib/gcc/x86_64-redhat-linux/8/include -I/usr/include/ -I/usr/include "-integer_size 64" -omp_simd -O2 "-reentrancy threaded" -simd -offload_host -mGLOB_em64t=TRUE -mP1OPT_version=2021.5.0-intel64 -mGLOB_diag_file=/tmp/ifortBwlWKw.diag -mGLOB_long_size_64 -mGLOB_routine_pointer_size_64 -mGLOB_source_language=GLOB_SOURCE_LANGUAGE_F90 -mP2OPT_static_promotion -mGLOB_pack_sort_init_list -mP1OPT_print_version=FALSE -mCG_use_gas_got_workaround=F -mP2OPT_align_option_used=TRUE -mGLOB_gcc_version=850 "-mGLOB_options_string=-I/home/packages/compilers/intel/mpi/2021.5.1/include/ilp64/gfortran -I/home/packages/compilers/intel/mpi/2021.5.1/include -i8 -v -L/home/packages/compilers/intel/mpi/2021.5.1/lib/release -L/home/packages/compilers/intel/mpi/2021.5.1/lib -Xlinker --enable-new-dtags -Xlinker -rpath -Xlinker /home/packages/compilers/intel/mpi/2021.5.1/lib/release -Xlinker -rpath -Xlinker /home/packages/compilers/intel/mpi/2021.5.1/lib -lmpi_ilp64 -lmpifort -lmpi -lrt -lpthread -Wl,-z,now -Wl,-z,relro -Wl,-z,noexecstack -Xlinker --enable-new-dtags -ldl" -mGLOB_cxx_limited_range=FALSE -mCG_extend_parms=FALSE -mGLOB_compiler_bin_directory=/home/packages/compilers/intel/compiler/2022.0.2/linux/bin/intel64/../../bin/intel64 -mGLOB_as_output_backup_file_name=/tmp/ifortj2ytJGas_.s -mGLOB_dashboard_use_source_name -mIPOPT_activate -mIPOPT_lite -mGLOB_uarch_tuning=0x0 -mGLOB_product_id_code=0x22006d91 -mCG_bnl_movbe=T -mP3OPT_use_mspp_call_convention -mP2OPT_subs_out_of_bound=FALSE -mP2OPT_disam_type_based_disam=2 -mGLOB_ansi_alias -mPGOPTI_value_profile_use=T -mGLOB_opt_report_use_source_name -mGLOB_offload_mode=1 -mGLOB_offload_no_openmp=TRUE -mP2OPT_offload_unique_var_string=ifort1159092287Rx23d8 -mP2OPT_hlo_level=2 -mP2OPT_hlo -mP2OPT_hpo_rtt_control=0 -mIPOPT_args_in_regs=0 -mP2OPT_disam_assume_nonstd_intent_in=FALSE -mGLOB_imf_mapping_library=/home/packages/compilers/intel/compiler/2022.0.2/linux/bin/intel64/../../bin/intel64/libiml_attr.so -mIPOPT_single_file_compile_and_link=TRUE -mPGOPTI_gen_threadsafe_level=0 -mIPOPT_lto_object_enabled -mIPOPT_lto_object_value=1 -mIPOPT_obj_output_file_name=/tmp/ifortBwlWKw.o -mIPOPT_whole_archive_fixup_file_name=/tmp/ifortwarch0gycwK -mGLOB_linker_version=2.30 -mGLOB_linker=ld -mGLOB_driver_tempfile_name=/tmp/iforttempfileAEeRt4 -mP3OPT_asm_target=P3OPT_ASM_TARGET_GAS -mGLOB_async_unwind_tables=TRUE -mGLOB_obj_output_file=/tmp/ifortBwlWKw.o -mGLOB_source_dialect=GLOB_SOURCE_DIALECT_FORTRAN -mP1OPT_source_file_name=CMakeFortranCompilerId.F -mP1OPT_full_source_file_name=/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack-782e739f8eb0e7f4d51ad7dd23fc1d03dc99d240/build/CMakeFiles/3.24.0/CompilerIdFortran/CMakeFortranCompilerId.F -mP2OPT_symtab_type_copy=true /tmp/ifortdx1pkQ.i
+#include "..." search starts here:
+#include <...> search starts here:
+ .
+ /home/packages/compilers/intel/mpi/2021.5.1/include/ilp64/gfortran
+ /home/packages/compilers/intel/mpi/2021.5.1/include
+ /home/packages/compilers/intel/vpl/2022.0.0/include
+ /home/packages/compilers/intel/tbb/2021.5.1/env/../include
+ /home/packages/compilers/intel/mpi/2021.5.1//include
+ /home/packages/compilers/intel/mkl/2022.0.2/include
+ /home/packages/compilers/intel/ipp/2021.5.2/include
+ /home/packages/compilers/intel/ippcp/2021.5.1/include
+ /home/packages/compilers/intel/ipp/2021.5.2/include
+ /home/packages/compilers/intel/dpl/2021.6.0/linux/include
+ /home/packages/compilers/intel/dpcpp-ct/2022.0.0/include
+ /home/packages/compilers/intel/dnnl/2022.0.2/cpu_dpcpp_gpu_dpcpp/lib
+ /home/packages/compilers/intel/dev-utilities/2021.5.2/include
+ /home/packages/compilers/intel/dal/2021.5.3/include
+ /home/packages/compilers/intel/ccl/2021.5.1/include/cpu_gpu_dpcpp
+ /home/packages/compilers/intel/mpi/2021.5.1//include
+ /home/packages/compilers/intel/mkl/2022.0.2/include
+ /home/packages/compilers/intel/compiler/2022.0.2/linux/bin/intel64/../../compiler/include/intel64
+ /home/packages/compilers/intel/compiler/2022.0.2/linux/bin/intel64/../../compiler/include/icc
+ /home/packages/compilers/intel/compiler/2022.0.2/linux/bin/intel64/../../compiler/include
+ /usr/local/include
+ /usr/lib/gcc/x86_64-redhat-linux/8/include
+ /usr/include/
+ /usr/include
+End of search list.
+ld    /usr/lib/gcc/x86_64-redhat-linux/8/../../../../lib64/crt1.o /usr/lib/gcc/x86_64-redhat-linux/8/../../../../lib64/crti.o /usr/lib/gcc/x86_64-redhat-linux/8/crtbegin.o --eh-frame-hdr --build-id -dynamic-linker /lib64/ld-linux-x86-64.so.2 -m elf_x86_64 -L/home/packages/compilers/intel/mpi/2021.5.1/lib/release -L/home/packages/compilers/intel/mpi/2021.5.1/lib -plugin /home/packages/compilers/intel/compiler/2022.0.2/linux/bin/intel64/../../bin/intel64/../../lib/icx-lto.so -o a.out /home/packages/compilers/intel/compiler/2022.0.2/linux/bin/intel64/../../compiler/lib/intel64_lin/for_main.o -L/work/iswhy/src/nwchem/NWChem-WFAT/lib/LINUX64/ -L/home/packages/compilers/intel/compiler/2022.0.2/linux/bin/intel64/../../compiler/lib/intel64_lin -L/usr/lib/gcc/x86_64-redhat-linux/8/ -L/usr/lib/gcc/x86_64-redhat-linux/8/../../../../lib64 -L/usr/lib/gcc/x86_64-redhat-linux/8/../../../../lib64/ -L/lib/../lib64 -L/lib/../lib64/ -L/usr/lib/../lib64 -L/usr/lib/../lib64/ -L/work/iswhy/src/nwchem/NWChem-WFAT/lib/LINUX64/ -L/usr/lib/gcc/x86_64-redhat-linux/8/../../../ -L/lib64 -L/lib/ -L/usr/lib64 -L/usr/lib /tmp/ifortBwlWKw.o --enable-new-dtags -rpath /home/packages/compilers/intel/mpi/2021.5.1/lib/release -rpath /home/packages/compilers/intel/mpi/2021.5.1/lib -lmpi_ilp64 -lmpifort -lmpi -lrt -lpthread -z now -z relro -z noexecstack --enable-new-dtags -ldl -Bdynamic -Bstatic -lifport -lifcoremt -limf -lsvml -Bdynamic -lm -Bstatic -lipgo -lirc -Bdynamic -lpthread -Bstatic -lsvml -Bdynamic -lc -lgcc -lgcc_s -Bstatic -lirc_s -Bdynamic -ldl -lc /usr/lib/gcc/x86_64-redhat-linux/8/crtend.o /usr/lib/gcc/x86_64-redhat-linux/8/../../../../lib64/crtn.o
+
+
+Compilation of the Fortran compiler identification source "CMakeFortranCompilerId.F" produced "a.out"
+
+The Fortran compiler identification is Intel, found in "/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/CMakeFiles/3.24.0/CompilerIdFortran/a.out"
+
+Detecting C compiler ABI info compiled with the following output:
+Change Dir: /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/gmake -f Makefile cmTC_f98cf/fast && gmake[3]: Entering directory '/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack-782e739f8eb0e7f4d51ad7dd23fc1d03dc99d240/build/CMakeFiles/CMakeTmp'
+/usr/bin/gmake  -f CMakeFiles/cmTC_f98cf.dir/build.make CMakeFiles/cmTC_f98cf.dir/build
+gmake[4]: Entering directory '/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack-782e739f8eb0e7f4d51ad7dd23fc1d03dc99d240/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_f98cf.dir/CMakeCCompilerABI.c.o
+/home/packages/compilers/intel/mpi/2021.5.1/bin/mpicc   -Wno-error=implicit-function-declaration  -DInt=long    -v -MD -MT CMakeFiles/cmTC_f98cf.dir/CMakeCCompilerABI.c.o -MF CMakeFiles/cmTC_f98cf.dir/CMakeCCompilerABI.c.o.d -o CMakeFiles/cmTC_f98cf.dir/CMakeCCompilerABI.c.o -c /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/libext_utils/cmake-3.24.0-linux-x86_64/share/cmake-3.24/Modules/CMakeCCompilerABI.c
+mpiicc for the Intel(R) MPI Library 2021.5 for Linux*
+Copyright Intel Corporation.
+icc version 2021.5.0 (gcc version 8.5.0 compatibility)
+/home/packages/compilers/intel/compiler/2022.0.2/linux/bin/intel64/../../bin/intel64/mcpcom    --target_efi2 --lang=c -oCMakeFiles/cmTC_f98cf.dir/CMakeCCompilerABI.c.o -_g -mP3OPT_inline_alloca -D__ICC=2021 -D__INTEL_COMPILER=2021 -D__INTEL_COMPILER_UPDATE=5 -D__PTRDIFF_TYPE__=long "-D__SIZE_TYPE__=unsigned long" -D__WCHAR_TYPE__=int "-D__WINT_TYPE__=unsigned int" "-D__INTMAX_TYPE__=long int" "-D__UINTMAX_TYPE__=long unsigned int" -D__LONG_MAX__=9223372036854775807L -D__QMSPP_ -D__OPTIMIZE__ -D__NO_MATH_INLINES -D__NO_STRING_INLINES -D__GNUC_GNU_INLINE__ -D__GNUC__=8 -D__GNUC_MINOR__=5 -D__GNUC_PATCHLEVEL__=0 -D__LP64__ -D_LP64 -D__GXX_ABI_VERSION=1010 "-D__USER_LABEL_PREFIX__= " -D__REGISTER_PREFIX__= -D__INTEL_RTTI__ -D__unix__ -D__unix -D__linux__ -D__linux -D__gnu_linux__ -B -Dunix -Dlinux "-_Asystem(unix)" -D__ELF__ -D__x86_64 -D__x86_64__ -D__amd64 -D__amd64__ "-_Acpu(x86_64)" "-_Amachine(x86_64)" -D__INTEL_COMPILER_BUILD_DATE=20211109 -D__INTEL_OFFLOAD -D__MMX__ -D__SSE__ -D__SSE_MATH__ -D__SSE2__ -D__SSE2_MATH__ -D__pentium4 -D__pentium4__ -D__tune_pentium4__ -_k -_8 -_l --has_new_stdarg_support -_a -_b --gnu_version=80500 -_W5 --openmp_simd --noopenmp_offload --dependency_file_name CMakeFiles/cmTC_f98cf.dir/CMakeCCompilerABI.c.o.d --compile_dependencies --dependency_target_name CMakeFiles/cmTC_f98cf.dir/CMakeCCompilerABI.c.o --multibyte_chars -mGLOB_diag_suppress_sys -DInt=long --system_preinclude /usr/include/stdc-predef.h -I/home/packages/compilers/intel/mpi/2021.5.1/include -I/home/packages/compilers/intel/vpl/2022.0.0/include -I/home/packages/compilers/intel/tbb/2021.5.1/env/../include -I/home/packages/compilers/intel/mpi/2021.5.1//include -I/home/packages/compilers/intel/mkl/2022.0.2/include -I/home/packages/compilers/intel/ipp/2021.5.2/include -I/home/packages/compilers/intel/ippcp/2021.5.1/include -I/home/packages/compilers/intel/ipp/2021.5.2/include -I/home/packages/compilers/intel/dpl/2021.6.0/linux/include -I/home/packages/compilers/intel/dpcpp-ct/2022.0.0/include -I/home/packages/compilers/intel/dnnl/2022.0.2/cpu_dpcpp_gpu_dpcpp/lib -I/home/packages/compilers/intel/dev-utilities/2021.5.2/include -I/home/packages/compilers/intel/dal/2021.5.3/include -I/home/packages/compilers/intel/ccl/2021.5.1/include/cpu_gpu_dpcpp -I/home/packages/compilers/intel/mpi/2021.5.1//include -I/home/packages/compilers/intel/mkl/2022.0.2/include --array_section --simd --simd_func --offload_mode=1 --offload_target_names=mic,MIC --offload_unique_string=icc1353986600BwuGgK -mGLOB_em64t=TRUE -mP1OPT_version=2021.5.0-intel64 -mGLOB_diag_file=CMakeFiles/cmTC_f98cf.dir/CMakeCCompilerABI.c.diag -mGLOB_long_size_64 -mGLOB_routine_pointer_size_64 -mP1OPT_print_version=FALSE -mCG_use_gas_got_workaround=F -mP2OPT_align_option_used=TRUE -mGLOB_gcc_version=850 "-mGLOB_options_string=-I/home/packages/compilers/intel/mpi/2021.5.1/include -Wno-error=implicit-function-declaration -DInt=long -v -MD -MT CMakeFiles/cmTC_f98cf.dir/CMakeCCompilerABI.c.o -MF CMakeFiles/cmTC_f98cf.dir/CMakeCCompilerABI.c.o.d -o CMakeFiles/cmTC_f98cf.dir/CMakeCCompilerABI.c.o -c" -mGLOB_cxx_limited_range=FALSE -mCG_extend_parms=FALSE -mGLOB_compiler_bin_directory=/home/packages/compilers/intel/compiler/2022.0.2/linux/bin/intel64/../../bin/intel64 -mGLOB_as_output_backup_file_name=/tmp/iccIaw2eKas_.s -mIPOPT_activate -mIPOPT_lite -mGLOB_uarch_tuning=0x0 -mGLOB_product_id_code=0x22006d93 -mCG_bnl_movbe=T -mP3OPT_use_mspp_call_convention -mP2OPT_subs_out_of_bound=FALSE -mP2OPT_disam_type_based_disam=2 -mP2OPT_disam_assume_ansi_c -mP2OPT_checked_disam_ansi_alias=TRUE -mGLOB_ansi_alias -mPGOPTI_value_profile_use=T -mP2OPT_il0_array_sections=TRUE -mGLOB_offload_mode=1 -mGLOB_offload_no_openmp=TRUE -mP2OPT_offload_unique_var_string=icc1353986600BwuGgK -mP2OPT_hlo_level=2 -mP2OPT_hlo -mP2OPT_hpo_rtt_control=0 -mIPOPT_args_in_regs=0 -mP2OPT_disam_assume_nonstd_intent_in=FALSE -mGLOB_imf_mapping_library=/home/packages/compilers/intel/compiler/2022.0.2/linux/bin/intel64/../../bin/intel64/libiml_attr.so -mPGOPTI_gen_threadsafe_level=0 -mIPOPT_lto_object_enabled -mIPOPT_lto_object_value=1 -mIPOPT_obj_output_file_name=CMakeFiles/cmTC_f98cf.dir/CMakeCCompilerABI.c.o -mIPOPT_whole_archive_fixup_file_name=/tmp/iccwarch9ICYSq -mGLOB_linker_version=2.30 -mGLOB_linker=ld -mGLOB_driver_tempfile_name=/tmp/icctempfileXe4UBT -mP3OPT_asm_target=P3OPT_ASM_TARGET_GAS -mGLOB_async_unwind_tables=TRUE -mGLOB_obj_output_file=CMakeFiles/cmTC_f98cf.dir/CMakeCCompilerABI.c.o -mGLOB_source_dialect=GLOB_SOURCE_DIALECT_C -mP1OPT_source_file_name=/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/libext_utils/cmake-3.24.0-linux-x86_64/share/cmake-3.24/Modules/CMakeCCompilerABI.c -mP1OPT_full_source_file_name=/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/libext_utils/cmake-3.24.0-linux-x86_64/share/cmake-3.24/Modules/CMakeCCompilerABI.c /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/libext_utils/cmake-3.24.0-linux-x86_64/share/cmake-3.24/Modules/CMakeCCompilerABI.c
+#include "..." search starts here:
+#include <...> search starts here:
+ /home/packages/compilers/intel/mpi/2021.5.1/include
+ /home/packages/compilers/intel/vpl/2022.0.0/include
+ /home/packages/compilers/intel/tbb/2021.5.1/env/../include
+ /home/packages/compilers/intel/mpi/2021.5.1//include
+ /home/packages/compilers/intel/mkl/2022.0.2/include
+ /home/packages/compilers/intel/ipp/2021.5.2/include
+ /home/packages/compilers/intel/ippcp/2021.5.1/include
+ /home/packages/compilers/intel/ipp/2021.5.2/include
+ /home/packages/compilers/intel/dpl/2021.6.0/linux/include
+ /home/packages/compilers/intel/dpcpp-ct/2022.0.0/include
+ /home/packages/compilers/intel/dnnl/2022.0.2/cpu_dpcpp_gpu_dpcpp/lib
+ /home/packages/compilers/intel/dev-utilities/2021.5.2/include
+ /home/packages/compilers/intel/dal/2021.5.3/include
+ /home/packages/compilers/intel/ccl/2021.5.1/include/cpu_gpu_dpcpp
+ /home/packages/compilers/intel/mpi/2021.5.1//include
+ /home/packages/compilers/intel/mkl/2022.0.2/include
+ /home/packages/compilers/intel/compiler/2022.0.2/linux/bin/intel64/../../compiler/include/intel64
+ /home/packages/compilers/intel/compiler/2022.0.2/linux/bin/intel64/../../compiler/include/icc
+ /home/packages/compilers/intel/compiler/2022.0.2/linux/bin/intel64/../../compiler/include
+ /usr/local/include
+ /usr/lib/gcc/x86_64-redhat-linux/8/include
+ /usr/include/
+ /usr/include
+End of search list.
+Linking C executable cmTC_f98cf
+/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/libext_utils/cmake-3.24.0-linux-x86_64/bin/cmake -E cmake_link_script CMakeFiles/cmTC_f98cf.dir/link.txt --verbose=1
+/home/packages/compilers/intel/mpi/2021.5.1/bin/mpicc  -Wno-error=implicit-function-declaration  -DInt=long   -v CMakeFiles/cmTC_f98cf.dir/CMakeCCompilerABI.c.o -o cmTC_f98cf 
+mpiicc for the Intel(R) MPI Library 2021.5 for Linux*
+Copyright Intel Corporation.
+icc version 2021.5.0 (gcc version 8.5.0 compatibility)
+/home/packages/compilers/intel/compiler/2022.0.2/linux/bin/intel64/../../bin/intel64/mcpcom    -mGLOB_em64t=TRUE -mP1OPT_version=2021.5.0-intel64 -mGLOB_diag_file=CMakeFiles/cmTC_f98cf.dir/CMakeCCompilerABI.c.diag -mGLOB_long_size_64 -mGLOB_routine_pointer_size_64 -mP1OPT_print_version=FALSE -mCG_use_gas_got_workaround=F -mP2OPT_align_option_used=TRUE -mGLOB_gcc_version=850 "-mGLOB_options_string=-I/home/packages/compilers/intel/mpi/2021.5.1/include -Wno-error=implicit-function-declaration -DInt=long -v -o cmTC_f98cf -L/home/packages/compilers/intel/mpi/2021.5.1/lib/release -L/home/packages/compilers/intel/mpi/2021.5.1/lib -Xlinker --enable-new-dtags -Xlinker -rpath -Xlinker /home/packages/compilers/intel/mpi/2021.5.1/lib/release -Xlinker -rpath -Xlinker /home/packages/compilers/intel/mpi/2021.5.1/lib -lmpifort -lmpi -ldl -lrt -lpthread" -mGLOB_cxx_limited_range=FALSE -mCG_extend_parms=FALSE -mGLOB_compiler_bin_directory=/home/packages/compilers/intel/compiler/2022.0.2/linux/bin/intel64/../../bin/intel64 -mGLOB_as_output_backup_file_name=/tmp/iccpmflw3as_.s -mGLOB_dashboard_use_source_name -mIPOPT_activate -mGLOB_product_id_code=0x22006d93 -mP3OPT_use_mspp_call_convention -mP2OPT_subs_out_of_bound=FALSE -mP2OPT_disam_type_based_disam=2 -mP2OPT_disam_assume_ansi_c -mP2OPT_checked_disam_ansi_alias=TRUE -mGLOB_ansi_alias -mPGOPTI_value_profile_use=T -mGLOB_opt_report_use_source_name -mP2OPT_il0_array_sections=TRUE -mGLOB_offload_mode=1 -mGLOB_offload_no_openmp=TRUE -mP2OPT_offload_unique_var_string=icc0198183200E15aoy -mP2OPT_hlo -mP2OPT_hpo_rtt_control=0 -mIPOPT_args_in_regs=0 -mP2OPT_disam_assume_nonstd_intent_in=FALSE -mGLOB_imf_mapping_library=/home/packages/compilers/intel/compiler/2022.0.2/linux/bin/intel64/../../bin/intel64/libiml_attr.so -mPGOPTI_gen_threadsafe_level=0 -mIPOPT_link -mIPOPT_ipo_activate -mIPOPT_mo_activate -mIPOPT_source_files_list=/tmp/iccsliseQ4dSM -mIPOPT_mo_global_data -mIPOPT_link_script_file=/tmp/iccscriptNcH1eS "-mIPOPT_cmdline_link="/usr/lib/gcc/x86_64-redhat-linux/8/../../../../lib64/crt1.o" "/usr/lib/gcc/x86_64-redhat-linux/8/../../../../lib64/crti.o" "/usr/lib/gcc/x86_64-redhat-linux/8/crtbegin.o" "--eh-frame-hdr" "--build-id" "-dynamic-linker" "/lib64/ld-linux-x86-64.so.2" "-m" "elf_x86_64" "-L/home/packages/compilers/intel/mpi/2021.5.1/lib/release" "-L/home/packages/compilers/intel/mpi/2021.5.1/lib" "-o" "cmTC_f98cf" "-L/work/iswhy/src/nwchem/NWChem-WFAT/lib/LINUX64/" "-L/home/packages/compilers/intel/compiler/2022.0.2/linux/bin/intel64/../../compiler/lib/intel64_lin" "-L/usr/lib/gcc/x86_64-redhat-linux/8/" "-L/usr/lib/gcc/x86_64-redhat-linux/8/../../../../lib64" "-L/usr/lib/gcc/x86_64-redhat-linux/8/../../../../lib64/" "-L/lib/../lib64" "-L/lib/../lib64/" "-L/usr/lib/../lib64" "-L/usr/lib/../lib64/" "-L/work/iswhy/src/nwchem/NWChem-WFAT/lib/LINUX64/" "-L/usr/lib/gcc/x86_64-redhat-linux/8/../../../" "-L/lib64" "-L/lib/" "-L/usr/lib64" "-L/usr/lib" "CMakeFiles/cmTC_f98cf.dir/CMakeCCompilerABI.c.o" "--enable-new-dtags" "-rpath" "/home/packages/compilers/intel/mpi/2021.5.1/lib/release" "-rpath" "/home/packages/compilers/intel/mpi/2021.5.1/lib" "-lmpifort" "-lmpi" "-ldl" "-lrt" "-lpthread" "-Bdynamic" "-Bstatic" "-limf" "-lsvml" "-lirng" "-Bdynamic" "-lm" "-Bstatic" "-lipgo" "-ldecimal" "--as-needed" "-Bdynamic" "-lcilkrts" "-lstdc++" "--no-as-needed" "-lgcc" "-lgcc_s" "-Bstatic" "-lirc" "-lsvml" "-Bdynamic" "-lc" "-lgcc" "-lgcc_s" "-Bstatic" "-lirc_s" "-Bdynamic" "-ldl" "-lc" "/usr/lib/gcc/x86_64-redhat-linux/8/crtend.o" "/usr/lib/gcc/x86_64-redhat-linux/8/../../../../lib64/crtn.o"" -mIPOPT_il_in_obj -mIPOPT_ipo_activate_warn=FALSE -mIPOPT_obj_output_file_name=/tmp/ipo_icc5FBWfv.o -mIPOPT_whole_archive_fixup_file_name=/tmp/iccwarchjMjoli -mGLOB_linker_version=2.30 -mGLOB_linker=ld -mGLOB_driver_tempfile_name=/tmp/icctempfile4IZiyy -mP3OPT_asm_target=P3OPT_ASM_TARGET_GAS -mGLOB_async_unwind_tables=TRUE -mGLOB_obj_output_file=/tmp/ipo_icc5FBWfv.o -mGLOB_source_dialect=GLOB_SOURCE_DIALECT_NONE -mP1OPT_source_file_name=ipo_out.c CMakeFiles/cmTC_f98cf.dir/CMakeCCompilerABI.c.o -mIPOPT_object_files=T -mIPOPT_assembly_files=/tmp/iccalisHxIOTR -mIPOPT_generated_tempfiles=/tmp/iccelisFKt4g4 -mIPOPT_embedded_object_base_name=/tmp/icceobjfZTtTS -mIPOPT_cmdline_link_new_name=/tmp/iccllisL8OOID
+ld    /usr/lib/gcc/x86_64-redhat-linux/8/../../../../lib64/crt1.o /usr/lib/gcc/x86_64-redhat-linux/8/../../../../lib64/crti.o /usr/lib/gcc/x86_64-redhat-linux/8/crtbegin.o --eh-frame-hdr --build-id -dynamic-linker /lib64/ld-linux-x86-64.so.2 -m elf_x86_64 -L/home/packages/compilers/intel/mpi/2021.5.1/lib/release -L/home/packages/compilers/intel/mpi/2021.5.1/lib -o cmTC_f98cf -L/work/iswhy/src/nwchem/NWChem-WFAT/lib/LINUX64/ -L/home/packages/compilers/intel/compiler/2022.0.2/linux/bin/intel64/../../compiler/lib/intel64_lin -L/usr/lib/gcc/x86_64-redhat-linux/8/ -L/usr/lib/gcc/x86_64-redhat-linux/8/../../../../lib64 -L/usr/lib/gcc/x86_64-redhat-linux/8/../../../../lib64/ -L/lib/../lib64 -L/lib/../lib64/ -L/usr/lib/../lib64 -L/usr/lib/../lib64/ -L/work/iswhy/src/nwchem/NWChem-WFAT/lib/LINUX64/ -L/usr/lib/gcc/x86_64-redhat-linux/8/../../../ -L/lib64 -L/lib/ -L/usr/lib64 -L/usr/lib CMakeFiles/cmTC_f98cf.dir/CMakeCCompilerABI.c.o --enable-new-dtags -rpath /home/packages/compilers/intel/mpi/2021.5.1/lib/release -rpath /home/packages/compilers/intel/mpi/2021.5.1/lib -lmpifort -lmpi -ldl -lrt -lpthread -Bdynamic -Bstatic -limf -lsvml -lirng -Bdynamic -lm -Bstatic -lipgo -ldecimal --as-needed -Bdynamic -lcilkrts -lstdc++ --no-as-needed -lgcc -lgcc_s -Bstatic -lirc -lsvml -Bdynamic -lc -lgcc -lgcc_s -Bstatic -lirc_s -Bdynamic -ldl -lc /usr/lib/gcc/x86_64-redhat-linux/8/crtend.o /usr/lib/gcc/x86_64-redhat-linux/8/../../../../lib64/crtn.o
+gmake[4]: Leaving directory '/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack-782e739f8eb0e7f4d51ad7dd23fc1d03dc99d240/build/CMakeFiles/CMakeTmp'
+gmake[3]: Leaving directory '/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack-782e739f8eb0e7f4d51ad7dd23fc1d03dc99d240/build/CMakeFiles/CMakeTmp'
+
+
+
+Parsed C implicit include dir info from above output: rv=done
+  found start of include info
+  found start of implicit include info
+    add: [/home/packages/compilers/intel/mpi/2021.5.1/include]
+    add: [/home/packages/compilers/intel/vpl/2022.0.0/include]
+    add: [/home/packages/compilers/intel/tbb/2021.5.1/env/../include]
+    add: [/home/packages/compilers/intel/mpi/2021.5.1//include]
+    add: [/home/packages/compilers/intel/mkl/2022.0.2/include]
+    add: [/home/packages/compilers/intel/ipp/2021.5.2/include]
+    add: [/home/packages/compilers/intel/ippcp/2021.5.1/include]
+    add: [/home/packages/compilers/intel/ipp/2021.5.2/include]
+    add: [/home/packages/compilers/intel/dpl/2021.6.0/linux/include]
+    add: [/home/packages/compilers/intel/dpcpp-ct/2022.0.0/include]
+    add: [/home/packages/compilers/intel/dnnl/2022.0.2/cpu_dpcpp_gpu_dpcpp/lib]
+    add: [/home/packages/compilers/intel/dev-utilities/2021.5.2/include]
+    add: [/home/packages/compilers/intel/dal/2021.5.3/include]
+    add: [/home/packages/compilers/intel/ccl/2021.5.1/include/cpu_gpu_dpcpp]
+    add: [/home/packages/compilers/intel/mpi/2021.5.1//include]
+    add: [/home/packages/compilers/intel/mkl/2022.0.2/include]
+    add: [/home/packages/compilers/intel/compiler/2022.0.2/linux/bin/intel64/../../compiler/include/intel64]
+    add: [/home/packages/compilers/intel/compiler/2022.0.2/linux/bin/intel64/../../compiler/include/icc]
+    add: [/home/packages/compilers/intel/compiler/2022.0.2/linux/bin/intel64/../../compiler/include]
+    add: [/usr/local/include]
+    add: [/usr/lib/gcc/x86_64-redhat-linux/8/include]
+    add: [/usr/include/]
+    add: [/usr/include]
+  end of search list found
+  collapse include dir [/home/packages/compilers/intel/mpi/2021.5.1/include] ==> [/home/packages/compilers/intel/mpi/2021.5.1/include]
+  collapse include dir [/home/packages/compilers/intel/vpl/2022.0.0/include] ==> [/home/packages/compilers/intel/vpl/2022.0.0/include]
+  collapse include dir [/home/packages/compilers/intel/tbb/2021.5.1/env/../include] ==> [/home/packages/compilers/intel/tbb/2021.5.1/include]
+  collapse include dir [/home/packages/compilers/intel/mpi/2021.5.1//include] ==> [/home/packages/compilers/intel/mpi/2021.5.1/include]
+  collapse include dir [/home/packages/compilers/intel/mkl/2022.0.2/include] ==> [/home/packages/compilers/intel/mkl/2022.0.2/include]
+  collapse include dir [/home/packages/compilers/intel/ipp/2021.5.2/include] ==> [/home/packages/compilers/intel/ipp/2021.5.2/include]
+  collapse include dir [/home/packages/compilers/intel/ippcp/2021.5.1/include] ==> [/home/packages/compilers/intel/ippcp/2021.5.1/include]
+  collapse include dir [/home/packages/compilers/intel/ipp/2021.5.2/include] ==> [/home/packages/compilers/intel/ipp/2021.5.2/include]
+  collapse include dir [/home/packages/compilers/intel/dpl/2021.6.0/linux/include] ==> [/home/packages/compilers/intel/dpl/2021.6.0/linux/include]
+  collapse include dir [/home/packages/compilers/intel/dpcpp-ct/2022.0.0/include] ==> [/home/packages/compilers/intel/dpcpp-ct/2022.0.0/include]
+  collapse include dir [/home/packages/compilers/intel/dnnl/2022.0.2/cpu_dpcpp_gpu_dpcpp/lib] ==> [/home/packages/compilers/intel/dnnl/2022.0.2/cpu_dpcpp_gpu_dpcpp/lib]
+  collapse include dir [/home/packages/compilers/intel/dev-utilities/2021.5.2/include] ==> [/home/packages/compilers/intel/dev-utilities/2021.5.2/include]
+  collapse include dir [/home/packages/compilers/intel/dal/2021.5.3/include] ==> [/home/packages/compilers/intel/dal/2021.5.3/include]
+  collapse include dir [/home/packages/compilers/intel/ccl/2021.5.1/include/cpu_gpu_dpcpp] ==> [/home/packages/compilers/intel/ccl/2021.5.1/include/cpu_gpu_dpcpp]
+  collapse include dir [/home/packages/compilers/intel/mpi/2021.5.1//include] ==> [/home/packages/compilers/intel/mpi/2021.5.1/include]
+  collapse include dir [/home/packages/compilers/intel/mkl/2022.0.2/include] ==> [/home/packages/compilers/intel/mkl/2022.0.2/include]
+  collapse include dir [/home/packages/compilers/intel/compiler/2022.0.2/linux/bin/intel64/../../compiler/include/intel64] ==> [/home/packages/compilers/intel/compiler/2022.0.2/linux/compiler/include/intel64]
+  collapse include dir [/home/packages/compilers/intel/compiler/2022.0.2/linux/bin/intel64/../../compiler/include/icc] ==> [/home/packages/compilers/intel/compiler/2022.0.2/linux/compiler/include/icc]
+  collapse include dir [/home/packages/compilers/intel/compiler/2022.0.2/linux/bin/intel64/../../compiler/include] ==> [/home/packages/compilers/intel/compiler/2022.0.2/linux/compiler/include]
+  collapse include dir [/usr/local/include] ==> [/usr/local/include]
+  collapse include dir [/usr/lib/gcc/x86_64-redhat-linux/8/include] ==> [/usr/lib/gcc/x86_64-redhat-linux/8/include]
+  collapse include dir [/usr/include/] ==> [/usr/include]
+  collapse include dir [/usr/include] ==> [/usr/include]
+  implicit include dirs: [/home/packages/compilers/intel/mpi/2021.5.1/include;/home/packages/compilers/intel/vpl/2022.0.0/include;/home/packages/compilers/intel/tbb/2021.5.1/include;/home/packages/compilers/intel/mkl/2022.0.2/include;/home/packages/compilers/intel/ipp/2021.5.2/include;/home/packages/compilers/intel/ippcp/2021.5.1/include;/home/packages/compilers/intel/dpl/2021.6.0/linux/include;/home/packages/compilers/intel/dpcpp-ct/2022.0.0/include;/home/packages/compilers/intel/dnnl/2022.0.2/cpu_dpcpp_gpu_dpcpp/lib;/home/packages/compilers/intel/dev-utilities/2021.5.2/include;/home/packages/compilers/intel/dal/2021.5.3/include;/home/packages/compilers/intel/ccl/2021.5.1/include/cpu_gpu_dpcpp;/home/packages/compilers/intel/compiler/2022.0.2/linux/compiler/include/intel64;/home/packages/compilers/intel/compiler/2022.0.2/linux/compiler/include/icc;/home/packages/compilers/intel/compiler/2022.0.2/linux/compiler/include;/usr/local/include;/usr/lib/gcc/x86_64-redhat-linux/8/include;/usr/include]
+
+
+Parsed C implicit link information from above output:
+  link line regex: [^( *|.*[/\])(ld|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\]+-)?ld|collect2)[^/\]*( |$)]
+  ignore line: [Change Dir: /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/CMakeFiles/CMakeTmp]
+  ignore line: []
+  ignore line: [Run Build Command(s):/usr/bin/gmake -f Makefile cmTC_f98cf/fast && gmake[3]: Entering directory '/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack-782e739f8eb0e7f4d51ad7dd23fc1d03dc99d240/build/CMakeFiles/CMakeTmp']
+  ignore line: [/usr/bin/gmake  -f CMakeFiles/cmTC_f98cf.dir/build.make CMakeFiles/cmTC_f98cf.dir/build]
+  ignore line: [gmake[4]: Entering directory '/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack-782e739f8eb0e7f4d51ad7dd23fc1d03dc99d240/build/CMakeFiles/CMakeTmp']
+  ignore line: [Building C object CMakeFiles/cmTC_f98cf.dir/CMakeCCompilerABI.c.o]
+  ignore line: [/home/packages/compilers/intel/mpi/2021.5.1/bin/mpicc   -Wno-error=implicit-function-declaration  -DInt=long    -v -MD -MT CMakeFiles/cmTC_f98cf.dir/CMakeCCompilerABI.c.o -MF CMakeFiles/cmTC_f98cf.dir/CMakeCCompilerABI.c.o.d -o CMakeFiles/cmTC_f98cf.dir/CMakeCCompilerABI.c.o -c /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/libext_utils/cmake-3.24.0-linux-x86_64/share/cmake-3.24/Modules/CMakeCCompilerABI.c]
+  ignore line: [mpiicc for the Intel(R) MPI Library 2021.5 for Linux*]
+  ignore line: [Copyright Intel Corporation.]
+  ignore line: [icc version 2021.5.0 (gcc version 8.5.0 compatibility)]
+  ignore line: [/home/packages/compilers/intel/compiler/2022.0.2/linux/bin/intel64/../../bin/intel64/mcpcom    --target_efi2 --lang=c -oCMakeFiles/cmTC_f98cf.dir/CMakeCCompilerABI.c.o -_g -mP3OPT_inline_alloca -D__ICC=2021 -D__INTEL_COMPILER=2021 -D__INTEL_COMPILER_UPDATE=5 -D__PTRDIFF_TYPE__=long "-D__SIZE_TYPE__=unsigned long" -D__WCHAR_TYPE__=int "-D__WINT_TYPE__=unsigned int" "-D__INTMAX_TYPE__=long int" "-D__UINTMAX_TYPE__=long unsigned int" -D__LONG_MAX__=9223372036854775807L -D__QMSPP_ -D__OPTIMIZE__ -D__NO_MATH_INLINES -D__NO_STRING_INLINES -D__GNUC_GNU_INLINE__ -D__GNUC__=8 -D__GNUC_MINOR__=5 -D__GNUC_PATCHLEVEL__=0 -D__LP64__ -D_LP64 -D__GXX_ABI_VERSION=1010 "-D__USER_LABEL_PREFIX__= " -D__REGISTER_PREFIX__= -D__INTEL_RTTI__ -D__unix__ -D__unix -D__linux__ -D__linux -D__gnu_linux__ -B -Dunix -Dlinux "-_Asystem(unix)" -D__ELF__ -D__x86_64 -D__x86_64__ -D__amd64 -D__amd64__ "-_Acpu(x86_64)" "-_Amachine(x86_64)" -D__INTEL_COMPILER_BUILD_DATE=20211109 -D__INTEL_OFFLOAD -D__MMX__ -D__SSE__ -D__SSE_MATH__ -D__SSE2__ -D__SSE2_MATH__ -D__pentium4 -D__pentium4__ -D__tune_pentium4__ -_k -_8 -_l --has_new_stdarg_support -_a -_b --gnu_version=80500 -_W5 --openmp_simd --noopenmp_offload --dependency_file_name CMakeFiles/cmTC_f98cf.dir/CMakeCCompilerABI.c.o.d --compile_dependencies --dependency_target_name CMakeFiles/cmTC_f98cf.dir/CMakeCCompilerABI.c.o --multibyte_chars -mGLOB_diag_suppress_sys -DInt=long --system_preinclude /usr/include/stdc-predef.h -I/home/packages/compilers/intel/mpi/2021.5.1/include -I/home/packages/compilers/intel/vpl/2022.0.0/include -I/home/packages/compilers/intel/tbb/2021.5.1/env/../include -I/home/packages/compilers/intel/mpi/2021.5.1//include -I/home/packages/compilers/intel/mkl/2022.0.2/include -I/home/packages/compilers/intel/ipp/2021.5.2/include -I/home/packages/compilers/intel/ippcp/2021.5.1/include -I/home/packages/compilers/intel/ipp/2021.5.2/include -I/home/packages/compilers/intel/dpl/2021.6.0/linux/include -I/home/packages/compilers/intel/dpcpp-ct/2022.0.0/include -I/home/packages/compilers/intel/dnnl/2022.0.2/cpu_dpcpp_gpu_dpcpp/lib -I/home/packages/compilers/intel/dev-utilities/2021.5.2/include -I/home/packages/compilers/intel/dal/2021.5.3/include -I/home/packages/compilers/intel/ccl/2021.5.1/include/cpu_gpu_dpcpp -I/home/packages/compilers/intel/mpi/2021.5.1//include -I/home/packages/compilers/intel/mkl/2022.0.2/include --array_section --simd --simd_func --offload_mode=1 --offload_target_names=mic MIC --offload_unique_string=icc1353986600BwuGgK -mGLOB_em64t=TRUE -mP1OPT_version=2021.5.0-intel64 -mGLOB_diag_file=CMakeFiles/cmTC_f98cf.dir/CMakeCCompilerABI.c.diag -mGLOB_long_size_64 -mGLOB_routine_pointer_size_64 -mP1OPT_print_version=FALSE -mCG_use_gas_got_workaround=F -mP2OPT_align_option_used=TRUE -mGLOB_gcc_version=850 "-mGLOB_options_string=-I/home/packages/compilers/intel/mpi/2021.5.1/include -Wno-error=implicit-function-declaration -DInt=long -v -MD -MT CMakeFiles/cmTC_f98cf.dir/CMakeCCompilerABI.c.o -MF CMakeFiles/cmTC_f98cf.dir/CMakeCCompilerABI.c.o.d -o CMakeFiles/cmTC_f98cf.dir/CMakeCCompilerABI.c.o -c" -mGLOB_cxx_limited_range=FALSE -mCG_extend_parms=FALSE -mGLOB_compiler_bin_directory=/home/packages/compilers/intel/compiler/2022.0.2/linux/bin/intel64/../../bin/intel64 -mGLOB_as_output_backup_file_name=/tmp/iccIaw2eKas_.s -mIPOPT_activate -mIPOPT_lite -mGLOB_uarch_tuning=0x0 -mGLOB_product_id_code=0x22006d93 -mCG_bnl_movbe=T -mP3OPT_use_mspp_call_convention -mP2OPT_subs_out_of_bound=FALSE -mP2OPT_disam_type_based_disam=2 -mP2OPT_disam_assume_ansi_c -mP2OPT_checked_disam_ansi_alias=TRUE -mGLOB_ansi_alias -mPGOPTI_value_profile_use=T -mP2OPT_il0_array_sections=TRUE -mGLOB_offload_mode=1 -mGLOB_offload_no_openmp=TRUE -mP2OPT_offload_unique_var_string=icc1353986600BwuGgK -mP2OPT_hlo_level=2 -mP2OPT_hlo -mP2OPT_hpo_rtt_control=0 -mIPOPT_args_in_regs=0 -mP2OPT_disam_assume_nonstd_intent_in=FALSE -mGLOB_imf_mapping_library=/home/packages/compilers/intel/compiler/2022.0.2/linux/bin/intel64/../../bin/intel64/libiml_attr.so -mPGOPTI_gen_threadsafe_level=0 -mIPOPT_lto_object_enabled -mIPOPT_lto_object_value=1 -mIPOPT_obj_output_file_name=CMakeFiles/cmTC_f98cf.dir/CMakeCCompilerABI.c.o -mIPOPT_whole_archive_fixup_file_name=/tmp/iccwarch9ICYSq -mGLOB_linker_version=2.30 -mGLOB_linker=ld -mGLOB_driver_tempfile_name=/tmp/icctempfileXe4UBT -mP3OPT_asm_target=P3OPT_ASM_TARGET_GAS -mGLOB_async_unwind_tables=TRUE -mGLOB_obj_output_file=CMakeFiles/cmTC_f98cf.dir/CMakeCCompilerABI.c.o -mGLOB_source_dialect=GLOB_SOURCE_DIALECT_C -mP1OPT_source_file_name=/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/libext_utils/cmake-3.24.0-linux-x86_64/share/cmake-3.24/Modules/CMakeCCompilerABI.c -mP1OPT_full_source_file_name=/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/libext_utils/cmake-3.24.0-linux-x86_64/share/cmake-3.24/Modules/CMakeCCompilerABI.c /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/libext_utils/cmake-3.24.0-linux-x86_64/share/cmake-3.24/Modules/CMakeCCompilerABI.c]
+  ignore line: [#include "..." search starts here:]
+  ignore line: [#include <...> search starts here:]
+  ignore line: [ /home/packages/compilers/intel/mpi/2021.5.1/include]
+  ignore line: [ /home/packages/compilers/intel/vpl/2022.0.0/include]
+  ignore line: [ /home/packages/compilers/intel/tbb/2021.5.1/env/../include]
+  ignore line: [ /home/packages/compilers/intel/mpi/2021.5.1//include]
+  ignore line: [ /home/packages/compilers/intel/mkl/2022.0.2/include]
+  ignore line: [ /home/packages/compilers/intel/ipp/2021.5.2/include]
+  ignore line: [ /home/packages/compilers/intel/ippcp/2021.5.1/include]
+  ignore line: [ /home/packages/compilers/intel/ipp/2021.5.2/include]
+  ignore line: [ /home/packages/compilers/intel/dpl/2021.6.0/linux/include]
+  ignore line: [ /home/packages/compilers/intel/dpcpp-ct/2022.0.0/include]
+  ignore line: [ /home/packages/compilers/intel/dnnl/2022.0.2/cpu_dpcpp_gpu_dpcpp/lib]
+  ignore line: [ /home/packages/compilers/intel/dev-utilities/2021.5.2/include]
+  ignore line: [ /home/packages/compilers/intel/dal/2021.5.3/include]
+  ignore line: [ /home/packages/compilers/intel/ccl/2021.5.1/include/cpu_gpu_dpcpp]
+  ignore line: [ /home/packages/compilers/intel/mpi/2021.5.1//include]
+  ignore line: [ /home/packages/compilers/intel/mkl/2022.0.2/include]
+  ignore line: [ /home/packages/compilers/intel/compiler/2022.0.2/linux/bin/intel64/../../compiler/include/intel64]
+  ignore line: [ /home/packages/compilers/intel/compiler/2022.0.2/linux/bin/intel64/../../compiler/include/icc]
+  ignore line: [ /home/packages/compilers/intel/compiler/2022.0.2/linux/bin/intel64/../../compiler/include]
+  ignore line: [ /usr/local/include]
+  ignore line: [ /usr/lib/gcc/x86_64-redhat-linux/8/include]
+  ignore line: [ /usr/include/]
+  ignore line: [ /usr/include]
+  ignore line: [End of search list.]
+  ignore line: [Linking C executable cmTC_f98cf]
+  ignore line: [/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/libext_utils/cmake-3.24.0-linux-x86_64/bin/cmake -E cmake_link_script CMakeFiles/cmTC_f98cf.dir/link.txt --verbose=1]
+  ignore line: [/home/packages/compilers/intel/mpi/2021.5.1/bin/mpicc  -Wno-error=implicit-function-declaration  -DInt=long   -v CMakeFiles/cmTC_f98cf.dir/CMakeCCompilerABI.c.o -o cmTC_f98cf ]
+  ignore line: [mpiicc for the Intel(R) MPI Library 2021.5 for Linux*]
+  ignore line: [Copyright Intel Corporation.]
+  ignore line: [icc version 2021.5.0 (gcc version 8.5.0 compatibility)]
+  ignore line: [/home/packages/compilers/intel/compiler/2022.0.2/linux/bin/intel64/../../bin/intel64/mcpcom    -mGLOB_em64t=TRUE -mP1OPT_version=2021.5.0-intel64 -mGLOB_diag_file=CMakeFiles/cmTC_f98cf.dir/CMakeCCompilerABI.c.diag -mGLOB_long_size_64 -mGLOB_routine_pointer_size_64 -mP1OPT_print_version=FALSE -mCG_use_gas_got_workaround=F -mP2OPT_align_option_used=TRUE -mGLOB_gcc_version=850 "-mGLOB_options_string=-I/home/packages/compilers/intel/mpi/2021.5.1/include -Wno-error=implicit-function-declaration -DInt=long -v -o cmTC_f98cf -L/home/packages/compilers/intel/mpi/2021.5.1/lib/release -L/home/packages/compilers/intel/mpi/2021.5.1/lib -Xlinker --enable-new-dtags -Xlinker -rpath -Xlinker /home/packages/compilers/intel/mpi/2021.5.1/lib/release -Xlinker -rpath -Xlinker /home/packages/compilers/intel/mpi/2021.5.1/lib -lmpifort -lmpi -ldl -lrt -lpthread" -mGLOB_cxx_limited_range=FALSE -mCG_extend_parms=FALSE -mGLOB_compiler_bin_directory=/home/packages/compilers/intel/compiler/2022.0.2/linux/bin/intel64/../../bin/intel64 -mGLOB_as_output_backup_file_name=/tmp/iccpmflw3as_.s -mGLOB_dashboard_use_source_name -mIPOPT_activate -mGLOB_product_id_code=0x22006d93 -mP3OPT_use_mspp_call_convention -mP2OPT_subs_out_of_bound=FALSE -mP2OPT_disam_type_based_disam=2 -mP2OPT_disam_assume_ansi_c -mP2OPT_checked_disam_ansi_alias=TRUE -mGLOB_ansi_alias -mPGOPTI_value_profile_use=T -mGLOB_opt_report_use_source_name -mP2OPT_il0_array_sections=TRUE -mGLOB_offload_mode=1 -mGLOB_offload_no_openmp=TRUE -mP2OPT_offload_unique_var_string=icc0198183200E15aoy -mP2OPT_hlo -mP2OPT_hpo_rtt_control=0 -mIPOPT_args_in_regs=0 -mP2OPT_disam_assume_nonstd_intent_in=FALSE -mGLOB_imf_mapping_library=/home/packages/compilers/intel/compiler/2022.0.2/linux/bin/intel64/../../bin/intel64/libiml_attr.so -mPGOPTI_gen_threadsafe_level=0 -mIPOPT_link -mIPOPT_ipo_activate -mIPOPT_mo_activate -mIPOPT_source_files_list=/tmp/iccsliseQ4dSM -mIPOPT_mo_global_data -mIPOPT_link_script_file=/tmp/iccscriptNcH1eS "-mIPOPT_cmdline_link="/usr/lib/gcc/x86_64-redhat-linux/8/../../../../lib64/crt1.o" "/usr/lib/gcc/x86_64-redhat-linux/8/../../../../lib64/crti.o" "/usr/lib/gcc/x86_64-redhat-linux/8/crtbegin.o" "--eh-frame-hdr" "--build-id" "-dynamic-linker" "/lib64/ld-linux-x86-64.so.2" "-m" "elf_x86_64" "-L/home/packages/compilers/intel/mpi/2021.5.1/lib/release" "-L/home/packages/compilers/intel/mpi/2021.5.1/lib" "-o" "cmTC_f98cf" "-L/work/iswhy/src/nwchem/NWChem-WFAT/lib/LINUX64/" "-L/home/packages/compilers/intel/compiler/2022.0.2/linux/bin/intel64/../../compiler/lib/intel64_lin" "-L/usr/lib/gcc/x86_64-redhat-linux/8/" "-L/usr/lib/gcc/x86_64-redhat-linux/8/../../../../lib64" "-L/usr/lib/gcc/x86_64-redhat-linux/8/../../../../lib64/" "-L/lib/../lib64" "-L/lib/../lib64/" "-L/usr/lib/../lib64" "-L/usr/lib/../lib64/" "-L/work/iswhy/src/nwchem/NWChem-WFAT/lib/LINUX64/" "-L/usr/lib/gcc/x86_64-redhat-linux/8/../../../" "-L/lib64" "-L/lib/" "-L/usr/lib64" "-L/usr/lib" "CMakeFiles/cmTC_f98cf.dir/CMakeCCompilerABI.c.o" "--enable-new-dtags" "-rpath" "/home/packages/compilers/intel/mpi/2021.5.1/lib/release" "-rpath" "/home/packages/compilers/intel/mpi/2021.5.1/lib" "-lmpifort" "-lmpi" "-ldl" "-lrt" "-lpthread" "-Bdynamic" "-Bstatic" "-limf" "-lsvml" "-lirng" "-Bdynamic" "-lm" "-Bstatic" "-lipgo" "-ldecimal" "--as-needed" "-Bdynamic" "-lcilkrts" "-lstdc++" "--no-as-needed" "-lgcc" "-lgcc_s" "-Bstatic" "-lirc" "-lsvml" "-Bdynamic" "-lc" "-lgcc" "-lgcc_s" "-Bstatic" "-lirc_s" "-Bdynamic" "-ldl" "-lc" "/usr/lib/gcc/x86_64-redhat-linux/8/crtend.o" "/usr/lib/gcc/x86_64-redhat-linux/8/../../../../lib64/crtn.o"" -mIPOPT_il_in_obj -mIPOPT_ipo_activate_warn=FALSE -mIPOPT_obj_output_file_name=/tmp/ipo_icc5FBWfv.o -mIPOPT_whole_archive_fixup_file_name=/tmp/iccwarchjMjoli -mGLOB_linker_version=2.30 -mGLOB_linker=ld -mGLOB_driver_tempfile_name=/tmp/icctempfile4IZiyy -mP3OPT_asm_target=P3OPT_ASM_TARGET_GAS -mGLOB_async_unwind_tables=TRUE -mGLOB_obj_output_file=/tmp/ipo_icc5FBWfv.o -mGLOB_source_dialect=GLOB_SOURCE_DIALECT_NONE -mP1OPT_source_file_name=ipo_out.c CMakeFiles/cmTC_f98cf.dir/CMakeCCompilerABI.c.o -mIPOPT_object_files=T -mIPOPT_assembly_files=/tmp/iccalisHxIOTR -mIPOPT_generated_tempfiles=/tmp/iccelisFKt4g4 -mIPOPT_embedded_object_base_name=/tmp/icceobjfZTtTS -mIPOPT_cmdline_link_new_name=/tmp/iccllisL8OOID]
+  link line: [ld    /usr/lib/gcc/x86_64-redhat-linux/8/../../../../lib64/crt1.o /usr/lib/gcc/x86_64-redhat-linux/8/../../../../lib64/crti.o /usr/lib/gcc/x86_64-redhat-linux/8/crtbegin.o --eh-frame-hdr --build-id -dynamic-linker /lib64/ld-linux-x86-64.so.2 -m elf_x86_64 -L/home/packages/compilers/intel/mpi/2021.5.1/lib/release -L/home/packages/compilers/intel/mpi/2021.5.1/lib -o cmTC_f98cf -L/work/iswhy/src/nwchem/NWChem-WFAT/lib/LINUX64/ -L/home/packages/compilers/intel/compiler/2022.0.2/linux/bin/intel64/../../compiler/lib/intel64_lin -L/usr/lib/gcc/x86_64-redhat-linux/8/ -L/usr/lib/gcc/x86_64-redhat-linux/8/../../../../lib64 -L/usr/lib/gcc/x86_64-redhat-linux/8/../../../../lib64/ -L/lib/../lib64 -L/lib/../lib64/ -L/usr/lib/../lib64 -L/usr/lib/../lib64/ -L/work/iswhy/src/nwchem/NWChem-WFAT/lib/LINUX64/ -L/usr/lib/gcc/x86_64-redhat-linux/8/../../../ -L/lib64 -L/lib/ -L/usr/lib64 -L/usr/lib CMakeFiles/cmTC_f98cf.dir/CMakeCCompilerABI.c.o --enable-new-dtags -rpath /home/packages/compilers/intel/mpi/2021.5.1/lib/release -rpath /home/packages/compilers/intel/mpi/2021.5.1/lib -lmpifort -lmpi -ldl -lrt -lpthread -Bdynamic -Bstatic -limf -lsvml -lirng -Bdynamic -lm -Bstatic -lipgo -ldecimal --as-needed -Bdynamic -lcilkrts -lstdc++ --no-as-needed -lgcc -lgcc_s -Bstatic -lirc -lsvml -Bdynamic -lc -lgcc -lgcc_s -Bstatic -lirc_s -Bdynamic -ldl -lc /usr/lib/gcc/x86_64-redhat-linux/8/crtend.o /usr/lib/gcc/x86_64-redhat-linux/8/../../../../lib64/crtn.o]
+    arg [ld] ==> ignore
+    arg [/usr/lib/gcc/x86_64-redhat-linux/8/../../../../lib64/crt1.o] ==> obj [/usr/lib/gcc/x86_64-redhat-linux/8/../../../../lib64/crt1.o]
+    arg [/usr/lib/gcc/x86_64-redhat-linux/8/../../../../lib64/crti.o] ==> obj [/usr/lib/gcc/x86_64-redhat-linux/8/../../../../lib64/crti.o]
+    arg [/usr/lib/gcc/x86_64-redhat-linux/8/crtbegin.o] ==> obj [/usr/lib/gcc/x86_64-redhat-linux/8/crtbegin.o]
+    arg [--eh-frame-hdr] ==> ignore
+    arg [--build-id] ==> ignore
+    arg [-dynamic-linker] ==> ignore
+    arg [/lib64/ld-linux-x86-64.so.2] ==> ignore
+    arg [-m] ==> ignore
+    arg [elf_x86_64] ==> ignore
+    arg [-L/home/packages/compilers/intel/mpi/2021.5.1/lib/release] ==> dir [/home/packages/compilers/intel/mpi/2021.5.1/lib/release]
+    arg [-L/home/packages/compilers/intel/mpi/2021.5.1/lib] ==> dir [/home/packages/compilers/intel/mpi/2021.5.1/lib]
+    arg [-o] ==> ignore
+    arg [cmTC_f98cf] ==> ignore
+    arg [-L/work/iswhy/src/nwchem/NWChem-WFAT/lib/LINUX64/] ==> dir [/work/iswhy/src/nwchem/NWChem-WFAT/lib/LINUX64/]
+    arg [-L/home/packages/compilers/intel/compiler/2022.0.2/linux/bin/intel64/../../compiler/lib/intel64_lin] ==> dir [/home/packages/compilers/intel/compiler/2022.0.2/linux/bin/intel64/../../compiler/lib/intel64_lin]
+    arg [-L/usr/lib/gcc/x86_64-redhat-linux/8/] ==> dir [/usr/lib/gcc/x86_64-redhat-linux/8/]
+    arg [-L/usr/lib/gcc/x86_64-redhat-linux/8/../../../../lib64] ==> dir [/usr/lib/gcc/x86_64-redhat-linux/8/../../../../lib64]
+    arg [-L/usr/lib/gcc/x86_64-redhat-linux/8/../../../../lib64/] ==> dir [/usr/lib/gcc/x86_64-redhat-linux/8/../../../../lib64/]
+    arg [-L/lib/../lib64] ==> dir [/lib/../lib64]
+    arg [-L/lib/../lib64/] ==> dir [/lib/../lib64/]
+    arg [-L/usr/lib/../lib64] ==> dir [/usr/lib/../lib64]
+    arg [-L/usr/lib/../lib64/] ==> dir [/usr/lib/../lib64/]
+    arg [-L/work/iswhy/src/nwchem/NWChem-WFAT/lib/LINUX64/] ==> dir [/work/iswhy/src/nwchem/NWChem-WFAT/lib/LINUX64/]
+    arg [-L/usr/lib/gcc/x86_64-redhat-linux/8/../../../] ==> dir [/usr/lib/gcc/x86_64-redhat-linux/8/../../../]
+    arg [-L/lib64] ==> dir [/lib64]
+    arg [-L/lib/] ==> dir [/lib/]
+    arg [-L/usr/lib64] ==> dir [/usr/lib64]
+    arg [-L/usr/lib] ==> dir [/usr/lib]
+    arg [CMakeFiles/cmTC_f98cf.dir/CMakeCCompilerABI.c.o] ==> ignore
+    arg [--enable-new-dtags] ==> ignore
+    arg [-rpath] ==> ignore
+    arg [/home/packages/compilers/intel/mpi/2021.5.1/lib/release] ==> ignore
+    arg [-rpath] ==> ignore
+    arg [/home/packages/compilers/intel/mpi/2021.5.1/lib] ==> ignore
+    arg [-lmpifort] ==> lib [mpifort]
+    arg [-lmpi] ==> lib [mpi]
+    arg [-ldl] ==> lib [dl]
+    arg [-lrt] ==> lib [rt]
+    arg [-lpthread] ==> lib [pthread]
+    arg [-Bdynamic] ==> search dynamic
+    arg [-Bstatic] ==> search static
+    arg [-limf] ==> lib [imf]
+    arg [-lsvml] ==> lib [svml]
+    arg [-lirng] ==> lib [irng]
+    arg [-Bdynamic] ==> search dynamic
+    arg [-lm] ==> lib [m]
+    arg [-Bstatic] ==> search static
+    arg [-lipgo] ==> lib [ipgo]
+    arg [-ldecimal] ==> lib [decimal]
+    arg [--as-needed] ==> ignore
+    arg [-Bdynamic] ==> search dynamic
+    arg [-lcilkrts] ==> lib [cilkrts]
+    arg [-lstdc++] ==> lib [stdc++]
+    arg [--no-as-needed] ==> ignore
+    arg [-lgcc] ==> lib [gcc]
+    arg [-lgcc_s] ==> lib [gcc_s]
+    arg [-Bstatic] ==> search static
+    arg [-lirc] ==> lib [irc]
+    arg [-lsvml] ==> lib [svml]
+    arg [-Bdynamic] ==> search dynamic
+    arg [-lc] ==> lib [c]
+    arg [-lgcc] ==> lib [gcc]
+    arg [-lgcc_s] ==> lib [gcc_s]
+    arg [-Bstatic] ==> search static
+    arg [-lirc_s] ==> lib [irc_s]
+    arg [-Bdynamic] ==> search dynamic
+    arg [-ldl] ==> lib [dl]
+    arg [-lc] ==> lib [c]
+    arg [/usr/lib/gcc/x86_64-redhat-linux/8/crtend.o] ==> obj [/usr/lib/gcc/x86_64-redhat-linux/8/crtend.o]
+    arg [/usr/lib/gcc/x86_64-redhat-linux/8/../../../../lib64/crtn.o] ==> obj [/usr/lib/gcc/x86_64-redhat-linux/8/../../../../lib64/crtn.o]
+  collapse obj [/usr/lib/gcc/x86_64-redhat-linux/8/../../../../lib64/crt1.o] ==> [/usr/lib64/crt1.o]
+  collapse obj [/usr/lib/gcc/x86_64-redhat-linux/8/../../../../lib64/crti.o] ==> [/usr/lib64/crti.o]
+  collapse obj [/usr/lib/gcc/x86_64-redhat-linux/8/../../../../lib64/crtn.o] ==> [/usr/lib64/crtn.o]
+  collapse library dir [/home/packages/compilers/intel/mpi/2021.5.1/lib/release] ==> [/home/packages/compilers/intel/mpi/2021.5.1/lib/release]
+  collapse library dir [/home/packages/compilers/intel/mpi/2021.5.1/lib] ==> [/home/packages/compilers/intel/mpi/2021.5.1/lib]
+  collapse library dir [/work/iswhy/src/nwchem/NWChem-WFAT/lib/LINUX64/] ==> [/work/iswhy/src/nwchem/NWChem-WFAT/lib/LINUX64]
+  collapse library dir [/home/packages/compilers/intel/compiler/2022.0.2/linux/bin/intel64/../../compiler/lib/intel64_lin] ==> [/home/packages/compilers/intel/compiler/2022.0.2/linux/compiler/lib/intel64_lin]
+  collapse library dir [/usr/lib/gcc/x86_64-redhat-linux/8/] ==> [/usr/lib/gcc/x86_64-redhat-linux/8]
+  collapse library dir [/usr/lib/gcc/x86_64-redhat-linux/8/../../../../lib64] ==> [/usr/lib64]
+  collapse library dir [/usr/lib/gcc/x86_64-redhat-linux/8/../../../../lib64/] ==> [/usr/lib64]
+  collapse library dir [/lib/../lib64] ==> [/lib64]
+  collapse library dir [/lib/../lib64/] ==> [/lib64]
+  collapse library dir [/usr/lib/../lib64] ==> [/usr/lib64]
+  collapse library dir [/usr/lib/../lib64/] ==> [/usr/lib64]
+  collapse library dir [/work/iswhy/src/nwchem/NWChem-WFAT/lib/LINUX64/] ==> [/work/iswhy/src/nwchem/NWChem-WFAT/lib/LINUX64]
+  collapse library dir [/usr/lib/gcc/x86_64-redhat-linux/8/../../../] ==> [/usr/lib]
+  collapse library dir [/lib64] ==> [/lib64]
+  collapse library dir [/lib/] ==> [/lib]
+  collapse library dir [/usr/lib64] ==> [/usr/lib64]
+  collapse library dir [/usr/lib] ==> [/usr/lib]
+  implicit libs: [mpifort;mpi;dl;rt;pthread;imf;svml;irng;m;ipgo;decimal;cilkrts;stdc++;gcc;gcc_s;irc;svml;c;gcc;gcc_s;irc_s;dl;c]
+  implicit objs: [/usr/lib64/crt1.o;/usr/lib64/crti.o;/usr/lib/gcc/x86_64-redhat-linux/8/crtbegin.o;/usr/lib/gcc/x86_64-redhat-linux/8/crtend.o;/usr/lib64/crtn.o]
+  implicit dirs: [/home/packages/compilers/intel/mpi/2021.5.1/lib/release;/home/packages/compilers/intel/mpi/2021.5.1/lib;/work/iswhy/src/nwchem/NWChem-WFAT/lib/LINUX64;/home/packages/compilers/intel/compiler/2022.0.2/linux/compiler/lib/intel64_lin;/usr/lib/gcc/x86_64-redhat-linux/8;/usr/lib64;/lib64;/usr/lib;/lib]
+  implicit fwks: []
+
+
+Detecting Fortran compiler ABI info compiled with the following output:
+Change Dir: /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/gmake -f Makefile cmTC_15c52/fast && gmake[3]: Entering directory '/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack-782e739f8eb0e7f4d51ad7dd23fc1d03dc99d240/build/CMakeFiles/CMakeTmp'
+/usr/bin/gmake  -f CMakeFiles/cmTC_15c52.dir/build.make CMakeFiles/cmTC_15c52.dir/build
+gmake[4]: Entering directory '/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack-782e739f8eb0e7f4d51ad7dd23fc1d03dc99d240/build/CMakeFiles/CMakeTmp'
+Building Fortran object CMakeFiles/cmTC_15c52.dir/CMakeFortranCompilerABI.F90.o
+/home/packages/compilers/intel/mpi/2021.5.1/bin/mpif90   -i8    -v -c /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/libext_utils/cmake-3.24.0-linux-x86_64/share/cmake-3.24/Modules/CMakeFortranCompilerABI.F90 -o CMakeFiles/cmTC_15c52.dir/CMakeFortranCompilerABI.F90.o
+mpif90 for the Intel(R) MPI Library 2021.5 for Linux*
+Copyright Intel Corporation.
+ifort version 2021.5.0
+/home/packages/compilers/intel/compiler/2022.0.2/linux/bin/intel64/../../bin/intel64/fpp    -D__INTEL_COMPILER=2021 -D__INTEL_COMPILER_UPDATE=5 -D__unix__ -D__unix -D__linux__ -D__linux -D__gnu_linux__ -Dunix -Dlinux -D__ELF__ -D__x86_64 -D__x86_64__ -D__amd64 -D__amd64__ -D__INTEL_COMPILER_BUILD_DATE=20211109 -D__INTEL_OFFLOAD -D__MMX__ -D__SSE__ -D__SSE_MATH__ -D__SSE2__ -D__SSE2_MATH__ -D__pentium4 -D__pentium4__ -D__tune_pentium4__ -I. -I/home/packages/compilers/intel/mpi/2021.5.1/include/ilp64/gfortran -I/home/packages/compilers/intel/mpi/2021.5.1/include -I/home/packages/compilers/intel/vpl/2022.0.0/include -I/home/packages/compilers/intel/tbb/2021.5.1/env/../include -I/home/packages/compilers/intel/mpi/2021.5.1//include -I/home/packages/compilers/intel/mkl/2022.0.2/include -I/home/packages/compilers/intel/ipp/2021.5.2/include -I/home/packages/compilers/intel/ippcp/2021.5.1/include -I/home/packages/compilers/intel/ipp/2021.5.2/include -I/home/packages/compilers/intel/dpl/2021.6.0/linux/include -I/home/packages/compilers/intel/dpcpp-ct/2022.0.0/include -I/home/packages/compilers/intel/dnnl/2022.0.2/cpu_dpcpp_gpu_dpcpp/lib -I/home/packages/compilers/intel/dev-utilities/2021.5.2/include -I/home/packages/compilers/intel/dal/2021.5.3/include -I/home/packages/compilers/intel/ccl/2021.5.1/include/cpu_gpu_dpcpp -I/home/packages/compilers/intel/mpi/2021.5.1//include -I/home/packages/compilers/intel/mkl/2022.0.2/include -I/home/packages/compilers/intel/compiler/2022.0.2/linux/bin/intel64/../../compiler/include/intel64 -I/home/packages/compilers/intel/compiler/2022.0.2/linux/bin/intel64/../../compiler/include/icc -I/home/packages/compilers/intel/compiler/2022.0.2/linux/bin/intel64/../../compiler/include -I/usr/local/include -I/usr/lib/gcc/x86_64-redhat-linux/8/include -I/usr/include/ -I/usr/include -4Ycpp -4Ncvf -f_com=yes -MX /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/libext_utils/cmake-3.24.0-linux-x86_64/share/cmake-3.24/Modules/CMakeFortranCompilerABI.F90 /tmp/ifortztk6Yt.i90
+#include "..." search starts here:
+#include <...> search starts here:
+ .
+ /home/packages/compilers/intel/mpi/2021.5.1/include/ilp64/gfortran
+ /home/packages/compilers/intel/mpi/2021.5.1/include
+ /home/packages/compilers/intel/vpl/2022.0.0/include
+ /home/packages/compilers/intel/tbb/2021.5.1/env/../include
+ /home/packages/compilers/intel/mpi/2021.5.1//include
+ /home/packages/compilers/intel/mkl/2022.0.2/include
+ /home/packages/compilers/intel/ipp/2021.5.2/include
+ /home/packages/compilers/intel/ippcp/2021.5.1/include
+ /home/packages/compilers/intel/ipp/2021.5.2/include
+ /home/packages/compilers/intel/dpl/2021.6.0/linux/include
+ /home/packages/compilers/intel/dpcpp-ct/2022.0.0/include
+ /home/packages/compilers/intel/dnnl/2022.0.2/cpu_dpcpp_gpu_dpcpp/lib
+ /home/packages/compilers/intel/dev-utilities/2021.5.2/include
+ /home/packages/compilers/intel/dal/2021.5.3/include
+ /home/packages/compilers/intel/ccl/2021.5.1/include/cpu_gpu_dpcpp
+ /home/packages/compilers/intel/mpi/2021.5.1//include
+ /home/packages/compilers/intel/mkl/2022.0.2/include
+ /home/packages/compilers/intel/compiler/2022.0.2/linux/bin/intel64/../../compiler/include/intel64
+ /home/packages/compilers/intel/compiler/2022.0.2/linux/bin/intel64/../../compiler/include/icc
+ /home/packages/compilers/intel/compiler/2022.0.2/linux/bin/intel64/../../compiler/include
+ /usr/local/include
+ /usr/lib/gcc/x86_64-redhat-linux/8/include
+ /usr/include/
+ /usr/include
+End of search list.
+/home/packages/compilers/intel/compiler/2022.0.2/linux/bin/intel64/../../bin/intel64/fortcom    -D__INTEL_COMPILER=2021 -D__INTEL_COMPILER_UPDATE=5 -D__unix__ -D__unix -D__linux__ -D__linux -D__gnu_linux__ -Dunix -Dlinux -D__ELF__ -D__x86_64 -D__x86_64__ -D__amd64 -D__amd64__ -D__INTEL_COMPILER_BUILD_DATE=20211109 -D__INTEL_OFFLOAD -D__MMX__ -D__SSE__ -D__SSE_MATH__ -D__SSE2__ -D__SSE2_MATH__ -D__pentium4 -D__pentium4__ -D__tune_pentium4__ -I/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/libext_utils/cmake-3.24.0-linux-x86_64/share/cmake-3.24/Modules -I. -I/home/packages/compilers/intel/mpi/2021.5.1/include/ilp64/gfortran -I/home/packages/compilers/intel/mpi/2021.5.1/include -I/home/packages/compilers/intel/vpl/2022.0.0/include -I/home/packages/compilers/intel/tbb/2021.5.1/env/../include -I/home/packages/compilers/intel/mpi/2021.5.1//include -I/home/packages/compilers/intel/mkl/2022.0.2/include -I/home/packages/compilers/intel/ipp/2021.5.2/include -I/home/packages/compilers/intel/ippcp/2021.5.1/include -I/home/packages/compilers/intel/ipp/2021.5.2/include -I/home/packages/compilers/intel/dpl/2021.6.0/linux/include -I/home/packages/compilers/intel/dpcpp-ct/2022.0.0/include -I/home/packages/compilers/intel/dnnl/2022.0.2/cpu_dpcpp_gpu_dpcpp/lib -I/home/packages/compilers/intel/dev-utilities/2021.5.2/include -I/home/packages/compilers/intel/dal/2021.5.3/include -I/home/packages/compilers/intel/ccl/2021.5.1/include/cpu_gpu_dpcpp -I/home/packages/compilers/intel/mpi/2021.5.1//include -I/home/packages/compilers/intel/mkl/2022.0.2/include -I/home/packages/compilers/intel/compiler/2022.0.2/linux/bin/intel64/../../compiler/include/intel64 -I/home/packages/compilers/intel/compiler/2022.0.2/linux/bin/intel64/../../compiler/include/icc -I/home/packages/compilers/intel/compiler/2022.0.2/linux/bin/intel64/../../compiler/include -I/usr/local/include -I/usr/lib/gcc/x86_64-redhat-linux/8/include -I/usr/include/ -I/usr/include "-integer_size 64" -omp_simd -O2 "-reentrancy threaded" -simd -offload_host -mGLOB_em64t=TRUE -mP1OPT_version=2021.5.0-intel64 -mGLOB_diag_file=CMakeFiles/cmTC_15c52.dir/CMakeFortranCompilerABI.F90.diag -mGLOB_long_size_64 -mGLOB_routine_pointer_size_64 -mGLOB_source_language=GLOB_SOURCE_LANGUAGE_F90 -mP2OPT_static_promotion -mGLOB_pack_sort_init_list -mP1OPT_print_version=FALSE -mCG_use_gas_got_workaround=F -mP2OPT_align_option_used=TRUE -mGLOB_gcc_version=850 "-mGLOB_options_string=-I/home/packages/compilers/intel/mpi/2021.5.1/include/ilp64/gfortran -I/home/packages/compilers/intel/mpi/2021.5.1/include -i8 -v -c -o CMakeFiles/cmTC_15c52.dir/CMakeFortranCompilerABI.F90.o" -mGLOB_cxx_limited_range=FALSE -mCG_extend_parms=FALSE -mGLOB_compiler_bin_directory=/home/packages/compilers/intel/compiler/2022.0.2/linux/bin/intel64/../../bin/intel64 -mGLOB_as_output_backup_file_name=/tmp/iforteX6S4Das_.s -mIPOPT_activate -mIPOPT_lite -mGLOB_uarch_tuning=0x0 -mGLOB_product_id_code=0x22006d91 -mCG_bnl_movbe=T -mP3OPT_use_mspp_call_convention -mP2OPT_subs_out_of_bound=FALSE -mP2OPT_disam_type_based_disam=2 -mGLOB_ansi_alias -mPGOPTI_value_profile_use=T -mGLOB_offload_mode=1 -mGLOB_offload_no_openmp=TRUE -mP2OPT_offload_unique_var_string=ifort1838088313YXidsR -mP2OPT_hlo_level=2 -mP2OPT_hlo -mP2OPT_hpo_rtt_control=0 -mIPOPT_args_in_regs=0 -mP2OPT_disam_assume_nonstd_intent_in=FALSE -mGLOB_imf_mapping_library=/home/packages/compilers/intel/compiler/2022.0.2/linux/bin/intel64/../../bin/intel64/libiml_attr.so -mPGOPTI_gen_threadsafe_level=0 -mIPOPT_lto_object_enabled -mIPOPT_lto_object_value=1 -mIPOPT_obj_output_file_name=CMakeFiles/cmTC_15c52.dir/CMakeFortranCompilerABI.F90.o -mIPOPT_whole_archive_fixup_file_name=/tmp/ifortwarchyrPK6I -mGLOB_linker_version=2.30 -mGLOB_linker=ld -mGLOB_driver_tempfile_name=/tmp/iforttempfile6OlBHL -mP3OPT_asm_target=P3OPT_ASM_TARGET_GAS -mGLOB_async_unwind_tables=TRUE -mGLOB_obj_output_file=CMakeFiles/cmTC_15c52.dir/CMakeFortranCompilerABI.F90.o -mGLOB_source_dialect=GLOB_SOURCE_DIALECT_FORTRAN -mP1OPT_source_file_name=/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/libext_utils/cmake-3.24.0-linux-x86_64/share/cmake-3.24/Modules/CMakeFortranCompilerABI.F90 -mP1OPT_full_source_file_name=/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/libext_utils/cmake-3.24.0-linux-x86_64/share/cmake-3.24/Modules/CMakeFortranCompilerABI.F90 -mP2OPT_symtab_type_copy=true /tmp/ifortztk6Yt.i90
+#include "..." search starts here:
+#include <...> search starts here:
+ /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/libext_utils/cmake-3.24.0-linux-x86_64/share/cmake-3.24/Modules
+ .
+ /home/packages/compilers/intel/mpi/2021.5.1/include/ilp64/gfortran
+ /home/packages/compilers/intel/mpi/2021.5.1/include
+ /home/packages/compilers/intel/vpl/2022.0.0/include
+ /home/packages/compilers/intel/tbb/2021.5.1/env/../include
+ /home/packages/compilers/intel/mpi/2021.5.1//include
+ /home/packages/compilers/intel/mkl/2022.0.2/include
+ /home/packages/compilers/intel/ipp/2021.5.2/include
+ /home/packages/compilers/intel/ippcp/2021.5.1/include
+ /home/packages/compilers/intel/ipp/2021.5.2/include
+ /home/packages/compilers/intel/dpl/2021.6.0/linux/include
+ /home/packages/compilers/intel/dpcpp-ct/2022.0.0/include
+ /home/packages/compilers/intel/dnnl/2022.0.2/cpu_dpcpp_gpu_dpcpp/lib
+ /home/packages/compilers/intel/dev-utilities/2021.5.2/include
+ /home/packages/compilers/intel/dal/2021.5.3/include
+ /home/packages/compilers/intel/ccl/2021.5.1/include/cpu_gpu_dpcpp
+ /home/packages/compilers/intel/mpi/2021.5.1//include
+ /home/packages/compilers/intel/mkl/2022.0.2/include
+ /home/packages/compilers/intel/compiler/2022.0.2/linux/bin/intel64/../../compiler/include/intel64
+ /home/packages/compilers/intel/compiler/2022.0.2/linux/bin/intel64/../../compiler/include/icc
+ /home/packages/compilers/intel/compiler/2022.0.2/linux/bin/intel64/../../compiler/include
+ /usr/local/include
+ /usr/lib/gcc/x86_64-redhat-linux/8/include
+ /usr/include/
+ /usr/include
+End of search list.
+Linking Fortran executable cmTC_15c52
+/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/libext_utils/cmake-3.24.0-linux-x86_64/bin/cmake -E cmake_link_script CMakeFiles/cmTC_15c52.dir/link.txt --verbose=1
+/home/packages/compilers/intel/mpi/2021.5.1/bin/mpif90  -v  -i8  CMakeFiles/cmTC_15c52.dir/CMakeFortranCompilerABI.F90.o -o cmTC_15c52 
+mpif90 for the Intel(R) MPI Library 2021.5 for Linux*
+Copyright Intel Corporation.
+ifort version 2021.5.0
+/home/packages/compilers/intel/compiler/2022.0.2/linux/bin/intel64/../../bin/intel64/fortcom    -mGLOB_em64t=TRUE -mP1OPT_version=2021.5.0-intel64 -mGLOB_diag_file=CMakeFiles/cmTC_15c52.dir/CMakeFortranCompilerABI.F90.diag -mGLOB_long_size_64 -mGLOB_routine_pointer_size_64 -mGLOB_source_language=GLOB_SOURCE_LANGUAGE_F90 -mP2OPT_static_promotion -mGLOB_pack_sort_init_list -mP1OPT_print_version=FALSE -mCG_use_gas_got_workaround=F -mP2OPT_align_option_used=TRUE -mGLOB_gcc_version=850 "-mGLOB_options_string=-I/home/packages/compilers/intel/mpi/2021.5.1/include/ilp64/gfortran -I/home/packages/compilers/intel/mpi/2021.5.1/include -v -i8 -o cmTC_15c52 -L/home/packages/compilers/intel/mpi/2021.5.1/lib/release -L/home/packages/compilers/intel/mpi/2021.5.1/lib -Xlinker --enable-new-dtags -Xlinker -rpath -Xlinker /home/packages/compilers/intel/mpi/2021.5.1/lib/release -Xlinker -rpath -Xlinker /home/packages/compilers/intel/mpi/2021.5.1/lib -lmpi_ilp64 -lmpifort -lmpi -lrt -lpthread -Wl,-z,now -Wl,-z,relro -Wl,-z,noexecstack -Xlinker --enable-new-dtags -ldl" -mGLOB_cxx_limited_range=FALSE -mCG_extend_parms=FALSE -mGLOB_compiler_bin_directory=/home/packages/compilers/intel/compiler/2022.0.2/linux/bin/intel64/../../bin/intel64 -mGLOB_as_output_backup_file_name=/tmp/ifortCFHcV8as_.s -mGLOB_dashboard_use_source_name -mIPOPT_activate -mGLOB_product_id_code=0x22006d91 -mP3OPT_use_mspp_call_convention -mP2OPT_subs_out_of_bound=FALSE -mP2OPT_disam_type_based_disam=2 -mGLOB_ansi_alias -mPGOPTI_value_profile_use=T -mGLOB_opt_report_use_source_name -mGLOB_offload_mode=1 -mGLOB_offload_no_openmp=TRUE -mP2OPT_offload_unique_var_string=ifort1458844940kM51WY -mP2OPT_hlo -mP2OPT_hpo_rtt_control=0 -mIPOPT_args_in_regs=0 -mP2OPT_disam_assume_nonstd_intent_in=FALSE -mGLOB_imf_mapping_library=/home/packages/compilers/intel/compiler/2022.0.2/linux/bin/intel64/../../bin/intel64/libiml_attr.so -mPGOPTI_gen_threadsafe_level=0 -mIPOPT_link -mIPOPT_ipo_activate -mIPOPT_mo_activate -mIPOPT_source_files_list=/tmp/ifortslisNS0Klg -mIPOPT_mo_global_data -mIPOPT_link_script_file=/tmp/ifortscriptDIswzK "-mIPOPT_cmdline_link="/usr/lib/gcc/x86_64-redhat-linux/8/../../../../lib64/crt1.o" "/usr/lib/gcc/x86_64-redhat-linux/8/../../../../lib64/crti.o" "/usr/lib/gcc/x86_64-redhat-linux/8/crtbegin.o" "--eh-frame-hdr" "--build-id" "-dynamic-linker" "/lib64/ld-linux-x86-64.so.2" "-m" "elf_x86_64" "-L/home/packages/compilers/intel/mpi/2021.5.1/lib/release" "-L/home/packages/compilers/intel/mpi/2021.5.1/lib" "-plugin" "/home/packages/compilers/intel/compiler/2022.0.2/linux/bin/intel64/../../bin/intel64/../../lib/icx-lto.so" "-o" "cmTC_15c52" "/home/packages/compilers/intel/compiler/2022.0.2/linux/bin/intel64/../../compiler/lib/intel64_lin/for_main.o" "-L/work/iswhy/src/nwchem/NWChem-WFAT/lib/LINUX64/" "-L/home/packages/compilers/intel/compiler/2022.0.2/linux/bin/intel64/../../compiler/lib/intel64_lin" "-L/usr/lib/gcc/x86_64-redhat-linux/8/" "-L/usr/lib/gcc/x86_64-redhat-linux/8/../../../../lib64" "-L/usr/lib/gcc/x86_64-redhat-linux/8/../../../../lib64/" "-L/lib/../lib64" "-L/lib/../lib64/" "-L/usr/lib/../lib64" "-L/usr/lib/../lib64/" "-L/work/iswhy/src/nwchem/NWChem-WFAT/lib/LINUX64/" "-L/usr/lib/gcc/x86_64-redhat-linux/8/../../../" "-L/lib64" "-L/lib/" "-L/usr/lib64" "-L/usr/lib" "CMakeFiles/cmTC_15c52.dir/CMakeFortranCompilerABI.F90.o" "--enable-new-dtags" "-rpath" "/home/packages/compilers/intel/mpi/2021.5.1/lib/release" "-rpath" "/home/packages/compilers/intel/mpi/2021.5.1/lib" "-lmpi_ilp64" "-lmpifort" "-lmpi" "-lrt" "-lpthread" "-z" "now" "-z" "relro" "-z" "noexecstack" "--enable-new-dtags" "-ldl" "-Bdynamic" "-Bstatic" "-lifport" "-lifcoremt" "-limf" "-lsvml" "-Bdynamic" "-lm" "-Bstatic" "-lipgo" "-lirc" "-Bdynamic" "-lpthread" "-Bstatic" "-lsvml" "-Bdynamic" "-lc" "-lgcc" "-lgcc_s" "-Bstatic" "-lirc_s" "-Bdynamic" "-ldl" "-lc" "/usr/lib/gcc/x86_64-redhat-linux/8/crtend.o" "/usr/lib/gcc/x86_64-redhat-linux/8/../../../../lib64/crtn.o"" -mIPOPT_il_in_obj -mIPOPT_ipo_activate_warn=FALSE -mIPOPT_obj_output_file_name=/tmp/ipo_ifortbdBpu1.o -mIPOPT_whole_archive_fixup_file_name=/tmp/ifortwarchGX5gd2 -mGLOB_linker_version=2.30 -mGLOB_linker=ld -mGLOB_driver_tempfile_name=/tmp/iforttempfilesh549B -mP3OPT_asm_target=P3OPT_ASM_TARGET_GAS -mGLOB_async_unwind_tables=TRUE -mGLOB_obj_output_file=/tmp/ipo_ifortbdBpu1.o -mGLOB_source_dialect=GLOB_SOURCE_DIALECT_NONE -mP1OPT_source_file_name=ipo_out.f -mP2OPT_symtab_type_copy=true CMakeFiles/cmTC_15c52.dir/CMakeFortranCompilerABI.F90.o -mIPOPT_object_files=T -mIPOPT_assembly_files=/tmp/ifortalisUqw93W -mIPOPT_generated_tempfiles=/tmp/ifortelisTepCte -mIPOPT_embedded_object_base_name=/tmp/iforteobjHkqxpi -mIPOPT_cmdline_link_new_name=/tmp/ifortllist9wlHs
+ld    /usr/lib/gcc/x86_64-redhat-linux/8/../../../../lib64/crt1.o /usr/lib/gcc/x86_64-redhat-linux/8/../../../../lib64/crti.o /usr/lib/gcc/x86_64-redhat-linux/8/crtbegin.o --eh-frame-hdr --build-id -dynamic-linker /lib64/ld-linux-x86-64.so.2 -m elf_x86_64 -L/home/packages/compilers/intel/mpi/2021.5.1/lib/release -L/home/packages/compilers/intel/mpi/2021.5.1/lib -plugin /home/packages/compilers/intel/compiler/2022.0.2/linux/bin/intel64/../../bin/intel64/../../lib/icx-lto.so -o cmTC_15c52 /home/packages/compilers/intel/compiler/2022.0.2/linux/bin/intel64/../../compiler/lib/intel64_lin/for_main.o -L/work/iswhy/src/nwchem/NWChem-WFAT/lib/LINUX64/ -L/home/packages/compilers/intel/compiler/2022.0.2/linux/bin/intel64/../../compiler/lib/intel64_lin -L/usr/lib/gcc/x86_64-redhat-linux/8/ -L/usr/lib/gcc/x86_64-redhat-linux/8/../../../../lib64 -L/usr/lib/gcc/x86_64-redhat-linux/8/../../../../lib64/ -L/lib/../lib64 -L/lib/../lib64/ -L/usr/lib/../lib64 -L/usr/lib/../lib64/ -L/work/iswhy/src/nwchem/NWChem-WFAT/lib/LINUX64/ -L/usr/lib/gcc/x86_64-redhat-linux/8/../../../ -L/lib64 -L/lib/ -L/usr/lib64 -L/usr/lib CMakeFiles/cmTC_15c52.dir/CMakeFortranCompilerABI.F90.o --enable-new-dtags -rpath /home/packages/compilers/intel/mpi/2021.5.1/lib/release -rpath /home/packages/compilers/intel/mpi/2021.5.1/lib -lmpi_ilp64 -lmpifort -lmpi -lrt -lpthread -z now -z relro -z noexecstack --enable-new-dtags -ldl -Bdynamic -Bstatic -lifport -lifcoremt -limf -lsvml -Bdynamic -lm -Bstatic -lipgo -lirc -Bdynamic -lpthread -Bstatic -lsvml -Bdynamic -lc -lgcc -lgcc_s -Bstatic -lirc_s -Bdynamic -ldl -lc /usr/lib/gcc/x86_64-redhat-linux/8/crtend.o /usr/lib/gcc/x86_64-redhat-linux/8/../../../../lib64/crtn.o
+gmake[4]: Leaving directory '/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack-782e739f8eb0e7f4d51ad7dd23fc1d03dc99d240/build/CMakeFiles/CMakeTmp'
+gmake[3]: Leaving directory '/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack-782e739f8eb0e7f4d51ad7dd23fc1d03dc99d240/build/CMakeFiles/CMakeTmp'
+
+
+
+Parsed Fortran implicit include dir info from above output: rv=done
+  found start of include info
+  found start of implicit include info
+    add: [.]
+    add: [/home/packages/compilers/intel/mpi/2021.5.1/include/ilp64/gfortran]
+    add: [/home/packages/compilers/intel/mpi/2021.5.1/include]
+    add: [/home/packages/compilers/intel/vpl/2022.0.0/include]
+    add: [/home/packages/compilers/intel/tbb/2021.5.1/env/../include]
+    add: [/home/packages/compilers/intel/mpi/2021.5.1//include]
+    add: [/home/packages/compilers/intel/mkl/2022.0.2/include]
+    add: [/home/packages/compilers/intel/ipp/2021.5.2/include]
+    add: [/home/packages/compilers/intel/ippcp/2021.5.1/include]
+    add: [/home/packages/compilers/intel/ipp/2021.5.2/include]
+    add: [/home/packages/compilers/intel/dpl/2021.6.0/linux/include]
+    add: [/home/packages/compilers/intel/dpcpp-ct/2022.0.0/include]
+    add: [/home/packages/compilers/intel/dnnl/2022.0.2/cpu_dpcpp_gpu_dpcpp/lib]
+    add: [/home/packages/compilers/intel/dev-utilities/2021.5.2/include]
+    add: [/home/packages/compilers/intel/dal/2021.5.3/include]
+    add: [/home/packages/compilers/intel/ccl/2021.5.1/include/cpu_gpu_dpcpp]
+    add: [/home/packages/compilers/intel/mpi/2021.5.1//include]
+    add: [/home/packages/compilers/intel/mkl/2022.0.2/include]
+    add: [/home/packages/compilers/intel/compiler/2022.0.2/linux/bin/intel64/../../compiler/include/intel64]
+    add: [/home/packages/compilers/intel/compiler/2022.0.2/linux/bin/intel64/../../compiler/include/icc]
+    add: [/home/packages/compilers/intel/compiler/2022.0.2/linux/bin/intel64/../../compiler/include]
+    add: [/usr/local/include]
+    add: [/usr/lib/gcc/x86_64-redhat-linux/8/include]
+    add: [/usr/include/]
+    add: [/usr/include]
+  end of search list found
+  skipping relative include dir [.]
+  collapse include dir [/home/packages/compilers/intel/mpi/2021.5.1/include/ilp64/gfortran] ==> [/home/packages/compilers/intel/mpi/2021.5.1/include/ilp64/gfortran]
+  collapse include dir [/home/packages/compilers/intel/mpi/2021.5.1/include] ==> [/home/packages/compilers/intel/mpi/2021.5.1/include]
+  collapse include dir [/home/packages/compilers/intel/vpl/2022.0.0/include] ==> [/home/packages/compilers/intel/vpl/2022.0.0/include]
+  collapse include dir [/home/packages/compilers/intel/tbb/2021.5.1/env/../include] ==> [/home/packages/compilers/intel/tbb/2021.5.1/include]
+  collapse include dir [/home/packages/compilers/intel/mpi/2021.5.1//include] ==> [/home/packages/compilers/intel/mpi/2021.5.1/include]
+  collapse include dir [/home/packages/compilers/intel/mkl/2022.0.2/include] ==> [/home/packages/compilers/intel/mkl/2022.0.2/include]
+  collapse include dir [/home/packages/compilers/intel/ipp/2021.5.2/include] ==> [/home/packages/compilers/intel/ipp/2021.5.2/include]
+  collapse include dir [/home/packages/compilers/intel/ippcp/2021.5.1/include] ==> [/home/packages/compilers/intel/ippcp/2021.5.1/include]
+  collapse include dir [/home/packages/compilers/intel/ipp/2021.5.2/include] ==> [/home/packages/compilers/intel/ipp/2021.5.2/include]
+  collapse include dir [/home/packages/compilers/intel/dpl/2021.6.0/linux/include] ==> [/home/packages/compilers/intel/dpl/2021.6.0/linux/include]
+  collapse include dir [/home/packages/compilers/intel/dpcpp-ct/2022.0.0/include] ==> [/home/packages/compilers/intel/dpcpp-ct/2022.0.0/include]
+  collapse include dir [/home/packages/compilers/intel/dnnl/2022.0.2/cpu_dpcpp_gpu_dpcpp/lib] ==> [/home/packages/compilers/intel/dnnl/2022.0.2/cpu_dpcpp_gpu_dpcpp/lib]
+  collapse include dir [/home/packages/compilers/intel/dev-utilities/2021.5.2/include] ==> [/home/packages/compilers/intel/dev-utilities/2021.5.2/include]
+  collapse include dir [/home/packages/compilers/intel/dal/2021.5.3/include] ==> [/home/packages/compilers/intel/dal/2021.5.3/include]
+  collapse include dir [/home/packages/compilers/intel/ccl/2021.5.1/include/cpu_gpu_dpcpp] ==> [/home/packages/compilers/intel/ccl/2021.5.1/include/cpu_gpu_dpcpp]
+  collapse include dir [/home/packages/compilers/intel/mpi/2021.5.1//include] ==> [/home/packages/compilers/intel/mpi/2021.5.1/include]
+  collapse include dir [/home/packages/compilers/intel/mkl/2022.0.2/include] ==> [/home/packages/compilers/intel/mkl/2022.0.2/include]
+  collapse include dir [/home/packages/compilers/intel/compiler/2022.0.2/linux/bin/intel64/../../compiler/include/intel64] ==> [/home/packages/compilers/intel/compiler/2022.0.2/linux/compiler/include/intel64]
+  collapse include dir [/home/packages/compilers/intel/compiler/2022.0.2/linux/bin/intel64/../../compiler/include/icc] ==> [/home/packages/compilers/intel/compiler/2022.0.2/linux/compiler/include/icc]
+  collapse include dir [/home/packages/compilers/intel/compiler/2022.0.2/linux/bin/intel64/../../compiler/include] ==> [/home/packages/compilers/intel/compiler/2022.0.2/linux/compiler/include]
+  collapse include dir [/usr/local/include] ==> [/usr/local/include]
+  collapse include dir [/usr/lib/gcc/x86_64-redhat-linux/8/include] ==> [/usr/lib/gcc/x86_64-redhat-linux/8/include]
+  collapse include dir [/usr/include/] ==> [/usr/include]
+  collapse include dir [/usr/include] ==> [/usr/include]
+  implicit include dirs: [/home/packages/compilers/intel/mpi/2021.5.1/include/ilp64/gfortran;/home/packages/compilers/intel/mpi/2021.5.1/include;/home/packages/compilers/intel/vpl/2022.0.0/include;/home/packages/compilers/intel/tbb/2021.5.1/include;/home/packages/compilers/intel/mkl/2022.0.2/include;/home/packages/compilers/intel/ipp/2021.5.2/include;/home/packages/compilers/intel/ippcp/2021.5.1/include;/home/packages/compilers/intel/dpl/2021.6.0/linux/include;/home/packages/compilers/intel/dpcpp-ct/2022.0.0/include;/home/packages/compilers/intel/dnnl/2022.0.2/cpu_dpcpp_gpu_dpcpp/lib;/home/packages/compilers/intel/dev-utilities/2021.5.2/include;/home/packages/compilers/intel/dal/2021.5.3/include;/home/packages/compilers/intel/ccl/2021.5.1/include/cpu_gpu_dpcpp;/home/packages/compilers/intel/compiler/2022.0.2/linux/compiler/include/intel64;/home/packages/compilers/intel/compiler/2022.0.2/linux/compiler/include/icc;/home/packages/compilers/intel/compiler/2022.0.2/linux/compiler/include;/usr/local/include;/usr/lib/gcc/x86_64-redhat-linux/8/include;/usr/include]
+
+
+Parsed Fortran implicit link information from above output:
+  link line regex: [^( *|.*[/\])(ld|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\]+-)?ld|collect2)[^/\]*( |$)]
+  ignore line: [Change Dir: /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/CMakeFiles/CMakeTmp]
+  ignore line: []
+  ignore line: [Run Build Command(s):/usr/bin/gmake -f Makefile cmTC_15c52/fast && gmake[3]: Entering directory '/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack-782e739f8eb0e7f4d51ad7dd23fc1d03dc99d240/build/CMakeFiles/CMakeTmp']
+  ignore line: [/usr/bin/gmake  -f CMakeFiles/cmTC_15c52.dir/build.make CMakeFiles/cmTC_15c52.dir/build]
+  ignore line: [gmake[4]: Entering directory '/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack-782e739f8eb0e7f4d51ad7dd23fc1d03dc99d240/build/CMakeFiles/CMakeTmp']
+  ignore line: [Building Fortran object CMakeFiles/cmTC_15c52.dir/CMakeFortranCompilerABI.F90.o]
+  ignore line: [/home/packages/compilers/intel/mpi/2021.5.1/bin/mpif90   -i8    -v -c /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/libext_utils/cmake-3.24.0-linux-x86_64/share/cmake-3.24/Modules/CMakeFortranCompilerABI.F90 -o CMakeFiles/cmTC_15c52.dir/CMakeFortranCompilerABI.F90.o]
+  ignore line: [mpif90 for the Intel(R) MPI Library 2021.5 for Linux*]
+  ignore line: [Copyright Intel Corporation.]
+  ignore line: [ifort version 2021.5.0]
+  ignore line: [/home/packages/compilers/intel/compiler/2022.0.2/linux/bin/intel64/../../bin/intel64/fpp    -D__INTEL_COMPILER=2021 -D__INTEL_COMPILER_UPDATE=5 -D__unix__ -D__unix -D__linux__ -D__linux -D__gnu_linux__ -Dunix -Dlinux -D__ELF__ -D__x86_64 -D__x86_64__ -D__amd64 -D__amd64__ -D__INTEL_COMPILER_BUILD_DATE=20211109 -D__INTEL_OFFLOAD -D__MMX__ -D__SSE__ -D__SSE_MATH__ -D__SSE2__ -D__SSE2_MATH__ -D__pentium4 -D__pentium4__ -D__tune_pentium4__ -I. -I/home/packages/compilers/intel/mpi/2021.5.1/include/ilp64/gfortran -I/home/packages/compilers/intel/mpi/2021.5.1/include -I/home/packages/compilers/intel/vpl/2022.0.0/include -I/home/packages/compilers/intel/tbb/2021.5.1/env/../include -I/home/packages/compilers/intel/mpi/2021.5.1//include -I/home/packages/compilers/intel/mkl/2022.0.2/include -I/home/packages/compilers/intel/ipp/2021.5.2/include -I/home/packages/compilers/intel/ippcp/2021.5.1/include -I/home/packages/compilers/intel/ipp/2021.5.2/include -I/home/packages/compilers/intel/dpl/2021.6.0/linux/include -I/home/packages/compilers/intel/dpcpp-ct/2022.0.0/include -I/home/packages/compilers/intel/dnnl/2022.0.2/cpu_dpcpp_gpu_dpcpp/lib -I/home/packages/compilers/intel/dev-utilities/2021.5.2/include -I/home/packages/compilers/intel/dal/2021.5.3/include -I/home/packages/compilers/intel/ccl/2021.5.1/include/cpu_gpu_dpcpp -I/home/packages/compilers/intel/mpi/2021.5.1//include -I/home/packages/compilers/intel/mkl/2022.0.2/include -I/home/packages/compilers/intel/compiler/2022.0.2/linux/bin/intel64/../../compiler/include/intel64 -I/home/packages/compilers/intel/compiler/2022.0.2/linux/bin/intel64/../../compiler/include/icc -I/home/packages/compilers/intel/compiler/2022.0.2/linux/bin/intel64/../../compiler/include -I/usr/local/include -I/usr/lib/gcc/x86_64-redhat-linux/8/include -I/usr/include/ -I/usr/include -4Ycpp -4Ncvf -f_com=yes -MX /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/libext_utils/cmake-3.24.0-linux-x86_64/share/cmake-3.24/Modules/CMakeFortranCompilerABI.F90 /tmp/ifortztk6Yt.i90]
+  ignore line: [#include "..." search starts here:]
+  ignore line: [#include <...> search starts here:]
+  ignore line: [ .]
+  ignore line: [ /home/packages/compilers/intel/mpi/2021.5.1/include/ilp64/gfortran]
+  ignore line: [ /home/packages/compilers/intel/mpi/2021.5.1/include]
+  ignore line: [ /home/packages/compilers/intel/vpl/2022.0.0/include]
+  ignore line: [ /home/packages/compilers/intel/tbb/2021.5.1/env/../include]
+  ignore line: [ /home/packages/compilers/intel/mpi/2021.5.1//include]
+  ignore line: [ /home/packages/compilers/intel/mkl/2022.0.2/include]
+  ignore line: [ /home/packages/compilers/intel/ipp/2021.5.2/include]
+  ignore line: [ /home/packages/compilers/intel/ippcp/2021.5.1/include]
+  ignore line: [ /home/packages/compilers/intel/ipp/2021.5.2/include]
+  ignore line: [ /home/packages/compilers/intel/dpl/2021.6.0/linux/include]
+  ignore line: [ /home/packages/compilers/intel/dpcpp-ct/2022.0.0/include]
+  ignore line: [ /home/packages/compilers/intel/dnnl/2022.0.2/cpu_dpcpp_gpu_dpcpp/lib]
+  ignore line: [ /home/packages/compilers/intel/dev-utilities/2021.5.2/include]
+  ignore line: [ /home/packages/compilers/intel/dal/2021.5.3/include]
+  ignore line: [ /home/packages/compilers/intel/ccl/2021.5.1/include/cpu_gpu_dpcpp]
+  ignore line: [ /home/packages/compilers/intel/mpi/2021.5.1//include]
+  ignore line: [ /home/packages/compilers/intel/mkl/2022.0.2/include]
+  ignore line: [ /home/packages/compilers/intel/compiler/2022.0.2/linux/bin/intel64/../../compiler/include/intel64]
+  ignore line: [ /home/packages/compilers/intel/compiler/2022.0.2/linux/bin/intel64/../../compiler/include/icc]
+  ignore line: [ /home/packages/compilers/intel/compiler/2022.0.2/linux/bin/intel64/../../compiler/include]
+  ignore line: [ /usr/local/include]
+  ignore line: [ /usr/lib/gcc/x86_64-redhat-linux/8/include]
+  ignore line: [ /usr/include/]
+  ignore line: [ /usr/include]
+  ignore line: [End of search list.]
+  ignore line: [/home/packages/compilers/intel/compiler/2022.0.2/linux/bin/intel64/../../bin/intel64/fortcom    -D__INTEL_COMPILER=2021 -D__INTEL_COMPILER_UPDATE=5 -D__unix__ -D__unix -D__linux__ -D__linux -D__gnu_linux__ -Dunix -Dlinux -D__ELF__ -D__x86_64 -D__x86_64__ -D__amd64 -D__amd64__ -D__INTEL_COMPILER_BUILD_DATE=20211109 -D__INTEL_OFFLOAD -D__MMX__ -D__SSE__ -D__SSE_MATH__ -D__SSE2__ -D__SSE2_MATH__ -D__pentium4 -D__pentium4__ -D__tune_pentium4__ -I/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/libext_utils/cmake-3.24.0-linux-x86_64/share/cmake-3.24/Modules -I. -I/home/packages/compilers/intel/mpi/2021.5.1/include/ilp64/gfortran -I/home/packages/compilers/intel/mpi/2021.5.1/include -I/home/packages/compilers/intel/vpl/2022.0.0/include -I/home/packages/compilers/intel/tbb/2021.5.1/env/../include -I/home/packages/compilers/intel/mpi/2021.5.1//include -I/home/packages/compilers/intel/mkl/2022.0.2/include -I/home/packages/compilers/intel/ipp/2021.5.2/include -I/home/packages/compilers/intel/ippcp/2021.5.1/include -I/home/packages/compilers/intel/ipp/2021.5.2/include -I/home/packages/compilers/intel/dpl/2021.6.0/linux/include -I/home/packages/compilers/intel/dpcpp-ct/2022.0.0/include -I/home/packages/compilers/intel/dnnl/2022.0.2/cpu_dpcpp_gpu_dpcpp/lib -I/home/packages/compilers/intel/dev-utilities/2021.5.2/include -I/home/packages/compilers/intel/dal/2021.5.3/include -I/home/packages/compilers/intel/ccl/2021.5.1/include/cpu_gpu_dpcpp -I/home/packages/compilers/intel/mpi/2021.5.1//include -I/home/packages/compilers/intel/mkl/2022.0.2/include -I/home/packages/compilers/intel/compiler/2022.0.2/linux/bin/intel64/../../compiler/include/intel64 -I/home/packages/compilers/intel/compiler/2022.0.2/linux/bin/intel64/../../compiler/include/icc -I/home/packages/compilers/intel/compiler/2022.0.2/linux/bin/intel64/../../compiler/include -I/usr/local/include -I/usr/lib/gcc/x86_64-redhat-linux/8/include -I/usr/include/ -I/usr/include "-integer_size 64" -omp_simd -O2 "-reentrancy threaded" -simd -offload_host -mGLOB_em64t=TRUE -mP1OPT_version=2021.5.0-intel64 -mGLOB_diag_file=CMakeFiles/cmTC_15c52.dir/CMakeFortranCompilerABI.F90.diag -mGLOB_long_size_64 -mGLOB_routine_pointer_size_64 -mGLOB_source_language=GLOB_SOURCE_LANGUAGE_F90 -mP2OPT_static_promotion -mGLOB_pack_sort_init_list -mP1OPT_print_version=FALSE -mCG_use_gas_got_workaround=F -mP2OPT_align_option_used=TRUE -mGLOB_gcc_version=850 "-mGLOB_options_string=-I/home/packages/compilers/intel/mpi/2021.5.1/include/ilp64/gfortran -I/home/packages/compilers/intel/mpi/2021.5.1/include -i8 -v -c -o CMakeFiles/cmTC_15c52.dir/CMakeFortranCompilerABI.F90.o" -mGLOB_cxx_limited_range=FALSE -mCG_extend_parms=FALSE -mGLOB_compiler_bin_directory=/home/packages/compilers/intel/compiler/2022.0.2/linux/bin/intel64/../../bin/intel64 -mGLOB_as_output_backup_file_name=/tmp/iforteX6S4Das_.s -mIPOPT_activate -mIPOPT_lite -mGLOB_uarch_tuning=0x0 -mGLOB_product_id_code=0x22006d91 -mCG_bnl_movbe=T -mP3OPT_use_mspp_call_convention -mP2OPT_subs_out_of_bound=FALSE -mP2OPT_disam_type_based_disam=2 -mGLOB_ansi_alias -mPGOPTI_value_profile_use=T -mGLOB_offload_mode=1 -mGLOB_offload_no_openmp=TRUE -mP2OPT_offload_unique_var_string=ifort1838088313YXidsR -mP2OPT_hlo_level=2 -mP2OPT_hlo -mP2OPT_hpo_rtt_control=0 -mIPOPT_args_in_regs=0 -mP2OPT_disam_assume_nonstd_intent_in=FALSE -mGLOB_imf_mapping_library=/home/packages/compilers/intel/compiler/2022.0.2/linux/bin/intel64/../../bin/intel64/libiml_attr.so -mPGOPTI_gen_threadsafe_level=0 -mIPOPT_lto_object_enabled -mIPOPT_lto_object_value=1 -mIPOPT_obj_output_file_name=CMakeFiles/cmTC_15c52.dir/CMakeFortranCompilerABI.F90.o -mIPOPT_whole_archive_fixup_file_name=/tmp/ifortwarchyrPK6I -mGLOB_linker_version=2.30 -mGLOB_linker=ld -mGLOB_driver_tempfile_name=/tmp/iforttempfile6OlBHL -mP3OPT_asm_target=P3OPT_ASM_TARGET_GAS -mGLOB_async_unwind_tables=TRUE -mGLOB_obj_output_file=CMakeFiles/cmTC_15c52.dir/CMakeFortranCompilerABI.F90.o -mGLOB_source_dialect=GLOB_SOURCE_DIALECT_FORTRAN -mP1OPT_source_file_name=/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/libext_utils/cmake-3.24.0-linux-x86_64/share/cmake-3.24/Modules/CMakeFortranCompilerABI.F90 -mP1OPT_full_source_file_name=/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/libext_utils/cmake-3.24.0-linux-x86_64/share/cmake-3.24/Modules/CMakeFortranCompilerABI.F90 -mP2OPT_symtab_type_copy=true /tmp/ifortztk6Yt.i90]
+  ignore line: [#include "..." search starts here:]
+  ignore line: [#include <...> search starts here:]
+  ignore line: [ /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/libext_utils/cmake-3.24.0-linux-x86_64/share/cmake-3.24/Modules]
+  ignore line: [ .]
+  ignore line: [ /home/packages/compilers/intel/mpi/2021.5.1/include/ilp64/gfortran]
+  ignore line: [ /home/packages/compilers/intel/mpi/2021.5.1/include]
+  ignore line: [ /home/packages/compilers/intel/vpl/2022.0.0/include]
+  ignore line: [ /home/packages/compilers/intel/tbb/2021.5.1/env/../include]
+  ignore line: [ /home/packages/compilers/intel/mpi/2021.5.1//include]
+  ignore line: [ /home/packages/compilers/intel/mkl/2022.0.2/include]
+  ignore line: [ /home/packages/compilers/intel/ipp/2021.5.2/include]
+  ignore line: [ /home/packages/compilers/intel/ippcp/2021.5.1/include]
+  ignore line: [ /home/packages/compilers/intel/ipp/2021.5.2/include]
+  ignore line: [ /home/packages/compilers/intel/dpl/2021.6.0/linux/include]
+  ignore line: [ /home/packages/compilers/intel/dpcpp-ct/2022.0.0/include]
+  ignore line: [ /home/packages/compilers/intel/dnnl/2022.0.2/cpu_dpcpp_gpu_dpcpp/lib]
+  ignore line: [ /home/packages/compilers/intel/dev-utilities/2021.5.2/include]
+  ignore line: [ /home/packages/compilers/intel/dal/2021.5.3/include]
+  ignore line: [ /home/packages/compilers/intel/ccl/2021.5.1/include/cpu_gpu_dpcpp]
+  ignore line: [ /home/packages/compilers/intel/mpi/2021.5.1//include]
+  ignore line: [ /home/packages/compilers/intel/mkl/2022.0.2/include]
+  ignore line: [ /home/packages/compilers/intel/compiler/2022.0.2/linux/bin/intel64/../../compiler/include/intel64]
+  ignore line: [ /home/packages/compilers/intel/compiler/2022.0.2/linux/bin/intel64/../../compiler/include/icc]
+  ignore line: [ /home/packages/compilers/intel/compiler/2022.0.2/linux/bin/intel64/../../compiler/include]
+  ignore line: [ /usr/local/include]
+  ignore line: [ /usr/lib/gcc/x86_64-redhat-linux/8/include]
+  ignore line: [ /usr/include/]
+  ignore line: [ /usr/include]
+  ignore line: [End of search list.]
+  ignore line: [Linking Fortran executable cmTC_15c52]
+  ignore line: [/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/libext_utils/cmake-3.24.0-linux-x86_64/bin/cmake -E cmake_link_script CMakeFiles/cmTC_15c52.dir/link.txt --verbose=1]
+  ignore line: [/home/packages/compilers/intel/mpi/2021.5.1/bin/mpif90  -v  -i8  CMakeFiles/cmTC_15c52.dir/CMakeFortranCompilerABI.F90.o -o cmTC_15c52 ]
+  ignore line: [mpif90 for the Intel(R) MPI Library 2021.5 for Linux*]
+  ignore line: [Copyright Intel Corporation.]
+  ignore line: [ifort version 2021.5.0]
+  ignore line: [/home/packages/compilers/intel/compiler/2022.0.2/linux/bin/intel64/../../bin/intel64/fortcom    -mGLOB_em64t=TRUE -mP1OPT_version=2021.5.0-intel64 -mGLOB_diag_file=CMakeFiles/cmTC_15c52.dir/CMakeFortranCompilerABI.F90.diag -mGLOB_long_size_64 -mGLOB_routine_pointer_size_64 -mGLOB_source_language=GLOB_SOURCE_LANGUAGE_F90 -mP2OPT_static_promotion -mGLOB_pack_sort_init_list -mP1OPT_print_version=FALSE -mCG_use_gas_got_workaround=F -mP2OPT_align_option_used=TRUE -mGLOB_gcc_version=850 "-mGLOB_options_string=-I/home/packages/compilers/intel/mpi/2021.5.1/include/ilp64/gfortran -I/home/packages/compilers/intel/mpi/2021.5.1/include -v -i8 -o cmTC_15c52 -L/home/packages/compilers/intel/mpi/2021.5.1/lib/release -L/home/packages/compilers/intel/mpi/2021.5.1/lib -Xlinker --enable-new-dtags -Xlinker -rpath -Xlinker /home/packages/compilers/intel/mpi/2021.5.1/lib/release -Xlinker -rpath -Xlinker /home/packages/compilers/intel/mpi/2021.5.1/lib -lmpi_ilp64 -lmpifort -lmpi -lrt -lpthread -Wl,-z,now -Wl,-z,relro -Wl,-z,noexecstack -Xlinker --enable-new-dtags -ldl" -mGLOB_cxx_limited_range=FALSE -mCG_extend_parms=FALSE -mGLOB_compiler_bin_directory=/home/packages/compilers/intel/compiler/2022.0.2/linux/bin/intel64/../../bin/intel64 -mGLOB_as_output_backup_file_name=/tmp/ifortCFHcV8as_.s -mGLOB_dashboard_use_source_name -mIPOPT_activate -mGLOB_product_id_code=0x22006d91 -mP3OPT_use_mspp_call_convention -mP2OPT_subs_out_of_bound=FALSE -mP2OPT_disam_type_based_disam=2 -mGLOB_ansi_alias -mPGOPTI_value_profile_use=T -mGLOB_opt_report_use_source_name -mGLOB_offload_mode=1 -mGLOB_offload_no_openmp=TRUE -mP2OPT_offload_unique_var_string=ifort1458844940kM51WY -mP2OPT_hlo -mP2OPT_hpo_rtt_control=0 -mIPOPT_args_in_regs=0 -mP2OPT_disam_assume_nonstd_intent_in=FALSE -mGLOB_imf_mapping_library=/home/packages/compilers/intel/compiler/2022.0.2/linux/bin/intel64/../../bin/intel64/libiml_attr.so -mPGOPTI_gen_threadsafe_level=0 -mIPOPT_link -mIPOPT_ipo_activate -mIPOPT_mo_activate -mIPOPT_source_files_list=/tmp/ifortslisNS0Klg -mIPOPT_mo_global_data -mIPOPT_link_script_file=/tmp/ifortscriptDIswzK "-mIPOPT_cmdline_link="/usr/lib/gcc/x86_64-redhat-linux/8/../../../../lib64/crt1.o" "/usr/lib/gcc/x86_64-redhat-linux/8/../../../../lib64/crti.o" "/usr/lib/gcc/x86_64-redhat-linux/8/crtbegin.o" "--eh-frame-hdr" "--build-id" "-dynamic-linker" "/lib64/ld-linux-x86-64.so.2" "-m" "elf_x86_64" "-L/home/packages/compilers/intel/mpi/2021.5.1/lib/release" "-L/home/packages/compilers/intel/mpi/2021.5.1/lib" "-plugin" "/home/packages/compilers/intel/compiler/2022.0.2/linux/bin/intel64/../../bin/intel64/../../lib/icx-lto.so" "-o" "cmTC_15c52" "/home/packages/compilers/intel/compiler/2022.0.2/linux/bin/intel64/../../compiler/lib/intel64_lin/for_main.o" "-L/work/iswhy/src/nwchem/NWChem-WFAT/lib/LINUX64/" "-L/home/packages/compilers/intel/compiler/2022.0.2/linux/bin/intel64/../../compiler/lib/intel64_lin" "-L/usr/lib/gcc/x86_64-redhat-linux/8/" "-L/usr/lib/gcc/x86_64-redhat-linux/8/../../../../lib64" "-L/usr/lib/gcc/x86_64-redhat-linux/8/../../../../lib64/" "-L/lib/../lib64" "-L/lib/../lib64/" "-L/usr/lib/../lib64" "-L/usr/lib/../lib64/" "-L/work/iswhy/src/nwchem/NWChem-WFAT/lib/LINUX64/" "-L/usr/lib/gcc/x86_64-redhat-linux/8/../../../" "-L/lib64" "-L/lib/" "-L/usr/lib64" "-L/usr/lib" "CMakeFiles/cmTC_15c52.dir/CMakeFortranCompilerABI.F90.o" "--enable-new-dtags" "-rpath" "/home/packages/compilers/intel/mpi/2021.5.1/lib/release" "-rpath" "/home/packages/compilers/intel/mpi/2021.5.1/lib" "-lmpi_ilp64" "-lmpifort" "-lmpi" "-lrt" "-lpthread" "-z" "now" "-z" "relro" "-z" "noexecstack" "--enable-new-dtags" "-ldl" "-Bdynamic" "-Bstatic" "-lifport" "-lifcoremt" "-limf" "-lsvml" "-Bdynamic" "-lm" "-Bstatic" "-lipgo" "-lirc" "-Bdynamic" "-lpthread" "-Bstatic" "-lsvml" "-Bdynamic" "-lc" "-lgcc" "-lgcc_s" "-Bstatic" "-lirc_s" "-Bdynamic" "-ldl" "-lc" "/usr/lib/gcc/x86_64-redhat-linux/8/crtend.o" "/usr/lib/gcc/x86_64-redhat-linux/8/../../../../lib64/crtn.o"" -mIPOPT_il_in_obj -mIPOPT_ipo_activate_warn=FALSE -mIPOPT_obj_output_file_name=/tmp/ipo_ifortbdBpu1.o -mIPOPT_whole_archive_fixup_file_name=/tmp/ifortwarchGX5gd2 -mGLOB_linker_version=2.30 -mGLOB_linker=ld -mGLOB_driver_tempfile_name=/tmp/iforttempfilesh549B -mP3OPT_asm_target=P3OPT_ASM_TARGET_GAS -mGLOB_async_unwind_tables=TRUE -mGLOB_obj_output_file=/tmp/ipo_ifortbdBpu1.o -mGLOB_source_dialect=GLOB_SOURCE_DIALECT_NONE -mP1OPT_source_file_name=ipo_out.f -mP2OPT_symtab_type_copy=true CMakeFiles/cmTC_15c52.dir/CMakeFortranCompilerABI.F90.o -mIPOPT_object_files=T -mIPOPT_assembly_files=/tmp/ifortalisUqw93W -mIPOPT_generated_tempfiles=/tmp/ifortelisTepCte -mIPOPT_embedded_object_base_name=/tmp/iforteobjHkqxpi -mIPOPT_cmdline_link_new_name=/tmp/ifortllist9wlHs]
+  link line: [ld    /usr/lib/gcc/x86_64-redhat-linux/8/../../../../lib64/crt1.o /usr/lib/gcc/x86_64-redhat-linux/8/../../../../lib64/crti.o /usr/lib/gcc/x86_64-redhat-linux/8/crtbegin.o --eh-frame-hdr --build-id -dynamic-linker /lib64/ld-linux-x86-64.so.2 -m elf_x86_64 -L/home/packages/compilers/intel/mpi/2021.5.1/lib/release -L/home/packages/compilers/intel/mpi/2021.5.1/lib -plugin /home/packages/compilers/intel/compiler/2022.0.2/linux/bin/intel64/../../bin/intel64/../../lib/icx-lto.so -o cmTC_15c52 /home/packages/compilers/intel/compiler/2022.0.2/linux/bin/intel64/../../compiler/lib/intel64_lin/for_main.o -L/work/iswhy/src/nwchem/NWChem-WFAT/lib/LINUX64/ -L/home/packages/compilers/intel/compiler/2022.0.2/linux/bin/intel64/../../compiler/lib/intel64_lin -L/usr/lib/gcc/x86_64-redhat-linux/8/ -L/usr/lib/gcc/x86_64-redhat-linux/8/../../../../lib64 -L/usr/lib/gcc/x86_64-redhat-linux/8/../../../../lib64/ -L/lib/../lib64 -L/lib/../lib64/ -L/usr/lib/../lib64 -L/usr/lib/../lib64/ -L/work/iswhy/src/nwchem/NWChem-WFAT/lib/LINUX64/ -L/usr/lib/gcc/x86_64-redhat-linux/8/../../../ -L/lib64 -L/lib/ -L/usr/lib64 -L/usr/lib CMakeFiles/cmTC_15c52.dir/CMakeFortranCompilerABI.F90.o --enable-new-dtags -rpath /home/packages/compilers/intel/mpi/2021.5.1/lib/release -rpath /home/packages/compilers/intel/mpi/2021.5.1/lib -lmpi_ilp64 -lmpifort -lmpi -lrt -lpthread -z now -z relro -z noexecstack --enable-new-dtags -ldl -Bdynamic -Bstatic -lifport -lifcoremt -limf -lsvml -Bdynamic -lm -Bstatic -lipgo -lirc -Bdynamic -lpthread -Bstatic -lsvml -Bdynamic -lc -lgcc -lgcc_s -Bstatic -lirc_s -Bdynamic -ldl -lc /usr/lib/gcc/x86_64-redhat-linux/8/crtend.o /usr/lib/gcc/x86_64-redhat-linux/8/../../../../lib64/crtn.o]
+    arg [ld] ==> ignore
+    arg [/usr/lib/gcc/x86_64-redhat-linux/8/../../../../lib64/crt1.o] ==> obj [/usr/lib/gcc/x86_64-redhat-linux/8/../../../../lib64/crt1.o]
+    arg [/usr/lib/gcc/x86_64-redhat-linux/8/../../../../lib64/crti.o] ==> obj [/usr/lib/gcc/x86_64-redhat-linux/8/../../../../lib64/crti.o]
+    arg [/usr/lib/gcc/x86_64-redhat-linux/8/crtbegin.o] ==> obj [/usr/lib/gcc/x86_64-redhat-linux/8/crtbegin.o]
+    arg [--eh-frame-hdr] ==> ignore
+    arg [--build-id] ==> ignore
+    arg [-dynamic-linker] ==> ignore
+    arg [/lib64/ld-linux-x86-64.so.2] ==> ignore
+    arg [-m] ==> ignore
+    arg [elf_x86_64] ==> ignore
+    arg [-L/home/packages/compilers/intel/mpi/2021.5.1/lib/release] ==> dir [/home/packages/compilers/intel/mpi/2021.5.1/lib/release]
+    arg [-L/home/packages/compilers/intel/mpi/2021.5.1/lib] ==> dir [/home/packages/compilers/intel/mpi/2021.5.1/lib]
+    arg [-plugin] ==> ignore
+    arg [/home/packages/compilers/intel/compiler/2022.0.2/linux/bin/intel64/../../bin/intel64/../../lib/icx-lto.so] ==> ignore
+    arg [-o] ==> ignore
+    arg [cmTC_15c52] ==> ignore
+    arg [/home/packages/compilers/intel/compiler/2022.0.2/linux/bin/intel64/../../compiler/lib/intel64_lin/for_main.o] ==> obj [/home/packages/compilers/intel/compiler/2022.0.2/linux/bin/intel64/../../compiler/lib/intel64_lin/for_main.o]
+    arg [-L/work/iswhy/src/nwchem/NWChem-WFAT/lib/LINUX64/] ==> dir [/work/iswhy/src/nwchem/NWChem-WFAT/lib/LINUX64/]
+    arg [-L/home/packages/compilers/intel/compiler/2022.0.2/linux/bin/intel64/../../compiler/lib/intel64_lin] ==> dir [/home/packages/compilers/intel/compiler/2022.0.2/linux/bin/intel64/../../compiler/lib/intel64_lin]
+    arg [-L/usr/lib/gcc/x86_64-redhat-linux/8/] ==> dir [/usr/lib/gcc/x86_64-redhat-linux/8/]
+    arg [-L/usr/lib/gcc/x86_64-redhat-linux/8/../../../../lib64] ==> dir [/usr/lib/gcc/x86_64-redhat-linux/8/../../../../lib64]
+    arg [-L/usr/lib/gcc/x86_64-redhat-linux/8/../../../../lib64/] ==> dir [/usr/lib/gcc/x86_64-redhat-linux/8/../../../../lib64/]
+    arg [-L/lib/../lib64] ==> dir [/lib/../lib64]
+    arg [-L/lib/../lib64/] ==> dir [/lib/../lib64/]
+    arg [-L/usr/lib/../lib64] ==> dir [/usr/lib/../lib64]
+    arg [-L/usr/lib/../lib64/] ==> dir [/usr/lib/../lib64/]
+    arg [-L/work/iswhy/src/nwchem/NWChem-WFAT/lib/LINUX64/] ==> dir [/work/iswhy/src/nwchem/NWChem-WFAT/lib/LINUX64/]
+    arg [-L/usr/lib/gcc/x86_64-redhat-linux/8/../../../] ==> dir [/usr/lib/gcc/x86_64-redhat-linux/8/../../../]
+    arg [-L/lib64] ==> dir [/lib64]
+    arg [-L/lib/] ==> dir [/lib/]
+    arg [-L/usr/lib64] ==> dir [/usr/lib64]
+    arg [-L/usr/lib] ==> dir [/usr/lib]
+    arg [CMakeFiles/cmTC_15c52.dir/CMakeFortranCompilerABI.F90.o] ==> ignore
+    arg [--enable-new-dtags] ==> ignore
+    arg [-rpath] ==> ignore
+    arg [/home/packages/compilers/intel/mpi/2021.5.1/lib/release] ==> ignore
+    arg [-rpath] ==> ignore
+    arg [/home/packages/compilers/intel/mpi/2021.5.1/lib] ==> ignore
+    arg [-lmpi_ilp64] ==> lib [mpi_ilp64]
+    arg [-lmpifort] ==> lib [mpifort]
+    arg [-lmpi] ==> lib [mpi]
+    arg [-lrt] ==> lib [rt]
+    arg [-lpthread] ==> lib [pthread]
+    arg [-znow] ==> ignore
+    arg [-zrelro] ==> ignore
+    arg [-znoexecstack] ==> ignore
+    arg [--enable-new-dtags] ==> ignore
+    arg [-ldl] ==> lib [dl]
+    arg [-Bdynamic] ==> search dynamic
+    arg [-Bstatic] ==> search static
+    arg [-lifport] ==> lib [ifport]
+    arg [-lifcoremt] ==> lib [ifcoremt]
+    arg [-limf] ==> lib [imf]
+    arg [-lsvml] ==> lib [svml]
+    arg [-Bdynamic] ==> search dynamic
+    arg [-lm] ==> lib [m]
+    arg [-Bstatic] ==> search static
+    arg [-lipgo] ==> lib [ipgo]
+    arg [-lirc] ==> lib [irc]
+    arg [-Bdynamic] ==> search dynamic
+    arg [-lpthread] ==> lib [pthread]
+    arg [-Bstatic] ==> search static
+    arg [-lsvml] ==> lib [svml]
+    arg [-Bdynamic] ==> search dynamic
+    arg [-lc] ==> lib [c]
+    arg [-lgcc] ==> lib [gcc]
+    arg [-lgcc_s] ==> lib [gcc_s]
+    arg [-Bstatic] ==> search static
+    arg [-lirc_s] ==> lib [irc_s]
+    arg [-Bdynamic] ==> search dynamic
+    arg [-ldl] ==> lib [dl]
+    arg [-lc] ==> lib [c]
+    arg [/usr/lib/gcc/x86_64-redhat-linux/8/crtend.o] ==> obj [/usr/lib/gcc/x86_64-redhat-linux/8/crtend.o]
+    arg [/usr/lib/gcc/x86_64-redhat-linux/8/../../../../lib64/crtn.o] ==> obj [/usr/lib/gcc/x86_64-redhat-linux/8/../../../../lib64/crtn.o]
+  collapse obj [/usr/lib/gcc/x86_64-redhat-linux/8/../../../../lib64/crt1.o] ==> [/usr/lib64/crt1.o]
+  collapse obj [/usr/lib/gcc/x86_64-redhat-linux/8/../../../../lib64/crti.o] ==> [/usr/lib64/crti.o]
+  collapse obj [/home/packages/compilers/intel/compiler/2022.0.2/linux/bin/intel64/../../compiler/lib/intel64_lin/for_main.o] ==> [/home/packages/compilers/intel/compiler/2022.0.2/linux/compiler/lib/intel64_lin/for_main.o]
+  collapse obj [/usr/lib/gcc/x86_64-redhat-linux/8/../../../../lib64/crtn.o] ==> [/usr/lib64/crtn.o]
+  collapse library dir [/home/packages/compilers/intel/mpi/2021.5.1/lib/release] ==> [/home/packages/compilers/intel/mpi/2021.5.1/lib/release]
+  collapse library dir [/home/packages/compilers/intel/mpi/2021.5.1/lib] ==> [/home/packages/compilers/intel/mpi/2021.5.1/lib]
+  collapse library dir [/work/iswhy/src/nwchem/NWChem-WFAT/lib/LINUX64/] ==> [/work/iswhy/src/nwchem/NWChem-WFAT/lib/LINUX64]
+  collapse library dir [/home/packages/compilers/intel/compiler/2022.0.2/linux/bin/intel64/../../compiler/lib/intel64_lin] ==> [/home/packages/compilers/intel/compiler/2022.0.2/linux/compiler/lib/intel64_lin]
+  collapse library dir [/usr/lib/gcc/x86_64-redhat-linux/8/] ==> [/usr/lib/gcc/x86_64-redhat-linux/8]
+  collapse library dir [/usr/lib/gcc/x86_64-redhat-linux/8/../../../../lib64] ==> [/usr/lib64]
+  collapse library dir [/usr/lib/gcc/x86_64-redhat-linux/8/../../../../lib64/] ==> [/usr/lib64]
+  collapse library dir [/lib/../lib64] ==> [/lib64]
+  collapse library dir [/lib/../lib64/] ==> [/lib64]
+  collapse library dir [/usr/lib/../lib64] ==> [/usr/lib64]
+  collapse library dir [/usr/lib/../lib64/] ==> [/usr/lib64]
+  collapse library dir [/work/iswhy/src/nwchem/NWChem-WFAT/lib/LINUX64/] ==> [/work/iswhy/src/nwchem/NWChem-WFAT/lib/LINUX64]
+  collapse library dir [/usr/lib/gcc/x86_64-redhat-linux/8/../../../] ==> [/usr/lib]
+  collapse library dir [/lib64] ==> [/lib64]
+  collapse library dir [/lib/] ==> [/lib]
+  collapse library dir [/usr/lib64] ==> [/usr/lib64]
+  collapse library dir [/usr/lib] ==> [/usr/lib]
+  implicit libs: [mpi_ilp64;mpifort;mpi;rt;pthread;dl;ifport;ifcoremt;imf;svml;m;ipgo;irc;pthread;svml;c;gcc;gcc_s;irc_s;dl;c]
+  implicit objs: [/usr/lib64/crt1.o;/usr/lib64/crti.o;/usr/lib/gcc/x86_64-redhat-linux/8/crtbegin.o;/home/packages/compilers/intel/compiler/2022.0.2/linux/compiler/lib/intel64_lin/for_main.o;/usr/lib/gcc/x86_64-redhat-linux/8/crtend.o;/usr/lib64/crtn.o]
+  implicit dirs: [/home/packages/compilers/intel/mpi/2021.5.1/lib/release;/home/packages/compilers/intel/mpi/2021.5.1/lib;/work/iswhy/src/nwchem/NWChem-WFAT/lib/LINUX64;/home/packages/compilers/intel/compiler/2022.0.2/linux/compiler/lib/intel64_lin;/usr/lib/gcc/x86_64-redhat-linux/8;/usr/lib64;/lib64;/usr/lib;/lib]
+  implicit fwks: []
+
+
+Determining if the Fortran dgesv exists passed with the following output:
+Change Dir: /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/gmake -f Makefile cmTC_19105/fast && gmake[3]: Entering directory '/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack-782e739f8eb0e7f4d51ad7dd23fc1d03dc99d240/build/CMakeFiles/CMakeTmp'
+/usr/bin/gmake  -f CMakeFiles/cmTC_19105.dir/build.make CMakeFiles/cmTC_19105.dir/build
+gmake[4]: Entering directory '/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack-782e739f8eb0e7f4d51ad7dd23fc1d03dc99d240/build/CMakeFiles/CMakeTmp'
+Building Fortran object CMakeFiles/cmTC_19105.dir/testFortranCompiler.f.o
+/home/packages/compilers/intel/mpi/2021.5.1/bin/mpif90   -i8 -fltconsistency -fltconsistency  -c /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/CMakeFiles/CMakeTmp/testFortranCompiler.f -o CMakeFiles/cmTC_19105.dir/testFortranCompiler.f.o
+Linking Fortran executable cmTC_19105
+/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/libext_utils/cmake-3.24.0-linux-x86_64/bin/cmake -E cmake_link_script CMakeFiles/cmTC_19105.dir/link.txt --verbose=1
+/home/packages/compilers/intel/mpi/2021.5.1/bin/mpif90  -i8 -fltconsistency -fltconsistency  CMakeFiles/cmTC_19105.dir/testFortranCompiler.f.o -o cmTC_19105  -L/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/../lib -lnwc_openblas 
+gmake[4]: Leaving directory '/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack-782e739f8eb0e7f4d51ad7dd23fc1d03dc99d240/build/CMakeFiles/CMakeTmp'
+gmake[3]: Leaving directory '/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack-782e739f8eb0e7f4d51ad7dd23fc1d03dc99d240/build/CMakeFiles/CMakeTmp'
+
+
+

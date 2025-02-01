@@ -1,0 +1,13 @@
+tcgmsg/tcgmsg-mpi/sizeof.lo: ../ga-5.8.2/tcgmsg/tcgmsg-mpi/sizeof.c \
+ /usr/include/stdc-predef.h ./config.h ../ga-5.8.2/tcgmsg/tcgmsg-mpi/sndrcv.h \
+ ../ga-5.8.2/tcgmsg/tcgmsg-mpi/msgtypesc.h ../ga-5.8.2/tcgmsg/tcgmsg-mpi/srftoc.h
+
+/usr/include/stdc-predef.h:
+
+./config.h:
+
+../ga-5.8.2/tcgmsg/tcgmsg-mpi/sndrcv.h:
+
+../ga-5.8.2/tcgmsg/tcgmsg-mpi/msgtypesc.h:
+
+../ga-5.8.2/tcgmsg/tcgmsg-mpi/srftoc.h:

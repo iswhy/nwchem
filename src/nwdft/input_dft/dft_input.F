@@ -77,6 +77,7 @@ c
 c     xdm variables
       double precision xdm_a1, xdm_a2
       logical xdm_onlyc, xdm_varc
+      logical using_nwxc
       logical out1
 c
 c     xps variables
@@ -350,7 +351,7 @@ c
          if (.not. rtdb_get(rtdb, 'dft:gonwxc', mt_log, 1, gonwxc))
      &        gonwxc=.false.
          if(gonwxc) then
-            call nwxc_input(out1)
+            call nwxc_input(using_nwxc)
          else
             write(luout,*) '**************************  '
             write(luout,*) ' nwxc input disabled '
@@ -360,9 +361,9 @@ c
             write(luout,*) '  '
             write(luout,*) ' set dft:gonwxc .true. '
             write(luout,*) '**************************  '
-            out1=.false.
+            using_nwxc=.false.
          endif
-        if (.not.out1) then
+        if (.not.using_nwxc) then
           call errquit("dft_input: nwxc_input failed",0,UERR)
         endif
         call nwxc_rtdb_store(rtdb,"dft")
@@ -571,6 +572,10 @@ c     persist the information in the runtime database
       if (.not.rtdb_put(rtdb,'dft:cam_exch', mt_log, 1, cam_exch)) 
      &   call errquit('dft_input: rtdb_put failed', 2700, RTDB_ERR)
       if (.not.inp_f(cam_omega)) cam_omega = 0.5d0
+      if (using_nwxc) then
+         call nwxc_get_user_cam('g', cam_omega)
+         call nwxc_rtdb_store(rtdb, 'dft')
+      endif
 c           write(luout,*) "cam_omega:",cam_omega
       if (.not.rtdb_put(rtdb,'dft:cam_omega',mt_dbl,1,cam_omega))
      &   call errquit('dft_input: rtdb_put failed cam_omega', 2700, 
@@ -579,7 +584,11 @@ c
  2710 if (.not. inp_a(test)) goto 10
 c  get cam_alpha
       if (inp_compare(.false.,'cam_alpha', test)) then
-       if (.not. inp_f(cam_alpha)) cam_alpha = 1.d0
+         if (.not. inp_f(cam_alpha)) cam_alpha = 1.d0
+         if (using_nwxc) then
+            call nwxc_get_user_cam('a', cam_alpha)
+            call nwxc_rtdb_store(rtdb, 'dft')
+         endif
        if (.not.rtdb_put(rtdb,'dft:cam_alpha', mt_dbl, 1, cam_alpha))
      &  call errquit('dft_input: rtdb_put failed cam_alpha', 2710, 
      &     RTDB_ERR)
@@ -589,7 +598,11 @@ c
  2720 if (.not. inp_a(test)) goto 10
 c  get cam_beta
       if (inp_compare(.false.,'cam_beta', test)) then
-       if (.not. inp_f(cam_beta)) cam_beta = 1.d0
+         if (.not. inp_f(cam_beta)) cam_beta = 1.d0
+         if (using_nwxc) then
+            call nwxc_get_user_cam('b', cam_beta)
+            call nwxc_rtdb_store(rtdb, 'dft')
+         endif
        if (.not.rtdb_put(rtdb,'dft:cam_beta', mt_dbl, 1, cam_beta))
      &  call errquit('dft_input: rtdb_put failed cam_beta', 2720, 
      &     RTDB_ERR)
