@@ -52,7 +52,11 @@ endif
           int_dso.o int_ops.o intd_1epot.o \
           intd_1epot_cosmo.o \
           int_veloc.o    int_angmom.o   int_giaos100.o \
-	  cosmo_screen.o
+	  cosmo_screen.o \
+          int_1ehyd.o \
+          int_mpole_all.o \
+          int_1eov_all.o \
+          int_1epe_all.o
 
     OBJ_OPTIMIZE = int_hf1sp.o int_l2e4c.o intb_init4c.o intb_2e4c.o \
                    int_2e4c.o

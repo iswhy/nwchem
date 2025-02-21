@@ -344,6 +344,11 @@ c
 c     Advance offset into chi arrays by number of basis functions
 c     just processed
 c
+c           IMAM:
+c           nshbf has been declared as a vector of length 2, but icontr
+c           can go up to ncontr, while ncontr might be larger than 2.
+c           Moreover, the number of basis just processed was stored in
+c           nshbf(1), why not just writing nshbf(1) instead of nshbf(icontr)??
             ichi = ichi + nshbf(icontr)
             enddo
 c

@@ -148,6 +148,9 @@ c
       logical task_rt_tddft
       external task_rt_tddft
 
+      logical task_wfat, task_mewfat
+      external task_wfat, task_mewfat
+
       logical task_fcidump
       external task_fcidump
 
@@ -420,6 +423,10 @@ c          status = embed_optimize(rtdb)
          status = task_et(rtdb)
       else if (inp_compare(.false., 'rt_tddft', operation)) then
          status = task_rt_tddft(rtdb)
+      else if (inp_compare(.false., 'oewfat', operation)) then
+         status = task_wfat(rtdb)
+      else if (inp_compare(.false., 'mewfat', operation)) then
+         status = task_mewfat(rtdb)
       else if (inp_compare(.false., 'fcidump', operation)) then
          status = task_fcidump(rtdb)
       else if (inp_compare(.false., 'freq', operation)) then

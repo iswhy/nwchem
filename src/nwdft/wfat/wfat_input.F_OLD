@@ -1,0 +1,894 @@
+c=======================================================
+c=======================================================
+      subroutine wfat_input(rtdb)
+
+      implicit none
+#include "global.fh"      
+      integer rtdb
+
+
+
+      if (ga_nodeid() .ne. 0) return      
+
+c     ==== Read WFAT inputs from input file ====
+      call wfat_read_input()
+
+c     ==== Check the sanity of inputs read above ====
+      call wfat_sanity_input(rtdb)
+
+c     ==== Put the checked inputs to the RTDB ====
+      call wfat_putrtdb_input(rtdb)
+
+
+      end
+c=======================================================
+
+
+c=======================================================
+c=======================================================      
+      subroutine wfat_read_input()
+
+      implicit none
+#include "errquit.fh"
+#include "wfat_input.fh"
+#include "inp.fh"      
+#include "stdio.fh"
+      logical
+     &     fieldmag_stat,
+     &     beta_stat, gamma_stat, orbid_stat, orbid_exist,
+     &     paraqn_stat, paraqn_exist,
+     &     print_exist, print_stat, nktmd_exist, nktmd_stat,
+     &     beta_tmd_exist, beta_tmd_stat, gamma_tmd_exist,
+     &     gamma_tmd_stat, lmax_exist, lmax_stat, 
+     &     gqual_exist, gqual_stat,
+     &     intgl_exist, intgl_stat,
+     &     beta_start_stat, beta_n_stat, beta_last_stat,
+     &     gamma_start_stat, gamma_n_stat, gamma_last_stat,
+     &     tt
+
+      character*50 field
+      character*255 ss
+      integer i1, i2, k
+
+
+      logical wfat_inp_paraqn, wfat_inp_movec
+      external wfat_inp_paraqn, wfat_inp_movec
+
+
+      WFAT_PRINT_OPTIONS = (/ 'srfc', 'iony', 'tmd', 'tmd_atom' /)
+
+
+
+      write(luout, '("wfat read input")')
+
+c     ==== Initial status of mandatory inputs ====
+      fieldmag_stat = .false.
+      beta_stat = .false.
+      gamma_stat = .false.
+      
+
+c     ==== Initial status of optional inputs ====
+      orbid_exist = .false.
+      orbid_stat = .true.
+      paraqn_exist = .false.
+      paraqn_stat = .true.
+      print_exist = .false.
+      print_stat = .true.
+      nktmd_exist = .false.
+      nktmd_stat = .true.
+      beta_tmd_exist = .false.
+      beta_tmd_stat = .true.
+      gamma_tmd_exist = .false.
+      gamma_tmd_stat = .true.
+      lmax_exist = .false.
+      lmax_stat = .true.
+      gqual_exist = .false.
+      gqual_stat = .true.
+      intgl_exist = .false.
+      intgl_stat = .true.
+      
+      
+
+      do while (inp_read()) 
+
+         if (inp_a(field)) then
+c     ==== MANDATORY INPUTS ====
+            if (inp_compare(.false., 'fieldmag', field)) then
+               fieldmag_stat = inp_f(fieldmag)
+            else if (inp_compare(.false., 'beta', field)) then
+               beta_start_stat = inp_f(wfat_beta_start)
+               beta_n_stat = inp_i(wfat_nbeta)
+               if (.not. beta_n_stat .or. wfat_nbeta==1) then
+                  wfat_nbeta = 1
+                  wfat_beta_last = wfat_beta_start
+                  beta_last_stat = .true.
+               else
+                  beta_last_stat = inp_f(wfat_beta_last)
+               endif
+               beta_stat = beta_start_stat 
+            else if (inp_compare(.false., 'gamma', field)) then
+               gamma_start_stat = inp_f(wfat_gamma_start)
+               gamma_n_stat = inp_i(wfat_ngamma)
+               if (.not. gamma_n_stat .or. wfat_ngamma==1) then
+                  wfat_ngamma = 1
+                  wfat_gamma_last = wfat_gamma_start
+                  gamma_last_stat = .true.
+               else
+                  gamma_last_stat = inp_f(wfat_gamma_last)
+               endif
+               gamma_stat = gamma_start_stat
+            
+
+c     ==== OPTIONAL INPUTS ====
+            else if (inp_compare(.false., 'movec_id', field)) then
+               orbid_exist = .true.
+               orbid_stat = wfat_inp_movec(MAX_N_ORBID, wfat_orbid0,
+     &                      wfat_spinid, n_orbid)
+            else if(inp_compare(.false., 'paraqn', field)) then
+               paraqn_exist = .true.
+               paraqn_stat = wfat_inp_paraqn(MAX_N_NPARA, npara, mpara,
+     &                       n_npara)
+            else if (inp_compare(.false., 'print', field)) then
+               write(luout, '("wfat print found")')
+               print_exist = .true.
+               if (.not. inp_line(ss))
+     &              call errquit('WFAT: Error in reading the '//
+     &                   '''print'' line.', 1, INPUT_ERR) 
+               tt = inp_strtok(ss, ' ', i1, i2)              !! The 'print' keyword
+               do while (inp_strtok(ss, ' ', i1, i2))        !! The rest of 'print' line
+                  write(luout, '("wfat loop print: ", a10)')  ss(i1:i2)
+                  tt = inp_match(WFAT_NPRINT, .false.,
+     &                 ss(i1:i2), WFAT_PRINT_OPTIONS, k)
+
+                  if (.not. tt) write(luout, '("wfat warning!!")')
+                  
+                  if (WFAT_PRINT_OPTIONS(k) == 'srfc') then
+                     write(luout, '("here imam a")')
+                     print_srfc = .true.
+                  else if (WFAT_PRINT_OPTIONS(k) == 'iony') then
+                     write(luout, '("here imam b")')
+                     print_iony = .true.
+                  else if (WFAT_PRINT_OPTIONS(k) == 'tmd') then
+                     write(luout, '("here imam c")')
+                     print_tmd = .true.
+                  else if (WFAT_PRINT_OPTIONS(k) == 'tmd_atom') then
+                     write(luout, '("here imam d")')
+                     print_tmd_atom = .true.
+                  else
+                     print_stat = .false.
+                     exit
+                  endif
+                  print_stat = .true.
+               enddo
+            else if (inp_compare(.false., 'nktmd', field)) then
+               nktmd_exist = .true.
+               nktmd_stat = inp_i(nktmd)
+            else if (inp_compare(.false., 'beta_tmd', field)) then
+               beta_tmd_exist = .true.
+               beta_tmd_stat = inp_f(beta_tmd)
+            else if (inp_compare(.false., 'gamma_tmd', field)) then
+               gamma_tmd_exist = .true.
+               gamma_tmd_stat = inp_f(gamma_tmd)
+            else if (inp_compare(.false., 'lmax', field)) then
+               lmax_exist = .true.
+               lmax_stat = inp_i(wfat_lmax)
+            else if (inp_compare(.false., 'gridqual', field)) then
+               gqual_exist = .true.
+               gqual_stat = inp_i(wfat_gqual)
+            else if (inp_compare(.false., 'intgl', field)) then
+               intgl_exist = .true.
+               intgl_stat = inp_a(wfat_intgl_name)
+
+c     ==== End ====
+            else if (inp_compare(.false., 'end', field)) then
+               exit
+            else
+               call errquit('WFAT: The specified keyword '''
+     &              //trim(adjustl(field))//''' is unavailable.', 1,
+     &              INPUT_ERR)
+            endif
+         else
+            call errquit('WFAT: The first keyword of an input line '//
+     &           'must be a valid character type.',
+     &           1, INPUT_ERR)
+         endif
+
+      enddo
+
+
+c     ==== Checking format of MANDATORY INPUTS ====
+      if (.not. fieldmag_stat) then
+         call errquit('WFAT: Error reading mandatory input parameter '//
+     &        '''fieldmag''. Either it is not specified or is '//
+     &        'specified but the format does not follow '//
+     &        '''fieldmag <double value>''.', 0, INPUT_ERR)
+      endif
+      if (.not. beta_stat) then
+         call errquit('WFAT: Error reading mandatory input parameter '//
+     &        '''beta''. Either it is not specified or is '//
+     &        'specified but the format does not follow '//
+     &        '''beta <double start_angle> [<integer npoints> '//
+     &        '<double last_angle>]''. If only ''start_angle'' is '//
+     &        'given or when ''npoints=1'', ''beta'' is assumed to '//
+     &        'be equal to ''start_angle''.', 0, INPUT_ERR)
+      endif
+      if (.not. gamma_stat) then
+         call errquit('WFAT: Error reading mandatory input parameter '//
+     &        '''gamma''. Either it is not specified or is '//
+     &        'specified but the format does not follow '//
+     &        '''gamma <double start_angle> [<integer npoints> '//
+     &        '<double last_angle>]''. If only ''start_angle'' is '//
+     &        'given or when ''npoints=1'', ''gamma'' is assumed to '//
+     &        'be equal to ''start_angle''.', 0, INPUT_ERR)
+      endif
+
+
+c     ==== Checking format of OPTIONAL INPUTS ====
+      if (.not. orbid_stat) then
+         call errquit('WFAT: Error reading optional input parameter '//
+     &        '''movec_id''. Please check if it is '//
+     &        'specified following the format '//
+     &        '''movec_id a <integer so#1> [<integer so#2> ... ] '//
+     &        '[b <integer so#1> [<integer so#2> ... ]]''. For '//
+     &        'example, the following input ''movec_id a 0 -1 -2 '//
+     &        'b -1'' corresponds to the following list of molecular '//
+     &        'orbitals to be ionized: HOMO, HOMO-1, and HOMO-2 '//
+     &        'having alpha-spin and HOMO-1 having beta-spin. Note: '//
+     &        'At the moment only zero and negative integers are '//
+     &        'supported for the spatial orbitals (so#1, so#2, etc.)',
+     &        0, INPUT_ERR)
+      endif
+      if (.not. paraqn_stat) then
+         call errquit('WFAT: Error reading optional input parameter '//
+     &        '''paraqn''. Please check if it is '//
+     &        'specified following the format '//
+     &        '''paraqn "n<integer i>" <integer m#1> [<integer m#2> '//
+     &        '...] ["n<integer j>" <integer m#1> [<integer m#2> ... '//
+     &        ']] .... For example, the following input '//
+     &        '''paraqn "n0" 0 -1 1 "n1" 0'' corresponds to the '//
+     &        'following list of (n,m) parabolic quantum numbers: '//
+     &        '(0,0); (0,-1); (0,+1); (1,0).',
+     &        0, INPUT_ERR)
+      endif
+      if (.not. print_stat) then
+         call errquit('WFAT: Error reading optional input parameter '//
+     &        '''print''. Please check if it is specified following '//
+     &        'the format ''print [srfc] [iony] [tmd] [tmd_atom]''.',
+     &        0, INPUT_ERR)
+      endif
+      if (.not. nktmd_stat) then
+         call errquit('WFAT: Error reading optional input parameter '//
+     &        '''nktmd''. Please check if it is specified following '//
+     &        'the format ''nktmd <integer value>''.',
+     &        0, INPUT_ERR)
+      endif
+      if (.not. beta_tmd_stat) then
+         call errquit('WFAT: Error reading optional input parameter '//
+     &        '''beta_tmd''. Please check if it is specified '//
+     &        'following the format ''beta_tmd <double value>''.',
+     &        0, INPUT_ERR)
+      endif
+      if (.not. gamma_tmd_stat) then
+         call errquit('WFAT: Error reading optional input parameter '//
+     &        '''gamma_tmd''. Please check if it is specified '//
+     &        'following the format ''gamma_tmd <double value>''.',
+     &        0, INPUT_ERR)
+      endif
+      if (.not. gqual_stat) then
+         call errquit('WFAT: Error reading optional input parameter '//
+     &        '''gridqual''. Please check if it is specified '//
+     &        'following the format ''gridqual <integer value>''.',
+     &        0, INPUT_ERR)
+      endif
+      if (.not. lmax_stat) then
+         call errquit('WFAT: Error reading optional input parameter '//
+     &        '''lmax''. Please check if it is specified following '//
+     &        'the format ''lmax <integer value>''.',
+     &        0, INPUT_ERR)
+      endif
+      if (.not. intgl_stat) then
+         call errquit('WFAT: Error reading optional input parameter '//
+     &        '''intgl_file''. Please check if it is specified '//
+     &        'following the format ''intgl "<string value>"'' '//
+     &        '(do not skip the double quotes).',
+     &        0, INPUT_ERR)
+      endif
+
+c     ==== Checking existence of OPTIONAL INPUTS ====
+      if (.not. orbid_exist) then
+         n_orbid = 2
+         wfat_spinid(1:n_orbid) = (/ 1,  1 /)
+         wfat_orbid0(1:n_orbid) = (/ 0, -1 /)
+      endif
+      if (.not. paraqn_exist) then
+         n_npara = 3
+         npara(1:n_npara) = 0
+         mpara(1:n_npara) = (/ 0, -1, +1 /)
+      endif
+      if (.not. print_exist) then
+         print_srfc = .false.
+         print_iony = .true.
+         print_tmd = .false.
+         print_tmd_atom = .false.
+      endif
+      if (.not. nktmd_exist) then
+         nktmd = def_nktmd
+      endif
+      if (.not. beta_tmd_exist) then
+         beta_tmd = def_beta_tmd
+      endif
+      if (.not. gamma_tmd_exist) then
+         gamma_tmd = def_gamma_tmd
+      endif
+      if (.not. lmax_exist) then
+         wfat_lmax = def_wfat_lmax
+      endif
+      if (.not. gqual_exist) then
+         wfat_gqual = def_gqual
+      endif
+      if (.not. intgl_exist) then
+         call util_file_name('wigl', .false., .false., wfat_intgl_name)
+      endif
+      
+
+      end
+c=======================================================
+
+
+c=======================================================
+c=======================================================
+      subroutine wfat_sanity_input(rtdb)
+
+      implicit none
+#include "wfat_input.fh"      
+#include "errquit.fh"
+#include "stdio.fh"
+#include "rtdb.fh"
+#include "mafdecls.fh"      
+      integer rtdb
+
+      character*1 spin_str
+      character*4 ss
+      character*3 n_npara_c, MAX_N_NPARA_c
+      character*5 n_orbid_c, MAX_N_ORBID_c
+
+      integer nsp, numelc(2), i, is
+      
+      character*1 w
+      logical r
+      parameter ( w='i' )
+      integer k
+
+
+
+      
+      if (rtdb_cget(rtdb,'task:theory',1,wfat_theory)) then
+         write(luout, '("The specified theory from the previous '//
+     &     'task directive is ", a10)') trim(adjustl(wfat_theory))
+      else
+         call errquit('task: no task input for theory?',0, RTDB_ERR)
+      endif
+
+      if (.not. rtdb_cput(rtdb, 'wfat:theory', 1, trim(wfat_theory)))
+     &     call errquit('WFAT: Error writing theory to rtdb',
+     &     1, RTDB_ERR)
+      
+
+c     ==== Check whether the current theory is DFT ====
+      if (trim(adjustl(wfat_theory)) /= 'dft') then
+         write(luout, '("WFAT: WARNING!")')
+         write(luout, 100)
+      endif
+ 100  format('      WFAT input directive is found while the theory ',
+     &       'is not DFT. At the moment WFAT can only be used in ',
+     &       'conjunction with DFT to obtain the SCF-converged ',
+     &       'quantities such as molecular orbitals and effective ',
+     &       'potential. All WFAT related inputs will thus be ignored.')
+      
+
+      
+c     ==== MANDATORY INPUTS ====
+      call wfat_dval_atleast(fieldmag, 0.0d0, 'q', 'WFAT',
+     &     '''fieldmag''', 'e', w, r)
+
+      call wfat_dval_inrange(wfat_beta_start, 0.0d0, 'q', 180.0d0, 'q',
+     &      'WFAT', '''start_angle'' of ''beta''', 'f', w, r)
+      call wfat_dval_inrange(wfat_beta_last, 0.0d0, 'q', 180.0d0, 'q',
+     &      'WFAT', '''last_angle'' of ''beta''', 'f', w, r)
+      call wfat_ival_atleast(wfat_nbeta, 1, 'WFAT',
+     &     '''npoints'' of ''beta''', w, r)
+
+      call wfat_dval_inrange(wfat_gamma_start, 0.0d0, 'q', 360.0d0, 'q',
+     &      'WFAT', '''start_angle'' of ''gamma''', 'f', w, r)
+      call wfat_dval_inrange(wfat_gamma_last, 0.0d0, 'q', 360.0d0, 'q',
+     &      'WFAT', '''last_angle'' of ''gamma''', 'f', w, r)
+      call wfat_ival_atleast(wfat_ngamma, 1, 'WFAT',
+     &     '''npoints'' of ''gamma''', w, r)
+
+      
+c     ==== OPTIONAL INPUTS ====
+      write(n_orbid_c, '(i5)') n_orbid
+      write(MAX_N_ORBID_c, '(i5)') MAX_N_ORBID
+      if (n_orbid >= MAX_N_ORBID) then
+         call errquit('WFAT: The number of molecular orbitals '//
+     &        'specified in ''movec_id'' (='//trim(adjustl(n_orbid_c))//
+     &        ') must be less than or equal to the maximum value, '//
+     &        'which is '//trim(adjustl(MAX_N_ORBID_c))//'.',
+     &        1, INPUT_ERR)
+      endif
+
+      if (.not. rtdb_get(rtdb, 'dft:ipol', mt_int, 1, nsp))
+     &     call errquit('WFAT: Error in getting ipol from RTDB',
+     &     1, RTDB_ERR)      
+      call wfat_ivec_inrange(n_orbid, wfat_spinid, 1, nsp, 'WFAT', 
+     &     '''spin_id''', 'o', r, k)
+      if (.not. r)
+     &     call errquit('WFAT: One spin channel specified has '//
+     &     'an illegal value. The allowed value is ''a'' when the '//
+     &     'system is spin-unpolarized. If it is spin-polarized, ' //
+     &     'the possible spin is either ''a'' or ''b''.',
+     &     1, INPUT_ERR)
+
+      if (.not. rtdb_get(rtdb, 'dft:noc', mt_int, 2, numelc))
+     &     call errquit('WFAT: Error in getting noc from RTDB',
+     &     1, RTDB_ERR)
+      do i = 1, n_orbid
+         is = wfat_spinid(i)
+         if (is == 1) spin_str = 'a'
+         if (is == 2) spin_str = 'b'
+         call wfat_ival_inrange(wfat_orbid0(i), -(numelc(is)-1), 0,
+     &        'WFAT', '''orb_id''', 'o', r)
+         if (.not. r) then
+            write(ss, '(i4)') -(numelc(is)-1)
+            call errquit('WFAT: One spatial orbital in '//
+     &           spin_str//'-spin channel lies outside of the '//            
+     &           'allowed range, which is in between and including '//
+     &           trim(adjustl(ss))//' and 0. This range is '//            
+     &           'determined by the number of electrons in '//spin_str//
+     &           '-spin channel.', 1, INPUT_ERR)
+         endif
+      enddo
+      
+      write(n_npara_c, '(i3)') n_npara
+      write(MAX_N_NPARA_c, '(i3)') MAX_N_NPARA
+      if (n_npara >= MAX_N_NPARA) then
+         call errquit('WFAT: The number of integers specified for'//
+     &        '''npara'' (='//trim(adjustl(n_npara_c))//') '//
+     &        'must be less than or equal to the maximum value, '//
+     &        'which is '//trim(adjustl(MAX_N_NPARA_c))//'.',
+     &        1, INPUT_ERR)
+      endif
+      call wfat_ivec_atleast(n_npara, npara, 0, 'WFAT', '''npara''',
+     &     w, r, k)
+      call wfat_ival_atleast(nktmd, 1, 'WFAT', '''nktmd''', w, r)
+      call wfat_dval_inrange(beta_tmd, 0.0d0, 'q', 180.0d0, 'q',
+     &     'WFAT', '''beta_tmd''', 'f', w, r)
+      call wfat_dval_inrange(gamma_tmd, 0.0d0, 'q', 360.0d0, 'q', 
+     &     'WFAT', '''gamma_tmd''', 'f', w, r)
+      call wfat_ival_atleast(wfat_lmax, 0, 'WFAT', '''lmax''', w, r)
+      call wfat_ival_inrange(wfat_gqual, 1, 3, 'WFAT', '''gridqual''',
+     &     w, r)
+
+
+
+      end
+c=======================================================
+
+
+c=======================================================
+c=======================================================
+      subroutine wfat_putrtdb_input(rtdb)
+
+      implicit none
+#include "rtdb.fh"
+#include "errquit.fh"
+#include "wfat_input.fh"
+#include "mafdecls.fh"      
+      integer rtdb
+
+      logical os, oc, or
+
+c forcheck      if (.not. rtdb_print(rtdb, .false.))
+c forcheck     &     call errquit('WFAT: Printing rtdb failed', 1, RTDB_ERR)
+
+
+c     ==== MANDATORY INPUTS ====
+      if (.not. rtdb_put(rtdb, 'wfat:fieldmag', mt_dbl, 1, fieldmag))
+     &     call errquit('WFAT: Failed writing fieldmag to rtdb',
+     &     1, INPUT_ERR)
+
+      if (.not. rtdb_put(rtdb, 'wfat:beta_start', mt_dbl, 1,
+     &     wfat_beta_start))
+     &     call errquit('WFAT: Failed writing beta_start to rtdb',
+     &     1, INPUT_ERR)
+      if (.not. rtdb_put(rtdb, 'wfat:beta_last', mt_dbl, 1,
+     &     wfat_beta_last))
+     &     call errquit('WFAT: Failed writing beta_last to rtdb',
+     &     1, INPUT_ERR)
+      if (.not. rtdb_put(rtdb, 'wfat:nbeta', mt_int, 1, wfat_nbeta))
+     &     call errquit('WFAT: Failed writing nbeta to rtdb',
+     &     1, INPUT_ERR)
+
+      if (.not. rtdb_put(rtdb, 'wfat:gamma_start', mt_dbl, 1,
+     &     wfat_gamma_start))
+     &     call errquit('WFAT: Failed writing gamma_start to rtdb',
+     &     1, INPUT_ERR)
+      if (.not. rtdb_put(rtdb, 'wfat:gamma_last', mt_dbl, 1,
+     &     wfat_gamma_last))
+     &     call errquit('WFAT: Failed writing gamma_last to rtdb',
+     &     1, INPUT_ERR)
+      if (.not. rtdb_put(rtdb, 'wfat:ngamma', mt_int, 1, wfat_ngamma))
+     &     call errquit('WFAT: Failed writing ngamma to rtdb',
+     &     1, INPUT_ERR)
+      
+
+c     ==== OPTIONAL INPUTS ====
+      if (.not. rtdb_put(rtdb, 'wfat:n_orbid', mt_int, 1, n_orbid))
+     &     call errquit('WFAT: Failed writing n_orbid to rtdb',
+     &     1, INPUT_ERR)
+      if (.not. rtdb_put(rtdb, 'wfat:orbid', mt_int, n_orbid,
+     &     wfat_orbid0))
+     &     call errquit('WFAT: Failed writing orbid to rtdb',
+     &     1, INPUT_ERR)
+      if (.not. rtdb_put(rtdb, 'wfat:spinid', mt_int, n_orbid,
+     &     wfat_spinid))
+     &     call errquit('WFAT: Failed writing spinid to rtdb',
+     &     1, INPUT_ERR)
+      
+      if (.not. rtdb_put(rtdb, 'wfat:n_npara', mt_int, 1, n_npara))
+     &     call errquit('WFAT: Failed writing n_npara to rtdb',
+     &     1, INPUT_ERR)
+      if (.not. rtdb_put(rtdb, 'wfat:npara', mt_int, n_npara, npara))
+     &     call errquit('WFAT: Failed writing npara to rtdb',
+     &     1, INPUT_ERR)
+      if (.not. rtdb_put(rtdb, 'wfat:mpara', mt_int, n_npara, mpara))
+     &     call errquit('WFAT: Failed writing mpara to rtdb',
+     &     1, INPUT_ERR)
+      
+      if (.not. rtdb_put(rtdb, 'wfat:print_srfc', mt_log, 1, 
+     &     print_srfc))
+     &     call errquit('WFAT: Failed writing print_srfc to rtdb',
+     &     1, INPUT_ERR)
+      if (.not. rtdb_put(rtdb, 'wfat:print_iony', mt_log, 1, 
+     &     print_iony))
+     &     call errquit('WFAT: Failed writing print_iony to rtdb',
+     &     1, INPUT_ERR)
+      if (.not. rtdb_put(rtdb, 'wfat:print_tmd', mt_log, 1, 
+     &     print_tmd))
+     &     call errquit('WFAT: Failed writing print_tmd to rtdb',
+     &     1, INPUT_ERR)
+      if (.not. rtdb_put(rtdb, 'wfat:print_tmd_atom', mt_log, 1, 
+     &     print_tmd_atom))
+     &     call errquit('WFAT: Failed writing print_tmd_atom to rtdb',
+     &     1, INPUT_ERR)
+      
+      if (.not. rtdb_put(rtdb, 'wfat:nktmd', mt_int, 1, nktmd))
+     &     call errquit('WFAT: Failed writing nktmd to rtdb',
+     &     1, INPUT_ERR)
+      if (.not. rtdb_put(rtdb, 'wfat:beta_tmd', mt_dbl, 1, beta_tmd))
+     &     call errquit('WFAT: Failed writing beta_tmd to rtdb',
+     &     1, INPUT_ERR)
+      if (.not. rtdb_put(rtdb, 'wfat:gamma_tmd', mt_dbl, 1, gamma_tmd))
+     &     call errquit('WFAT: Failed writing gamma_tmd to rtdb',
+     &     1, INPUT_ERR)
+      if (.not. rtdb_put(rtdb, 'wfat:lmax', mt_int, 1, wfat_lmax))
+     &     call errquit('WFAT: Failed writing lmax to rtdb',
+     &     1, INPUT_ERR)
+      if (.not. rtdb_put(rtdb, 'wfat:gqual', mt_int, 1, wfat_gqual))
+     &     call errquit('WFAT: Failed writing gqual to rtdb',
+     &     1, INPUT_ERR)
+
+      call util_get_rtdb_state(rtdb, os, oc, or)
+      if (os .and. .not. or) then
+         if (wfat_intgl_name == 'nosave') then
+            if (.not. rtdb_put(rtdb, 'wfat:intgl_nosave', mt_log, 1,
+     &           .true.))
+     &           call errquit('WFAT: Failed writing intgl_nosave to '//
+     &           'RTDB.', 1, INPUT_ERR)
+         else
+            if (.not. rtdb_cput(rtdb, 'wfat:intgl_name', 1,
+     &           trim(adjustl(wfat_intgl_name))))
+     &           call errquit('WFAT: Failed writing intgl_name to RTDB',
+     &           1, INPUT_ERR)
+         endif
+      else if (.not. os .and. or) then
+         if (wfat_intgl_name == 'nosave') then
+            call errquit('WFAT: The startup mode is ''restart''. For '//
+     &           'this startup type, the ''intgl'' directive is only '//
+     &           'used to provide the file name containing WFAT '//
+     &           'integrals to load from (not to save to). Thus, '//
+     &           'the keyword ''nosave'' in this '//
+     &           'regard is irrelevant. To prevent this error, '//
+     &           'either provide a valid WFAT integral file name '//
+     &           'or simply remove ''intgl'' directive from the '//
+     &           'input file, for which the file name will default '//
+     &           'to ''<file_prefix>.wigl'' where file_prefix is the '//
+     &           'file prefix of NWChem files for the present '//
+     &           'calculation. The user is responsible in assuring '//
+     &           'the existence of this integral file.', 1, INPUT_ERR)
+         else
+            if (.not. rtdb_cput(rtdb, 'wfat:intgl_name', 1,
+     &           trim(adjustl(wfat_intgl_name))))
+     &           call errquit('WFAT: Failed writing intgl_name to RTDB',
+     &           1, INPUT_ERR)
+         endif
+      endif
+
+      
+      end
+c=======================================================
+
+
+c=======================================================
+c=======================================================
+      logical function wfat_inp_movec(nelm, orbid0, spinid0, nor0)
+
+      implicit none
+#include "stdio.fh"
+#include "errquit.fh"
+#include "wfat_input.fh"
+#include "inp.fh"      
+      integer nelm
+      integer orbid0(nelm)
+      integer spinid0(nelm)
+      integer nor0
+
+      character*4 nelm_str
+      character*1 afield
+      integer i, j, ior, ior1, ior2, is, io
+      integer ifield
+      integer orbid0_(nelm), spinid0_(nelm)
+
+      logical wfat_check_invec
+      external wfat_check_invec
+
+
+
+      wfat_inp_movec = .false.
+
+      ior = 1
+      is = 0
+c     ==== Loop for reading spins ====
+      do i = 1, 2
+         
+         if (.not. inp_a(afield)) then
+            if (is .ne. 0) then
+               exit
+            else
+               call errquit('WFAT: No molecular orbitals to be '//
+     &              'ionized have been specified. Specify at '//
+     &              'least one orbital using the '//
+     &              'format ''x 0 -1 -2 ...'' where ''x'' is either '//
+     &              '''a'' or ''b''. The trailing list of integers '//
+     &              'give the spatial orbitals having the x spin. At '//
+     &              'the moment, only negative integers '//
+     &              '(corresponding to occupied orbitals) are ',
+     &              'supported.',1, INPUT_ERR)
+            endif
+         endif
+
+         is = is + 1
+         if (afield == 'a') then
+            spinid0_(is) = 1
+         else if (afield == 'b') then
+            spinid0_(is) = 2
+         else
+            call errquit('WFAT: The spin specification for '//
+     &           'input keyword ''movec_id'' can only take '//
+     &           'either ''a'' or ''b''.', 1, INPUT_ERR)
+         endif
+         
+         io = 0
+c        ==== Loop for reading m quantum numbers ====
+         do j = 1, MAX_MOVEC_FIELDS
+            if (inp_i(ifield)) then
+               io = io + 1
+               orbid0_(io) = ifield
+            else
+               if (io == 0)
+     &              call errquit('WFAT: One spin channel has not '//
+     &              'been given any orbitals.', 1, INPUT_ERR)
+               exit
+            endif
+         enddo
+
+         ior1 = ior
+         ior2 = ior1 + io - 1
+         nor0 = ior2
+
+c     ==== Check duplicate in the spins ====
+         if (is > 1) then
+            if (wfat_check_invec(spinid0_(is), is-1, 
+     &           spinid0_(1:is-1))) 
+     &           call errquit('WFAT: Both of the specified spin '//            
+     &           'channels cannot be identical.', 1, INPUT_ERR)
+         endif
+         spinid0(ior1:ior2) = spinid0_(is)
+
+c        ==== Check duplicate in orbital ====
+         if (io > 1) then
+            if (wfat_check_invec(orbid0_(io), io-1, 
+     &           orbid0_(1:io-1)))
+     &           call errquit('WFAT: Two of the specified spatial '//
+     &           'orbitals that correspond to '//afield//
+     &           '-spin are identical. '//
+     &           'Each of the spatial orbitals for any given '//
+     &           'spin channel must occur only once.',
+     &           1, INPUT_ERR)
+         endif
+         orbid0(ior1:ior2) = orbid0_(1:io)
+         
+
+         ior = ior + io
+         if (ior > nelm) then
+            write(nelm_str, '(i4)')  nelm
+            call errquit('WFAT: The number of the specified '//
+     &           'molecular orbitals exceeds limit, which '//
+     &           'is equal to '//nelm_str//'.', 1, INPUT_ERR)
+         endif
+
+      enddo
+
+      wfat_inp_movec = .true.
+
+
+
+      end
+c=======================================================
+
+      
+c=======================================================
+c=======================================================
+      logical function wfat_inp_paraqn(nelm, n0, m0, nqn0)
+
+      implicit none
+#include "stdio.fh"
+#include "errquit.fh"
+#include "wfat_input.fh"
+#include "inp.fh"      
+      integer nelm
+      integer n0(nelm)
+      integer m0(nelm)
+      integer nqn0
+
+      character*4 nelm_str, n_str
+      character*5 afield
+      logical cond1, cond2
+      integer i, j, iqn, iqn1, iqn2, i_n, i_m
+      integer ifield
+      integer n0_(nelm), m0_(nelm)
+
+
+      logical wfat_check_invec
+      external wfat_check_invec
+
+
+
+      wfat_inp_paraqn = .false.
+
+      iqn = 1
+      i_n = 0
+c     ==== Loop for reading n quantum numbers ====
+      do i = 1, MAX_PARAQN_NFIELDS
+         
+         if (.not. inp_a(afield)) then
+            if (i_n .ne. 0) then
+               exit
+            else
+               call errquit('WFAT: No n-parabolic quantum '//
+     &              'number has been specified. Specify at '//
+     &              'least one n-quantum number using the '//
+     &              'format ''nx'' where ''x'' is zero or '//
+     &              'positive integer.',1, INPUT_ERR)
+            endif
+         endif
+
+         cond1 = (afield(1:1) == 'n')
+         cond2 = (verify(trim(adjustl(afield(2:NMAX_NFIELD))),
+     &           '0123456789') == 0)
+         if (cond1 .and. cond2) then
+            i_n = i_n + 1
+            read(afield(2:NMAX_NFIELD), NFIELD_FORM) n0_(i_n)
+
+            i_m = 0
+c           ==== Loop for reading m quantum numbers ====
+            do j = 1, MAX_PARAQN_MFIELDS
+               if (inp_i(ifield)) then
+                  i_m = i_m + 1
+                  m0_(i_m) = ifield
+               else
+                  if (i_m == 0)
+     &                 call errquit('WFAT: One n-parabolic quantum '//
+     &                 'number has no m-parabolic quantum numbers.',
+     &                 1, INPUT_ERR)
+                  exit
+               endif
+            enddo
+
+            iqn1 = iqn
+            iqn2 = iqn1 + i_m - 1
+            nqn0 = iqn2
+
+c     ==== Check duplicate in n ====
+            if (i_n > 1) then
+               if (wfat_check_invec(n0_(i_n), i_n-1, 
+     &              n0_(1:i_n-1)))
+     &              call errquit('WFAT: Two of the specified n- '//
+     &              'parabolic quantum numbers are identical. '//
+     &              'Each of the n-quantum numbers must occur '//
+     &              'only once.', 1, INPUT_ERR)
+            endif
+            n0(iqn1:iqn2) = n0_(i_n)
+
+c     ==== Check duplicate in m ====
+            if (i_m > 1) then
+               if (wfat_check_invec(m0_(i_m), i_m-1, 
+     &              m0_(1:i_m-1))) then
+                  write(n_str, '(i4)') n0(i_n)
+                  call errquit('WFAT: Two of the specified m-'//
+     &                 'parabolic quantum numbers that correspond to '//
+     &                 'n='//trim(adjustl(n_str))//' are identical. '//
+     &                 'Each of the m-quantum numbers for any given '//
+     &                 'n-quantum number must occur only once.',
+     &                 1, INPUT_ERR)
+               endif
+            endif
+            m0(iqn1:iqn2) = m0_(1:i_m)
+
+            
+            iqn = iqn + i_m
+            if (iqn > nelm) then
+               write(nelm_str, '(i4)')  nelm
+               call errquit('WFAT: The number of the specified '//
+     &              'parabolic quantum numbers exceeds limit, which '//
+     &              'is equal to '//nelm_str//'.', 1, INPUT_ERR)
+            endif
+         else
+            call errquit('WFAT: Wrong n-parabolic quantum number '//
+     &           'input format. The correct format is nx where x is '//
+     &           'zero or positive integer.', 1, INPUT_ERR)
+         endif
+
+      enddo
+
+      wfat_inp_paraqn = .true.
+      
+      end
+c=======================================================      
+      
+      
+cc=======================================================
+cc=======================================================
+c      subroutine wfat_process_input()
+c
+c      implicit none
+c
+c
+cc     ==== beta ====
+c      if (wfat_nbeta > 1) then
+c         dbt = (wfat_beta_last-wfat_beta_start) / (wfat_nbeta-1)
+c         do i = 1, wfat_nbeta
+c            wfat_beta(i) = wfat_beta_start + (i-1)*dbt
+c         enddo
+c      else
+c         wfat_beta(1) = wfat_beta_start
+c      endif
+c
+cc     ==== gamma ====
+c      if (wfat_ngamma > 1) then
+c         dgm = (wfat_gamma_last-wfat_gamma_start) / (wfat_ngamma-1)
+c         do i = 1, wfat_ngamma
+c            wfat_gamma(i) = wfat_gamma_start + (i-1)*dgm
+c         enddo
+c      else
+c         wfat_gamma(1) = wfat_gamma_start
+c      endif
+c
+cc     ==== orbid ====
+c      
+c      
+c      
+c
+c      end
+cc=======================================================
+     

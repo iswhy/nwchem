@@ -1,0 +1,21 @@
+
+      integer
+     &     rsgeom, rsbas
+
+      double precision
+     &     rschg
+
+      
+c     ==== Parameters ====
+      character*16
+     &     rstag, rsgeom_name, rsbas_name
+      
+      parameter
+     &     (rstag='x', rsgeom_name='wfat_rsgeom', 
+     &     rsbas_name='wfat_rsbas', rschg=0.0d0)
+      
+
+      common /wfat_range_separated/
+c     ---- Integers ----
+     &     rsgeom, rsbas
+      

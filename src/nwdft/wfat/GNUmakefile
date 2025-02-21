@@ -1,0 +1,151 @@
+# $Id$
+#
+
+	OBJ_OPTIMIZE =
+
+	OBJ=\
+	wfat_input.o \
+	wfat_process_input.o \
+	wfat_process_input0.o \
+	wfat_task.o \
+	wfat_prepare_task.o \
+	wfat_init.o \
+	wfat_init_test.o \
+	wfat_intgl_progress.o \
+	wfat_calc_intgl.o \
+	wfat_calc_structuref.o \
+	wfat_calc_an.o \
+	wfat_calc_ionyield.o \
+	wfat_calc_wfat1_rate.o \
+	wfat_calc_tmd.o \
+	wfat_calc_ti.o \
+	wfat_calc_td.o \
+	wfat_calc_ti_nopw.o \
+	wfat_intgl_io.o \
+	wfat_field_factor.o \
+	wfat_celf.o \
+	wfat_int_2e3c.o \
+	wfat_chypgeom.o \
+	wfat_chypgeom_u.o \
+	wfat_laguerre.o \
+	wfat_legendre.o \
+	wfat_lobatto.o \
+	wfat_density.o \
+	wfat_eval_basis.o \
+	wfat_eval_basis_slater.o \
+	wfat_grid.o \
+	wfat_lebedev.o \
+	wfat_omega.o \
+	wfat_omega_wfat1.o \
+	wfat_potential_calc.o \
+	wfat_potential_calc_asy.o \
+	wfat_potential.o \
+	wfat_potential_asy.o \
+	wfat_potential_rs.o \
+	wfat_dipole.o \
+	wfat_polarizability.o \
+	wfat_tools.o \
+	wfat_par_tools.o \
+	wfat_et_det.o \
+	wfat_test.o \
+	wfat_test2.o \
+	wfat_numdens.o \
+	wfat_degenerate.o \
+	wfat_orb_property.o \
+	wfat_mask.o \
+	wfat_eval_mo.o \
+	wfat_eval_vector.o \
+	wfat_eval_laser.o \
+	wfat_print.o \
+	wfat_print_sf.o \
+	wfat_print_srfc1.o \
+	wfat_print_rt.o \
+	wfat_print_iy.o \
+	wfat_print_tm.o \
+	wfat_print_tmar.o \
+	wfat_print_info.o \
+	wfat_print_dens.o \
+	wfat_print_integrals.o \
+	wfat_print_corb.o \
+	wfat_print_cube.o \
+	wfat_util.o \
+	wfat_geom.o \
+	wfat_orb_mulliken.o \
+	wfat_opvec_coef.o \
+	wfat_get_opmat.o \
+	wfat_get_fock.o \
+	wfat_perturb.o \
+	wfat_perturb_bw.o \
+	wfat_perturb_rs.o \
+	wfat_perturb_analyse.o \
+	wfat_perturb_print.o \
+	wfat_perturbnew_wfn.o \
+	wfat_partial_integ.o \
+	wfat_q_particular.o \
+	wfat_calc_d.o \
+	wfat_calc_q.o \
+	wfat_calc_o.o \
+	wfat_firstord_r.o \
+	wfat_calc_tau.o \
+	wfat_calc_phixi.o \
+	wfat_sumyield_lebedev.o \
+	wfat_2a1e_task.o \
+	wfat_2a1e.o \
+	wfat_2a1e_init.o \
+	wfat_2a1e_prepare.o \
+	wfat_2a1e_dipole.o \
+	wfat_2a1e_target.o \
+	wfat_2a1e_intgl.o \
+	wfat_2a1e_potential.o \
+	wfat_2a1e_perturb.o \
+	wfat_2a1efd.o \
+	wfat_2a1efd_prepare.o \
+	wfat_2a1efd_target.o \
+	wfat_2a1efd_dipole.o \
+	wfat_2a1efd_potential.o \
+	wfat_2a1efd_perturb.o \
+	wfat_2a1e_print.o \
+	wfat_2a1e_ti_nopw.o \
+	wfat_fedvr.o \
+	wfat_3j.o \
+	wfat_gaunt.o \
+	wfat_test_chg.o \
+	wfat_test_r1.o \
+	wfat_test_q.o \
+	wfat_test_phixi.o \
+	wfat_test_tau.o \
+	wfat_test_o.o \
+	wfat_test_erfc.o \
+	wfat_test_assocleg.o \
+	wfat_test_d2lag.o \
+	wfat_test_2a1e.o \
+	wfat_test_dvrr.o \
+	wfat_test_dvrt.o \
+	wfat_test_3j.o \
+	wfat_test_gaunt.o \
+	mewfat_task.o \
+	mewfat_init.o \
+	mewfat_print_info.o \
+	mewfat_need_input_v2.o \
+	mewfat_channel_property.o \
+	mewfat_calc_intgl.o \
+	mewfat_io_intgl.o \
+	mewfat_calc_detcoef.o \
+	mewfat_density.o \
+	mewfat_dfterg.o \
+	mewfat_eval_dyson.o \
+	mewfat_potential.o \
+	mewfat_potential_calc.o \
+	mewfat_dyson_print.o \
+	mewfat_calc_ti_nopw.o \
+	mewfat_dipdiag.o \
+	imam_test.o
+
+     LIBRARY = libnwdft.a
+
+LIB_INCLUDES = -I../include
+
+   USES_BLAS = wfat_tools.F
+
+include ../../config/makefile.h
+include ../../config/makelib.h

@@ -1,0 +1,55 @@
+
+General steps to add new inputs for the WFAT module:
+
+  1) In wfat_read_input subroutine, add
+        newinp_exist = .false.
+        newinp_stat = .false.
+
+  2) Inside the existing do while, add the input parsing lines. See examples there.
+
+  3) Head over to the wfat_process_input.F file. Inside the wfat_exist_input subroutine,
+     determine what to do when newinp is found or not found from the input file.
+     There are three parts to this: (i) existence checks, (2) format checks, and (3)
+     necessity checks.
+     
+  4) For the necessity checks, go to wfat_need_input and mewfat_need_input 
+     subroutines. In both of these subroutines, add the line
+        newinp_need = .false.
+     around the same location as the other similar lines (look into these routines).
+     
+  5) If newinp is needed when OE-WFAT is used, inside wfat_need_input, add the
+     following line
+        call wfat_need_input0(sr, rt, tmd, tmda, yi, avb, avg, newinp)
+     around the same location as the other similar lines (check on these routines).
+     Here sr, rt, tmd, tmda, yi, avb, and avg are logical type variables whose
+     value depends on whether newinp is needed when sr (structure factor),
+     rt (rate), tmd (transverse momentum), tmda (atom-resolved transverse momentum),
+     yi (yield), avb (beta-averaged yield), and avg (gamma-averaged yield) are
+     requested. On the other hand, if newinp is not needed when OE-WFAT is used,
+     do not add the above wfat_need_input0 line. Do the same as above inside
+     mewfat_need_input.
+     
+  6) Inside the wfat_sanity_input subroutine, add a checking mechanism to determine
+     if the supplied value for newinp make sense, e.g. if it has to be positive,
+     integer, etc. Some utility subroutines exists for this purpose, see examples
+     there.
+     
+  7) Inside the wfat_putrtdb_input subroutine, determine whether to put newinp into
+     the RTDB or not based on its necessity determined at step 3) above. In doing
+     this, also consider whether to put newinp into RTDB given the start type of the
+     job. For example, if newinp is to be added into RTDB only if it is needed and
+     the start type is one that starts from scratch (i.e. not restarted), then do
+     something like this line
+        if (newinp_need .and. os) then
+	   l = rtdb_put(rtdb, 'wfat:newinp', mt_dbl, 1, newinp))
+	   if (.not. l) call errquit('Error message', 10, UERR)
+        endif
+     where os is one of the outputs of util_get_rtdb_state routine called at the
+     beginning of the wfat_putrtdb_input routine that tells us if it is a start-
+     from-scratch job or not.
+     
+  8) Add the declaration of newinp, newinp_exist, newinp_stat, and newinp_need into
+     wfat_input.fh and include them under the wfat_input_var COMMON block. If newinp
+     is an optional input, then also add the declaration of the corresponding 
+     default value, say def_newinp, inside wfat_const.fh. Make def_newinp a
+     parameter.

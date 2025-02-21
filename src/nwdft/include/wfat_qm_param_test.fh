@@ -1,0 +1,20 @@
+
+
+c     ==== QM-related data, copied from other modules (e.g. dft, scf) ====
+      character*256
+     &     mov_in
+      
+      integer
+     &     bas_hd, nspin0, geom_hd, natm, nel(2), nelec0, g_mov(2)
+
+      double precision
+     &     zion
+      
+      common /wfat_qm/
+c     ---- Characters ----
+     &     mov_in,
+c     ---- Integers ----
+     &     bas_hd, nspin0, geom_hd, natm, nel, nelec0, g_mov,
+c     ---- Double precision ----
+     &     zion
+      

@@ -108,6 +108,22 @@ c
             operation = 'fcidump'
 c         else if (inp_compare(.false.,test,'prepare')) then
 c            operation = 'prepare'
+         else if (inp_compare(.false.,test,'wfat')) then
+            if (inp_a(test)) then
+               if (inp_compare(.false.,test,'oe')) then
+                  operation = 'oewfat'
+               else if (inp_compare(.false.,test,'me')) then
+                  operation = 'mewfat'
+               else
+                  call errquit('ERROR: Unknown WFAT task operation '//
+     &                 ''''//trim(adjustl(test))//'''. The available '//
+     &                 'options are ''oe'' or ''me''.',
+     &                 1, INPUT_ERR)
+               endif
+            else
+               operation = 'oewfat'
+            endif
+            call inp_prev_field()
          else if (inp_compare(.false.,test,'freq') .or.
      $            inp_compare(.false.,test,'frequencies')) then
             operation = 'freq'

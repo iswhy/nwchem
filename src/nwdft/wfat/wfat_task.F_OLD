@@ -1,0 +1,782 @@
+c===============================================================
+c===============================================================      
+      logical function task_wfat(rtdb)
+
+      implicit none
+#include "errquit.fh"
+#include "stdio.fh"
+#include "rtdb.fh"
+#include "global.fh"
+#include "msgids.fh"
+#include "mafdecls.fh"
+#include "wfat_qm_param.fh"      
+      integer rtdb
+
+      logical pr_srfc, pr_iony, pr_avbeta, pr_avgamma
+      logical pr_tmd, pr_tmd_atom
+      logical rtdb_stat, res_mode0, res_mode, os, oc, or, int_nosave
+      logical dd
+      character*32 theory
+      character*2 prtb_type
+      integer ndid, gqual, i, lmax, is
+      integer l_nd, l_or0, l_sp, l_or, l_npa, l_mpa, l_eg
+      integer l_ps, l_cmm, l_idp, l_in
+      integer k_nd, k_or0, k_sp, k_or, k_npa, k_mpa, k_eg
+      integer k_ps, k_cmm, k_idp, k_in
+      integer g_il
+      integer nch, nqn, nerg, ncpos, ncmm, niond, nsh, nintg, prtb_ord
+      double precision fieldmag, smh, prtb_bt, prtb_gm
+
+      logical task_mewfat
+      external task_mewfat
+      
+
+      ndid = ga_nodeid()
+
+      
+c     ==============================
+c     ==== Initiate WFAT module ====
+c     ==============================
+      call wfat_init(rtdb)
+      
+
+      res_mode = .false.
+
+      
+c     ==== Check whether the current theory is DFT ====
+      if(.not. rtdb_cget(rtdb,'wfat:theory',1,theory))
+     &     call errquit('WFAT: Error reading previous task theory '//
+     &     'from RTDB', 1, INPUT_ERR)
+      if (trim(adjustl(theory)) /= 'dft') then
+         write(luout, '("WFAT: ERROR!, theory = ", a)') trim(theory)
+         call errquit('      WFAT task operation is specified while '//
+     &        'the theory is not DFT. At the moment WFAT can only be '//
+     &        'used in conjunction with DFT to obtain the SCF-'//
+     &        'converged quantities such as molecular orbitals and '//
+     &        'effective potential. Thus terminating NWChem ...',
+     &        1, INPUT_ERR)
+      endif
+  
+
+c     ==== Task title ====
+      if (ndid == 0) then
+         write(luout, '(/)')
+         call util_print_centered(
+     &        luout, '--------------------------------', 40,
+     &        .false.)
+         call util_print_centered(
+     &        luout, '<<<<<< Entering WFAT task >>>>>>', 40,
+     &        .false.)
+         call util_print_centered(
+     &        luout, '--------------------------------', 40,
+     &        .false.)
+      endif
+
+
+c     ==== Checking the numerical density ====
+      if (.not. rtdb_get(rtdb, 'wfat:gqual', mt_int, 1, gqual))
+     &     call errquit('WFAT: Failed reading gqual from rtdb',
+     &     1, INPUT_ERR)
+      if (.not. MA_alloc_get(MT_DBL, 2, 'numden', l_nd, k_nd))
+     &     call errquit('WFAT: numden allocation failed', 59, MA_ERR)
+      call dfill(2, 0.0d0, dbl_mb(k_nd), 1)
+      call wfat_numdens(bas_hd, geom_hd, nspin0, gqual,
+     &        dbl_mb(k_nd : k_nd+1))
+      call ga_sync()
+      
+
+c     ==== Obtaining nch, the number of MO's ====
+      if (.not. rtdb_get(rtdb, 'wfat:n_orbid', mt_int, 1, nch))
+     &     call errquit('WFAT: Failed reading n_orbid from rtdb',
+     &     1, INPUT_ERR)
+
+      
+c     ==== Obtaining an array of MO ID's ====
+      if (.not. ma_alloc_get(MT_INT, nch, 'orbid0', l_or0, k_or0))
+     &     call errquit('WFAT: Failed allocating orbid0', 1, MA_ERR)
+      if (.not. rtdb_get(rtdb, 'wfat:orbid', mt_int, nch,
+     &     int_mb(k_or0)))
+     &     call errquit('WFAT: Failed reading orbid from rtdb',
+     &     1, INPUT_ERR)
+
+
+c     ==== Obtaining an array of spin ID's ====
+      if (.not. ma_alloc_get(MT_INT, nch, 'spinid', l_sp, k_sp))
+     &     call errquit('WFAT: Failed allocating spinid', 1, MA_ERR)
+      if (.not. rtdb_get(rtdb, 'wfat:spinid', mt_int, nch,
+     &     int_mb(k_sp)))
+     &     call errquit('WFAT: Failed reading spinid from rtdb',
+     &     1, INPUT_ERR)
+      
+
+c     ==== Constructing the MO ID array starting from 1 ====
+      if (.not. ma_alloc_get(MT_INT, nch, 'orbid', l_or, k_or))
+     &     call errquit('WFAT: Failed allocating orbid', 1, MA_ERR)
+      do i = 1, nch
+         is = int_mb(k_sp+i-1)
+         int_mb(k_or+i-1) = int_mb(k_or0+i-1) + nel(is)
+      enddo
+
+
+c     ==== Obtaining nqn, the number of parabolic quantum numbers ====
+      if (.not. rtdb_get(rtdb, 'wfat:n_npara', mt_int, 1, nqn))
+     &     call errquit('WFAT: Failed reading n_npara from rtdb',
+     &     1, INPUT_ERR)
+
+      
+c     ==== Obtaining n parabolic quantum numbers from RTDB ====
+      if (.not. ma_alloc_get(MT_INT, nqn, 'npara', l_npa, k_npa))
+     &     call errquit('WFAT: Failed allocating npara', 1, MA_ERR)
+      if (.not. rtdb_get(rtdb, 'wfat:npara', mt_int, nqn,
+     &     int_mb(k_npa)))
+     &     call errquit('WFAT: Failed reading npara from rtdb',
+     &     1, INPUT_ERR)
+
+
+c     ==== Obtaining m parabolic quantum numbers from RTDB ====
+      if (.not. ma_alloc_get(MT_INT, nqn, 'mpara', l_mpa, k_mpa))
+     &     call errquit('WFAT: Failed allocating mpara', 1, MA_ERR)    
+      if (.not. rtdb_get(rtdb, 'wfat:mpara', mt_int, nqn,
+     &     int_mb(k_mpa)))
+     &     call errquit('WFAT: Failed reading mpara from rtdb',
+     &     1, INPUT_ERR)
+
+
+c     ==== Check if research mode is enabled ====
+      if (rtdb_get(rtdb, 'wfat:res_mode', mt_log, 1, res_mode0)) then
+         res_mode = res_mode0
+         if (ndid==0) write(luout, 301)
+       endif
+ 301   format(/,
+     &      3x, '*** INFO ***', /,
+     &      5x, 'WFAT module is run in ''research mode''.')
+      
+
+c     ==== Obtaining print switches ====
+      if (.not. rtdb_get(rtdb, 'wfat:print_srfc', mt_log, 1, pr_srfc))
+     &     call errquit('WFAT: Failed reading print_srfc from rtdb',
+     &     1, RTDB_ERR)
+      if (.not. rtdb_get(rtdb, 'wfat:print_iony', mt_log, 1, pr_iony))
+     &     call errquit('WFAT: Failed reading print_iony from rtdb',
+     &     1, RTDB_ERR)
+      if (.not. rtdb_get(rtdb, 'wfat:print_avbeta', mt_log,
+     &     1, pr_avbeta))
+     &     call errquit('WFAT: Failed reading print_avbeta from rtdb',
+     &     1, RTDB_ERR)
+      if (.not. rtdb_get(rtdb, 'wfat:print_avgamma', mt_log,
+     &     1, pr_avgamma))
+     &     call errquit('WFAT: Failed reading print_avgamma from rtdb',
+     &     1, RTDB_ERR)
+      if (.not. rtdb_get(rtdb, 'wfat:print_tmd', mt_log, 1, pr_tmd))
+     &     call errquit('WFAT: Failed reading print_tmd from rtdb',
+     &     1, RTDB_ERR)
+      if (.not. rtdb_get(rtdb, 'wfat:print_tmd_atom', mt_log, 1,
+     &     pr_tmd_atom))
+     &     call errquit('WFAT: Failed reading print_tmd_atom from '//
+     &     'rtdb.', 1, RTDB_ERR)
+
+      
+c     ==== Obtaining field magnitude ====
+      if (pr_iony .or. pr_avbeta .or. pr_avgamma .or.
+     &     pr_tmd .or. pr_tmd_atom) then
+         if (.not. rtdb_get(rtdb, 'wfat:fieldmag', mt_dbl, 1,
+     &        fieldmag))
+     &        call errquit('WFAT: Failed reading fieldmag from rtdb',
+     &        1, INPUT_ERR)
+      else
+         fieldmag = 0.0d0
+      endif
+
+
+c     ==== Perturbation theory analysis ====
+      if (ndid == 0) then
+         write(luout, '(/)')
+         call util_print_centered(
+     &        luout, 'Perturbation Theory Analysis', 40,
+     &        .true.)
+      endif
+      
+      if (fieldmag <= 1.0d-14 .or.
+     &     .not. (pr_iony .or. pr_avbeta .or. pr_avgamma .or.
+     &     pr_tmd .or. pr_tmd_atom)) then
+         if (ndid == 0)
+     &        call wfat_perturb_noinfo()
+      else
+         if (.not. rtdb_get(rtdb, 'wfat:perturb_beta',
+     &        mt_dbl, 1, prtb_bt))
+     &        call errquit('WFAT: Cannot read perturb_beta',
+     &        1, RTDB_ERR)
+         if (.not. rtdb_get(rtdb, 'wfat:perturb_gamma',
+     &        mt_dbl, 1, prtb_gm))
+     &        call errquit('WFAT: Cannot read perturb_gamma',
+     &        1, RTDB_ERR)
+
+         call wfat_perturb_info(rtdb, prtb_bt, prtb_gm, fieldmag)
+         call wfat_dip_perturb(rtdb, prtb_bt, prtb_gm, fieldmag, nch,
+     &        int_mb(k_or), int_mb(k_sp), res_mode)
+      endif
+
+
+c     ==== Some tests ====
+c      call wfat_test_numerfexch(rtdb)
+      
+
+c     ==== Calculate (or load) WFAT integrals ====
+      nerg = nch
+      if (.not. MA_alloc_get(MT_DBL, nerg, 'erg', l_eg, k_eg))
+     &     call errquit('WFAT: erg allocation failed', 2, MA_ERR)
+      ncpos = 3 * nch
+      if (.not. MA_alloc_get(MT_DBL, ncpos, 'chpos', l_ps, k_ps))
+     &     call errquit('WFAT: chpos allocation failed', 59, MA_ERR)
+      ncmm = 3 * nch
+      if (.not. MA_alloc_get(MT_DBL, ncmm, 'chmmt', l_cmm, k_cmm))
+     &     call errquit('WFAT: chmmt allocation failed', 2, MA_ERR)
+      niond = 3 * nch
+      if (.not. ma_alloc_get(MT_DBL, niond, 'iondip', l_idp, k_idp))
+     &     call errquit('WFAT: iondip allocation failed', 1, MA_ERR)
+      if (.not. rtdb_get(rtdb, 'wfat:lmax', mt_int, 1, lmax))
+     &     call errquit('WFAT: Failed reading lmax from rtdb',
+     &     1, INPUT_ERR)
+      nsh = (1 + lmax)**2
+      nintg = nsh * natm * nqn * nch
+      if (.not. ga_create(mt_dcpl, nintg, 1, 'intgl', 0, 0, g_il))
+     &     call errquit('WFAT: Cannot create intgl global array.',
+     &     1, GA_ERR)
+      call ga_zero(g_il)
+
+
+c     ==== ME-WFAT ====
+      call wfat_test_dtrm(rtdb, geom_hd, bas_hd, nbas0, nspin0, nel, 
+     &                   g_mov, dbl_mb(k_moerg), tol2e, oskel, ixcfit,
+     &                   iolgc)
+cc      dd = task_mewfat(rtdb)
+      
+      
+      smh = 0.0d0
+      call util_get_rtdb_state(rtdb, os, oc, or)
+      if (os .and. .not. or) then
+c        ==== Calculate WFAT integrals on 'start' startup mode ====
+         call wfat_calc_intgl(rtdb, nch, int_mb(k_or), int_mb(k_sp),
+     &                        nqn, int_mb(k_npa), int_mb(k_mpa),
+     &                        lmax, gqual, smh, res_mode, dbl_mb(k_eg), 
+     &                        dbl_mb(k_ps), dbl_mb(k_cmm),
+     &                        dbl_mb(k_idp), g_il)
+c        ==== Binary-print the integrals freshly calculated ====
+         if (.not. rtdb_get(rtdb, 'wfat:intgl_nosave', mt_log, 1,
+     &        int_nosave))
+     &        call errquit('WFAT: Cannot read intgl_nosave from RTDB',
+     &        1, RTDB_ERR)    
+         if (ndid == 0 .and. .not. int_nosave) then
+            call wfat_store_intgl(rtdb, nsh, natm, nqn, nch,
+     &           dbl_mb(k_eg), dbl_mb(k_ps), dbl_mb(k_cmm),
+     &           dbl_mb(k_idp), g_il)
+         else if (ndid == 0 .and. int_nosave) then
+            write(luout, '("ATTENTION: WFAT integrals are not saved.")')
+         endif
+      else if (.not. os .and. or) then
+c        ==== Binary-load WFAT integrals on 'restart' startup mode ====
+         if (ndid == 0) then
+            call wfat_load_intgl(rtdb, nsh, natm, nqn, nch,
+     &           dbl_mb(k_eg), dbl_mb(k_ps), dbl_mb(k_cmm),
+     &           dbl_mb(k_idp), g_il)
+            call wfat_print_orb_property(nch, int_mb(k_or), 
+     &           int_mb(k_sp), dbl_mb(k_eg), dbl_mb(k_ps),
+     &           dbl_mb(k_cmm), dbl_mb(k_idp))
+         endif
+         call ga_sync()
+         
+         call ga_brdcst(msg_wfat_eg, dbl_mb(k_eg),
+     &                  ma_sizeof(MT_DBL, nch, MT_BYTE), 0)
+         call ga_brdcst(msg_wfat_cmm, dbl_mb(k_cmm),
+     &                  ma_sizeof(MT_DBL, 3*nch, MT_BYTE), 0)
+      else
+         call errquit('WFAT: WFAT module requires the startup '//
+     &        'directive to be either ''start'' or ''restart''.',
+     &        1, UERR)
+      endif      
+
+      
+      if (ndid == 0) then
+         rtdb_stat = rtdb_parallel(.false.)
+         if (.not. MA_alloc_get(MT_DCPL, nintg, 'intgl', l_in, k_in))
+     &        call errquit('WFAT: Cannot allocate intgl.', 2, MA_ERR)
+         call ga_get(g_il, 1, nintg, 1, 1, dcpl_mb(k_in), nintg)
+
+
+c        ============================================================
+c        ==== Calculate and print structure factor and ion yield ====
+c        ============================================================
+         if (pr_srfc .or. pr_iony .or. pr_avbeta .or. pr_avgamma)
+     &        call wfat_calcprint_srfc_iony(rtdb, pr_srfc, pr_iony, 
+     &        pr_avbeta, pr_avgamma, fieldmag, nch, int_mb(k_or0), 
+     &        int_mb(k_sp), dbl_mb(k_eg), dbl_mb(k_cmm), nqn, 
+     &        int_mb(k_npa), int_mb(k_mpa), lmax, dcpl_mb(k_in))
+         
+         
+c        =================================
+c        ==== Calculate and print TMD ====
+c        =================================
+         if (pr_tmd .or. pr_tmd_atom) 
+     &        call wfat_calcprint_tmd(rtdb, pr_tmd, pr_tmd_atom, 
+     &        fieldmag, nch, int_mb(k_or0), int_mb(k_sp), dbl_mb(k_eg), 
+     &        dbl_mb(k_cmm), nqn, int_mb(k_npa), int_mb(k_mpa), lmax,
+     &        dcpl_mb(k_in), res_mode)
+
+
+         if (.not. MA_free_heap(l_in))
+     &        call errquit('WFAT: intgl deallocation failed', 3, MA_ERR)
+         rtdb_stat = rtdb_parallel(.true.)
+      endif
+      
+
+c     ==== Deallocations ====
+      if (.not. MA_free_heap(l_nd))
+     &     call errquit('WFAT: numden deallocation failed',
+     &     3, MA_ERR)
+      if (.not. MA_free_heap(l_or0))
+     &     call errquit('WFAT: orbid0 deallocation failed',
+     &     3, MA_ERR)
+      if (.not. MA_free_heap(l_sp))
+     &     call errquit('WFAT: spinid deallocation failed',
+     &     3, MA_ERR)
+      if (.not. MA_free_heap(l_or))
+     &     call errquit('WFAT: orbid deallocation failed',
+     &     3, MA_ERR)
+      if (.not. MA_free_heap(l_npa))
+     &     call errquit('WFAT: npara deallocation failed',
+     &     3, MA_ERR)
+      if (.not. MA_free_heap(l_mpa))
+     &     call errquit('WFAT: mpara deallocation failed',
+     &     3, MA_ERR)
+      if (.not. MA_free_heap(l_eg))
+     &     call errquit('WFAT: erg deallocation failed',
+     &     3, MA_ERR)
+      if (.not. MA_free_heap(l_ps))
+     &     call errquit('WFAT: chpos deallocation failed',
+     &     61, MA_ERR)
+      if (.not. MA_free_heap(l_cmm))
+     &     call errquit('WFAT: chmmt deallocation failed',
+     &     3, MA_ERR)
+      if (.not. ma_free_heap(l_idp))
+     &     call errquit('WFAT: Deallocating iondip failed', 2, MA_ERR)
+      if (.not. ga_destroy(g_il))
+     &     call errquit('WFAT: Cannot destroy intgl.', 1, GA_ERR)
+
+
+
+      call wfat_terminate(rtdb)
+
+
+cforCHECK      if (.not. rtdb_print(rtdb, .false.))
+cforCHECK     &     call errquit('WFAT: Cannot print RTDB.', 1, RTDB_ERR)
+
+      
+      task_wfat = .true.
+      if (ndid == 0) then
+         write(luout, '(/, 3x, "*** INFO ***")')
+         write(luout, '(5x, "WFAT task successfully carried out")')
+         write(luout, '(/)')
+         call util_print_centered(
+     &        luout, '-------------------------------', 40,
+     &        .false.)
+         call util_print_centered(
+     &        luout, '<<<<<< Exiting WFAT task >>>>>>', 40,
+     &        .false.)
+         call util_print_centered(
+     &        luout, '-------------------------------', 40,
+     &        .false.)
+      endif
+      
+      end
+c===============================================================
+
+
+c===============================================================
+c===============================================================
+      subroutine wfat_calcprint_srfc_iony(rtdb, pr_srfc, pr_iony, 
+     &           pr_avbeta, pr_avgamma, ef, nch, orbid0, spinid, erg, 
+     &           chmmt, nqn, nid, mid, lmax, intgl)
+      
+      implicit none
+#include "global.fh"      
+#include "errquit.fh"
+#include "stdio.fh"
+#include "mafdecls.fh"
+#include "rtdb.fh"
+#include "wfat_qm_param.fh"      
+      integer rtdb                    ! [input]
+      logical pr_srfc                 ! [input], if .true. then print structure factor.
+      logical pr_iony                 ! [input], if .true. then print ion yield.
+      logical pr_avbeta               ! [input], if .true. then print beta-averaged ion yield.
+      logical pr_avgamma              ! [input], if .true. then print gamma-averaged ion yield.
+      double precision ef             ! [input], field magnitude. Only used when pr_iony=.true..
+      integer nch                     ! [input], number of ionized channels.
+      integer orbid0(nch)             ! [input], orbital ID of ionized channels.
+      integer spinid(nch)             ! [input], spin value (1 or 2) of ionized channels.
+      double precision erg(nch)       ! [input]
+      double precision chmmt(3, nch)  ! [input]
+      integer nqn                     ! [input]
+      integer nid(nqn)                ! [input]
+      integer mid(nqn)                ! [input]
+      integer lmax                    ! [input]
+      double complex intgl(1:*)       ! [input]
+
+      logical gap
+      integer nsf, nfc, niy, nbt, ngm
+      integer ib, ig, ndid
+      integer l_sf, l_fc, l_iy, l_aiy
+      integer k_sf, k_fc, k_iy, k_aiy
+      double precision bt_start, bt_last, dbt, dbtr, bt
+      double precision gm_start, gm_last, dgm, dgmr, gm
+      double precision ionyd, a_ionyd
+      double precision deg2rad, pi_const
+
+      parameter (deg2rad = 0.01745329251994d0)
+      parameter (pi_const = 3.14159265359d0)
+
+
+      ndid = ga_nodeid()
+      if (ndid /= 0) return
+
+
+
+c     ==== Obtaining info on beta ====
+      if (.not. rtdb_get(rtdb, 'wfat:beta_start', mt_dbl, 1,
+     &     bt_start))
+     &     call errquit('WFAT: Failed reading beta_start from rtdb',
+     &     1, INPUT_ERR)
+      if (.not. rtdb_get(rtdb, 'wfat:beta_last', mt_dbl, 1,
+     &     bt_last))
+     &     call errquit('WFAT: Failed reading beta_last from rtdb',
+     &     1, INPUT_ERR)
+      if (.not. rtdb_get(rtdb, 'wfat:nbeta', mt_int, 1, nbt))
+     &     call errquit('WFAT: Failed reading nbeta from rtdb',
+     &     1, INPUT_ERR)
+
+      if (nbt > 1) then
+         dbt = (bt_last - bt_start) / (nbt - 1)
+      else
+         dbt = 0.0d0
+      endif
+      dbtr = dbt * deg2rad
+
+
+c     ==== Obtaining info on gamma ====
+      if (.not. rtdb_get(rtdb, 'wfat:gamma_start', mt_dbl, 1,
+     &     gm_start))
+     &     call errquit('WFAT: Failed reading gamma_start from rtdb',
+     &     1, INPUT_ERR)
+      if (.not. rtdb_get(rtdb, 'wfat:gamma_last', mt_dbl, 1,
+     &     gm_last))
+     &     call errquit('WFAT: Failed reading gamma_last from rtdb',
+     &     1, INPUT_ERR)
+      if (.not. rtdb_get(rtdb, 'wfat:ngamma', mt_int, 1, ngm))
+     &     call errquit('WFAT: Failed reading ngamma from rtdb',
+     &     1, INPUT_ERR)
+
+      if (ngm > 1) then
+         dgm = (gm_last - gm_start) / (ngm - 1)
+      else
+         dgm = 0.0d0
+      endif
+      dgmr = dgm * deg2rad
+
+      
+c     ==== Allocation of structure factors and ion yields ====
+      nsf = natm * nqn * nch
+      if (.not. MA_alloc_get(MT_DCPL, nsf, 'srfc', l_sf, k_sf))
+     &     call errquit('WFAT: srfc allocation failed', 2, MA_ERR)
+      nfc = nqn * nch
+      if (.not. MA_alloc_get(MT_DBL, nfc, 'ffc', l_fc, k_fc))
+     &     call errquit('WFAT: ffc allocation failed', 2, MA_ERR)
+      niy = nqn * nch
+      if (.not. MA_alloc_get(MT_DBL, niy, 'p_ionyd', l_iy, k_iy))
+     &     call errquit('WFAT: p_ionyd allocation failed', 2, MA_ERR)
+      if (pr_avbeta .or. pr_avgamma) then
+         if (.not. MA_alloc_get(MT_DBL, niy, 'p_aionyd', l_aiy, k_aiy))
+     &        call errquit('WFAT: p_aionyd allocation failed',
+     &        2, MA_ERR)
+      endif
+      
+
+      
+c     ==== Initializing the printings ====
+      if (ndid == 0 .and. pr_srfc)
+     &     call wfat_initprint_structuref(nch, orbid0,
+     &          spinid, nqn, nid, mid) 
+      if (ndid == 0 .and. pr_iony)
+     &     call wfat_initprint_ionyield(nch, orbid0, 
+     &          spinid, nqn, nid, mid)
+      if (ndid == 0 .and. pr_avbeta) 
+     &     call wfat_initprint_avbeta(nch, orbid0,
+     &          spinid, nqn, nid, mid)
+      
+      
+c     ==== Calculate and print structure factor and ion yield ====
+      do ig = 1, ngm
+         gm = gm_start + dgm*(ig-1)
+         if (pr_iony .and. pr_avbeta) then
+            dbl_mb(k_aiy:k_aiy+niy-1) = 0.0d0
+            a_ionyd = 0.0d0
+         endif
+         
+         do ib = 1, nbt
+            bt = bt_start + dbt*(ib-1)
+
+            if (ib /= nbt) then
+               gap = .false.
+            else
+               gap = .true.
+            endif
+            
+            if (pr_srfc .or. pr_iony .or. pr_avbeta) then
+c              ==== Calculate structure factor ====
+               call wfat_calc_structuref(bt, gm, nch, erg,
+     &              nqn, mid, lmax, chmmt, intgl, dcpl_mb(k_sf))
+
+c              ==== Print structure factor ====
+               if (ndid == 0 .and. pr_srfc)
+     &              call wfat_print_structuref(bt, gm, nch, nqn,
+     &                                         dcpl_mb(k_sf), gap)
+            endif
+
+            if (pr_iony .or. pr_avbeta) then
+c              ==== Calculate ion yield ====
+               call wfat_calc_ionyield(ef, nch, erg,
+     &              nqn, nid, mid, dcpl_mb(k_sf), dbl_mb(k_fc), 
+     &              dbl_mb(k_iy), ionyd)
+
+c              ==== Print ion yield ====
+               if (ndid == 0 .and. pr_iony)
+     &              call wfat_print_ionyield(bt, gm, nch, nqn, 
+     &                                       dbl_mb(k_iy), ionyd, gap)
+
+c              ==== Calculate beta-averaged ion yield ====
+               if (pr_avbeta) then
+                  dbl_mb(k_aiy:k_aiy+niy-1) = dbl_mb(k_aiy:k_aiy+niy-1)
+     &                 + dbl_mb(k_iy:k_iy+niy-1) * dbtr *
+     &                 sin(bt*deg2rad) / 2
+                  a_ionyd = a_ionyd + ionyd * dbtr * sin(bt*deg2rad) / 2
+               endif
+            endif
+            
+         enddo
+
+c        ==== Print beta-averaged ion yield ====
+         if (ndid == 0 .and. pr_avbeta) 
+     &        call wfat_print_avbeta(gm, nch, nqn, dbl_mb(k_aiy),
+     &                               a_ionyd)
+         
+      enddo
+
+
+c     ==== Initializing the printings ====
+      if (ndid == 0 .and. pr_avgamma) 
+     &     call wfat_initprint_avgamma(nch, orbid0,
+     &          spinid, nqn, nid, mid)
+
+      
+c     ==== Calculate gamma-averaged ion yield ====
+      if (pr_avgamma) then
+
+         do ib = 1, nbt
+            bt = bt_start + dbt*(ib-1)            
+            dbl_mb(k_aiy:k_aiy+niy-1) = 0.0d0
+            a_ionyd = 0.0d0
+
+            do ig = 1, ngm
+               gm = gm_start + dgm*(ig-1)
+
+c              ==== Calculate structure factor ====
+               call wfat_calc_structuref(bt, gm, nch, erg,
+     &              nqn, mid, lmax, chmmt, intgl, dcpl_mb(k_sf))
+
+c              ==== Calculate ion yield ====               
+               call wfat_calc_ionyield(ef, nch, erg,
+     &              nqn, nid, mid, dcpl_mb(k_sf), dbl_mb(k_fc), 
+     &              dbl_mb(k_iy), ionyd)
+
+               dbl_mb(k_aiy:k_aiy+niy-1) = dbl_mb(k_aiy:k_aiy+niy-1) +
+     &                         dbl_mb(k_iy:k_iy+niy-1) * dgmr /
+     &                         2.0d0 / pi_const
+               a_ionyd = a_ionyd + ionyd * dgmr / 2.0d0 / pi_const
+               
+            enddo
+
+            if (ndid == 0)
+     &           call wfat_print_avgamma(bt, nch, nqn, dbl_mb(k_aiy),
+     &                                   a_ionyd)            
+         enddo
+
+      endif
+      
+
+c     ==== Terminating printings ====      
+      if (ndid==0 .and. pr_srfc) call wfat_endprint_structuref()
+      if (ndid==0 .and. pr_iony) call wfat_endprint_ionyield()
+      if (ndid==0 .and. pr_avbeta) call wfat_endprint_avbeta()
+      if (ndid==0 .and. pr_avgamma) call wfat_endprint_avgamma()
+
+      
+c     ==== Deallocations ====
+      if (.not. MA_free_heap(l_sf))
+     &     call errquit('WFAT: srfc deallocation failed',
+     &     3, MA_ERR)
+      if (.not. MA_free_heap(l_fc))
+     &     call errquit('WFAT: ffc deallocation failed',
+     &     3, MA_ERR)
+      if (.not. MA_free_heap(l_iy))
+     &     call errquit('WFAT: p_ionyd deallocation failed',
+     &     3, MA_ERR)
+      if (pr_avgamma .or. pr_avbeta) then
+         if (.not. MA_free_heap(l_aiy))
+     &        call errquit('WFAT: p_aionyd deallocation failed',
+     &        3, MA_ERR)
+      endif      
+
+      end
+c===============================================================
+
+
+c===============================================================
+c===============================================================
+      subroutine wfat_calcprint_tmd(rtdb, pr_tmd, pr_tmd_atom, ef, nch, 
+     &           orbid0, spinid, erg, chmmt, nqn, nid, mid, lmax, intgl,
+     &           rmode)
+      
+      implicit none
+#include "global.fh"      
+#include "errquit.fh"
+#include "stdio.fh"
+#include "mafdecls.fh"
+#include "rtdb.fh"
+#include "wfat_qm_param.fh"            
+      integer rtdb
+      logical pr_tmd
+      logical pr_tmd_atom
+      double precision ef
+      integer nch
+      integer orbid0(nch)
+      integer spinid(nch)
+      double precision erg(nch)
+      double precision chmmt(3, nch)
+      integer nqn
+      integer nid(nqn)
+      integer mid(nqn)
+      integer lmax
+      double complex intgl(1:*)
+      logical rmode
+
+      logical gap
+      integer ix, iy, ndid
+      integer nsf, ntmd, nktmd, ntms
+      integer l_sf, l_tm, l_tms
+      integer k_sf, k_tm, k_tms
+      double precision kx, ky, kmax, dk, bt_tmd, gm_tmd
+
+
+      ndid = ga_nodeid()
+      if (ndid /= 0) return
+
+      
+c     ==== Obtaining beta and gamma ====
+      if (.not. rtdb_get(rtdb, 'wfat:beta_tmd', mt_dbl, 1, bt_tmd))
+     &     call errquit('WFAT: Failed reading bt_tmd from rtdb',
+     &     1, INPUT_ERR)
+      if (.not. rtdb_get(rtdb, 'wfat:gamma_tmd', mt_dbl, 1, gm_tmd))
+     &     call errquit('WFAT: Failed reading gm_tmd from rtdb',
+     &     1, INPUT_ERR)
+
+      
+c     ==== Allocation of structure factors and TMD ====      
+      nsf = natm * nqn * nch
+      if (.not. MA_alloc_get(MT_DCPL, nsf, 'srfc', l_sf, k_sf))
+     &     call errquit('WFAT: srfc allocation failed', 2, MA_ERR)
+      call wfat_calc_structuref(bt_tmd, gm_tmd, nch, erg,
+     &                          nqn, mid, lmax, chmmt, intgl,
+     &                          dcpl_mb(k_sf))
+      ntmd = natm * nch
+      if (.not. MA_alloc_get(MT_DCPL, ntmd, 'tmd', l_tm, k_tm))
+     &     call errquit('WFAT: tmd allocation failed', 2, MA_ERR)
+      ntms = natm * nch
+      if (.not. MA_alloc_get(MT_DBL, ntmd, 'tmd_ksum', l_tms, k_tms))
+     &     call errquit('WFAT: tmd_ksum allocation failed', 2, MA_ERR)
+
+      
+c     ==== Calculating max. momentum to calculate the TMD at ====
+      call wfat_get_kmax(ef, nch, erg, nqn, nid, mid, kmax)
+      if (.not. rtdb_get(rtdb, 'wfat:nktmd', mt_int, 1, nktmd))
+     &     call errquit('WFAT: Failed reading nktmd from rtdb',
+     &     1, RTDB_ERR)
+      dk = 2 * kmax / (nktmd - 1)
+      write(luout, '(/, 3x, "*** INFO ***")')
+      write(luout, '(5x, "Max. transverse momentum = ", e14.6, '//
+     &      '" rad/Bohr")') kmax
+
+
+c     ==== Initializing the printings ====      
+      if (ndid==0 .and. pr_tmd) call wfat_initprint_tmd(nch, orbid0,
+     &                                  spinid)
+      if (ndid==0 .and. pr_tmd_atom) call wfat_initprint_tmdar(nch, 
+     &                                       natm, orbid0, spinid)
+
+
+c     ==== Calculate the TMDs ====
+      dbl_mb(k_tms:k_tms+ntms-1) = 0.0d0
+      ky = -kmax
+      do iy = 1, nktmd
+         kx = -kmax
+         do ix = 1, nktmd
+
+            if (ix /= nktmd) then
+               gap = .false.
+            else
+               gap = .true.
+            endif
+            call wfat_calc_tmd(kx, ky, nch, erg, nqn, nid, mid,
+     &                         ef, dcpl_mb(k_sf), dcpl_mb(k_tm))
+            
+            if (ndid == 0) then
+               if (pr_tmd) call wfat_print_tmd(kx, ky, nch,
+     &                          dcpl_mb(k_tm), gap)
+               if (pr_tmd_atom) call wfat_print_tmdar(kx, ky, nch,
+     &                               natm, dcpl_mb(k_tm), gap)
+            endif
+
+            if (pr_tmd_atom .and. rmode)
+     &           dbl_mb(k_tms:k_tms+ntms-1) = dbl_mb(k_tms:k_tms+ntms-1)
+     &                              + abs(dcpl_mb(k_tm:k_tm+ntmd-1))
+
+            kx = kx + dk
+         enddo
+         ky = ky + dk
+      enddo
+
+
+      if (pr_tmd_atom .and. rmode .and. ndid==0) then
+         dbl_mb(k_tms:k_tms+ntms-1) = dbl_mb(k_tms:k_tms+ntms-1)*dk**2
+         call wfat_print_tms(geom_hd, nch, natm, dbl_mb(k_tms))
+      endif
+
+      
+c     ==== Terminating printings ====
+      if (ndid==0 .and. pr_tmd) call wfat_endprint_tmd()
+      if (ndid==0 .and. pr_tmd_atom) call wfat_endprint_tmdar()
+      
+
+c     ==== Deallocations ====
+      if (.not. MA_free_heap(l_sf))
+     &     call errquit('WFAT: srfc deallocation failed',
+     &     3, MA_ERR)
+      if (.not. MA_free_heap(l_tm))
+     &     call errquit('WFAT: tmd deallocation failed',
+     &     3, MA_ERR)
+      if (.not. MA_free_heap(l_tms))
+     &     call errquit('WFAT: tmd_ksum deallocation failed',
+     &     3, MA_ERR)
+
+
+
+      
+      end
+c===============================================================
