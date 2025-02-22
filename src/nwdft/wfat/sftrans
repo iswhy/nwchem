@@ -1,0 +1,245 @@
+#! /usr/bin/env python
+
+import sys
+import numpy as np
+from contextlib import ExitStack
+
+'''
+>> sftrans <<
+
+This program computes the structure factors due to linearly transformed states given
+the structure factor files due to the old states and the matrix elements of the
+unitary transformation at each orientation angle. The structure factors due to the
+old states must be in separate files, each containing structure factor of an old
+state. The orientation angles among all files: old structure factor files and the
+transformation matrix file, must be consistent.
+
+To use this program, prepare an input file, e.g., named input.txt, that contains
+three keywords each followed by a colon, then followed by the value of the keyword.
+
+  prefix : <prefix of the output structure factor file>
+  oldsrf : <paths of structure factor files of the old states separated by spaces>
+  transm : <path to the transformation matrix file>
+
+Then run 
+
+  /path/to/sftrans input.txt
+
+Note that the input file name has no restrictions. Replace /path/to with the 
+actual path leading to the sftrans executable. The file specified for transm must 
+contain lines of the form,
+
+  beta1 gamma1 u1_{11} u1_{21} u1_{12} u1_{22}
+  beta2 gamma2 u2_{11} u2_{21} u2_{12} u2_{22}
+  ...
+
+assuming a space of two states. u_{ij} is the (ij)-th element of the unitary 
+transformation matrix at the orientation angle (beta,gamma) specified in the same
+row. i and j are the indices of the old and transformed states, respectively. The
+first row of the transformation matrix file cannot be blank.
+
+Example of a valid input file:
+
+  prefix : CH3F
+  oldsrf : ./CH3F.degen1/CH3F.wfats ./CH3F.degen2/CH3F.wfats
+  transm : ./CH3F.wfatd
+
+The number of beta and gamma orientation angles must be the same across 
+./CH3F.degen1/CH3F.wfats, ./CH3F.degen2/CH3F.wfats, and ./CH3F.wfatd. Omitting the
+header lines in the two *.wfats files, wherever there is a blank line in one of 
+the three files, the corresponding blank line must be present in the other files.
+'''
+
+
+#########################################################
+def read_keyword(lines, keyword, delim=":"):
+    for line in lines:
+        # parse input, assign values to variables
+        if len(line.strip()) == 0:
+            continue
+        key, value = line.split(delim)
+        if key.strip() == keyword: 
+            return value.strip()
+    return 'NotFound'
+#########################################################
+
+
+#########################################################
+def throw_error(keyword):
+    raise ValueError('Input keyword \'%s\' is not found.' % keyword)
+#########################################################
+
+
+#########################################################
+def colnumber(start, line):
+    '''
+    Print column numbers.
+    '''
+    
+    lineo = line      # lineo is output line.
+    linex = line.split()
+    istart = start
+    for i in range(1, len(linex), 2):
+        #==== Old column number ====#
+        col_old = linex[i-1] + ' ' + linex[i]
+        old_start = line.index(col_old)
+        old_end = old_start + len(col_old) - 1
+
+        #==== New column number ====#
+        col_new = 'col. #' + str(istart)
+        new_start = old_end - len(col_new) + 1
+
+        #==== Replacement ====#
+        if len(col_old) > len(col_new):
+            liner = lineo[old_start:].replace(col_old, col_new.rjust(len(col_old)))
+            lineo = lineo[0:old_start] + liner
+        else:
+            liner = lineo[new_start:].replace(col_old.rjust(len(col_new)), col_new)
+            lineo = lineo[0:new_start] + liner
+        istart += 1
+
+    return lineo
+#########################################################
+
+
+#########################################################
+def colstate(istate, line):
+    '''
+    Print state numbers.
+    '''
+    
+    lineo = line
+    linex = line.split()
+
+    #==== New state number ====#
+    col_new = 'state #' + str(istate)
+    for i in range(0, len(linex)):
+        #==== Old state number ====#
+        col_old = linex[i]
+        old_start = line.index(col_old)
+        old_end = old_start + len(col_old) - 1
+
+        new_start = old_end - len(col_new) + 1
+
+        #==== Replacement ====#
+        if len(col_old) > len(col_new):
+            liner = lineo[old_start:].replace(col_old, col_new.rjust(len(col_old)))
+            lineo = lineo[0:old_start] + liner
+        else:
+            liner = lineo[new_start:].replace(col_old.rjust(len(col_new)), col_new)
+            lineo = lineo[0:new_start] + liner
+
+    return lineo
+#########################################################
+
+
+#########################################################
+
+#==== Open input file ====#
+inputs = {}
+f = open(str(sys.argv[1]))
+data = f.readlines()
+f.close()
+
+
+#==== Parse keywords ====#
+inputs['prefix'] = read_keyword(data, 'prefix')
+if inputs['prefix'] == 'NotFound': throw_error('prefix')
+    
+inputs['oldsrf'] = read_keyword(data, 'oldsrf').split()
+if inputs['oldsrf'] == 'NotFound': throw_error('oldsrf')
+
+inputs['transm'] = read_keyword(data, 'transm')
+if inputs['transm'] == 'NotFound': throw_error('transm')
+
+
+#==== Output structure factor filename ====#
+oname = inputs['prefix'] + '.wfats'
+
+
+with ExitStack() as stack:
+    files = [stack.enter_context(open(fname, 'r')) for fname in [inputs['transm']] +
+             inputs['oldsrf']] + \
+        [stack.enter_context(open(oname, 'w'))]
+    # files = [transform_file  wfats_file1 ... wfats_fileN  output_wfats_file]
+    idiag = 0
+    iout = len(files) - 1
+    nstates = len(files) - 2
+    
+    #==== Reading header ====#
+    for i in range(0,6):    # Loop over header lines.
+        colstart = 3
+        for j in range(1,len(files)-1):    # Loop over degenerate state's *.wfats files.
+            line = files[j].readline()
+            if j == 1: files[iout].write(line[0:31])    # 0:31 is the space for orientation angles.
+
+            #==== Print headers ====#
+            if i == 0 or i == 5:
+                g = -1
+            else:
+                g = -2
+            if i == 1:
+                pline = colnumber(colstart, line[31:g])
+                colstart += round(len(pline.split()) / 2)
+            elif i == 2:
+                pline = colstate(j, line[31:g])
+            else:
+                pline = line[31:g]
+            files[iout].write(pline)
+            # For some reason, NWChem's WFAT module prints the header line in
+            # a way that some lines have a white space at the end of the line.
+            # These are the column number, title, quantum number, and complex
+            # components have a white space.
+            if j == len(files)-2: files[iout].write('\n')
+
+    while True:        # Loop over orientation angles (lines of the data portion of *.wfats files).
+        #==== Reading transform. matrix ====#
+        dline = files[idiag].readline()    # dline stores a line in the diagonalization file.
+        if not dline: break
+        ddata = dline.split()[2:]
+        words = [files[j].readline().split() for j in range(1,len(files)-1)]
+        blanks = np.array([len(ddata) == 0] + [len(w) == 0 for w in words])
+        # blanks is an array of True's or False's.
+        if len(blanks[blanks]) > 0 and len(blanks[~blanks]) > 0:
+            raise ValueError('When a line is blank in one of the diagonalization ' + \
+                             'file or *.wfats files, the corresponding lines in ' + \
+                             'the other files must also be blank.')
+        else:
+            if all(blanks):
+                files[iout].write('\n')
+                continue
+
+        #==== Transformation matrix (from diagonalization) ====#
+        usize = ( int(round(np.sqrt(len(ddata)))), int(round(np.sqrt(len(ddata)))) )
+        u = np.reshape( np.array([float(s) for s in ddata]), usize )
+        # u is a square matrix whose rows index the transformed states while
+        # its columns index the old states.
+
+        #==== Reading structure factor data ====#
+        srdata = []
+        for j in range(0,len(words)):   # Loop over degenerate state's *.wfats files.
+            if j == 1: angles = words[j][0:2]
+            srfc = words[j][2:]
+            srl = []
+            for k in range(0, len(srfc), 3):    # Loop over parabolic quantum numbers.
+                srl += [complex(float(srfc[k]), float(srfc[k+1]))]
+            srdata += [srl]
+        srdata = np.array(srdata)
+        # srdata is a mxn array where m is the number of nondiagonalizing Slater
+        # determinants while n is the number of parabolic channels.
+
+        srdiag = u @ srdata
+        
+        #==== Print to output ====#
+        files[iout].write('     %s    %s' % (angles[0], angles[1]))
+        for j in range(0, srdiag.shape[0]):
+            files[iout].write('      ')
+            for k in range(0, srdiag.shape[1]):
+                files[iout].write('   ')
+                
+                files[iout].write('%15.6E' % srdiag[j,k].real)
+                files[iout].write('%15.6E' % srdiag[j,k].imag)
+                files[iout].write('%15.6E' % np.abs(srdiag[j,k])**2)
+
+        files[iout].write('\n')
+#########################################################

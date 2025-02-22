@@ -1,0 +1,165 @@
+c=======================================================
+c=======================================================
+      subroutine mewfat_need_input()
+      implicit none
+#include "errquit.fh"
+
+      call errquit('stopping in mewfat_need_input', 1, UERR)
+      end
+c=======================================================
+
+      
+cdebugc=======================================================
+cdebugc=======================================================
+cdebug      subroutine mewfat_need_input()
+cdebug
+cdebug      implicit none
+cdebug#include "wfat_input.fh"
+cdebug#include "stdio.fh"
+cdebug#include "errquit.fh"      
+cdebug      logical sr, rt, yi, avb, avg, tmd, tmda
+cdebug      character*1 m
+cdebug
+cdebug      write(luout, '("mewfat_need1")')
+cdebug      call errquit('stopping in mewfat_need_input', 1, UERR)
+cdebug      
+cdebug      field_need = .false.       ! needed when OE or ME
+cdebug      beta_need = .false.           ! needed when OE or ME
+cdebug      gamma_need = .false.          ! needed when OE or ME
+cdebug      beta_tmd_need = .false.       ! needed when OE or ME
+cdebug      gamma_tmd_need = .false.      ! needed when OE or ME
+cdebug      nktmd_need = .false.          ! needed when OE or ME
+cdebug      orbid_need = .false.          ! needed when OE
+cdebug      paraqn_need = .false.         ! needed when OE or ME
+cdebug      gqual_need = .false.          ! needed when OE or ME
+cdebug      omgpos_need = .false.         ! needed when OE or ME
+cdebug      lmax_need = .false.           ! needed when OE or ME
+cdebug      intgl_need = .false.          ! needed when OE or ME
+cdebug      movec_need = .false.          ! needed when OE or ME
+cdebug      movec1_need = .false.         ! needed when ME
+cdebug      prtb_type_need = .false.      ! needed when OE
+cdebug      prtb_ord_need = .false.       ! needed when OE
+cdebug      prtb_bt_need = .false.        ! needed when OE
+cdebug      prtb_gm_need = .false.        ! needed when OE
+cdebug      prtb_dgnthr_need = .false.    ! needed when OE
+cdebug      prtb_offthr_need = .false.    ! needed when OE
+cdebug      prtb_e1thr_need = .false.     ! needed when OE
+cdebug      prtb_itrthr_need = .false.    ! needed when OE
+cdebug      prtb_maxitr_need = .false.    ! needed when OE
+cdebug      prtb_ordthr_need = .false.    ! needed when OE
+cdebug      prtb_maxord_need = .false.    ! needed when OE
+cdebug
+cdebug
+cdebug      sr = print_srfc
+cdebug      rt = print_rate
+cdebug      yi = print_yild
+cdebug      avb = print_avbeta
+cdebug      avg = print_avgamma
+cdebug      tmd = print_tmd
+cdebug      tmda = print_tmd_atom
+cdebug
+cdebug
+cdebug      write(luout, '("mewfat_need2")')
+cdebug      call wfat_tf_to_yn(print_srfc, .false., m)
+cdebug      write(luout, '(a)') m
+cdebug      call wfat_tf_to_yn(print_rate, .false., m)
+cdebug      write(luout, '(a)') m
+cdebug      call wfat_tf_to_yn(print_yild, .false., m)
+cdebug      write(luout, '(a)') m
+cdebug      call wfat_tf_to_yn(print_avbeta, .false., m)
+cdebug      write(luout, '(a)') m
+cdebug      call wfat_tf_to_yn(print_avgamma, .false., m)
+cdebug      write(luout, '(a)') m
+cdebug      call wfat_tf_to_yn(print_tmd, .false., m)
+cdebug      write(luout, '(a)') m
+cdebug      call wfat_tf_to_yn(print_tmd_atom, .false., m)
+cdebug      write(luout, '(a)') m
+cdebug
+cdebug      
+cdebug
+cdebug      if (print_srfc .or. print_rate) 
+cdebug     &     write(luout, '("meneed  ")') 
+cdebug      
+cdebug      call wfat_need_input0(rt, tmd, tmda, yi, avb, avg, .false.,
+cdebug     &     field_need)
+cdebug      call wfat_need_input0(sr, rt, tmd, tmda, yi, avb, avg,
+cdebug     &     beta_need)
+cdebug      call wfat_need_input0(sr, rt, tmd, tmda, yi, avb, avg,
+cdebug     &     gamma_need)
+cdebugc TMD notyet      call wfat_need_input0(tmd, tmda, .false., .false., .false., 
+cdebugc TMD notyet     &     .false., .false., beta_tmd_need)
+cdebugc TMD notyet      call wfat_need_input0(tmd, tmda, .false., .false., .false., 
+cdebugc TMD notyet     &     .false., .false., gamma_tmd_need)
+cdebugc TMD notyet      call wfat_need_input0(tmd, tmda, .false., .false., .false., 
+cdebugc TMD notyet     &     .false., .false., nktmd_need)
+cdebug
+cdebug      call wfat_need_input0(sr, rt, tmd, tmda, yi, avb, avg,
+cdebug     &     paraqn_need)
+cdebug      call wfat_need_input0(sr, rt, tmd, tmda, yi, avb, avg,
+cdebug     &     gqual_need)
+cdebug      call wfat_need_input0(sr, rt, tmd, tmda, yi, avb, avg,
+cdebug     &     omgpos_need)
+cdebug      call wfat_need_input0(sr, rt, tmd, tmda, yi, avb, avg,
+cdebug     &     lmax_need)
+cdebug      call wfat_need_input0(sr, rt, tmd, tmda, yi, avb, avg,
+cdebug     &     intgl_need)
+cdebug      call wfat_need_input0(sr, rt, tmd, tmda, yi, avb, avg,
+cdebug     &     movec_need)
+cdebug      call wfat_need_input0(sr, rt, tmd, tmda, yi, avb, avg,
+cdebug     &     movec1_need)
+cdebug
+cdebug
+cdebug      
+cdebugcOLD      if (print_srfc) then
+cdebugcOLD         beta_need = .true.
+cdebugcOLD         gamma_need = .true.
+cdebugcOLD         paraqn_need = .true.
+cdebugcOLD         gqual_need = .true.
+cdebugcOLD         omgpos_need = .true.
+cdebugcOLD         lmax_need = .true.
+cdebugcOLD         intgl_need = .true.
+cdebugcOLD         movec_need = .true.
+cdebugcOLD         movec1_need = .true.         
+cdebugcOLD      endif
+cdebugcOLD      if (print_iony .or. print_avbeta .or. print_avgamma) then
+cdebugcOLD         fieldmag_need = .true.
+cdebugcOLD         beta_need = .true.
+cdebugcOLD         gamma_need = .true.
+cdebugcOLD         paraqn_need = .true.
+cdebugcOLD         gqual_need = .true.
+cdebugcOLD         omgpos_need = .true.
+cdebugcOLD         lmax_need = .true.
+cdebugcOLD         intgl_need = .true.
+cdebugcOLD         movec_need = .true.
+cdebugcOLD         movec1_need = .true.         
+cdebugcOLD      endif
+cdebugcOLD      if (print_tmd) then
+cdebugcOLD         fieldmag_need = .true.
+cdebugcOLD         beta_tmd_need = .true.
+cdebugcOLD         gamma_tmd_need = .true.
+cdebugcOLD         nktmd_need = .true.
+cdebugcOLD         paraqn_need = .true.
+cdebugcOLD         gqual_need = .true.
+cdebugcOLD         omgpos_need = .true.
+cdebugcOLD         lmax_need = .true.
+cdebugcOLD         intgl_need = .true.
+cdebugcOLD         movec_need = .true.
+cdebugcOLD         movec1_need = .true.
+cdebugcOLD      endif
+cdebugcOLD      if (print_tmd_atom) then
+cdebugcOLD         fieldmag_need = .true.
+cdebugcOLD         beta_tmd_need = .true.
+cdebugcOLD         gamma_tmd_need = .true.
+cdebugcOLD         nktmd_need = .true.
+cdebugcOLD         paraqn_need = .true.
+cdebugcOLD         gqual_need = .true.
+cdebugcOLD         omgpos_need = .true.
+cdebugcOLD         lmax_need = .true.
+cdebugcOLD         intgl_need = .true.
+cdebugcOLD         movec_need = .true.
+cdebugcOLD         movec1_need = .true.
+cdebugcOLD      endif
+cdebug
+cdebug      end
+cdebugc=======================================================
+      

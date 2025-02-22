@@ -1,0 +1,72 @@
+
+
+c     ==== IO ====
+      logical
+     &     WF_SF_PRINT_READY, WF_RT_PRINT_READY, WF_IY_PRINT_READY,
+     &     WF_ABTIY_PRINT_READY, WF_AGMIY_PRINT_READY,  
+     &     WF_TM_PRINT_READY, WF_TMAR_PRINT_READY, WF_SF1_PRINT_READY(2)
+
+      character*12
+     &     WF_ORBGAP, WF_QNTGAP, WF_ATMGAP,
+     &     WF_SF_TITFMT, WF_SF_VALFMT,
+     &     WF_RT_TITFMT, WF_RT_VALFMT,
+     &     WF_IY_TITFMT, WF_IY_VALFMT,
+     &     WF_TM_TITFMT, WF_TM_VALFMT,
+     &     WF_TMAR_TITFMT, WF_TMAR_VALFMT
+
+      character*255
+     &     WF_SF_FNAME, WF_RT_FNAME, WF_IY_FNAME,
+     &     WF_ABTIY_FNAME, WF_AGMIY_FNAME,
+     &     WF_TM_FNAME, WF_TMAR_FNAME, WF_SF1_FNAME(2)
+            
+      integer
+     &     WF_SF_UNIT, WF_RT_UNIT, WF_IY_UNIT, WF_ABTIY_UNIT, 
+     &     WF_AGMIY_UNIT, WF_TM_UNIT, WF_TMAR_UNIT, WF_INTGL_UNIT, 
+     &     WF_DENSZ_UNIT, WF_PERTV_UNIT, WF_LAS_UNIT, WF_R1TEST_UNIT,
+     &     WF_QTEST_UNIT, WF_TAUTEST_UNIT, WF_PHI1TEST_UNIT,
+     &     WF_UTEST_UNIT, WF_TAUTEST2_UNIT, WF_OTEST_UNIT,
+     &     WF_SF1_UNIT(2), WF_JN_UNIT, WF_KN_UNIT, WF_ERFCTEST_UNIT,
+     &     WF_CORB_UNIT, WF_D2LAGFUNTEST_UNIT, WF_MEDIPDIAG_UNIT
+
+      parameter
+     &     (WF_ORBGAP='("      ")', WF_QNTGAP='("   ")',
+     &     WF_ATMGAP='("   ")',
+     &     WF_SF_UNIT=201,
+     &     WF_SF_TITFMT='(a15)', WF_SF_VALFMT='(3es15.6)',
+     &     WF_RT_UNIT=202,
+     &     WF_RT_TITFMT='(a14)', WF_RT_VALFMT='(es14.6)',
+     &     WF_IY_UNIT=203, WF_ABTIY_UNIT=210, WF_AGMIY_UNIT=211,
+     &     WF_IY_TITFMT='(a14)', WF_IY_VALFMT='(es14.6)',
+     &     WF_TM_UNIT=204,
+     &     WF_TM_TITFMT='(a15)', WF_TM_VALFMT='(3es15.6)',
+     &     WF_TMAR_UNIT=205,
+     &     WF_TMAR_TITFMT='(a15)', WF_TMAR_VALFMT='(3es15.6)',
+     &     WF_INTGL_UNIT=206, WF_DENSZ_UNIT=207, WF_PERTV_UNIT=208,
+     &     WF_LAS_UNIT=209, WF_R1TEST_UNIT=210,
+     &     WF_QTEST_UNIT=211, WF_TAUTEST_UNIT=212, WF_PHI1TEST_UNIT=213,
+     &     WF_UTEST_UNIT=214, WF_TAUTEST2_UNIT=215, WF_OTEST_UNIT=216,
+     &     WF_JN_UNIT=217, WF_KN_UNIT=218, WF_ERFCTEST_UNIT=219,
+     &     WF_CORB_UNIT=220, WF_D2LAGFUNTEST_UNIT=221,
+     &     WF_MEDIPDIAG_UNIT=222)
+      
+
+c     ==== Calculations ====
+      integer wf_msm, m_emc, nseg
+      integer KMAX_FACTOR
+      double precision KMAX00
+      parameter 
+     &          (wf_msm=10, m_emc=2, nseg=5, KMAX_FACTOR=2,
+     &           KMAX00=0.5d0)
+      
+      
+
+      common /wfat/
+     &     WF_SF_PRINT_READY, WF_RT_PRINT_READY, WF_IY_PRINT_READY, 
+     &     WF_ABTIY_PRINT_READY, WF_AGMIY_PRINT_READY, 
+     &     WF_TM_PRINT_READY, WF_TMAR_PRINT_READY, WF_SF1_PRINT_READY, 
+     &     WF_SF_FNAME, WF_RT_FNAME, WF_IY_FNAME, WF_ABTIY_FNAME, 
+     &     WF_AGMIY_FNAME, WF_TM_FNAME, WF_TMAR_FNAME, WF_SF1_FNAME,
+     &     WF_SF1_UNIT
+      
+      
+     

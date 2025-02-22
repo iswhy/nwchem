@@ -1,0 +1,23 @@
+From 95f23e63dafd54194b1bc2b44cffefc85a4f5b49 Mon Sep 17 00:00:00 2001
+From: edoapra <edoardo.apra@gmail.com>
+Date: Wed, 16 Feb 2022 18:58:26 -0800
+Subject: [PATCH] disabled dgefa source already present in util/dgefa.f
+ https://github.com/nwchemgit/nwchem/issues/528
+
+---
+ src/vscf/vscf.F | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/vscf/vscf.F b/src/vscf/vscf.F
+index 49f0d5e96b..f109d92fb1 100644
+--- a/src/vscf/vscf.F
++++ b/src/vscf/vscf.F
+@@ -2301,7 +2301,7 @@ SUBROUTINE DINTENS(SINTSCF,DDM,DDER,FRSCF,FRMP2,
+  9000 format (2x,i2,5x,f10.2,4x,f10.2)
+       end
+ C*MODULE MTHLIB  *DECK DGEFA
+-      SUBROUTINE DGEFA(A,LDA,N,IPVT,INFO)
++      SUBROUTINE DGEFA_off(A,LDA,N,IPVT,INFO)
+       IMPLICIT DOUBLE PRECISION(A-H,O-Z)
+       DIMENSION A(LDA,*),IPVT(*)
+ C

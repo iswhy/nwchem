@@ -1,0 +1,1022 @@
+=== figure out Network, MPI, and LinAlg libraries ===
+Traceback (most recent call last):
+  File "./testpython47889.py", line 2, in <module>
+    print("%s"%sys.abiflags)
+AttributeError: 'module' object has no attribute 'abiflags'
+find: `/usr/lib64/audit': Permission denied
+find: `/usr/local/lost+found': Permission denied
+find: `/usr/lib64/audit': Permission denied
+find: `/usr/local/lost+found': Permission denied
+find: `/usr/lib64/audit': Permission denied
+find: `/usr/local/lost+found': Permission denied
+ifort: command line warning #10006: ignoring unknown option '-craype-verbose'
+ifort: command line warning #10006: ignoring unknown option '-craype-verbose'
+ifort: command line warning #10006: ignoring unknown option '-craype-verbose'
+icc: command line warning #10006: ignoring unknown option '-q64'
+ifort: error #10236: File not found:  '0'
+ifort: error #10236: File not found:  '0'
+ifort: error #10236: File not found:  '0'
+=== Initial guesses for linear algebra libraries ===
+BLAS      =   integer-size =  8
+LAPACK    =   integer-size =  8
+SCALAPACK =   integer-size =  0
+=== Working out how to proceed =====================
+No ScaLAPACK found, so no ScaLAPACK will be used
+BLAS and LAPACK are OK
+===============
+Building NWChem
+===============
+
+NWCHEM_TOP         = /project/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128
+NWCHEM_TARGET      = LINUX64
+NWCHEM_MODULES     = smallqm nwxc
+NWCHEM_MPIF_WRAP   = /usr/local/packages/mvapich2/2.2/INTEL-18.0.0/bin/mpif90
+NWCHEM_MPIC_WRAP   = /usr/local/packages/mvapich2/2.2/INTEL-18.0.0/bin/mpicc
+NWCHEM_MPICXX_WRAP = /usr/local/packages/mvapich2/2.2/INTEL-18.0.0/bin/mpicxx
+NWCHEM_LONG_PATHS  = Y
+USE_NOFSCHECK      = Y
+USE_MPI            = y
+USE_MPIF           = y
+USE_MPIF4          = y
+MPI_INCLUDE        =
+MPI_LIB            =
+LIBMPI             =
+MPI_F90            = mpif90
+MPI_CC             = mpicc
+MPI_CXX            = mpicxx
+ARMCI_NETWORK      = OPENIB
+MSG_COMMS          = MPI
+IB_INCLUDE         = /usr/include
+IB_LIB             = /usr/lib64
+IB_LIB_NAME        = -libverbs
+PYTHON_EXE         = /usr/bin/python
+PYTHONVERSION      = 2.6
+USE_PYTHON64       = yes
+PYTHONPATH         = ./:/project/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/contrib/python/
+PYTHONHOME         = /usr
+PYTHONLIBTYPE      = so
+=== configure GA ===
+make -C tools configure_ga
+make[1]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/tools'
+make[1]: Nothing to be done for `configure_ga'.
+make[1]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/tools'
+Found no BLAS 
+Found no LAPACK 
+Found no SCALAPACK 
+BLASOPT from GA = 
+=== before    NWChem ===
+BLASOPT =
+=== configure NWChem ===
+make -C config -f make_nwchem_config NWCHEM_MODULES="smallqm nwxc"
+make[1]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/config'
+echo \# This configuration generated automatically on \
+	      `hostname` at `date` > nwchem_config.h
+echo "# Request modules from user: smallqm nwxc" >> nwchem_config.h
+echo "NW_MODULE_SUBDIRS = NWints atomscf ddscf gradients moints nwdft nwxc rimp2 stepper driver optim cphf vib mcscf esp hessian dplot mp2_grad qhop property solvation fft nwmd cafe space vscf qmd etrans bq cons dimqm" >> nwchem_config.h
+echo "NW_MODULE_LIBS = -lmcscf -lmp2 -lmoints -lstepper -ldriver -loptim -lnwdft -lgradients -lcphf -lesp -lddscf -lguess -lhessian -lvib -lnwcutil -lrimp2 -lproperty -lsolvation -lnwints -lnwmd -lnwxc -lcafe -lspace -lqhop -lpfft -ldplot -lvscf -lqmd -letrans -lbq -lcons -ldimqm" >> nwchem_config.h
+echo "EXCLUDED_SUBDIRS = develop scfaux ccsd prepar selci nwpw rimp2_grad python argos analyz diana drdy uccsdt qmmm rism tce geninterface mm perfm dntmc smd nbo dangchang leps ccca lucia rdmft" >> nwchem_config.h
+echo "CONFIG_LIBS = " >> nwchem_config.h
+echo \# This configuration generated automatically on \
+	     `hostname` at `date` > NWCHEM_CONFIG
+echo "# Request modules from user: smallqm nwxc" >> NWCHEM_CONFIG
+echo The following subdirectories are built: >> NWCHEM_CONFIG 
+echo NWints atomscf bq cafe cons cphf ddscf dimqm dplot driver esp etrans fft gradients hessian mcscf moints mp2_grad nwdft nwmd nwxc optim property qhop qmd rimp2 solvation space stepper symmetry vib vscf >> NWCHEM_CONFIG 
+echo corresponding to these libraries: >> NWCHEM_CONFIG 
+echo -lnwints -lguess -lbq -lcafe -lcons -lcphf -lddscf -ldimqm -ldplot -ldriver -lesp -letrans -lpfft -lgradients -lhessian -lmcscf -lmoints -lmp2 -lnwdft -lnwmd -lnwxc -loptim -lproperty -lqhop -lqmd -lrimp2 -lsolvation -lspace -lstepper -lnwcutil -lvib -lvscf >> NWCHEM_CONFIG 
+echo >> NWCHEM_CONFIG 
+echo The following directories are excluded from the build: >> NWCHEM_CONFIG 
+echo develop scfaux ccsd prepar selci nwpw rimp2_grad python argos analyz diana drdy uccsdt qmmm rism tce geninterface mm perfm dntmc smd nbo dangchang leps ccca lucia rdmft >> NWCHEM_CONFIG 
+echo and these routines will be replaced by stubs: >> NWCHEM_CONFIG 
+echo ana_input analyz argos argos_input band_energy band_gradient ccca_input ccsd ccsd_input crossing dangchang_input dc_energy debtest dia_input diana dntmc_input drdy_input gasdev geninterface jantest jvltest jvltest2 kgdtest leps_energy leps_gradient lucia mc_data mc_driver mc_init mc_main md_data md_driver md_set mm_add_egrad mm_add_energy mm_input mm_task_energy mm_task_gradient mmi_end mmi_init moints_screen mymc_input mymd_input nbo_input nwpw nwpw_input ofpw_energy paw_energy paw_gradient perfm pre_input prepar pspw_bq_gradient pspw_energy pspw_gradient pspw_input python_input qmmm_bq_forces qmmm_end qmmm_forces qmmm_init qmmm_input qmmm_print_energy1 raktest rimp2g rism_input rjhtest selci selci_input smd_input task_band task_ccca task_ccca_energy task_dntmc task_drdy task_fragment_energy task_nbo task_ofpw task_paw task_pspw task_python task_qmmm_abc task_qmmm_dynamics task_qmmm_energy task_qmmm_esp task_qmmm_fep task_qmmm_gradient task_qmmm_optimize task_qmmm_pes task_qmmm_thermo task_rism task_smd task_smd_dynamics task_smd_energy task_smd_fragment tce_cholesky tce_energy_fragment tce_gradient tce_imaginary tce_input tce_prop_start tce_property uccsdt uccsdtest urand wfn1_input wfn1_task_energy  >> NWCHEM_CONFIG 
+echo "No extra configuration libraries were added " >> NWCHEM_CONFIG
+cp census.skeleton ../stubs.F 
+for routine in ana_input analyz argos argos_input band_energy band_gradient ccca_input ccsd ccsd_input crossing dangchang_input dc_energy debtest dia_input diana dntmc_input drdy_input gasdev geninterface jantest jvltest jvltest2 kgdtest leps_energy leps_gradient lucia mc_data mc_driver mc_init mc_main md_data md_driver md_set mm_add_egrad mm_add_energy mm_input mm_task_energy mm_task_gradient mmi_end mmi_init moints_screen mymc_input mymd_input nbo_input nwpw nwpw_input ofpw_energy paw_energy paw_gradient perfm pre_input prepar pspw_bq_gradient pspw_energy pspw_gradient pspw_input python_input qmmm_bq_forces qmmm_end qmmm_forces qmmm_init qmmm_input qmmm_print_energy1 raktest rimp2g rism_input rjhtest selci selci_input smd_input task_band task_ccca task_ccca_energy task_dntmc task_drdy task_fragment_energy task_nbo task_ofpw task_paw task_pspw task_python task_qmmm_abc task_qmmm_dynamics task_qmmm_energy task_qmmm_esp task_qmmm_fep task_qmmm_gradient task_qmmm_optimize task_qmmm_pes task_qmmm_thermo task_rism task_smd task_smd_dynamics task_smd_energy task_smd_fragment tce_cholesky tce_energy_fragment tce_gradient tce_imaginary tce_input tce_prop_start tce_property uccsdt uccsdtest urand wfn1_input wfn1_task_energy; do \
+	   sed s/STUBROUTINE/$routine/g stub.skeleton >> ../stubs.F ; \
+	done
+cp util_module_avail_F.begin ../util/util_module_avail.F
+echo "c This function was auto generated by make_nwchem_config" >> ../util/util_module_avail.F
+for module in NWints atomscf bq cafe cons cphf ddscf dimqm dplot driver esp etrans fft gradients hessian mcscf moints mp2_grad nwdft nwmd nwxc optim property qhop qmd rimp2 solvation space stepper symmetry vib vscf; do \
+	   echo "        case (\""$module"\")" >> ../util/util_module_avail.F ; \
+        done
+cat util_module_avail_F.end >> ../util/util_module_avail.F
+make[1]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/config'
+=== build NWChem version table ===
+=== do NWChem code conversion ===
+test \! -f 64_to_32 -o \! -f 32_to_64 || rm -f 64_to_32 32_to_64
+test -d /project/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/lib/LINUX64 || mkdir -p /project/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/lib/LINUX64
+test -d /project/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/bin/LINUX64 || mkdir -p /project/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/bin/LINUX64
+./util/util_nwchem_version.bash
+fatal: Not a git repository (or any of the parent directories): .git
+make: `32_to_64' is up to date.
+=== compile nwchem ===
+test \! -f 64_to_32 -o \! -f 32_to_64 || rm -f 64_to_32 32_to_64
+test -d /project/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/lib/LINUX64 || mkdir -p /project/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/lib/LINUX64
+test -d /project/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/bin/LINUX64 || mkdir -p /project/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/bin/LINUX64
+./util/util_nwchem_version.bash
+fatal: Not a git repository (or any of the parent directories): .git
+Making libraries in tools
+make[1]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/tools'
+make[1]: `install/lib/libga.a' is up to date.
+make[1]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/tools'
+Making libraries in include
+make[1]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/include'
+for dir in tools include basis geom inp input pstat rtdb task symmetry util peigs perfm bq cons blas lapack NWints atomscf ddscf gradients moints nwdft nwxc rimp2 stepper driver optim cphf vib mcscf esp hessian dplot mp2_grad qhop property solvation fft nwmd cafe space vscf qmd etrans bq cons dimqm; do \
+		echo Making include_stamp in /project/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/$dir ; \
+		(cd /project/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/$dir; make include_stamp) ; \
+	done
+Making include_stamp in /project/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/tools
+make[2]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/tools'
+make[2]: *** No rule to make target `include_stamp'.  Stop.
+make[2]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/tools'
+Making include_stamp in /project/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/include
+make[2]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/include'
+Nothing to be done
+make[2]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/include'
+Making include_stamp in /project/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/basis
+make[2]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/basis'
+make[2]: `include_stamp' is up to date.
+make[2]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/basis'
+Making include_stamp in /project/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/geom
+make[2]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/geom'
+make[2]: `include_stamp' is up to date.
+make[2]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/geom'
+Making include_stamp in /project/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/inp
+make[2]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/inp'
+make[2]: `include_stamp' is up to date.
+make[2]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/inp'
+Making include_stamp in /project/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/input
+make[2]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/input'
+make[2]: `include_stamp' is up to date.
+make[2]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/input'
+Making include_stamp in /project/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/pstat
+make[2]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/pstat'
+make[2]: `include_stamp' is up to date.
+make[2]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/pstat'
+Making include_stamp in /project/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/rtdb
+make[2]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/rtdb'
+make[2]: `include_stamp' is up to date.
+make[2]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/rtdb'
+Making include_stamp in /project/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/task
+make[2]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/task'
+make[2]: `include_stamp' is up to date.
+make[2]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/task'
+Making include_stamp in /project/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/symmetry
+make[2]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/symmetry'
+make[2]: `include_stamp' is up to date.
+make[2]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/symmetry'
+Making include_stamp in /project/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/util
+make[2]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/util'
+/project/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/bin/LINUX64/depend.x -I/usr/local/packages/mvapich2/2.2/INTEL-18.0.0/include -I/usr/local/packages/mvapich2/2.2/INTEL-18.0.0/include -I/project/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/tools/install/include > dependencies
+make[2]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/util'
+make[2]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/util'
+make[2]: `include_stamp' is up to date.
+make[2]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/util'
+Making include_stamp in /project/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/peigs
+make[2]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/peigs'
+make[2]: `include_stamp' is up to date.
+make[2]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/peigs'
+Making include_stamp in /project/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/perfm
+make[2]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/perfm'
+make[2]: `include_stamp' is up to date.
+make[2]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/perfm'
+Making include_stamp in /project/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/bq
+make[2]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/bq'
+make[2]: `include_stamp' is up to date.
+make[2]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/bq'
+Making include_stamp in /project/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/cons
+make[2]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/cons'
+make[2]: `include_stamp' is up to date.
+make[2]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/cons'
+Making include_stamp in /project/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/blas
+make[2]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/blas'
+make[2]: `include_stamp' is up to date.
+make[2]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/blas'
+Making include_stamp in /project/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/lapack
+make[2]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/lapack'
+make[2]: `include_stamp' is up to date.
+make[2]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/lapack'
+Making include_stamp in /project/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/NWints
+make[2]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/NWints'
+make[2]: `include_stamp' is up to date.
+make[2]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/NWints'
+Making include_stamp in /project/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/atomscf
+make[2]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/atomscf'
+make[2]: `include_stamp' is up to date.
+make[2]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/atomscf'
+Making include_stamp in /project/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/ddscf
+make[2]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/ddscf'
+make[2]: `include_stamp' is up to date.
+make[2]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/ddscf'
+Making include_stamp in /project/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/gradients
+make[2]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/gradients'
+make[2]: `include_stamp' is up to date.
+make[2]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/gradients'
+Making include_stamp in /project/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/moints
+make[2]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/moints'
+make[2]: `include_stamp' is up to date.
+make[2]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/moints'
+Making include_stamp in /project/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft
+make[2]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft'
+make[2]: `include_stamp' is up to date.
+make[2]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft'
+Making include_stamp in /project/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwxc
+make[2]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwxc'
+/project/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/bin/LINUX64/depend.x -I./nwad -I/project/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/tools/install/include > dependencies
+make[2]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwxc'
+make[2]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwxc'
+make[2]: `include_stamp' is up to date.
+make[2]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwxc'
+Making include_stamp in /project/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/rimp2
+make[2]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/rimp2'
+make[2]: `include_stamp' is up to date.
+make[2]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/rimp2'
+Making include_stamp in /project/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/stepper
+make[2]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/stepper'
+make[2]: `include_stamp' is up to date.
+make[2]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/stepper'
+Making include_stamp in /project/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/driver
+make[2]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/driver'
+make[2]: `include_stamp' is up to date.
+make[2]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/driver'
+Making include_stamp in /project/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/optim
+make[2]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/optim'
+make[2]: `include_stamp' is up to date.
+make[2]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/optim'
+Making include_stamp in /project/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/cphf
+make[2]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/cphf'
+make[2]: `include_stamp' is up to date.
+make[2]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/cphf'
+Making include_stamp in /project/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/vib
+make[2]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/vib'
+make[2]: `include_stamp' is up to date.
+make[2]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/vib'
+Making include_stamp in /project/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/mcscf
+make[2]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/mcscf'
+make[2]: `include_stamp' is up to date.
+make[2]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/mcscf'
+Making include_stamp in /project/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/esp
+make[2]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/esp'
+make[2]: `include_stamp' is up to date.
+make[2]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/esp'
+Making include_stamp in /project/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/hessian
+make[2]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/hessian'
+make[2]: `include_stamp' is up to date.
+make[2]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/hessian'
+Making include_stamp in /project/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/dplot
+make[2]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/dplot'
+make[2]: `include_stamp' is up to date.
+make[2]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/dplot'
+Making include_stamp in /project/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/mp2_grad
+make[2]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/mp2_grad'
+make[2]: `include_stamp' is up to date.
+make[2]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/mp2_grad'
+Making include_stamp in /project/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/qhop
+make[2]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/qhop'
+make[2]: `include_stamp' is up to date.
+make[2]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/qhop'
+Making include_stamp in /project/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/property
+make[2]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/property'
+make[2]: `include_stamp' is up to date.
+make[2]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/property'
+Making include_stamp in /project/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/solvation
+make[2]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/solvation'
+make[2]: `include_stamp' is up to date.
+make[2]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/solvation'
+Making include_stamp in /project/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/fft
+make[2]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/fft'
+make[2]: `include_stamp' is up to date.
+make[2]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/fft'
+Making include_stamp in /project/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwmd
+make[2]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwmd'
+make[2]: `include_stamp' is up to date.
+make[2]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwmd'
+Making include_stamp in /project/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/cafe
+make[2]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/cafe'
+make[2]: `include_stamp' is up to date.
+make[2]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/cafe'
+Making include_stamp in /project/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/space
+make[2]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/space'
+make[2]: `include_stamp' is up to date.
+make[2]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/space'
+Making include_stamp in /project/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/vscf
+make[2]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/vscf'
+make[2]: `include_stamp' is up to date.
+make[2]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/vscf'
+Making include_stamp in /project/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/qmd
+make[2]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/qmd'
+make[2]: `include_stamp' is up to date.
+make[2]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/qmd'
+Making include_stamp in /project/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/etrans
+make[2]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/etrans'
+make[2]: `include_stamp' is up to date.
+make[2]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/etrans'
+Making include_stamp in /project/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/bq
+make[2]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/bq'
+make[2]: `include_stamp' is up to date.
+make[2]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/bq'
+Making include_stamp in /project/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/cons
+make[2]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/cons'
+make[2]: `include_stamp' is up to date.
+make[2]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/cons'
+Making include_stamp in /project/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/dimqm
+make[2]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/dimqm'
+make[2]: `include_stamp' is up to date.
+make[2]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/dimqm'
+make[1]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/include'
+Making libraries in basis
+make[1]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/basis'
+make[2]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/basis'
+make[2]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/basis'
+make[1]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/basis'
+Making libraries in geom
+make[1]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/geom'
+make[2]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/geom'
+make[2]: `/project/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/lib/LINUX64/libnwcutil.a' is up to date.
+make[2]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/geom'
+make[2]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/geom'
+make[2]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/geom'
+make[1]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/geom'
+Making libraries in inp
+make[1]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/inp'
+make[2]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/inp'
+make[2]: `/project/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/lib/LINUX64/libnwcutil.a' is up to date.
+make[2]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/inp'
+make[2]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/inp'
+make[2]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/inp'
+make[1]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/inp'
+Making libraries in input
+make[1]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/input'
+make[2]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/input'
+make[2]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/input'
+make[1]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/input'
+Making libraries in pstat
+make[1]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/pstat'
+make[2]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/pstat'
+make[2]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/pstat'
+make[1]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/pstat'
+Making libraries in rtdb
+make[1]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/rtdb'
+make[2]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/rtdb'
+make[2]: `/project/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/lib/LINUX64/libnwcutil.a' is up to date.
+make[2]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/rtdb'
+Making all in hdbm
+make[2]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/rtdb/hdbm'
+make[3]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/rtdb/hdbm'
+make[3]: `/project/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/lib/LINUX64/libnwcutil.a' is up to date.
+make[3]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/rtdb/hdbm'
+make[3]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/rtdb/hdbm'
+make[3]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/rtdb/hdbm'
+make[2]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/rtdb/hdbm'
+make[2]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/rtdb'
+make[2]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/rtdb'
+make[1]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/rtdb'
+Making libraries in task
+make[1]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/task'
+make[2]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/task'
+make[2]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/task'
+make[1]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/task'
+Making libraries in symmetry
+make[1]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/symmetry'
+make[2]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/symmetry'
+make[2]: `/project/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/lib/LINUX64/libnwcutil.a' is up to date.
+make[2]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/symmetry'
+make[2]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/symmetry'
+make[2]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/symmetry'
+make[1]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/symmetry'
+Making libraries in util
+make[1]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/util'
+mpif90  -c -i8 -g  -I. -I/usr/local/packages/mvapich2/2.2/INTEL-18.0.0/include -I/usr/local/packages/mvapich2/2.2/INTEL-18.0.0/include -I/project/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/include -I/project/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/tools/install/include -DEXT_INT -DLINUX -DLINUX64 -DPARALLEL_DIAG -DNEED_LOC -DNOFSCHECK -DJOBTIMEPATH=\"/project/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/bin/LINUX64\" -DNWCHEM_LONG_PATHS -DNWCHEM_SRCDIR="\"/project/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src\"" -DBYTE_SHORT_PACKING   -DBYTE_SHORT_PACKING    util_module_avail.F
+cp util_v_stub.F util_version.F
+mpif90  -c -i8 -g  -I. -I/usr/local/packages/mvapich2/2.2/INTEL-18.0.0/include -I/usr/local/packages/mvapich2/2.2/INTEL-18.0.0/include -I/project/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/include -I/project/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/tools/install/include -DEXT_INT -DLINUX -DLINUX64 -DPARALLEL_DIAG -DNEED_LOC -DNOFSCHECK -DJOBTIMEPATH=\"/project/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/bin/LINUX64\" -DNWCHEM_LONG_PATHS -DNWCHEM_SRCDIR="\"/project/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src\"" -DBYTE_SHORT_PACKING   -DBYTE_SHORT_PACKING    util_version.F
+make[2]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/util'
+/project/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/bin/LINUX64/depend.x -I/usr/local/packages/mvapich2/2.2/INTEL-18.0.0/include -I/usr/local/packages/mvapich2/2.2/INTEL-18.0.0/include -I/project/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/tools/install/include > dependencies
+make[2]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/util'
+make[2]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/util'
+make[2]: `/project/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/lib/LINUX64/libnwcutil.a' is up to date.
+make[2]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/util'
+Making all in md5
+make[2]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/util/md5'
+make[3]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/util/md5'
+make[3]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/util/md5'
+make[2]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/util/md5'
+make[2]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/util'
+Got lock on /project/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/lib/LINUX64/libnwcutil.lock
+ar r /project/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/lib/LINUX64/libnwcutil.a util_module_avail.o util_version.o
+echo /project/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/lib/LINUX64/libnwcutil.a
+/project/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/lib/LINUX64/libnwcutil.a
+make[2]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/util'
+make[1]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/util'
+Making libraries in peigs
+make[1]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/peigs'
+(make lib ) || exit 1
+make[2]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/peigs'
+(cd ./src/c; make)
+make[3]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/peigs/src/c'
+ar r /project/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/lib/LINUX64/libpeigs.a clustrfix.o mgscs.o pscale.o clustrxx5.o clustrxx4.o pstein4.o pstein5.o peigs_dlasq1.o b_ortho.o chol_bcst.o choleski9.o ci_entry.o conjug22.o de_sym.o exit.o exit2.o forLL.o forLU.o gmax.o inverse.o lu_mxm2.o mapdif.o mapdif1.o matmax.o mdif2b.o mdiff1.o mdiff2.o memreq.o memreq_f.o mgs5.o mxm25.o mxm5x.o mxm88.o mxm_ll1.o onenorm.o ortho.o pdspev_c.o pdspevx.o pdspgv_c.o pdspgvx.o pdsptri.o peigs_cmod.o pipe_fut.o pmmLSL.o pmmLUL.o pmmlsl2.o pxerbla.o qsort.o resid.o residual.o sfnorm.o shellsort.o soluf.o sonenorm.o soort.o sort.o sorteig.o tred22.o treesort3.o tresid.o util.o xerbla.o mapchk.o pdiff.o pgexit.o reducemap.o pstebz10.o pstebz11.o inv_it4.o inv_it5.o inv_it3.o peigs_tldlfact.o clustrf5.o r_ritz.o gdot.o
+make[3]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/peigs/src/c'
+(cd ./src/f77; make)
+make[3]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/peigs/src/f77'
+make[3]: Nothing to be done for `all'.
+make[3]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/peigs/src/f77'
+(cd ./comm; make)
+make[3]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/peigs/comm'
+make[3]: Nothing to be done for `all'.
+make[3]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/peigs/comm'
+(cd ./ctof; make)
+make[3]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/peigs/ctof'
+make[3]: Nothing to be done for `all'.
+make[3]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/peigs/ctof'
+rm -f libpeigs.a
+ar r /project/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/lib/LINUX64/libpeigs.a comm/*.o ctof/*.o src/c/*.o src/f77/*.o
+echo /project/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/lib/LINUX64/libpeigs.a
+/project/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/lib/LINUX64/libpeigs.a
+make[2]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/peigs'
+touch peigs_stamp.LINUX64
+make[1]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/peigs'
+Making libraries in perfm
+make[1]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/perfm'
+make[2]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/perfm'
+make[2]: `/project/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/lib/LINUX64/libperfm.a' is up to date.
+make[2]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/perfm'
+make[2]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/perfm'
+make[2]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/perfm'
+make[1]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/perfm'
+Making libraries in bq
+make[1]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/bq'
+make[2]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/bq'
+make[2]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/bq'
+make[1]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/bq'
+Making libraries in cons
+make[1]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/cons'
+make[2]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/cons'
+make[2]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/cons'
+make[1]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/cons'
+Making libraries in blas
+make[1]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/blas'
+make[2]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/blas'
+make[2]: `/project/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/lib/LINUX64/libnwcblas.a' is up to date.
+make[2]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/blas'
+make[2]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/blas'
+make[2]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/blas'
+make[1]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/blas'
+Making libraries in lapack
+make[1]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/lapack'
+make[2]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/lapack'
+make[2]: `/project/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/lib/LINUX64/libnwclapack.a' is up to date.
+make[2]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/lapack'
+make[2]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/lapack'
+make[2]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/lapack'
+make[1]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/lapack'
+Making libraries in NWints
+make[1]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/NWints'
+Making all in api
+make[2]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/NWints/api'
+make[3]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/NWints/api'
+make[3]: `/project/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/lib/LINUX64/libnwints.a' is up to date.
+make[3]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/NWints/api'
+make[3]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/NWints/api'
+make[3]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/NWints/api'
+make[2]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/NWints/api'
+Making all in int
+make[2]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/NWints/int'
+make[3]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/NWints/int'
+make[3]: `/project/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/lib/LINUX64/libnwints.a' is up to date.
+make[3]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/NWints/int'
+make[3]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/NWints/int'
+make[3]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/NWints/int'
+make[2]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/NWints/int'
+Making all in auxil
+make[2]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/NWints/auxil'
+make[3]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/NWints/auxil'
+make[3]: `/project/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/lib/LINUX64/libnwints.a' is up to date.
+make[3]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/NWints/auxil'
+make[3]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/NWints/auxil'
+make[3]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/NWints/auxil'
+make[2]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/NWints/auxil'
+Making all in ints_sp
+make[2]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/NWints/ints_sp'
+make[3]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/NWints/ints_sp'
+make[3]: `/project/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/lib/LINUX64/libnwints.a' is up to date.
+make[3]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/NWints/ints_sp'
+make[3]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/NWints/ints_sp'
+make[3]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/NWints/ints_sp'
+make[2]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/NWints/ints_sp'
+Making all in deriv
+make[2]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/NWints/deriv'
+make[3]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/NWints/deriv'
+make[3]: `/project/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/lib/LINUX64/libnwints.a' is up to date.
+make[3]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/NWints/deriv'
+make[3]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/NWints/deriv'
+make[3]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/NWints/deriv'
+make[2]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/NWints/deriv'
+Making all in texas
+make[2]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/NWints/texas'
+make[3]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/NWints/texas'
+make[3]: `/project/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/lib/LINUX64/libnwints.a' is up to date.
+make[3]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/NWints/texas'
+make[3]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/NWints/texas'
+make[3]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/NWints/texas'
+make[2]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/NWints/texas'
+Making all in ecp
+make[2]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/NWints/ecp'
+make[3]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/NWints/ecp'
+make[3]: `/project/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/lib/LINUX64/libnwints.a' is up to date.
+make[3]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/NWints/ecp'
+make[3]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/NWints/ecp'
+make[3]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/NWints/ecp'
+make[2]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/NWints/ecp'
+Making all in hondo
+make[2]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/NWints/hondo'
+make[3]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/NWints/hondo'
+make[3]: `/project/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/lib/LINUX64/libnwints.a' is up to date.
+make[3]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/NWints/hondo'
+make[3]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/NWints/hondo'
+make[3]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/NWints/hondo'
+make[2]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/NWints/hondo'
+Making all in rel
+make[2]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/NWints/rel'
+make[3]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/NWints/rel'
+make[3]: `/project/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/lib/LINUX64/libnwints.a' is up to date.
+make[3]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/NWints/rel'
+make[3]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/NWints/rel'
+make[3]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/NWints/rel'
+make[2]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/NWints/rel'
+Making all in dk
+make[2]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/NWints/dk'
+make[3]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/NWints/dk'
+make[3]: `/project/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/lib/LINUX64/libnwints.a' is up to date.
+make[3]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/NWints/dk'
+make[3]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/NWints/dk'
+make[3]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/NWints/dk'
+make[2]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/NWints/dk'
+make[2]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/NWints'
+make[2]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/NWints'
+make[1]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/NWints'
+Making libraries in atomscf
+make[1]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/atomscf'
+make[2]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/atomscf'
+make[2]: `/project/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/lib/LINUX64/libguess.a' is up to date.
+make[2]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/atomscf'
+make[2]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/atomscf'
+make[2]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/atomscf'
+make[1]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/atomscf'
+Making libraries in ddscf
+make[1]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/ddscf'
+make[2]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/ddscf'
+make[2]: `/project/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/lib/LINUX64/libddscf.a' is up to date.
+make[2]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/ddscf'
+Making all in fast
+make[2]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/ddscf/fast'
+make[3]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/ddscf/fast'
+make[3]: `/project/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/lib/LINUX64/libddscf.a' is up to date.
+make[3]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/ddscf/fast'
+make[3]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/ddscf/fast'
+make[3]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/ddscf/fast'
+make[2]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/ddscf/fast'
+make[2]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/ddscf'
+make[2]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/ddscf'
+make[1]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/ddscf'
+Making libraries in gradients
+make[1]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/gradients'
+make[2]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/gradients'
+make[2]: `/project/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/lib/LINUX64/libgradients.a' is up to date.
+make[2]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/gradients'
+make[2]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/gradients'
+make[2]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/gradients'
+make[1]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/gradients'
+Making libraries in moints
+make[1]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/moints'
+make[2]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/moints'
+make[2]: `/project/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/lib/LINUX64/libmoints.a' is up to date.
+make[2]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/moints'
+make[2]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/moints'
+make[2]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/moints'
+make[1]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/moints'
+Making libraries in nwdft
+make[1]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft'
+Making all in include
+make[2]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/include'
+make[3]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/include'
+make[3]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/include'
+make[2]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/include'
+Making all in input_dft
+make[2]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/input_dft'
+make[3]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/input_dft'
+make[3]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/input_dft'
+make[2]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/input_dft'
+Making all in scf_dft
+make[2]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/scf_dft'
+make[3]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/scf_dft'
+make[3]: `/project/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/lib/LINUX64/libnwdft.a' is up to date.
+make[3]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/scf_dft'
+make[3]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/scf_dft'
+make[3]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/scf_dft'
+make[2]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/scf_dft'
+Making all in scf_dft_cg
+make[2]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/scf_dft_cg'
+make[3]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/scf_dft_cg'
+make[3]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/scf_dft_cg'
+make[2]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/scf_dft_cg'
+Making all in so_dft
+make[2]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/so_dft'
+make[3]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/so_dft'
+make[3]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/so_dft'
+make[2]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/so_dft'
+Making all in coulomb
+make[2]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/coulomb'
+make[3]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/coulomb'
+make[3]: `/project/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/lib/LINUX64/libnwdft.a' is up to date.
+make[3]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/coulomb'
+make[3]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/coulomb'
+make[3]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/coulomb'
+make[2]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/coulomb'
+Making all in xc
+make[2]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/xc'
+make[3]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/xc'
+make[3]: `/project/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/lib/LINUX64/libnwdft.a' is up to date.
+make[3]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/xc'
+make[3]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/xc'
+make[3]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/xc'
+make[2]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/xc'
+Making all in util
+make[2]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/util'
+make[3]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/util'
+make[3]: `/project/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/lib/LINUX64/libnwdft.a' is up to date.
+make[3]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/util'
+make[3]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/util'
+make[3]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/util'
+make[2]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/util'
+Making all in grid
+make[2]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/grid'
+make[3]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/grid'
+make[3]: `/project/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/lib/LINUX64/libnwdft.a' is up to date.
+make[3]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/grid'
+make[3]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/grid'
+make[3]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/grid'
+make[2]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/grid'
+Making all in dftgrad
+make[2]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/dftgrad'
+make[3]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/dftgrad'
+make[3]: `/project/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/lib/LINUX64/libnwdft.a' is up to date.
+make[3]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/dftgrad'
+make[3]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/dftgrad'
+make[3]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/dftgrad'
+make[2]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/dftgrad'
+Making all in lr_tddft
+make[2]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/lr_tddft'
+make[3]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/lr_tddft'
+make[3]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/lr_tddft'
+make[2]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/lr_tddft'
+Making all in lr_tddft_grad
+make[2]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/lr_tddft_grad'
+make[3]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/lr_tddft_grad'
+make[3]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/lr_tddft_grad'
+make[2]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/lr_tddft_grad'
+Making all in zora
+make[2]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/zora'
+make[3]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/zora'
+make[3]: `/project/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/lib/LINUX64/libnwdft.a' is up to date.
+make[3]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/zora'
+make[3]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/zora'
+make[3]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/zora'
+make[2]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/zora'
+Making all in spec
+make[2]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/spec'
+make[3]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/spec'
+make[3]: `/project/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/lib/LINUX64/libnwdft.a' is up to date.
+make[3]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/spec'
+make[3]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/spec'
+make[3]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/spec'
+make[2]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/spec'
+Making all in rt_tddft
+make[2]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/rt_tddft'
+Making all in matutils
+make[3]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/rt_tddft/matutils'
+make[4]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/rt_tddft/matutils'
+make[4]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/rt_tddft/matutils'
+make[3]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/rt_tddft/matutils'
+Making all in rtutils
+make[3]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/rt_tddft/rtutils'
+make[4]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/rt_tddft/rtutils'
+make[4]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/rt_tddft/rtutils'
+make[3]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/rt_tddft/rtutils'
+Making all in input
+make[3]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/rt_tddft/input'
+make[4]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/rt_tddft/input'
+make[4]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/rt_tddft/input'
+make[3]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/rt_tddft/input'
+Making all in init
+make[3]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/rt_tddft/init'
+make[4]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/rt_tddft/init'
+make[4]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/rt_tddft/init'
+make[3]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/rt_tddft/init'
+Making all in canorg
+make[3]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/rt_tddft/canorg'
+make[4]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/rt_tddft/canorg'
+make[4]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/rt_tddft/canorg'
+make[3]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/rt_tddft/canorg'
+Making all in propagators
+make[3]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/rt_tddft/propagators'
+make[4]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/rt_tddft/propagators'
+make[4]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/rt_tddft/propagators'
+make[3]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/rt_tddft/propagators'
+Making all in closedshell
+make[3]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/rt_tddft/closedshell'
+make[4]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/rt_tddft/closedshell'
+make[4]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/rt_tddft/closedshell'
+make[3]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/rt_tddft/closedshell'
+Making all in openshell
+make[3]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/rt_tddft/openshell'
+make[4]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/rt_tddft/openshell'
+make[4]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/rt_tddft/openshell'
+make[3]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/rt_tddft/openshell'
+make[3]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/rt_tddft'
+make[3]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/rt_tddft'
+make[2]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/rt_tddft'
+make[2]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft'
+make[2]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft'
+make[1]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft'
+Making libraries in nwxc
+make[1]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwxc'
+make[2]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwxc'
+mpif90  -c -i8 -O2  -I. -I./nwad -I/project/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/include -I/project/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/tools/install/include -DEXT_INT -DLINUX -DLINUX64 -DPARALLEL_DIAG -DNODEBUG  nwxc.F
+././nwad/nwad.F(553): warning #6843: A dummy argument with an explicit INTENT(OUT) declaration is not given an explicit value.   [IXTO]
+      subroutine nwad_merge_dependencies(s,x,y,ixto,iyto)
+-----------------------------------------------^
+././nwad/nwad.F(553): warning #6843: A dummy argument with an explicit INTENT(OUT) declaration is not given an explicit value.   [IYTO]
+      subroutine nwad_merge_dependencies(s,x,y,ixto,iyto)
+----------------------------------------------------^
+make[2]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwxc'
+Making all in maxima
+make[2]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwxc/maxima'
+make[3]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwxc/maxima'
+make[3]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwxc/maxima'
+make[2]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwxc/maxima'
+make[2]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwxc'
+Got lock on /project/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/lib/LINUX64/libnwxc.lock
+ar r /project/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/lib/LINUX64/libnwxc.a nwxc.o
+echo /project/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/lib/LINUX64/libnwxc.a
+/project/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/lib/LINUX64/libnwxc.a
+make[2]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwxc'
+make[1]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwxc'
+Making libraries in rimp2
+make[1]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/rimp2'
+make[2]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/rimp2'
+make[2]: `/project/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/lib/LINUX64/librimp2.a' is up to date.
+make[2]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/rimp2'
+make[2]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/rimp2'
+make[2]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/rimp2'
+make[1]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/rimp2'
+Making libraries in stepper
+make[1]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/stepper'
+make[2]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/stepper'
+make[2]: `/project/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/lib/LINUX64/libstepper.a' is up to date.
+make[2]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/stepper'
+make[2]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/stepper'
+make[2]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/stepper'
+make[1]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/stepper'
+Making libraries in driver
+make[1]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/driver'
+make[2]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/driver'
+make[2]: `/project/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/lib/LINUX64/libdriver.a' is up to date.
+make[2]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/driver'
+make[2]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/driver'
+make[2]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/driver'
+make[1]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/driver'
+Making libraries in optim
+make[1]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/optim'
+Making all in deloc
+make[2]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/optim/deloc'
+make[3]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/optim/deloc'
+make[3]: `/project/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/lib/LINUX64/liboptim.a' is up to date.
+make[3]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/optim/deloc'
+make[3]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/optim/deloc'
+make[3]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/optim/deloc'
+make[2]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/optim/deloc'
+Making all in mepgs
+make[2]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/optim/mepgs'
+make[3]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/optim/mepgs'
+make[3]: `/project/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/lib/LINUX64/liboptim.a' is up to date.
+make[3]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/optim/mepgs'
+make[3]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/optim/mepgs'
+make[3]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/optim/mepgs'
+make[2]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/optim/mepgs'
+Making all in tropt
+make[2]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/optim/tropt'
+make[3]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/optim/tropt'
+make[3]: `/project/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/lib/LINUX64/liboptim.a' is up to date.
+make[3]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/optim/tropt'
+make[3]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/optim/tropt'
+make[3]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/optim/tropt'
+make[2]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/optim/tropt'
+Making all in neb
+make[2]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/optim/neb'
+make[3]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/optim/neb'
+make[3]: `/project/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/lib/LINUX64/liboptim.a' is up to date.
+make[3]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/optim/neb'
+make[3]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/optim/neb'
+make[3]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/optim/neb'
+make[2]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/optim/neb'
+Making all in string
+make[2]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/optim/string'
+make[3]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/optim/string'
+make[3]: `/project/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/lib/LINUX64/liboptim.a' is up to date.
+make[3]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/optim/string'
+make[3]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/optim/string'
+make[3]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/optim/string'
+make[2]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/optim/string'
+make[2]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/optim'
+make[2]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/optim'
+make[1]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/optim'
+Making libraries in cphf
+make[1]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/cphf'
+make[2]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/cphf'
+make[2]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/cphf'
+make[1]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/cphf'
+Making libraries in vib
+make[1]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/vib'
+make[2]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/vib'
+make[2]: `/project/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/lib/LINUX64/libvib.a' is up to date.
+make[2]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/vib'
+make[2]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/vib'
+make[2]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/vib'
+make[1]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/vib'
+Making libraries in mcscf
+make[1]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/mcscf'
+Making all in detci
+make[2]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/mcscf/detci'
+make[3]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/mcscf/detci'
+make[3]: `/project/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/lib/LINUX64/libmcscf.a' is up to date.
+make[3]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/mcscf/detci'
+make[3]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/mcscf/detci'
+make[3]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/mcscf/detci'
+make[2]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/mcscf/detci'
+make[2]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/mcscf'
+make[2]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/mcscf'
+make[1]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/mcscf'
+Making libraries in esp
+make[1]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/esp'
+make[2]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/esp'
+make[2]: `/project/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/lib/LINUX64/libesp.a' is up to date.
+make[2]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/esp'
+make[2]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/esp'
+make[2]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/esp'
+make[1]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/esp'
+Making libraries in hessian
+make[1]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/hessian'
+Making all in analytic
+make[2]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/hessian/analytic'
+make[3]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/hessian/analytic'
+make[3]: `/project/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/lib/LINUX64/libhessian.a' is up to date.
+make[3]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/hessian/analytic'
+Making all in dft
+make[3]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/hessian/analytic/dft'
+make[4]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/hessian/analytic/dft'
+make[4]: `/project/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/lib/LINUX64/libhessian.a' is up to date.
+make[4]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/hessian/analytic/dft'
+make[4]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/hessian/analytic/dft'
+make[4]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/hessian/analytic/dft'
+make[3]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/hessian/analytic/dft'
+make[3]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/hessian/analytic'
+make[3]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/hessian/analytic'
+make[2]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/hessian/analytic'
+make[2]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/hessian'
+make[2]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/hessian'
+make[1]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/hessian'
+Making libraries in dplot
+make[1]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/dplot'
+make[2]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/dplot'
+make[2]: `/project/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/lib/LINUX64/libdplot.a' is up to date.
+make[2]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/dplot'
+make[2]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/dplot'
+make[2]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/dplot'
+make[1]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/dplot'
+Making libraries in mp2_grad
+make[1]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/mp2_grad'
+make[2]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/mp2_grad'
+make[2]: `/project/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/lib/LINUX64/libmp2.a' is up to date.
+make[2]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/mp2_grad'
+make[2]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/mp2_grad'
+make[2]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/mp2_grad'
+make[1]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/mp2_grad'
+Making libraries in qhop
+make[1]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/qhop'
+make[2]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/qhop'
+make[2]: `/project/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/lib/LINUX64/libqhop.a' is up to date.
+make[2]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/qhop'
+make[2]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/qhop'
+make[2]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/qhop'
+make[1]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/qhop'
+Making libraries in property
+make[1]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/property'
+make[2]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/property'
+make[2]: `/project/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/lib/LINUX64/libproperty.a' is up to date.
+make[2]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/property'
+make[2]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/property'
+make[2]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/property'
+make[1]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/property'
+Making libraries in solvation
+make[1]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/solvation'
+make[2]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/solvation'
+make[2]: `/project/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/lib/LINUX64/libsolvation.a' is up to date.
+make[2]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/solvation'
+make[2]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/solvation'
+make[2]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/solvation'
+make[1]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/solvation'
+Making libraries in fft
+make[1]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/fft'
+Making all in pfft1.0
+make[2]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/fft/pfft1.0'
+Making all in fftpack
+make[3]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/fft/pfft1.0/fftpack'
+make[4]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/fft/pfft1.0/fftpack'
+make[4]: `/project/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/lib/LINUX64/libpfft.a' is up to date.
+make[4]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/fft/pfft1.0/fftpack'
+make[4]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/fft/pfft1.0/fftpack'
+make[4]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/fft/pfft1.0/fftpack'
+make[3]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/fft/pfft1.0/fftpack'
+Making all in pfft
+make[3]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/fft/pfft1.0/pfft'
+make[4]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/fft/pfft1.0/pfft'
+make[4]: `/project/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/lib/LINUX64/libpfft.a' is up to date.
+make[4]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/fft/pfft1.0/pfft'
+make[4]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/fft/pfft1.0/pfft'
+make[4]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/fft/pfft1.0/pfft'
+make[3]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/fft/pfft1.0/pfft'
+make[3]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/fft/pfft1.0'
+make[3]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/fft/pfft1.0'
+make[2]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/fft/pfft1.0'
+Making all in pfftwrap
+make[2]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/fft/pfftwrap'
+make[3]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/fft/pfftwrap'
+make[3]: `/project/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/lib/LINUX64/libpfft.a' is up to date.
+make[3]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/fft/pfftwrap'
+make[3]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/fft/pfftwrap'
+make[3]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/fft/pfftwrap'
+make[2]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/fft/pfftwrap'
+make[2]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/fft'
+make[2]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/fft'
+make[1]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/fft'
+Making libraries in nwmd
+make[1]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwmd'
+make[2]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwmd'
+make[2]: `/project/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/lib/LINUX64/libnwmd.a' is up to date.
+make[2]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwmd'
+make[2]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwmd'
+make[2]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwmd'
+make[1]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwmd'
+Making libraries in cafe
+make[1]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/cafe'
+make[2]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/cafe'
+make[2]: `/project/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/lib/LINUX64/libcafe.a' is up to date.
+make[2]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/cafe'
+make[2]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/cafe'
+make[2]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/cafe'
+make[1]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/cafe'
+Making libraries in space
+make[1]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/space'
+make[2]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/space'
+make[2]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/space'
+make[1]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/space'
+Making libraries in vscf
+make[1]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/vscf'
+make[2]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/vscf'
+make[2]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/vscf'
+make[1]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/vscf'
+Making libraries in qmd
+make[1]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/qmd'
+make[2]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/qmd'
+make[2]: `/project/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/lib/LINUX64/libqmd.a' is up to date.
+make[2]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/qmd'
+make[2]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/qmd'
+make[2]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/qmd'
+make[1]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/qmd'
+Making libraries in etrans
+make[1]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/etrans'
+make[2]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/etrans'
+make[2]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/etrans'
+make[1]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/etrans'
+Making libraries in bq
+make[1]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/bq'
+make[2]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/bq'
+make[2]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/bq'
+make[1]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/bq'
+Making libraries in cons
+make[1]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/cons'
+make[2]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/cons'
+make[2]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/cons'
+make[1]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/cons'
+Making libraries in dimqm
+make[1]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/dimqm'
+make[2]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/dimqm'
+make[2]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/dimqm'
+make[1]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/dimqm'
+make nwchem.o stubs.o
+make[1]: Entering directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src'
+mpif90 -i8 -g  -I.  -I/project/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/include -I/project/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/tools/install/include -DEXT_INT -DLINUX -DLINUX64 -DPARALLEL_DIAG -DCOMPILATION_DATE="'`date +%a_%b_%d_%H:%M:%S_%Y`'" -DCOMPILATION_DIR="'/project/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128'" -DNWCHEM_BRANCH="'6.8'"  -c -o nwchem.o nwchem.F
+mpif90 -i8 -g  -I.  -I/project/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/include -I/project/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/tools/install/include -DEXT_INT -DLINUX -DLINUX64 -DPARALLEL_DIAG -DCOMPILATION_DATE="'`date +%a_%b_%d_%H:%M:%S_%Y`'" -DCOMPILATION_DIR="'/project/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128'" -DNWCHEM_BRANCH="'6.8'"  -c -o stubs.o stubs.F
+make[1]: Leaving directory `/ddnA/project/gaarde/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src'
+mpif90 -i8 -g   -L/project/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/lib/LINUX64 -L/project/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/tools/install/lib   -o /project/imam77/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/bin/LINUX64/nwchem nwchem.o stubs.o -lnwctask -lmcscf -lmp2 -lmoints -lstepper -ldriver -loptim -lnwdft -lgradients -lcphf -lesp -lddscf -lguess -lhessian -lvib -lnwcutil -lrimp2 -lproperty -lsolvation -lnwints -lnwmd -lnwxc -lcafe -lspace -lqhop -lpfft -ldplot -lvscf -lqmd -letrans -lbq -lcons -ldimqm -lnwcutil -lga -larmci -lpeigs -lperfm -lcons -lbq -lnwcutil    -lnwclapack  -lnwcblas   -L/usr/local/packages/mvapich2/2.2/INTEL-18.0.0/lib -lmpifort -lmpi   -libverbs   -L/usr/lib64  -lpthread   
+/bin/rm -f nwchem.o stubs.o
+make: Nothing to be done for `all'.
+=== all done ===

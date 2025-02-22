@@ -1,0 +1,71 @@
+
+      
+
+c     ==== START : Neutral parameters ====
+      character*255
+     &     movecs0, title0, basname0, scftype0
+
+      integer
+     &     nbf0, ns_ion0, nmo0(2), me_nocc0, me_nerg0, l_moocc0,
+     &     k_moocc0, l_moerg0, k_moerg0, g_mov0(2), nel0(2), multip0,
+     &     l_modgid0, k_modgid0, l_modgn0, k_modgn0, l_norbdg0,
+     &     k_norbdg0
+
+      double precision
+     &     charge0
+c     ==== END : Neutral parameters ====
+      
+
+c     ==== START : Cation parameters ====
+      character *255
+     &     movecs1, title1, basname1, scftype1
+
+      integer
+     &     nbf1, ns_ion1, nmo1(2), me_nocc1, me_nerg1, l_moocc1, 
+     &     k_moocc1, l_moerg1, k_moerg1, g_mov1(2), nel1(2), multip1,
+     &     l_modgid1, k_modgid1, l_modgn1, k_modgn1, l_norbdg1,
+     &     k_norbdg1
+
+      double precision
+     &     charge1
+c     ==== END : Cation parameters ====      
+
+
+c     ==== Other data ====
+      logical
+     &     oskel, iolgc, mo0_swapped
+
+      integer
+     &     geom_hd, bas_hd, natm, spinx, spiny, nbas, ixcfit,
+     &     gwf_ovl, gwf_kin, gwf_pot
+
+      double precision
+     &     tol2e, zion
+
+      double complex
+     &     wfphase
+      
+      
+      common /mewfat_qm/
+c     ---- Characters ----
+     &     movecs0, title0, basname0, scftype0,
+     &     movecs1, title1, basname1, scftype1,
+c     ---- Logicals ----
+     &     oskel, iolgc, mo0_swapped,
+c     ---- Integers ----
+     &     nbf0, ns_ion0, nmo0, me_nocc0, me_nerg0, l_moocc0,
+     &     k_moocc0, l_moerg0, k_moerg0, g_mov0, nel0, multip0,
+     &     l_modgid0, k_modgid0, l_modgn0, k_modgn0, l_norbdg0,
+     &     k_norbdg0,
+     &     nbf1, ns_ion1, nmo1, me_nocc1, me_nerg1, l_moocc1,
+     &     k_moocc1, l_moerg1, k_moerg1, g_mov1, nel1, multip1,
+     &     l_modgid1, k_modgid1, l_modgn1, k_modgn1, l_norbdg1,
+     &     k_norbdg1,
+     &     geom_hd, bas_hd, natm, spinx, spiny, nbas, ixcfit,
+     &     gwf_ovl, gwf_kin, gwf_pot,
+c     ---- Double precisions ----
+     &     charge0, charge1, tol2e, zion,
+c     ---- Double complexes ----
+     &     wfphase
+      
+      

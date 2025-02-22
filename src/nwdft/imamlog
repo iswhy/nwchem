@@ -1,0 +1,225 @@
+Making all in include
+make[1]: Entering directory `/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/include'
+make[2]: Entering directory `/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/include'
+make[2]: Leaving directory `/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/include'
+make[1]: Leaving directory `/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/include'
+Making all in input_dft
+make[1]: Entering directory `/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/input_dft'
+make[2]: Entering directory `/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/input_dft'
+make[2]: Leaving directory `/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/input_dft'
+make[1]: Leaving directory `/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/input_dft'
+Making all in scf_dft
+make[1]: Entering directory `/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/scf_dft'
+/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/bin/LINUX64/depend.x -I../include -I../grid -I/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/tools/install/include > dependencies
+make[1]: Leaving directory `/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/scf_dft'
+make[1]: Entering directory `/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/scf_dft'
+mpif90  -c -i8 -g  -I. -I../include -I../grid -I/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/include -I/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/tools/install/include -DEXT_INT -DLINUX -DLINUX64 -DPARALLEL_DIAG   wfat_input.F
+mpif90  -c -i8 -g  -I. -I../include -I../grid -I/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/include -I/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/tools/install/include -DEXT_INT -DLINUX -DLINUX64 -DPARALLEL_DIAG   wfat_process_input.F
+mpif90  -c -i8 -g  -I. -I../include -I../grid -I/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/include -I/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/tools/install/include -DEXT_INT -DLINUX -DLINUX64 -DPARALLEL_DIAG   wfat_task.F
+mpif90  -c -i8 -g  -I. -I../include -I../grid -I/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/include -I/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/tools/install/include -DEXT_INT -DLINUX -DLINUX64 -DPARALLEL_DIAG   wfat_prepare_task.F
+mpif90  -c -i8 -g  -I. -I../include -I../grid -I/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/include -I/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/tools/install/include -DEXT_INT -DLINUX -DLINUX64 -DPARALLEL_DIAG   wfat_init.F
+mpif90  -c -i8 -g  -I. -I../include -I../grid -I/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/include -I/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/tools/install/include -DEXT_INT -DLINUX -DLINUX64 -DPARALLEL_DIAG   wfat_init_test.F
+mpif90  -c -i8 -g  -I. -I../include -I../grid -I/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/include -I/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/tools/install/include -DEXT_INT -DLINUX -DLINUX64 -DPARALLEL_DIAG   wfat_calc_intgl.F
+mpif90  -c -i8 -g  -I. -I../include -I../grid -I/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/include -I/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/tools/install/include -DEXT_INT -DLINUX -DLINUX64 -DPARALLEL_DIAG   wfat_calc_structuref.F
+mpif90  -c -i8 -g  -I. -I../include -I../grid -I/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/include -I/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/tools/install/include -DEXT_INT -DLINUX -DLINUX64 -DPARALLEL_DIAG   wfat_calc_ionyield.F
+mpif90  -c -i8 -g  -I. -I../include -I../grid -I/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/include -I/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/tools/install/include -DEXT_INT -DLINUX -DLINUX64 -DPARALLEL_DIAG   wfat_calc_tmd.F
+mpif90  -c -i8 -g  -I. -I../include -I../grid -I/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/include -I/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/tools/install/include -DEXT_INT -DLINUX -DLINUX64 -DPARALLEL_DIAG   wfat_calc_ti.F
+mpif90  -c -i8 -g  -I. -I../include -I../grid -I/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/include -I/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/tools/install/include -DEXT_INT -DLINUX -DLINUX64 -DPARALLEL_DIAG   wfat_calc_td.F
+mpif90  -c -i8 -g  -I. -I../include -I../grid -I/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/include -I/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/tools/install/include -DEXT_INT -DLINUX -DLINUX64 -DPARALLEL_DIAG   wfat_field_factor.F
+mpif90  -c -i8 -g  -I. -I../include -I../grid -I/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/include -I/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/tools/install/include -DEXT_INT -DLINUX -DLINUX64 -DPARALLEL_DIAG   wfat_celf.F
+mpif90  -c -i8 -g  -I. -I../include -I../grid -I/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/include -I/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/tools/install/include -DEXT_INT -DLINUX -DLINUX64 -DPARALLEL_DIAG   wfat_chypgeom.F
+mpif90  -c -i8 -g  -I. -I../include -I../grid -I/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/include -I/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/tools/install/include -DEXT_INT -DLINUX -DLINUX64 -DPARALLEL_DIAG   wfat_density.F
+mpif90  -c -i8 -g  -I. -I../include -I../grid -I/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/include -I/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/tools/install/include -DEXT_INT -DLINUX -DLINUX64 -DPARALLEL_DIAG   wfat_eval_basis.F
+mpif90  -c -i8 -g  -I. -I../include -I../grid -I/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/include -I/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/tools/install/include -DEXT_INT -DLINUX -DLINUX64 -DPARALLEL_DIAG   wfat_grid.F
+mpif90  -c -i8 -g  -I. -I../include -I../grid -I/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/include -I/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/tools/install/include -DEXT_INT -DLINUX -DLINUX64 -DPARALLEL_DIAG   wfat_lebedev.F
+mpif90  -c -i8 -g  -I. -I../include -I../grid -I/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/include -I/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/tools/install/include -DEXT_INT -DLINUX -DLINUX64 -DPARALLEL_DIAG   wfat_omega.F
+mpif90  -c -i8 -g  -I. -I../include -I../grid -I/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/include -I/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/tools/install/include -DEXT_INT -DLINUX -DLINUX64 -DPARALLEL_DIAG   wfat_potential_calc.F
+mpif90  -c -i8 -g  -I. -I../include -I../grid -I/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/include -I/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/tools/install/include -DEXT_INT -DLINUX -DLINUX64 -DPARALLEL_DIAG   wfat_potential_calc_asy.F
+mpif90  -c -i8 -g  -I. -I../include -I../grid -I/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/include -I/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/tools/install/include -DEXT_INT -DLINUX -DLINUX64 -DPARALLEL_DIAG   wfat_potential.F
+mpif90  -c -i8 -g  -I. -I../include -I../grid -I/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/include -I/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/tools/install/include -DEXT_INT -DLINUX -DLINUX64 -DPARALLEL_DIAG   wfat_potential_asy.F
+mpif90  -c -i8 -g  -I. -I../include -I../grid -I/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/include -I/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/tools/install/include -DEXT_INT -DLINUX -DLINUX64 -DPARALLEL_DIAG   wfat_potential_rs.F
+mpif90  -c -i8 -g  -I. -I../include -I../grid -I/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/include -I/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/tools/install/include -DEXT_INT -DLINUX -DLINUX64 -DPARALLEL_DIAG   wfat_tools.F
+mpif90  -c -i8 -g  -I. -I../include -I../grid -I/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/include -I/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/tools/install/include -DEXT_INT -DLINUX -DLINUX64 -DPARALLEL_DIAG   wfat_par_tools.F
+mpif90  -c -i8 -g  -I. -I../include -I../grid -I/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/include -I/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/tools/install/include -DEXT_INT -DLINUX -DLINUX64 -DPARALLEL_DIAG   wfat_test.F
+mpif90  -c -i8 -g  -I. -I../include -I../grid -I/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/include -I/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/tools/install/include -DEXT_INT -DLINUX -DLINUX64 -DPARALLEL_DIAG   wfat_test2.F
+mpif90  -c -i8 -g  -I. -I../include -I../grid -I/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/include -I/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/tools/install/include -DEXT_INT -DLINUX -DLINUX64 -DPARALLEL_DIAG   wfat_numdens.F
+mpif90  -c -i8 -g  -I. -I../include -I../grid -I/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/include -I/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/tools/install/include -DEXT_INT -DLINUX -DLINUX64 -DPARALLEL_DIAG   wfat_orb_property.F
+mpif90  -c -i8 -g  -I. -I../include -I../grid -I/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/include -I/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/tools/install/include -DEXT_INT -DLINUX -DLINUX64 -DPARALLEL_DIAG   wfat_eval_mo.F
+mpif90  -c -i8 -g  -I. -I../include -I../grid -I/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/include -I/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/tools/install/include -DEXT_INT -DLINUX -DLINUX64 -DPARALLEL_DIAG   wfat_eval_laser.F
+mpif90  -c -i8 -g  -I. -I../include -I../grid -I/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/include -I/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/tools/install/include -DEXT_INT -DLINUX -DLINUX64 -DPARALLEL_DIAG   wfat_print.F
+mpif90  -c -i8 -g  -I. -I../include -I../grid -I/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/include -I/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/tools/install/include -DEXT_INT -DLINUX -DLINUX64 -DPARALLEL_DIAG   wfat_print_sf.F
+mpif90  -c -i8 -g  -I. -I../include -I../grid -I/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/include -I/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/tools/install/include -DEXT_INT -DLINUX -DLINUX64 -DPARALLEL_DIAG   wfat_print_rt.F
+mpif90  -c -i8 -g  -I. -I../include -I../grid -I/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/include -I/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/tools/install/include -DEXT_INT -DLINUX -DLINUX64 -DPARALLEL_DIAG   wfat_print_iy.F
+mpif90  -c -i8 -g  -I. -I../include -I../grid -I/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/include -I/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/tools/install/include -DEXT_INT -DLINUX -DLINUX64 -DPARALLEL_DIAG   wfat_print_tm.F
+mpif90  -c -i8 -g  -I. -I../include -I../grid -I/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/include -I/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/tools/install/include -DEXT_INT -DLINUX -DLINUX64 -DPARALLEL_DIAG   wfat_print_tmar.F
+mpif90  -c -i8 -g  -I. -I../include -I../grid -I/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/include -I/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/tools/install/include -DEXT_INT -DLINUX -DLINUX64 -DPARALLEL_DIAG   wfat_print_info.F
+mpif90  -c -i8 -g  -I. -I../include -I../grid -I/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/include -I/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/tools/install/include -DEXT_INT -DLINUX -DLINUX64 -DPARALLEL_DIAG   wfat_print_dens.F
+mpif90  -c -i8 -g  -I. -I../include -I../grid -I/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/include -I/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/tools/install/include -DEXT_INT -DLINUX -DLINUX64 -DPARALLEL_DIAG   wfat_util.F
+mpif90  -c -i8 -g  -I. -I../include -I../grid -I/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/include -I/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/tools/install/include -DEXT_INT -DLINUX -DLINUX64 -DPARALLEL_DIAG   wfat_orb_mulliken.F
+mpif90  -c -i8 -g  -I. -I../include -I../grid -I/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/include -I/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/tools/install/include -DEXT_INT -DLINUX -DLINUX64 -DPARALLEL_DIAG   wfat_opvec_coef.F
+mpif90  -c -i8 -g  -I. -I../include -I../grid -I/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/include -I/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/tools/install/include -DEXT_INT -DLINUX -DLINUX64 -DPARALLEL_DIAG   wfat_get_opmat.F
+mpif90  -c -i8 -g  -I. -I../include -I../grid -I/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/include -I/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/tools/install/include -DEXT_INT -DLINUX -DLINUX64 -DPARALLEL_DIAG   wfat_get_fock.F
+mpif90  -c -i8 -g  -I. -I../include -I../grid -I/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/include -I/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/tools/install/include -DEXT_INT -DLINUX -DLINUX64 -DPARALLEL_DIAG   wfat_perturb.F
+mpif90  -c -i8 -g  -I. -I../include -I../grid -I/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/include -I/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/tools/install/include -DEXT_INT -DLINUX -DLINUX64 -DPARALLEL_DIAG   wfat_perturb_bw.F
+mpif90  -c -i8 -g  -I. -I../include -I../grid -I/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/include -I/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/tools/install/include -DEXT_INT -DLINUX -DLINUX64 -DPARALLEL_DIAG   wfat_perturb_rs.F
+mpif90  -c -i8 -g  -I. -I../include -I../grid -I/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/include -I/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/tools/install/include -DEXT_INT -DLINUX -DLINUX64 -DPARALLEL_DIAG   wfat_perturb_analyse.F
+mpif90  -c -i8 -g  -I. -I../include -I../grid -I/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/include -I/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/tools/install/include -DEXT_INT -DLINUX -DLINUX64 -DPARALLEL_DIAG   wfat_perturb_print.F
+mpif90  -c -i8 -g  -I. -I../include -I../grid -I/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/include -I/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/tools/install/include -DEXT_INT -DLINUX -DLINUX64 -DPARALLEL_DIAG   wfat_partial_integ.F
+mpif90  -c -i8 -g  -I. -I../include -I../grid -I/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/include -I/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/tools/install/include -DEXT_INT -DLINUX -DLINUX64 -DPARALLEL_DIAG   mewfat_task.F
+mpif90  -c -i8 -g  -I. -I../include -I../grid -I/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/include -I/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/tools/install/include -DEXT_INT -DLINUX -DLINUX64 -DPARALLEL_DIAG   mewfat_init.F
+mpif90  -c -i8 -g  -I. -I../include -I../grid -I/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/include -I/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/tools/install/include -DEXT_INT -DLINUX -DLINUX64 -DPARALLEL_DIAG   mewfat_print_info.F
+mpif90  -c -i8 -g  -I. -I../include -I../grid -I/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/include -I/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/tools/install/include -DEXT_INT -DLINUX -DLINUX64 -DPARALLEL_DIAG   mewfat_need_input_v2.F
+mpif90  -c -i8 -g  -I. -I../include -I../grid -I/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/include -I/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/tools/install/include -DEXT_INT -DLINUX -DLINUX64 -DPARALLEL_DIAG   mewfat_channel_property.F
+mpif90  -c -i8 -g  -I. -I../include -I../grid -I/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/include -I/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/tools/install/include -DEXT_INT -DLINUX -DLINUX64 -DPARALLEL_DIAG   mewfat_calc_intgl.F
+mpif90  -c -i8 -g  -I. -I../include -I../grid -I/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/include -I/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/tools/install/include -DEXT_INT -DLINUX -DLINUX64 -DPARALLEL_DIAG   mewfat_io_intgl.F
+mpif90  -c -i8 -g  -I. -I../include -I../grid -I/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/include -I/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/tools/install/include -DEXT_INT -DLINUX -DLINUX64 -DPARALLEL_DIAG   mewfat_calc_detcoef.F
+mpif90  -c -i8 -g  -I. -I../include -I../grid -I/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/include -I/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/tools/install/include -DEXT_INT -DLINUX -DLINUX64 -DPARALLEL_DIAG   mewfat_density.F
+mpif90  -c -i8 -g  -I. -I../include -I../grid -I/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/include -I/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/tools/install/include -DEXT_INT -DLINUX -DLINUX64 -DPARALLEL_DIAG   mewfat_dfterg.F
+mpif90  -c -i8 -g  -I. -I../include -I../grid -I/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/include -I/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/tools/install/include -DEXT_INT -DLINUX -DLINUX64 -DPARALLEL_DIAG   mewfat_eval_dyson.F
+mpif90  -c -i8 -g  -I. -I../include -I../grid -I/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/include -I/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/tools/install/include -DEXT_INT -DLINUX -DLINUX64 -DPARALLEL_DIAG   mewfat_potential.F
+mpif90  -c -i8 -g  -I. -I../include -I../grid -I/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/include -I/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/tools/install/include -DEXT_INT -DLINUX -DLINUX64 -DPARALLEL_DIAG   mewfat_potential_calc.F
+make[2]: Entering directory `/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/scf_dft'
+make[2]: `/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/lib/LINUX64/libnwdft.a' is up to date.
+make[2]: Leaving directory `/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/scf_dft'
+make[2]: Entering directory `/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/scf_dft'
+Got lock on /home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/lib/LINUX64/libnwdft.lock
+ar rU /home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/lib/LINUX64/libnwdft.a wfat_input.o wfat_process_input.o wfat_task.o wfat_prepare_task.o wfat_init.o wfat_init_test.o wfat_calc_intgl.o wfat_calc_structuref.o wfat_calc_ionyield.o wfat_calc_tmd.o wfat_calc_ti.o wfat_calc_td.o wfat_field_factor.o wfat_celf.o wfat_chypgeom.o wfat_density.o wfat_eval_basis.o wfat_grid.o wfat_lebedev.o wfat_omega.o wfat_potential_calc.o wfat_potential_calc_asy.o wfat_potential.o wfat_potential_asy.o wfat_potential_rs.o wfat_tools.o wfat_par_tools.o wfat_test.o wfat_test2.o wfat_numdens.o wfat_orb_property.o wfat_eval_mo.o wfat_eval_laser.o wfat_print.o wfat_print_sf.o wfat_print_rt.o wfat_print_iy.o wfat_print_tm.o wfat_print_tmar.o wfat_print_info.o wfat_print_dens.o wfat_util.o wfat_orb_mulliken.o wfat_opvec_coef.o wfat_get_opmat.o wfat_get_fock.o wfat_perturb.o wfat_perturb_bw.o wfat_perturb_rs.o wfat_perturb_analyse.o wfat_perturb_print.o wfat_partial_integ.o mewfat_task.o mewfat_init.o mewfat_print_info.o mewfat_need_input_v2.o mewfat_channel_property.o mewfat_calc_intgl.o mewfat_io_intgl.o mewfat_calc_detcoef.o mewfat_density.o mewfat_dfterg.o mewfat_eval_dyson.o mewfat_potential.o mewfat_potential_calc.o
+echo /home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/lib/LINUX64/libnwdft.a
+/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/lib/LINUX64/libnwdft.a
+make[2]: Leaving directory `/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/scf_dft'
+make[1]: Leaving directory `/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/scf_dft'
+Making all in scf_dft_cg
+make[1]: Entering directory `/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/scf_dft_cg'
+make[2]: Entering directory `/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/scf_dft_cg'
+make[2]: Leaving directory `/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/scf_dft_cg'
+make[1]: Leaving directory `/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/scf_dft_cg'
+Making all in so_dft
+make[1]: Entering directory `/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/so_dft'
+make[2]: Entering directory `/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/so_dft'
+make[2]: Leaving directory `/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/so_dft'
+make[1]: Leaving directory `/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/so_dft'
+Making all in coulomb
+make[1]: Entering directory `/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/coulomb'
+make[2]: Entering directory `/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/coulomb'
+make[2]: `/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/lib/LINUX64/libnwdft.a' is up to date.
+make[2]: Leaving directory `/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/coulomb'
+make[2]: Entering directory `/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/coulomb'
+make[2]: Leaving directory `/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/coulomb'
+make[1]: Leaving directory `/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/coulomb'
+Making all in xc
+make[1]: Entering directory `/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/xc'
+make[2]: Entering directory `/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/xc'
+make[2]: `/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/lib/LINUX64/libnwdft.a' is up to date.
+make[2]: Leaving directory `/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/xc'
+make[2]: Entering directory `/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/xc'
+make[2]: Leaving directory `/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/xc'
+make[1]: Leaving directory `/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/xc'
+Making all in util
+make[1]: Entering directory `/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/util'
+make[2]: Entering directory `/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/util'
+make[2]: `/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/lib/LINUX64/libnwdft.a' is up to date.
+make[2]: Leaving directory `/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/util'
+make[2]: Entering directory `/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/util'
+make[2]: Leaving directory `/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/util'
+make[1]: Leaving directory `/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/util'
+Making all in grid
+make[1]: Entering directory `/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/grid'
+make[2]: Entering directory `/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/grid'
+make[2]: `/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/lib/LINUX64/libnwdft.a' is up to date.
+make[2]: Leaving directory `/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/grid'
+make[2]: Entering directory `/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/grid'
+make[2]: Leaving directory `/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/grid'
+make[1]: Leaving directory `/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/grid'
+Making all in dftgrad
+make[1]: Entering directory `/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/dftgrad'
+make[2]: Entering directory `/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/dftgrad'
+make[2]: `/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/lib/LINUX64/libnwdft.a' is up to date.
+make[2]: Leaving directory `/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/dftgrad'
+make[2]: Entering directory `/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/dftgrad'
+make[2]: Leaving directory `/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/dftgrad'
+make[1]: Leaving directory `/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/dftgrad'
+Making all in lr_tddft
+make[1]: Entering directory `/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/lr_tddft'
+make[2]: Entering directory `/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/lr_tddft'
+make[2]: Leaving directory `/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/lr_tddft'
+make[1]: Leaving directory `/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/lr_tddft'
+Making all in lr_tddft_grad
+make[1]: Entering directory `/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/lr_tddft_grad'
+make[2]: Entering directory `/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/lr_tddft_grad'
+make[2]: Leaving directory `/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/lr_tddft_grad'
+make[1]: Leaving directory `/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/lr_tddft_grad'
+Making all in zora
+make[1]: Entering directory `/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/zora'
+make[2]: Entering directory `/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/zora'
+make[2]: `/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/lib/LINUX64/libnwdft.a' is up to date.
+make[2]: Leaving directory `/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/zora'
+make[2]: Entering directory `/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/zora'
+make[2]: Leaving directory `/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/zora'
+make[1]: Leaving directory `/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/zora'
+Making all in spec
+make[1]: Entering directory `/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/spec'
+make[2]: Entering directory `/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/spec'
+make[2]: `/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/lib/LINUX64/libnwdft.a' is up to date.
+make[2]: Leaving directory `/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/spec'
+make[2]: Entering directory `/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/spec'
+make[2]: Leaving directory `/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/spec'
+make[1]: Leaving directory `/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/spec'
+Making all in rt_tddft
+make[1]: Entering directory `/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/rt_tddft'
+Making all in matutils
+make[2]: Entering directory `/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/rt_tddft/matutils'
+make[3]: Entering directory `/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/rt_tddft/matutils'
+make[3]: Leaving directory `/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/rt_tddft/matutils'
+make[2]: Leaving directory `/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/rt_tddft/matutils'
+Making all in rtutils
+make[2]: Entering directory `/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/rt_tddft/rtutils'
+make[3]: Entering directory `/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/rt_tddft/rtutils'
+make[3]: Leaving directory `/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/rt_tddft/rtutils'
+make[2]: Leaving directory `/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/rt_tddft/rtutils'
+Making all in input
+make[2]: Entering directory `/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/rt_tddft/input'
+make[3]: Entering directory `/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/rt_tddft/input'
+make[3]: Leaving directory `/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/rt_tddft/input'
+make[2]: Leaving directory `/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/rt_tddft/input'
+Making all in init
+make[2]: Entering directory `/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/rt_tddft/init'
+make[3]: Entering directory `/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/rt_tddft/init'
+make[3]: Leaving directory `/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/rt_tddft/init'
+make[2]: Leaving directory `/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/rt_tddft/init'
+Making all in canorg
+make[2]: Entering directory `/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/rt_tddft/canorg'
+make[3]: Entering directory `/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/rt_tddft/canorg'
+make[3]: Leaving directory `/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/rt_tddft/canorg'
+make[2]: Leaving directory `/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/rt_tddft/canorg'
+Making all in propagators
+make[2]: Entering directory `/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/rt_tddft/propagators'
+make[3]: Entering directory `/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/rt_tddft/propagators'
+make[3]: Leaving directory `/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/rt_tddft/propagators'
+make[2]: Leaving directory `/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/rt_tddft/propagators'
+Making all in closedshell
+make[2]: Entering directory `/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/rt_tddft/closedshell'
+make[3]: Entering directory `/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/rt_tddft/closedshell'
+make[3]: Leaving directory `/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/rt_tddft/closedshell'
+make[2]: Leaving directory `/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/rt_tddft/closedshell'
+Making all in openshell
+make[2]: Entering directory `/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/rt_tddft/openshell'
+make[3]: Entering directory `/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/rt_tddft/openshell'
+make[3]: Leaving directory `/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/rt_tddft/openshell'
+make[2]: Leaving directory `/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/rt_tddft/openshell'
+make[2]: Entering directory `/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/rt_tddft'
+make[2]: Leaving directory `/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/rt_tddft'
+make[1]: Leaving directory `/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/rt_tddft'
+make[1]: Entering directory `/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft'
+make[1]: Leaving directory `/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft'
+~/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src ~/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft
+make nwchem.o stubs.o
+make[1]: Entering directory `/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src'
+mpif90 -i8 -g  -I.  -I/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/include -I/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/tools/install/include -DEXT_INT -DLINUX -DLINUX64 -DPARALLEL_DIAG -DCOMPILATION_DATE="'`date +%a_%b_%d_%H:%M:%S_%Y`'" -DCOMPILATION_DIR="'/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128'" -DNWCHEM_BRANCH="'6.8'"  -c -o nwchem.o nwchem.F
+mpif90 -i8 -g  -I.  -I/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/include -I/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/tools/install/include -DEXT_INT -DLINUX -DLINUX64 -DPARALLEL_DIAG -DCOMPILATION_DATE="'`date +%a_%b_%d_%H:%M:%S_%Y`'" -DCOMPILATION_DIR="'/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128'" -DNWCHEM_BRANCH="'6.8'"  -c -o stubs.o stubs.F
+make[1]: Leaving directory `/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src'
+mpif90 -i8 -g   -L/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/lib/LINUX64 -L/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/tools/install/lib   -o /home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/bin/LINUX64/nwchem nwchem.o stubs.o -lnwctask -lmcscf -lmp2 -lmoints -lstepper -ldriver -loptim -lnwdft -lgradients -lcphf -lesp -lddscf -lguess -lhessian -lvib -lnwcutil -lrimp2 -lproperty -lsolvation -lnwints -lnwmd -lnwxc -lcafe -lspace -lqhop -lpfft -ldplot -lvscf -lqmd -letrans -lbq -lcons -ldimqm -lnwcutil -lga -larmci -lpeigs -lperfm -lcons -lbq -lnwcutil    -mkl  -lnwclapack  -lnwcblas   -L/usr/local/packages/mvapich2/2.3.3/nc23zj7q/lib -lmpifort -lmpi   -libverbs   -L/usr/lib64 -lrt -lpthread  -lpthread  -lslurm  
+/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/lib/LINUX64/libnwdft.a(mewfat_need_input_v2.o): In function `mewfat_need_input_':
+/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/scf_dft/mewfat_need_input_v2.F:3: multiple definition of `mewfat_need_input_'
+/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/lib/LINUX64/libnwdft.a(mewfat_process_input.o):/home/iswhy/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft/scf_dft/mewfat_process_input.F:4: first defined here
+make: *** [link] Error 1
+~/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src/nwdft

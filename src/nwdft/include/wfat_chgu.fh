@@ -1,0 +1,18 @@
+
+
+      integer
+     &     NLGP, NQLIB, MAXQLIB
+
+      parameter
+     &     (NLGP=50, MAXQLIB=40)
+      
+      double precision
+     &     lgp(NLGP, MAXQLIB), lgw(NLGP, MAXQLIB), alplist(MAXQLIB),
+     &     DIFTHR
+
+      parameter
+     &     (DIFTHR=1.0d-8)
+
+      common /lfqlib/
+     &     NQLIB, lgp, lgw, alplist
+      

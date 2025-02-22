@@ -1,0 +1,69 @@
+
+
+
+Before any modification to the source code is done, be sure to do the following:
+
+1) Either run this 
+     source ~/src/nwchem-6.8/NOTES/DEV_SETENV.sh
+   or this
+     source ~/src/nwchem-6.8/NOTES/KENL_SETENV.sh
+   or this
+     source ~/src/nwchem-6.8/NOTES/NWXC_SETENV.sh
+   This will set the necessary environment variables.
+     
+2) If this package has been successfully installed before, then jump to step 3) 
+   below. On  the other hand, if this is a newly exctracted or downloaded package, 
+   then go to the top directory (the one containing src and contrib folders), and 
+   run this script
+     ./contrib/distro-tools/build_nwchem
+   This will create nwchem_make_env.sh file in the top directory.
+
+3) Go to the top directory and run this script file (the one created in step 2)
+   above)
+     source ~/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/nwchem_make_env.sh
+   This will enable the command `renwc' to be called from wherever you are inside
+   the nwchem source tree.
+
+4) If this package is a newly extracted or downloaded package, then run `renwc'
+   from under the src/ folder (i.e. not in its subdirectory). Otherwise, you can
+   run it from wherever you like inside the src/ tree. The path of the created
+   executable is:
+     ~/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/bin/LINUX64/nwchem
+
+
+
+
+NWC_SRC = ~/src/nwchem-6.8/DEV_intel-18.0.0_impi-2018.0.128/src
+
+program nwchem:
+  errquit => NWC_SRC/util/errquit.F
+  rtdb_init => NWC_SRC/rtdb/rtdb_seq.c
+  task => NWC_SRC/task/task.F
+
+function task_energy:
+  task_qmmm_energy => qmmm/task_qmmm_energy.F
+
+
+
+
+
+NWChem questions:
+
+
+
+
+
+
+Edited files for input to incorporate WFAT:
+1) $NWC_SRC/input/input_parse.F
+2) $NWC_SRC/task/task_input.F
+3) $NWC_SRC/task/task.F
+
+
+Where nspin has been replaced by nspin0:
+1) subroutine wfat_init() in $NWC_SRC/nwdft/scf_dft/wfat_init.F
+2) $NWC_SRC/nwdft/include/wfat_qm_param.fh
+3) subroutine wfat_calc_intgl in $NWC_SRC/nwdft/scf_dft/wfat_calc_intgl.F
+4) function task_wfat in $NWC_SRC/nwdft/scf_dft/wfat_task.F
+
+

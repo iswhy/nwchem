@@ -1,0 +1,9 @@
+c=======================================================
+c=======================================================
+      subroutine mewfat_need_input()
+      implicit none
+#include "errquit.fh"
+
+      call errquit('stopping in mewfat_need_input', 32, UERR)
+      end
+c=======================================================

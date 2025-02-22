@@ -1,0 +1,250 @@
+c=======================================================
+c=======================================================
+      subroutine wfat_initprint_ionyield(nch, orbid0, spinid,
+     &           nqn, nid, mid)
+
+      implicit none
+#include "wfat.fh"
+#include "errquit.fh"
+#include "stdio.fh"      
+      integer nch, orbid0(nch), spinid(nch), nqn, nid(nqn), mid(nqn)
+
+      character*6 wd_str
+      integer dspn, dorb0, dnid, dmid, WF_IY_LINEWD
+
+
+      if (WF_IY_PRINT_READY)
+     &     call errquit('WFAT: wfat_initprint_ionyield cannot be '//
+     &     'called when the previous call to this routine has not '//
+     &     'been terminated by calling wfat_endprint_ionyield.',
+     &     1, UERR)
+         
+      call util_file_name('wfati', .false., .false., WF_IY_FNAME)
+      open(WF_IY_UNIT, file=WF_IY_FNAME, action='write')
+
+      write(luout, '(/, 3x, "*** INFO ***")')
+      write(luout, '(5x, "Printing ion yield to ", a)')
+     &     ''''//trim(adjustl(WF_IY_FNAME))//'''. Please wait ...'
+      
+c     ==== Column number and title ====
+      WF_IY_LINEWD = 2*15 + nch*6 + nch*nqn*(3+14) + 6+14
+      write(WF_IY_UNIT, '(a)', advance='no') '#'
+      call wfat_print_repeat(WF_IY_UNIT, WF_IY_LINEWD, 0, '-')
+      write(WF_IY_UNIT, '(1x)')
+      call wfat_print_iycoln(nch, nqn)
+      call wfat_print_iytitle(nch, orbid0, spinid, nqn, nid, mid, 'orb')
+      call wfat_print_iytitle(nch, orbid0, spinid, nqn, nid, mid, 'qnt')
+      write(WF_IY_UNIT, '(a)', advance='no') '#'
+      call wfat_print_repeat(WF_IY_UNIT, WF_IY_LINEWD, 0, '-')
+      write(WF_IY_UNIT, '(1x)')
+      
+      WF_IY_PRINT_READY = .true.
+      
+      end
+c=======================================================
+
+
+c=======================================================
+c=======================================================
+      subroutine wfat_print_iycoln(nch, nqn)
+
+      implicit none
+#include "wfat.fh"
+#include "errquit.fh"
+      integer nch, nqn
+
+      character*10 k_str
+      logical isopen
+      integer k, kk, ich, iqn
+      
+
+      inquire(unit=WF_IY_UNIT, opened=isopen)
+      if (.not. isopen)
+     &     call errquit('WFAT: WF_IY_UNIT must first be opened '//
+     &     'before calling wfat_print_iycoln', 1, UERR)
+
+      write(WF_IY_UNIT, '(a)', advance='no') '#'
+      write(WF_IY_UNIT, '(a15)', advance='no') 'col. #1'
+      write(WF_IY_UNIT, '(a15)', advance='no') 'col. #2'
+            
+      k = 2
+      do ich = 1, nch
+         write(WF_IY_UNIT, WF_ORBGAP, advance='no')
+         do iqn = 1, nqn
+            write(WF_IY_UNIT, WF_QNTGAP, advance='no') 
+
+            k = k + 1
+            write(k_str, '(i10)') k
+            write(WF_IY_UNIT, WF_IY_TITFMT, advance='no')
+     &           'col. #'//trim(adjustl(k_str))
+            
+         enddo
+      enddo
+
+      k = k + 1
+      write(WF_IY_UNIT, WF_ORBGAP, advance='no')
+      write(k_str, '(i10)') k
+      write(WF_IY_UNIT, WF_IY_TITFMT)
+     &     'col. #'//trim(adjustl(k_str))
+
+      end
+c=======================================================
+      
+
+c=======================================================
+c=======================================================
+      subroutine wfat_print_iytitle(nch, orbid0, spinid,
+     &           nqn, nid, mid, title)
+
+      implicit none
+#include "wfat.fh"
+#include "stdio.fh"
+#include "errquit.fh"
+      integer nch, orbid0(nch), spinid(nch), nqn, nid(nqn), mid(nqn)
+      character*3 title
+
+      logical isopen
+      character*6 io_str
+      integer ich, iqn, io, is, n, m, i
+
+
+      inquire(unit=WF_IY_UNIT, opened=isopen)
+      if (.not. isopen)
+     &     call errquit('WFAT: WF_IY_UNIT must be opened '//
+     &     'before calling wfat_print_iytitle', 1, UERR)
+
+
+      write(WF_IY_UNIT, '(a)', advance='no') '#'
+      call flush(WF_IY_UNIT)
+
+c     ==== beta space ====
+      if (title == 'orb') then
+         write(WF_IY_UNIT, '(a15)', advance='no')
+     &        'beta (deg)'
+      else
+         write(WF_IY_UNIT, '(a15)', advance='no') ' '
+      endif
+      call flush(WF_IY_UNIT)
+
+c     ==== gamma space ====      
+      if (title == 'orb') then
+         write(WF_IY_UNIT, '(a15)', advance='no')
+     &        'gamma (deg)'
+      else
+         write(WF_IY_UNIT, '(a15)', advance='no') ' '
+      endif
+      call flush(WF_IY_UNIT)
+
+c     ==== titles ====
+      do ich = 1, nch
+         write(WF_IY_UNIT, WF_ORBGAP, advance='no')
+         call flush(WF_IY_UNIT)
+         do iqn = 1, nqn
+            write(WF_IY_UNIT, WF_QNTGAP, advance='no')
+            call flush(WF_IY_UNIT)
+
+            if (title == 'orb') then
+               io = orbid0(ich)
+               is = spinid(ich)
+               call wfat_print_orbtitle(WF_IY_UNIT, is, io)
+            else if (title == 'qnt') then
+               n = nid(iqn)
+               m = mid(iqn)
+               call wfat_print_qnttitle(WF_IY_UNIT, n, m)
+            else
+               call errquit('WFAT: Argument unit0 of '//
+     &              'wfat_print_iytitle corresponds to an '//
+     &              'unavailable option.', 2, UERR)
+            endif
+
+         enddo
+      enddo
+
+      write(WF_IY_UNIT, WF_ORBGAP, advance='no')
+      if (title == 'orb') then
+         write(WF_IY_UNIT, WF_IY_TITFMT) 'Total'
+      else if (title == 'qnt') then
+         write(WF_IY_UNIT, '(" ")')
+      endif
+      
+      end
+c=======================================================
+
+      
+c=======================================================
+c=======================================================
+      subroutine wfat_print_ionyield(bt, gm, nch, nqn, p_ionyd, ionyd,
+     &                               gap)
+
+      implicit none
+#include "wfat.fh"
+c     #include "cdft.fh"
+#include "wfat_qm_param.fh"      
+#include "errquit.fh"
+#include "geom.fh"      
+      integer nch, nqn
+      double precision bt, gm
+      double precision p_ionyd(1:*), ionyd
+      logical gap
+
+      integer i, ich, iqn, natom
+
+
+      if (.not. WF_IY_PRINT_READY)
+     &     call errquit('WFAT: wfat_initprint_ionyield must first '//
+     &     'be called before calling wfat_print_ionyield.', 1, UERR)
+      
+
+c     ==== Get number of atoms ====
+      if (.not. geom_ncent(geom_hd, natom))
+     &     call errquit('WFAT: Getting natom failed', 51, GEOM_ERR)
+
+      write(WF_IY_UNIT, '(a)', advance='no') ' '
+      write(WF_IY_UNIT, '(2es15.6)', advance='no') bt, gm
+
+      i = 0
+      do ich = 1, nch
+         write(WF_IY_UNIT, WF_ORBGAP, advance='no') 
+         do iqn = 1, nqn
+            write(WF_IY_UNIT, WF_QNTGAP, advance='no') 
+
+            i = i + 1
+            write(WF_IY_UNIT, WF_IY_VALFMT, advance='no') p_ionyd(i)
+         enddo
+      enddo
+
+      write(WF_IY_UNIT, WF_ORBGAP, advance='no')
+      write(WF_IY_UNIT, WF_IY_VALFMT) ionyd
+      if (gap) write(WF_IY_UNIT, '(" ")') 
+      
+      end
+c=======================================================
+      
+
+c=======================================================
+c=======================================================
+      subroutine wfat_endprint_ionyield()
+
+      implicit none
+#include "errquit.fh"
+#include "wfat.fh"
+#include "stdio.fh"
+      
+
+      if (.not. WF_IY_PRINT_READY) then
+         call errquit('WFAT: wfat_initprint_ionyield must first '//
+     &        'be called before calling wfat_endprint_ionyield.',
+     &        1, UERR)
+      else
+         WF_IY_PRINT_READY=.false.
+      endif
+
+      write(luout, '(/, 3x, "*** INFO ***")')      
+      write(luout, '(5x, "Ion yield has been printed in ", a)')
+     &     ''''//trim(adjustl(WF_IY_FNAME))//'''.' 
+      
+      close(WF_IY_UNIT)
+      
+      end
+c=======================================================
+      

@@ -1,0 +1,354 @@
+c===============================================================
+c===============================================================
+      subroutine wfat_perturb(bt, gm, ef, nch, orbid, sid)
+
+      implicit none
+#include "mafdecls.fh"
+#include "global.fh"
+#include "errquit.fh"
+#include "wfat_qm_param.fh"
+      double precision bt
+      double precision gm
+      double precision ef
+      integer nch
+      integer orbid(nch)
+      integer sid(nch)
+
+      character*8 dipname(3)
+      integer nv0, ne0, nv1, nv, nov
+      integer l_v0, l_e0, l_v1, l_v, l_ov
+      integer k_v0, k_e0, k_v1, k_v, k_ov
+      integer i_v, i, ich
+      integer g_dp(3), g_hi, g_s
+      double precision rotmat(3,3), zunit(3), ef_vec(3), norm
+
+      
+      dipname = (/ 'dipole_x', 'dipole_y', 'dipole_z' /)
+      zunit = (/ 0.0d0, 0.0d0, 1.0d0 /)
+
+
+c     ==== Calculate 0th order ionized orbitals ====
+      nv0 = nbas0 * nch
+      if (.not. ma_alloc_get(mt_dbl, nv0, 'vcf_o0', l_v0, k_v0))
+     &     call errquit('WFAT: Cannot allocate vcf_o0', 1, MA_ERR)
+      ne0 = nch
+      if (.not. ma_alloc_get(mt_dbl, ne0, 'erg_o0', l_e0, k_e0))
+     &     call errquit('WFAT: Cannot allocate erg_o0', 1, MA_ERR)
+      call wfat_get_coef(nch, orbid, sid, dbl_mb(k_v0), dbl_mb(k_e0))
+
+      
+c     ==== Calculate e. field vector in molecular frame ====
+      call wfat_passrot(bt, gm, rotmat)
+      ef_vec = matmul(transpose(rotmat), ef*zunit)
+
+
+c     ==== Calculate dipole interaction Hamiltonian ====
+      do i = 1, 3
+         if (.not. ga_duplicate(g_mov(1), g_dp(i), dipname(i)))
+     &        call errquit('WFAT: Cannot duplicate '//dipname(i)//'.',
+     &        1, GA_ERR)
+         call ga_zero(g_dp(i))
+      enddo
+      call int_dip_ga(bas_hd, bas_hd, g_dp(1), g_dp(2), g_dp(3))
+
+      if (.not. ga_create(mt_dbl, nbas0, nbas0, 'H_int', 0, 0, g_hi))
+     &     call errquit('WFAT: Cannot create H_int.', 1, GA_ERR)
+      call ga_zero(g_hi)
+      do i = 1, 3
+         call ga_add(1.0d0, g_hi, ef_vec(i), g_dp(i), g_hi)
+      enddo
+
+      do i = 1, 3
+         if (.not. ga_destroy(g_dp(i)))
+     &        call errquit('WFAT: Cannot destroy '//dipname(i)//'.',
+     &        1, GA_ERR)
+      enddo
+
+
+c     ==== Calculate 1st order correction to ionized orbitals ====
+      nv1 = nbas0 * nch
+      if (.not. ma_alloc_get(mt_dbl, nv1, 'vcf_o1', l_v1, k_v1))
+     &     call errquit('WFAT: Cannot allocate vcf_o1', 1, MA_ERR)
+      call wfat_perturb_1st(bt, gm, ef, bas_hd, nbas0, nspin0, g_mov,
+     &     dbl_mb(k_moerg), nch, orbid, sid, g_hi, dbl_mb(k_v1))
+      
+
+c     ==== Calculate corrected ionized orbitals ====
+      nv = nbas0 * nch
+      if (.not. ma_alloc_get(mt_dbl, nv, 'vcf', l_v, k_v))
+     &     call errquit('WFAT: Cannot allocate vcf', 1, MA_ERR)
+      dbl_mb(k_v:k_v+nv-1) = dbl_mb(k_v0:k_v0+nv0-1) +
+     &                       dbl_mb(k_v1:k_v1+nv1-1)
+      
+
+c     ==== Renormalize corrected ionized orbitals ====
+      if (.not. ga_duplicate(g_hi, g_s, 'overlap'))
+     &     call errquit('WFAT: Cannot duplicate overlap.', 1, GA_ERR)
+      call ga_zero(g_s)
+      call int_1e_ga(bas_hd, bas_hd, g_s, 'overlap', oskel)
+      nov = nbas0 * nbas0
+      if (.not. ma_alloc_get(mt_dbl, nov, 'overlap', l_ov, k_ov))
+     &     call errquit('WFAT: Cannot allocate overlap', 1, MA_ERR)
+      call ga_get(g_s, 1, nbas0, 1, nbas0, dbl_mb(k_ov), nbas0)
+      
+      do ich = 1, nch
+         i_v = k_v + (ich-1)*nbas0
+         call wfat_mat_element(nbas0, dbl_mb(i_v), dbl_mb(i_v),
+     &        dbl_mb(k_ov), norm)
+         dbl_mb(i_v:i_v+nbas0-1) = dbl_mb(i_v:i_v+nbas0-1) / sqrt(norm)
+
+         write(luout, '(5x, "Unnormalized norm of channel #", '//
+     &        'i3, " = ", es14.6)')  ich, sqrt(norm)
+      enddo
+      
+
+
+
+      if (.not. ga_destroy(g_s))
+     &     call errquit('WFAT: Cannot destroy overlap.', 1, GA_ERR)
+      if (.not. ga_destroy(g_hi))
+     &     call errquit('WFAT: Cannot destroy dip_int.', 1, GA_ERR)
+         
+
+      end
+c===============================================================
+
+      
+c===============================================================
+c===============================================================      
+      subroutine wfat_perturb_1st(bt, gm, ef, bas, nb, ns, g_v, erg, 
+     &                            nch, orbid, sid, g_hi, vcf_o1)
+
+      implicit none
+#include "mafdecls.fh"
+#include "global.fh"
+#include "errquit.fh"
+#include "stdio.fh"      
+      double precision bt               ! [input], beta Euler angle in degree.
+      double precision gm               ! [input], gamma Euler angle in degree.
+      double precision ef               ! [input], field strength in a.u. of electric field.
+      integer bas                       ! [input], basis handle in which g_v is represented.
+      integer nb                        ! [input], no. of basis functions in bas.
+      integer ns                        ! [input], no. of spin channels.
+      integer g_v(ns)                   ! [input], all MO's.
+      double precision erg(nb,ns)       ! [input], energy associated with MO's in g_v.
+      integer nch                       ! [input], number of MO to be corrected.
+      integer orbid(nch)                ! [input], indices of MO's in g_v whose correction is sought.
+      integer sid(nch)                  ! [input], spin values of the MO's in g_v whose correction is sought.
+      integer g_hi                      ! [input], interaction Hamiltonian.
+      double precision vcf_o1(nb, nch)  ! [output], first order correction of the MO's indicated by orbid and sid.
+
+      character*9 movname(2)
+      integer i, is, ich, j
+      integer g_v2(ns), g_tmp
+      double precision max_cc(nch), cc, delta_erg, dgnthr, offthr
+
+      parameter (dgnthr=1.0d-6, offthr=1.0d-10)
+
+
+      call ga_sync()
+
+      movname = (/ 'mov_alpha', 'mov_beta' /)
+
+
+c     ==== Mix MO's based on degeneracy ====
+      do is = 1, ns
+         if (.not. ga_duplicate(g_v(is), g_v2(is), movname(is)))
+     &        call errquit('WFAT: Cannot duplicate '//movname(is)//'.',
+     &        1, GA_ERR)
+         call ga_copy(g_v(is), g_v2(is))
+      enddo      
+      call wfat_diag_perturb(nb, ns, g_v2, erg, g_hi, dgnthr, offthr)
+
+      
+      if (.not. ga_create(mt_dbl, nb, 2, 'scratch', 0, 0, g_tmp))
+     &     call errquit('WFAT: Cannot create scratch', 1, GA_ERR)
+      
+c     ==== Loop over user-requested orbitals ====
+      do ich = 1, nch
+         is = sid(ich)
+         i = orbid(ich)
+
+c        ==== Loop over all MO's ====
+         call ga_zero(g_tmp)
+         max_cc(ich) = 0.0d0
+         do j = 1, nb
+
+c           ==== Calculate coefficient of psi^(1) in MO representation ====
+            delta_erg = erg(i,is) - erg(j,is)
+            if (abs(delta_erg) < dgnthr) then
+               cc = 0.0d0
+            else
+               call ga_matmul_patch(
+     &              'n', 'n', 1.0d0, 0.0d0,
+     &              g_hi,     1, nb, 1, nb,
+     &              g_v2(is), 1, nb, i, i,
+     &              g_tmp,    1, nb, 1, 1)
+               cc = ga_ddot_patch(
+     &              g_v2(is), 'n', 1, nb, j, j,
+     &              g_tmp,    'n', 1, nb, 1, 1)
+               cc = cc / delta_erg
+            endif
+
+            if (abs(cc) > max_cc(ich)) max_cc(ich) = abs(cc)
+
+c           ==== Calculate psi^(1) in basis set representation ====
+            call ga_add_patch(
+     &           1.0d0, g_tmp,    1, nb, 2, 2,
+     &           cc,    g_v2(is), 1, nb, j, j,
+     &           g_tmp, 1, nb, 2, 2)
+         enddo       !! Upon exit of this loop, g_tmp(:,2) contains 
+                     !! the first order correction for the ich-th channel.
+
+         write(luout, '(5x, "Max. | <m|H_int|n>/(e_m-e_n) | of '//
+     &        'channel #", i4, " = ", es14.6)') ich, max_cc(ich)
+         
+         
+c        ==== Copy psi^(1) to local array ====
+         call ga_get(g_tmp, 1, nb, 2, 2, vcf_o1(1,ich), nb)
+      enddo
+
+
+      do is = 1, ns
+         if (.not. ga_destroy(g_v2(is)))
+     &        call errquit('WFAT: Cannot destroy '//movname(is)//'.',
+     &        1, GA_ERR)
+      enddo
+      if (.not. ga_destroy(g_tmp))
+     &     call errquit('WFAT: Cannot destroy scratch.', 1, GA_ERR)
+
+      call ga_sync()
+      
+      end
+c===============================================================
+
+
+c===============================================================
+c===============================================================
+      subroutine wfat_diag_perturb(nb, ns, g_v, erg, g_hi, thr, othr)
+
+      implicit none
+#include "mafdecls.fh"
+#include "errquit.fh"
+#include "global.fh"      
+      integer nb
+      integer ns
+      integer g_v(ns)               ! [in/output], vectors in which degeneracies are searched for. COLUMNS OF g_v(1:ns) MUST BE ORTHONORMAL. 
+      double precision erg(nb,ns)   ! [input], energies associated with g_v
+      integer g_hi                  ! [input], interaction Hamiltonian
+      double precision thr          ! [input], degeneracy threshold
+      double precision othr         ! [input], off-diagonal threshold
+      
+      logical iscalc(nb, ns), isdiag
+      integer g_v0, l_hi, k_hi, i_hi, l_ev, k_ev
+      integer is, i, j, k1, k2, j1, j2
+      integer ndg, dgid(nb)
+      
+
+
+      iscalc = .false.
+      if (.not. ga_duplicate(g_v(1), g_v0, 'scratch'))
+     &     call errquit('WFAT: Cannot duplicate scratch.', 1, GA_ERR)
+      call ga_zero(g_v0)
+      
+
+
+      do is = 1, ns
+         do i = 1, nb
+            if (iscalc(i, is)) cycle
+
+c           ==== Search for degeneracies ====
+            ndg = 0
+            do j = 1, nb
+               if (abs(erg(i,is) - erg(j,is)) < thr) then
+                  ndg = ndg + 1
+                  dgid(ndg) = j
+               endif
+            enddo
+
+c           ==== If degenerate, construct H_int in degenerate subspace  ====
+            if (ndg > 1) then
+               if (.not. ma_alloc_get(mt_dbl, ndg*ndg, 'h_int',
+     &              l_hi, k_hi))
+     &              call errquit('WFAT: Cannot allocate h_int',
+     &              1, MA_ERR)
+               if (.not. ma_alloc_get(mt_dbl, ndg, 'h_eval',
+     &              l_ev, k_ev))
+     &              call errquit('WFAT: Cannot allocate h_eval',
+     &              1, MA_ERR)
+               
+               isdiag = .true.
+               do k2 = 1, ndg
+                  j2 = dgid(k2)
+                  do k1 = 1, ndg
+                     j1 = dgid(k1)
+                     call ga_matmul_patch(
+     &                    'n', 'n', 1.0d0, 0.0d0,
+     &                    g_hi,    1, nb, 1,  nb,
+     &                    g_v(is), 1, nb, j2, j2,
+     &                    g_v0,    1, nb, 1,  1)
+
+                     i_hi = k_hi + (k2-1)*ndg + k1 - 1
+                     dbl_mb(i_hi) = ga_ddot_patch(
+     &                          g_v(is), 'n', 1, nb, j1, j1,
+     &                          g_v0,    'n', 1, nb, 1,  1)
+                     
+                     if (k1 /= k2 .and. abs(dbl_mb(i_hi)) > othr) then
+                        isdiag = .false.
+                     endif
+                  enddo
+               enddo
+               call ga_scale_patch(g_v0, 1, nb, 1, 1, 0.0d0)
+
+c              ==== Diagonalize H_int if not diagonal ====
+               if (.not. isdiag) then
+                  call wfat_dsyev_wrap(ndg, dbl_mb(k_hi), dbl_mb(k_ev))
+
+c                 ==== Construct new degenerate vectors in basis rep. ====
+                  do k2 = 1, ndg        ! Loop over new vectors
+                     j2 = dgid(k2) 
+                     do k1 = 1, ndg     ! Sum over old vectors
+                        j1 = dgid(k1)
+
+                        i_hi = k_hi + (k2-1)*ndg + k1 - 1
+                        call ga_add_patch(
+     &                       1.0d0,        g_v0,    1, nb, j2, j2,
+     &                       dbl_mb(i_hi), g_v(is), 1, nb, j1, j1,
+     &                       g_v0, 1, nb, j2, j2)
+                     enddo
+                  enddo
+
+c                 ==== Replace the old with the new degenerate vectors ====
+                  do k1 = 1, ndg
+                     j1 = dgid(k1)
+                     call ga_copy_patch('n',
+     &                    g_v0, 1, nb, j1, j1, g_v(is), 1, nb, j1, j1)
+                  enddo
+               endif
+
+               if (.not. ma_free_heap(l_hi))
+     &              call errquit('WFAT: Cannot deallocate h_int',
+     &              1, MA_ERR)
+               if (.not. ma_free_heap(l_ev))
+     &              call errquit('WFAT: Cannot deallocate h_eval',
+     &              1, MA_ERR)
+               
+               do k1 = 1, ndg
+                  iscalc( dgid(k1), is ) = .true.
+               enddo
+
+c           ==== If non-degenerate, do nothing ====
+            else
+               iscalc(i, is) = .true. 
+            endif
+            
+         enddo
+      enddo
+      
+
+      if (.not. ga_destroy(g_v0))
+     &     call errquit('WFAT: Cannot destroy scratch.', 1, GA_ERR)
+      
+      end
+c===============================================================      
+      
