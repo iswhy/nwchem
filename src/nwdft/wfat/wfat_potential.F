@@ -128,8 +128,8 @@ cOLD #include "cdft.fh"
 
       double precision vn_new, kp, maskf
 
-      logical xc_gotxc, xc_chkgrad, xc_chktau, xc_hascam, xc_hassrhf
-      external xc_gotxc, xc_chkgrad, xc_chktau, xc_hascam, xc_hassrhf
+      logical xc_gotxc, xc_chkgrad, xc_chktau, xc_hassrhf
+      external xc_gotxc, xc_chkgrad, xc_chktau, xc_hassrhf
 
       
       
@@ -152,10 +152,10 @@ cOLD #include "cdft.fh"
          dbas = 2
          xclvl = 'mgga'
       endif
-      if (xc_hascam()) then
+cOLD      if (xc_hascam(rtdb)) then
 cOLD         call errquit('WFAT: At the moment, WFAT cannot be used with '//
 cOLD     &                'CAM functionals.', 1, UERR)
-      endif
+cOLD      endif
       if (xc_hassrhf()) then
          call errquit('WFAT: At the moment, WFAT cannot be used with '//
      &                'short-range Hartree-Fock functionals.', 1, UERR)
@@ -440,8 +440,8 @@ c=======================================================
       integer dr           ! [output], max. derivative order for the basis functions needed.
       character*(*) lv     ! [output], XC level.
       
-      logical xc_gotxc, xc_chkgrad, xc_chktau, xc_hascam, xc_hassrhf
-      external xc_gotxc, xc_chkgrad, xc_chktau, xc_hascam, xc_hassrhf
+      logical xc_gotxc, xc_chkgrad, xc_chktau, xc_hassrhf
+      external xc_gotxc, xc_chkgrad, xc_chktau, xc_hassrhf
       
 
       dr = 0
@@ -458,10 +458,10 @@ c=======================================================
          dr = 2
          lv = 'mgga'
       endif
-      if (xc_hascam()) then
+cOLD      if (xc_hascam(rtdb)) then
 cOLD         call errquit('WFAT: At the moment, WFAT cannot be used with '//
 cOLD     &                'CAM functionals.', 1, UERR)
-      endif
+cOLD      endif
       if (xc_hassrhf()) then
          call errquit('WFAT: At the moment, WFAT cannot be used with '//
      &                'short-range Hartree-Fock functionals.', 1, UERR)

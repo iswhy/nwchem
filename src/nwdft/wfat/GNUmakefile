@@ -98,7 +98,6 @@
 	wfat_2a1e_intgl.o \
 	wfat_2a1e_potential.o \
 	wfat_2a1e_perturb.o \
-	wfat_2a1e_nopw.o \
 	wfat_2a1efd.o \
 	wfat_2a1efd_prepare.o \
 	wfat_2a1efd_target.o \

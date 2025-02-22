@@ -38,8 +38,8 @@ c                                 being 20*nbas+4*nspin + nbas * (3*nbas+1+nspin
       double precision vn_new, rc(3), bb(3), dummy1, dummy2, dummy3, rr
       double precision kappa
 
-      logical xc_gotxc, xc_chkgrad, xc_chktau, xc_hascam, xc_hassrhf
-      external xc_gotxc, xc_chkgrad, xc_chktau, xc_hascam, xc_hassrhf
+      logical xc_gotxc, xc_chkgrad, xc_chktau, xc_hassrhf
+      external xc_gotxc, xc_chkgrad, xc_chktau, xc_hassrhf
 
       
       
@@ -62,10 +62,10 @@ c                                 being 20*nbas+4*nspin + nbas * (3*nbas+1+nspin
          dbas = 2
          xclvl = 'mgga'
       endif
-      if (xc_hascam()) then
+cOLD      if (xc_hascam(rtdb)) then
 cOLD         call errquit('WFAT: At the moment, WFAT cannot be used with '//
 cOLD     &                'CAM functionals.', 1, UERR)
-      endif
+cOLD      endif
       if (xc_hassrhf()) then
          call errquit('WFAT: At the moment, WFAT cannot be used with '//
      &                'short-range Hartree-Fock functionals.', 1, UERR)
