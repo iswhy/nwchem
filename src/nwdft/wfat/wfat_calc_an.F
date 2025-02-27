@@ -76,21 +76,19 @@ c           ==== If the above H_int is not diagonal ... ====
             if (.not. isdiag) then
 c              == Diagonalize H_int in this manifold ==
                call wfat_dsyev_wrap(nn, scr(p_hi), scr(p_ev))
+               call wfat_setorder_dip(bt, gm, nn, dps(1:nn,1:nn,:,i),
+     &              scr(p_ev), scr(p_hi))
 
 c              == Update the polarizabilities using ==
-c              == the H_int-diagonalizing channels  ==
+c              == the H_int-diagonalizing channels  ==          ! 1)
                do j = 1, nn    ! Loop over the H_int-diagonalizing channels.
                   i_hi = p_hi + (j-1)*nn
                   jj = dgs(j,i)      ! Where in pb the j-th eigenstate should go.
                   call wfat_construct_polb_cf(nn, scr(i_hi), 
-     &                 pbs(1:nn,1:nn,:,i), pb(:,:,jj))             ! 1)
-                  write(luout, '("nondiag: ", 2f10.5, i6, es21.12)',
-     &                 advance='no') bt, gm, j, scr(p_ev+j-1)
-                  do iu = 1, nn
-                     write(luout, '(" u", es15.6)', advance='no')
-     &                    scr(i_hi+iu-1)
-                  enddo
-                  write(luout, '("")')
+     &                 pbs(1:nn,1:nn,:,i), pb(:,:,jj))
+c                  write(luout, '("nondiag: ", 2f10.5, i6, 3es21.12)',
+c     &                 advance='no') bt, gm, j, scr(p_ev+j-1), dum(j),
+c     &                 dum(3)
                enddo
 c           ==== If the above H_int is diagonal ... ====
             else
@@ -99,6 +97,8 @@ c           ==== If the above H_int is diagonal ... ====
                   call wfat_construct_polb(pbs(j,j,:,i), pb(:,:,jj))
                enddo
             endif
+            call wfat_print_degdip(bt, gm, isdiag, nn, 
+     &           dps(1:nn,1:nn,:,i), scr(p_hi))
 
 c        ==== If non-degenerate ====
          else
@@ -149,15 +149,13 @@ c     ==== Calculate structure factors ====
 c     NOTE:
 c     1) After computing the new degenerate channels above, only the 
 c        polarizabilities are updated. The dipole moments are not because
-c        it is assumed that the original degenerate channels have the same
-c        dipole moment vector. This assumption is needed to avoid
-c        recomputation of the WFAT(1) integrals as these integrals depend
-c        on the dipole moment vector of the ionizing channel through the
-c        choice of origin. Unfortunately, this means that degenerate channels
-c        that do not have the same dipole moment vectors cannot be handled
-c        by this code. According to my experience, however, I have never
-c        encountered degenerate eigenstates of a molecular Hamiltonian that
-c        do not share the same dipole moment vector.
+c        the shifted dipole moment in WFAT is equal to the total dipole
+c        vector of the neutral, hence independent of unitary transform.
+c        The other place in which the dipole vector is affected by unitary
+c        transform is the choice of origin. In this code, the new origin
+c        caused by the unitary transform is assumed very close to the old
+c        one. This requires that the off-diagonal elements of the
+c        interaction matrix are much smaller than the diagonal elements.
 c============================================================
 
 
@@ -168,6 +166,7 @@ c============================================================
 c     DESCRIPTION:
 c     Performs the summation of the partial wave expansion of the WFAT(1) integrals.
       implicit none
+#include "stdio.fh"
 #include "errquit.fh"
       integer nat
       integer nqn
@@ -207,11 +206,14 @@ c     ==== Get the passive rotation matrix ===
 c     IMPORTANT:
 c     At this point, if ich corresponds to a degenerate state, mmt (dipole moment)
 c     must be associated with the interaction-Hamiltonian-diagonalizing eigenstates,
-c     which are a linear combination of the original degenerate states. This requirement,
-c     however, is always satisfied as long as the original degenerate states have the
-c     same dipole moment vector. This is the assumption which must be satisfied,
-c     otherwise the ionization rate cannot be calculated by this code.
+c     which are a linear combination of the original degenerate states.
       mu = matmul(transpose(protmat), -mmt)
+
+cdebug      write(luout, '("check mu ", 2f12.6, es18.10)') bt, gm, mu(3)    ! 1)
+c     1) This line is used to show that mu(3) is the same for all channels
+c        since it is rotated from the total dipole moment of the neutral
+c        molecule. This is further a consequence of requiring the origin
+c        to be so that the total dipole of the cation is zero.
       do iqn = 1, nqn
 
          do ic = 1, nat
@@ -291,3 +293,81 @@ c     ==== Replace the old structure factors with the new ones ====
 
       end
 c============================================================
+
+
+c============================================================
+      subroutine wfat_print_degdip(bt, gm, isdiag, ndeg, dip_old, u)
+
+      implicit none
+#include "stdio.fh"
+#include "mafdecls.fh"
+#include "errquit.fh"
+      double precision bt
+      double precision gm
+      logical isdiag
+      integer ndeg
+      double precision dip_old(ndeg,ndeg,3)
+      double precision u(ndeg,ndeg)
+
+      character*7 s
+      integer i, k, iu, i_dn, k_dn, l_dn
+      double precision dst, dvec(3), t
+
+cdebug      double precision mu_old(3), mu_new(3), dip_new(3), protmat(3,3)
+      
+
+      if (.not.ma_push_get(mt_dbl, ndeg*ndeg*3, 'dnew', l_dn, k_dn))
+     &     call errquit('WFAT: cannot allocate dnew', 56, MA_ERR)
+      do k = 1, 3
+         i_dn = k_dn + (k-1)*ndeg**2
+         call wfat_represent_sym(ndeg, ndeg, u, dip_old(:,:,k),
+     &        dbl_mb(i_dn))
+      enddo
+
+      if (isdiag) then
+         s = 'diag'
+      else
+         s = 'ndiag'
+      endif
+      write(luout, '(a7, 2f10.5)', advance='no') s, bt, gm
+      do i = 1, ndeg
+         write(luout, '("        ")', advance='no')
+         if (isdiag) then
+            write(luout, '(es19.10)', advance='no') 0.0d0
+            do iu = 1, ndeg
+               t = 0.0d0
+               if (iu == i) t = 1.0d0
+               write(luout, '(es15.6)', advance='no') t
+            enddo
+         else
+            do k = 1, 3
+               i_dn = k_dn + (k-1)*ndeg**2 + (i-1)*ndeg + (i-1)
+               dvec(k) = dip_old(i,i,k) - dbl_mb(i_dn)
+            enddo
+            dst = sqrt(sum(dvec**2))
+            write(luout, '(es19.10)', advance='no') dst
+            
+cdebug            call wfat_passrot(bt, gm, protmat)
+cdebug            mu_old = matmul(transpose(protmat), dip_old(i,i,:))
+cdebug            do k = 1, 3
+cdebug               i_dn = k_dn + (k-1)*ndeg**2 + (i-1)*ndeg + (i-1)
+cdebug               dip_new(k) = dbl_mb(i_dn)
+cdebug            enddo
+cdebug            mu_new = matmul(transpose(protmat), dip_new)
+cdebug            write(luout, '(2es19.10)', advance='no')
+cdebug     &           mu_old(3), mu_new(3)
+            
+            do iu = 1, ndeg
+               write(luout, '(es15.6)', advance='no') u(iu,i)
+            enddo
+         endif
+      enddo
+      write(luout, '("")')
+
+      if (.not. MA_pop_stack(l_dn))
+     &     call errquit('WFAT: cannot deallocate dnew', 56, MA_ERR)
+
+      end
+c============================================================
+
+

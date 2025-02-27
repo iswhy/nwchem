@@ -77,7 +77,14 @@ c============================================================
       subroutine wfat_wfat1_rate(bt, gm, nat, nqn, nch, nid, mid,
      &     ef, erg, zi, gn, jn, kn, on, chmmt, pb, ffc, interm, p_rt,
      &     rt)
-
+c     DESCRIPTION:
+c     gn :
+c       $\exp(-\kappa\mu_z) g_\nu$ where $g_\nu$ are structure factors for all
+c       hannels and quantum numbers resolved into c atomic contributions based
+c       on Becke partition, exponential prefactor c with the z component of
+c       dipole vector in the argument is
+c     jn and kn :
+c       First-order WFAT equivalents of gn.
       implicit none
 #include "stdio.fh"
 #include "global.fh"
@@ -135,8 +142,8 @@ c     ==== Get the passive rotation matrix ===
 
 cfordebug            write(luout, '("B_nu - 2 Re(a_nu) = ", f15.7)') bb_
             on_ = on(1,iqn,i) + mu(3)*on(2,iqn,i)
-            gn_ = sum(gn(:,iqn,i))
-            an_ = sum(jn(:,iqn,i)) + sum(kn(:,iqn,i))
+            gn_ = sum(gn(:,iqn,i))    ! sum over atomic contributions
+            an_ = sum(jn(:,iqn,i)) + sum(kn(:,iqn,i))    ! sum over atomic contributions
             p_rt(iqn,i) = ffc(iqn,i) *
      &           (abs(gn_)**2 * 
      &           (1+aa*ef*log(ef/4/kp**2)+bb_*ef+2*ef*on_) +

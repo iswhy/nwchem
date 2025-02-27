@@ -167,3 +167,67 @@ c============================================================
 c============================================================
 
       
+c============================================================
+c============================================================
+      subroutine wfat_setorder_dip(bt, gm, ndeg, dip_old, mu_new, u)
+
+      implicit none
+#include "mafdecls.fh"
+#include "errquit.fh"
+      double precision bt
+      double precision gm
+      integer ndeg
+      double precision dip_old(ndeg,ndeg,3)
+      double precision mu_new(ndeg)
+      double precision u(ndeg,ndeg)
+
+      integer l_do, k_do, l_id, k_id, l_tm, k_tm
+      integer i, j, i_tm1, i_tm2
+      double precision mu_old(3), protmat(3,3)
+
+
+      if (.not.ma_push_get(mt_dbl, ndeg, 'dold', l_do, k_do))
+     &     call errquit('WFAT: cannot allocate dold', 36, MA_ERR)
+      if (.not.ma_push_get(mt_int, ndeg, 'ordid', l_id, k_id))
+     &     call errquit('WFAT: cannot allocate idx', 36, MA_ERR)
+      if (.not.ma_push_get(mt_dbl, ndeg**2, 'tmp', l_tm, k_tm))
+     &     call errquit('WFAT: cannot allocate tmp', 36, MA_ERR)
+      
+
+      call wfat_passrot(bt, gm, protmat)
+      do i = 1, ndeg
+         mu_old = matmul(transpose(protmat), dip_old(i,i,:))
+         dbl_mb(k_do+i-1) = mu_old(3)
+         
+         int_mb(k_id+i-1) = i
+      enddo
+      call wfat_dsortx(dbl_mb(k_do), 1, ndeg, int_mb(k_id))
+
+      call dcopy(ndeg**2, u, 1, dbl_mb(k_tm), 1)
+      do i = 1, ndeg
+         j = int_mb(k_id+i-1)
+         i_tm1 = k_tm + (i-1)*ndeg
+         i_tm2 = i_tm1 + ndeg - 1
+         u(:,j) = dbl_mb(i_tm1:i_tm2)
+      enddo
+
+      call dcopy(ndeg, mu_new, 1, dbl_mb(k_tm), 1)
+      do i = 1, ndeg
+         j = int_mb(k_id+i-1)
+         i_tm1 = k_tm + i - 1
+         mu_new(j) = dbl_mb(i_tm1)
+      enddo
+
+
+      if (.not. MA_pop_stack(l_tm))
+     &     call errquit('WFAT: cannot deallocate tmp', 78, MA_ERR)
+      if (.not. MA_pop_stack(l_id))
+     &     call errquit('WFAT: cannot deallocate idx', 78, MA_ERR)
+      if (.not. MA_pop_stack(l_do))
+     &     call errquit('WFAT: cannot deallocate dold', 78, MA_ERR)
+
+      end
+c============================================================
+      
+      
+      
