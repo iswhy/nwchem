@@ -110,7 +110,7 @@ c       First-order WFAT equivalents of gn.
       double precision rt                    ! [output],
       
       integer i, iqn, n, m
-      double precision on_, protmat(3,3), mu(3), lpbz, kp, gmm
+      double precision on_, protmat(3,3), mu(3), pbl(3,3), kp, gmm
       double precision bt0, bt1_1, bt1_2, bt1, aa, bb_, bb2
       double complex gn_, an_, an2
 
@@ -121,7 +121,8 @@ c     ==== Get the passive rotation matrix ===
 
       do i = 1, nch
          mu = matmul(transpose(protmat), -chmmt(:,i))
-         call wfat_calc_lfpolb(protmat, pb(:,:,i), lpbz)
+         call wfat_represent_sym(3, 3, protmat, pb, pbl)   ! pbl = polarizability tensor in lab frame.
+cOLD         call wfat_calc_lfpolb(protmat, pb(:,:,i), lpbz)
          kp = sqrt( 2 * abs(erg(i)) )
          
          do iqn = 1, nqn
@@ -135,7 +136,7 @@ c     ==== Get the passive rotation matrix ===
             bt1_2 = -1.0d0/2/kp * (2*n+1+abs(m))
             bt1 = bt1_1 + mu(3)*bt1_2
             aa = -2*bt1/kp - (gmm-2*mu(3)*bt0)/kp**3 - 3*bt0**2/kp**5
-            bb_ = -kp*lpbz - mu(3)**2/kp + mu(3)/kp**2 +
+            bb_ = -kp*pbl(3,3) - mu(3)**2/kp + mu(3)/kp**2 +
      &            4*mu(3)*bt0/kp**3 - (10+18*gmm+3*gmm**2)/24/kp**3 -
      &            (9-6*gmm)*bt0/4/kp**4 - (49+2*gmm)*bt0**2/8/kp**5 +
      &            3*bt0**3/2/kp**6 - bt0**4/8/kp**7
@@ -158,7 +159,7 @@ c           ==== These lines below are only for debugging ====
                write(luout, '("   a_nu = ", 2es15.7)') an2
                write(luout, '("   A_nu = ", es15.7)') aa
                write(luout, '("   B_nu = ", es15.7)') bb2
-               write(luout, '("   alpha_zz = ", es15.7)') lpbz
+               write(luout, '("   alpha_zz = ", es15.7)') pbl(3,3)
             endif
             
          enddo

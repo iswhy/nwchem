@@ -265,6 +265,28 @@ c============================================================
       end
 c============================================================
 
+
+c============================================================
+c============================================================
+      subroutine wfat_flatten_polb(pb, pbs)
+
+      implicit none
+      double precision pb(3,3)
+      double precision pbs(6)
+
+      pbs(1) = pb(1,1)
+      pbs(2) = pb(2,2)
+      pbs(3) = pb(3,3)
+      pbs(4) = pb(1,2)
+      pbs(4) = pb(2,1)
+      pbs(5) = pb(1,3)
+      pbs(5) = pb(3,1)
+      pbs(6) = pb(2,3)
+      pbs(6) = pb(3,2)
+
+      end
+c============================================================
+
       
 c============================================================
 c============================================================
@@ -290,26 +312,26 @@ c============================================================
 c============================================================
 
       
-c============================================================
-c============================================================
-      subroutine wfat_calc_lfpolb(protmat, pb, lfpb)
+cUNUSEDc============================================================
+cUNUSEDc============================================================
+cUNUSED      subroutine wfat_calc_lfpolb(protmat, pb, lfpb)
+cUNUSED
+cUNUSED      implicit none
+cUNUSED      double precision protmat(3,3)
+cUNUSED      double precision pb(3,3)
+cUNUSED      double precision lfpb
+cUNUSED
+cUNUSED      call wfat_1e_expval_1eopr(3, protmat(:,3), pb, lfpb)
+cUNUSEDcOLD      lfpb = -2 * lfpb
+cUNUSED      
+cUNUSED      end
+cUNUSEDc============================================================
 
-      implicit none
-      double precision protmat(3,3)
-      double precision pb(3,3)
-      double precision lfpb
-
-      call wfat_1e_expval_1eopr(3, protmat(:,3), pb, lfpb)
-cOLD      lfpb = -2 * lfpb
-      
-      end
-c============================================================
-
 
 c============================================================
 c============================================================
-      subroutine wfat_setorder_polb(nch, n, mfid, orbid0, ispin, nb, ns,
-     &     dpmo, cf, pbd)
+      subroutine wfat_setorder_polb1(nch, n, mfid, orbid0, ispin, nb,
+     &     ns, dpmo, cf, pbd)
 c     DESCRIPTION:
 c     This subroutine reorders the diagonalizing degenerate channels such that
 c     they are ordered in the inreasing sum of the diagonal elements of their 
@@ -377,6 +399,73 @@ cOLD      enddo
       
       if (.not. MA_free_heap(l_sc))
      &     call errquit('WFAT: cf deallocation failed', 20, MA_ERR)
+
+      end
+c============================================================
+
+
+c============================================================
+c============================================================
+      subroutine wfat_setorder_polb2(bt, gm, ndeg, pbs, mu_new, u)
+
+      implicit none
+#include "mafdecls.fh"
+#include "errquit.fh"
+      double precision bt
+      double precision gm
+      integer ndeg
+      double precision pbs(ndeg,ndeg,6)
+      double precision mu_new(ndeg)
+      double precision u(ndeg,ndeg)
+
+      integer l_pb, k_pb, l_id, k_id, l_tm, k_tm
+      integer i, j, i_tm1, i_tm2
+      double precision pb(3,3), pbl(3,3), protmat(3,3)
+
+
+      if (.not.ma_push_get(mt_dbl, ndeg, 'pold', l_pb, k_pb))
+     &     call errquit('WFAT: cannot allocate pold', 36, MA_ERR)
+      if (.not.ma_push_get(mt_int, ndeg, 'ordid', l_id, k_id))
+     &     call errquit('WFAT: cannot allocate idx', 36, MA_ERR)
+      if (.not.ma_push_get(mt_dbl, ndeg**2, 'tmp', l_tm, k_tm))
+     &     call errquit('WFAT: cannot allocate tmp', 36, MA_ERR)
+      
+
+      call wfat_passrot(bt, gm, protmat)
+      do i = 1, ndeg
+         call wfat_construct_polb(pbs(i,i,:), pb)
+         call wfat_represent_sym(3, 3, protmat, pb, pbl)    ! pbl = polarizability tensor in lab frame.
+         dbl_mb(k_pb+i-1) = pbl(2,2)
+         
+cOLD         call wfat_1e_expval_1eopr(ndeg, u(:,i), pbs(:,:,2),
+cOLD     &        dbl_mb(k_pb+i-1))
+         
+         int_mb(k_id+i-1) = i
+      enddo
+      call wfat_dsortx(dbl_mb(k_pb), 1, ndeg, int_mb(k_id))
+
+      call dcopy(ndeg**2, u, 1, dbl_mb(k_tm), 1)
+      do i = 1, ndeg
+         j = int_mb(k_id+i-1)
+         i_tm1 = k_tm + (i-1)*ndeg
+         i_tm2 = i_tm1 + ndeg - 1
+         u(:,j) = dbl_mb(i_tm1:i_tm2)
+      enddo
+
+      call dcopy(ndeg, mu_new, 1, dbl_mb(k_tm), 1)
+      do i = 1, ndeg
+         j = int_mb(k_id+i-1)
+         i_tm1 = k_tm + i - 1
+         mu_new(j) = dbl_mb(i_tm1)
+      enddo
+
+      
+      if (.not. MA_pop_stack(l_tm))
+     &     call errquit('WFAT: cannot deallocate tmp', 78, MA_ERR)
+      if (.not. MA_pop_stack(l_id))
+     &     call errquit('WFAT: cannot deallocate idx', 78, MA_ERR)
+      if (.not. MA_pop_stack(l_pb))
+     &     call errquit('WFAT: cannot deallocate pold', 78, MA_ERR)
 
       end
 c============================================================
