@@ -18,7 +18,14 @@ c=======================================================
 c=======================================================
 c=======================================================
       subroutine wfat_assocleg_fixm(m, lmax, x, pl)
-
+c     DESCRIPTION:
+c     Returns a range of associated Legendre functions with a fixed m and
+c     l = |m|,|m|+1, ..., lmax evaluated at x. The functions are normalized.
+c     The first few associated Legendre functions are
+c        P_0^0(x) = 1
+c        P_1^{-1}(x) = 0.5 (1-x^2)^{1/2}
+c        P_1^0(x) = x
+c        P_1^1(x) = -(1-x^2)^{1/2}
       implicit none
 #include "stdio.fh"
       integer m

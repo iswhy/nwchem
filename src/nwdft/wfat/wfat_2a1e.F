@@ -238,7 +238,7 @@ c        this requirement.
          x = xquad(i_r)
          t = tquad(i_t) * deg2rad
 
-         vpt = (/ x/ke*sin(t), 0.0d0, x/ke*cos(t) /)
+         vpt = (/ x/ke*sin(t), 0.0d0, x/ke*cos(t) /)       ! We arbitrarily set phi=0 since the potential is axially symmetric.
          call wfat_2a1e_potential(geom, vpt, pottype, nel, potparam, 
      &        pot)
          call nga_put(g_pot, i, i, pot, 1)
@@ -607,7 +607,8 @@ c==========================================================
       subroutine wfat_dvr_fbr_t(m, nt, u)
 c     DESCRIPTION:
 c     Calculates the transformation matrix from theta DVR basis to theta
-c     FBR basis.
+c     FBR basis. A particular column of u contains the expansion
+c     coefficients of a particular DVR basis in FBR basis vectors.
       implicit none
 #include "stdio.fh"
 #include "mafdecls.fh"      
@@ -639,12 +640,12 @@ c     ==== Get the quadrature nodes and weights ====
 
 
 c     ==== Compute the transformation matrix elements ====
-      do j = 1, nt              ! Loop over FBR bases.
+      do j = 1, nt              ! Loop over DVR bases.
          w = dbl_mb(k_wt+j-1)
          x = dbl_mb(k_pt+j-1)
 c         write(luout, '("X = ", es16.8)') x
          call wfat_eval_fbrt(m, nt, acos(x)/deg2rad, dbl_mb(k_fb))
-         do i = 1, nt           ! Loop over DVR bases.
+         do i = 1, nt           ! Loop over FBR bases.
             fbrt = dbl_mb(k_fb+i-1)
             u(i,j) = sqrt(w) * (1-x**2)**(-mm/2) * fbrt
 
