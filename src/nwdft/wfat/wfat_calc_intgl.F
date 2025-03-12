@@ -1215,8 +1215,11 @@ c=======================================================
       integer i
 
       do i = 1, nch
-         call geom_arb2cent(-1000, chpos(:,i), v_c, 0, v_m(:,i), t)
+         call geom_arb2cent(-1000, chpos(:,i), v_c, 0, v_m(:,i), t)    ! 1)
+c        1) The argument geom is supplied with an arbitrary integer 1000 because
+c        geom_arb2cent will not verify it if icent2=0, which it is in the call above.
       enddo
+      
       
 c     The grid will always be calculated regardless of whether v_c
 c     belongs to a gridless parabolic channel center. This is because its

@@ -193,6 +193,9 @@ c     ==== Obtain eta ====
       do i = 1, npt
          int_mb(k_id+i-1) = i
       enddo
+
+      
+c     ==== Sort eta in increasing order ====
       call wfat_dsortx(dbl_mb(k_es), 1, npt, int_mb(k_id))
 cc      if (ga_nodeid()==0)  then
 cc         do i = 1, npt
@@ -202,7 +205,7 @@ cc         enddo
 cc      endif
 
 
-c     ==== Calculate R_\nu^{(1)} ====
+c     ==== Calculate R_\nu^{(1)} and revert its sorting ====
 c      call wfat_r1(npt, dbl_mb(k_et), n, m, erg, zq, bt, gm, chmmt,
 c     &     dbl_mb(k_r1))
       call wfat_r1(npt, dbl_mb(k_es), n, m, erg, zq, bt, gm, chmmt,
@@ -445,7 +448,8 @@ c=======================================================
 c=======================================================
 c=======================================================
       subroutine wfat_collect_tau1(geom, nch, nqn, chmmt, chpos, erg,
-     &     nid, mid, bt, gm, nptp, zi, v_m, wfat0, tau1)
+     &     nid, mid, bt, gm, nptp, nptop, zi, v_m, v_oc, wfat0, tau1,
+     &     tau1o)
 
       implicit none
 #include "stdio.fh"      
@@ -462,38 +466,53 @@ c=======================================================
       double precision bt           ! [input], beta orientation angle in degrees.
       double precision gm           ! [input], gamma orientation angle in degrees.
       integer nptp                  ! [input], the number of quadrature points for the current process.
-      double precision zi           ! [input],
-      double precision v_m(3,nptp)  ! [input], in molecular frame.
-      logical wfat0(nqn,nch)        ! [input],
-      double complex tau1(nptp, nqn, nch)    ! [output],
+      integer nptop
+      double precision zi       ! [input],
+      double precision v_m(3,nptp)      ! [input], Cartesian coordinate of the nucleus-grid evaluation points in molecular frame.
+      double precision v_oc(3,nptop)    ! [input], Cartesian coordinate of the channel-origin-grid evaluation points in channel-origin frame.
+      logical wfat0(nqn,nch)        ! [input], if an element is .true., then the corresponding orbital-parabolic channel pair is calculated using at the WFAT(0) level.
+      double complex tau1(nptp, nqn, nch) ! [output],
+      double complex tau1o(nptop, nqn, nch)    ! [output],
 
       logical t1
-      integer l_r, l_t, l_p
-      integer k_r, k_t, k_p
-      integer i, j, k, n, m
+      integer l_r, l_t, l_p, l_tu
+      integer k_r, k_t, k_p, k_tu
+      integer i, j, k, n, m, i_tu1, i_tu2
       double precision v_f(3), v_r(3), protmat(3,3)
       double complex czero
 
       parameter ( czero = cmplx(0.0d0, 0.0d0, kind=kind(1.0d0)) )
 
 
+      call errquit('WFAT: Make sure all instances of call '//
+     &     'wfat_collect_tau1 have used the new list of '//
+     &     'arguments', 54, UERR)
+      
+
       call wfat_passrot(bt, gm, protmat)
 
 c     ==== Coordinates in molecular frame ====
-      if (.not. MA_alloc_get(MT_DBL, nptp, 'r', l_r, k_r))
+      if (.not. MA_alloc_get(MT_DBL, nptp+nptop, 'r', l_r, k_r))
      &     call errquit('WFAT: r allocation failed', 59, MA_ERR)
-      if (.not. MA_alloc_get(MT_DBL, nptp, 't', l_t, k_t))
+      if (.not. MA_alloc_get(MT_DBL, nptp+nptop, 't', l_t, k_t))
      &     call errquit('WFAT: t allocation failed', 59, MA_ERR)
-      if (.not. MA_alloc_get(MT_DBL, nptp, 'p', l_p, k_p))
+      if (.not. MA_alloc_get(MT_DBL, nptp+nptop, 'p', l_p, k_p))
      &     call errquit('WFAT: p allocation failed', 59, MA_ERR)
+      if (.not. MA_alloc_get(MT_DCPL, nptp+nptop, 'tau1', l_tu, k_tu))
+     &     call errquit('WFAT: tau1 allocation failed', 59, MA_ERR)
 
       do i = 1, nch
-         do k = 1, nptp
+         do k = 1, nptp+nptop
 c           v_m = grid point in molecular frame
 c           v_f = grid point in unrotated channel-center frame (the axes of the
 c                 unrotated frame are parallel to those of the molecular frame)
 c           v_r = grid point in rotated channel-center frame
-            call geom_cent2arb(geom, 0, v_m(:,k), chpos(:,i), v_f, t1)
+            if (k <= nptp) then
+               call geom_cent2arb(geom, 0, v_m(:,k), chpos(:,i), v_f,
+     &              t1)
+            else
+               v_f = v_oc(:,k)
+            endif
             v_r = matmul(transpose(protmat), v_f)
             dbl_mb(k_r+k-1) = sqrt(sum(v_r*v_r))
             dbl_mb(k_t+k-1) = acos(v_r(3)/dbl_mb(k_r+k-1))
@@ -504,12 +523,19 @@ c           v_r = grid point in rotated channel-center frame
             n = nid(j)
             m = mid(j)
             if (wfat0(j,i)) then
-               tau1(:,j,i) = czero
+               dcpl_mb(k_tu:k_tu+nptp+nptop-1) = czero
             else
                call wfat_calc_tau1(n, m, nptp, dbl_mb(k_r), dbl_mb(k_t),
      &              dbl_mb(k_p), erg(i), zi, bt, gm, chmmt(:,i),
-     &              tau1(:,j,i))
+     &              dcpl_mb(k_tu))
             endif
+
+            i_tu1 = k_tu
+            i_tu2 = i_tu1 + nptp - 1
+            tau1(:,j,i) = dcpl_mb(i_tu1:i_tu2)
+            i_tu1 = i_tu2 + 1
+            i_tu2 = i_tu1 + nptop - 1
+            tau1o(:,j,i) = dcpl_mb(i_tu1:i_tu2)
          enddo
       enddo
       
@@ -521,6 +547,8 @@ c     ==== Deallocations ====
      &     call errquit('WFAT: t deallocation failed', 61, MA_ERR)
       if (.not. MA_free_heap(l_p))
      &     call errquit('WFAT: p deallocation failed', 61, MA_ERR)
+      if (.not. MA_free_heap(l_tu))
+     &     call errquit('WFAT: tau1 deallocation failed', 61, MA_ERR)
 
       end
 c=======================================================

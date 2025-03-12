@@ -622,7 +622,10 @@ c=================================================
 c=================================================
       subroutine wfat_get_gridrange_c(geom, ozn, ndid, gq, ic, ipt, 
      &     natomp, nptp)
-
+c     DESCRIPTION:
+c     The same as wfat_get_gridrange except that the geometry used as the
+c     basis to get the grid ranges contains the channel center as the
+c     first center.
       implicit none
 #include "geom.fh"
 #include "errquit.fh"
@@ -630,7 +633,7 @@ c=================================================
       integer ozn             ! [input],
       integer ndid            ! [input], node ID of the current process.
       integer gq              ! [input], the chosen grid quality.
-      integer ic(1:*)         ! [output], the first natom_proc elements contains the centers for the current process.
+      integer ic(1:*)         ! [output], the first natom_proc elements contains the centers for the current process. An element of ic is either -1 or 1,2,..,natomp.
       integer ipt(2,1:*)      ! [output], the first natom_proc columns contains the starting (1st row) and ending (2nd row) points of the corresponding center for the current process.
       integer natomp          ! [output], no. of centers for the current process.
       integer nptp            ! [output], total no. of points for the current process.
@@ -642,7 +645,8 @@ c=================================================
 
       if (.not. geom_ncent(geom, natom))
      &     call errquit('WFAT: Cannot get natom', 25)
-            
+
+c     ==== Create temporary geometry ====
       if (.not. geom_create(geomt, 'geom_temp'))
      &     call errquit('WFAT: Error in creating geom_temp.', 30,
      &     GEOM_ERR)
@@ -652,8 +656,10 @@ c=================================================
       call wfat_channel_geom0(geom, natom, ctag, ccd, ccg, geomt)
 c     1) The coordinate of the channel center is unimportant here because
 c        it is not needed for the computation of grid range and counts
-c        inside wfat_get_gridrange below.
+c        inside wfat_get_gridrange below, that is, ccd is a dummy vector.
 
+      
+c     ==== Get the grid points based on the temp. geometry ====
       call wfat_get_gridrange(geomt, ndid, gq, ic, ipt, natomp, nptp)
 
       do i = 1, natomp

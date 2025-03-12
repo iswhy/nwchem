@@ -86,13 +86,38 @@ c     ==== Obtaining info on gamma ====
       call wfat_get_gamma(rtdb, gm_start, gm_last, ngm, dgm)
       dgmr = dgm * deg2rad
 
-c     ==== Calculate and gather grid points ====
+c     ==== Calculate and gather nuclei grid points ====
       call wfat_alloc_gridrange(natom, l_icp, k_icp, l_ipp, k_ipp)
       call wfat_get_gridrange(geom, ndid, gq, int_mb(k_icp),
      &     int_mb(k_ipp), natp, nptp)
       call wfat_prep_allgrid(nptp, n_pt, l_pt, k_pt, n_wt, l_wt, k_wt)
       call wfat_collect_mfgrid(geom, gq, natp, nptp, int_mb(k_icp),
      &     int_mb(k_ipp), dbl_mb(k_pt), dbl_mb(k_wt))
+
+c     ==== Calculate and gather channel origin grid points ====
+      if (.not. geom_create(geomo, 'geomo'))
+     &     call errquit('WFAT: Error in creating geomo.', 25, GEOM_ERR)
+      vdum = (/0.0d0, 0.0d0, 0.0d0/)     ! 1)
+      tagt = 'dummycent'
+      if (.not. geom_cart_set(geomo, 1, tagt, vdum, 0.0d0))
+     &     call errquit('WFAT: Error in initializing geometry object.',
+     &     32, GEOM_ERR)
+c     1) The coordinate of the only center in geomo is set to the zero vector
+c     because we will use wfat_collect_mfgrid below to generate the grids
+c     in the frame of channel origin. This choice of the coordinate of the
+c     center in geomo will not and should not affect other parts of the code.
+      call wfat_get_gridrange(geomo, ndid, gq, icpo, ippo, natop, nptop)    ! icpo = natop = 1
+      call wfat_prep_allgrid(nptop, n_pto, l_pto, k_pto, n_wto, l_wto,
+     &     k_wto)
+      call wfat_collect_mfgrid(geomo, gq, natop, nptop, icpo, ippo, 
+     &     dbl_mb(k_pto), dbl_mb(k_wto))    ! 2)
+c     2) Although this subroutine calculates grids in molecular frame, since
+c     the coordinate of the only center in geomo is the zero vector (see
+c     note 1)), the output is effectively the grids in the frame of the
+c     channel center.
+      if (.not. geom_destroy(geomo))
+     &     call errquit('WFAT: Cannot destroy geomo.', 52, GEOM_ERR)
+      
 
 c     ==== Construct new spinid and chpos that can ====
 c     ====  take care of wfat1 when it is .true.   ====
@@ -110,24 +135,19 @@ c     ==== Calculate and gather V_c|psi> at all grid points ====
       if (.not. MA_alloc_get(MT_DBL, nptp*(nch+nch1), 'vc_psi',
      &     l_vc, k_vc))
      &     call errquit('WFAT: vc_psi allocation failed', 81, MA_ERR)
-      call wfat_collect_vcpsi(geom, bas, nb, ns, nch+nch1, nptp, vch,
-     &     int_mb(k_si), dbl_mb(k_pos), dbl_mb(k_pt), rdm, zi, smh,
-     &     ismask_e, ergmask, amsk, bmsk, dbl_mb(k_vc))
-
-c     ==== Calculate and gather the cell ====
-c     ====  function at all grid points  ====
-      if (.not. MA_alloc_get(MT_DBL, nptp, 'celf', l_cl, k_cl))
-     &     call errquit('WFAT: celf allocation failed', 81, MA_ERR)
-      call wfat_collect_celf(geom, natp, nptp, int_mb(k_icp), 
-     &     int_mb(k_ipp), celm, dbl_mb(k_pt), dbl_mb(k_cl))
+      call wfat_collect_vcpsi(geom, bas, nb, ns, nch, wfat1, vch,
+     &     int_mb(k_si), dbl_mb(k_pos), nptp, nptop, dbl_mb(k_pt), 
+     &     dbl_mb(k_pto), rdm, zi, smh, ismask_e, ergmask, amsk, bmsk,
+     &     dbl_mb(k_vc), dbl_mb(k_vco))
+      
 
 c     ==== Calculate and gather the mask ====
 c     ====  function at all grid points  ====
       if (ismask) then
          if (.not. MA_alloc_get(MT_DBL, nptp, 'maskf', l_ma, k_ma))
      &        call errquit('WFAT: maskf allocation failed', 81, MA_ERR)
-         call wfat_collect_maskf(geom, natom, nptp, dbl_mb(k_pt),
-     &        mask_param, dbl_mb(k_ma))
+         call wfat_collect_maskf(geom, natom, nptp, nptop, dbl_mb(k_pt),
+     &        dbl_mb(k_pto), mask_param, dbl_mb(k_ma), dbl_mb(k_mao))
       endif
 
 c     ==== Allocate tau at all grid points and as. coeff. ====
@@ -142,6 +162,21 @@ c     ==== Allocate tau at all grid points and as. coeff. ====
       call wfat_prep_acoef(natom, nqn, nch, wfat1, n_acg, l_acg,
      &     k_acg, n_acj, l_acj, k_acj, n_ack, l_ack, k_ack, n_dum,
      &     l_dum, k_dum)
+c     k_acg is a 3D array with the size of natom*nqn*nch.
+c     k_acj is a 3D array with the size of natom*nqn*3*nch.
+c     k_ack is a 3D array with the size of natom*nqn*nch.
+
+
+c     ==== Calculate and gather the cell ====
+c     ====  function at all grid points  ====
+      if (.not. MA_alloc_get(MT_DBL, nptp*nch, 'celf', l_cl, k_cl))
+     &     call errquit('WFAT: celf allocation failed', 81, MA_ERR)
+      if (.not. MA_alloc_get(MT_DBL, nptop*nch, 'celfo',
+     &     l_clo, k_clo))
+     &     call errquit('WFAT: celfo allocation failed', 81, MA_ERR)
+      call wfat_collect_celf(geom, nch, nptp, nptop, ozn, cgrid, chpos,
+     &     dbl_mb(k_pt), dbl_mb(k_pto), celm, dbl_mb(k_cl), 
+     &     dlb_mb(k_clo))
 
       
 c     ==== Obtain field factor ====
@@ -222,8 +257,9 @@ c           ==== Calculate tau ====
      &              mid, bt, gm, nptp, zi, dbl_mb(k_pt), dcpl_mb(k_tu0))
                if (wfat1) then
                   call wfat_collect_tau1(geom, nch, nqn, chmmt, chpos, 
-     &                 erg, nid, mid, bt, gm, nptp, zi, dbl_mb(k_pt),
-     &                 wfat1_exc, dcpl_mb(k_tu1))
+     &                 erg, nid, mid, bt, gm, nptp, nptop, zi, 
+     &                 dbl_mb(k_pt), dbl_mb(k_pto), wfat1_exc,
+     &                 dcpl_mb(k_tu1), dcpl_mb(k_tu1o))
                endif
                if (ndid == 0) then
 c                  write(luout, '("sum tu1: ", 2es20.10)')
@@ -242,7 +278,7 @@ c              ==== Calculate the structure factors ====
                   do i = 1, nch
                      i_tu0 = k_tu0 + nptp*nqn*(i-1)
                      do k = 1, 3
-                        i_vc = (k_vc+nptp*nch) + nptp*3*(i-1) +
+                        i_vc = (k_vc+nptp*nch) + 3*nptp*(i-1) +
      &                         nptp*(k-1)
                         i_acj = k_acj + natom*nqn*3*(i-1) +
      &                          natom*nqn*(k-1)
@@ -257,13 +293,20 @@ c              ==== Calculate the structure factors ====
      &                 natom, int_mb(k_icp), int_mb(k_ipp), 
      &                 dbl_mb(k_vc), dcpl_mb(k_tu1), dbl_mb(k_cl), 
      &                 dbl_mb(k_wt), ismask, dbl_mb(k_ma),
-     &                 dcpl_mb(k_ack))
+     &                 dcpl_mb(k_ack))      ! 1)
+c                 * 1) Unlike k_acj, k_ack is not decomposed into its two
+c                      orientation-independent components. This is because
+c                      tau1 has been calculated as a whole, not decomposed
+c                      into the two components above.
                   call wfat_get_srfc1(bt, gm, natom, nch, nqn, 0, mid, 
      &                 erg, chmmt, dcpl_mb(k_acg), dcpl_mb(k_acj),
      &                 dcpl_mb(k_ack), dcpl_mb(k_dum), nsub, maxn, dgs, 
      &                 ndgs, dthr, dps, pbs, .true., dbl_mb(k_sc),
      &                 dcpl_mb(k_sx), dbl_mb(k_pbd), dcpl_mb(k_sg),
-     &                 dcpl_mb(k_sj), dcpl_mb(k_sk))
+     &                 dcpl_mb(k_sj), dcpl_mb(k_sk))    ! 2)
+c                 * 2) k_dum takes the place of the second component of
+c                      k_ack in the argument list of wfat_get_srfc1.
+c                      Related to note 1).
                else
                   call wfat_get_srfc0(geom, bt, gm, nch, erg, nqn, mid,
      &                 0, chmmt, dcpl_mb(k_acg), .true., dcpl_mb(k_sg))
@@ -511,73 +554,5 @@ cfordebug     &                 kk, tau0(kk,j,i), vc_psi(kk,i), celf(kk), wt(kk)
 
       end
 c=======================================================
-
-      
-c=======================================================
-c=======================================================
-      subroutine wfat_collect_celf(geom, natp, nptp, centid, ptlim,
-     &     celm, v_m, celf)
-
-      implicit none
-#include "errquit.fh"
-      integer geom
-      integer natp
-      integer nptp
-      integer centid(natp)
-      integer ptlim(2,natp)
-      integer celm
-      double precision v_m(3,nptp)
-      double precision celf(nptp)
-
-      logical t1
-      integer icp, ic, i, j
-      double precision v_c(3)
-
-      j = 0
-      do icp = 1, natp
-         ic = centid(icp)
-         do i = ptlim(1,icp), ptlim(2,icp)
-            j = j + 1
-            call geom_cent2cent(geom, 0, v_m(:,j), ic, v_c, t1)
-            call wfat_celf_1pt(geom, ic, v_c, celm, celf(j))
-         enddo
-      enddo
-
-      if (j /= nptp) call errquit('WFAT: The requirement j=nptp is '//
-     &     'not satisfied. This is a bug, check the wfat_collect_celf'//
-     &     ' subroutine file.', 99, UERR)
-      
-      end
-c=======================================================
-      
-      
-c=======================================================
-c=======================================================
-      subroutine wfat_collect_maskf(geom, natom, nptp, v_m, mask_param,
-     &     maskf)
-
-      implicit none
-#include "errquit.fh"
-      integer geom
-      integer natom
-      integer nptp
-      double precision v_m(3,nptp)
-      double precision mask_param(2)
-      double precision maskf(nptp)
-
-      integer i
-      double complex maskf_
-
-      do i = 1, nptp
-         maskf_ = cmplx(1.0d0, 0.0d0, kind=kind(1.0d0))
-         call wfat_mask_intd(geom, natom, 1, 1, 1, v_m(:,i), 
-     &        mask_param, maskf_)
-         call errquit('ERROR: No-partial-wave algorithm cannot be '//
-     &        'used at the moment. First, change the dimension of v_m'//
-     &        ' to also include nch.', 55, UERR)
-         maskf(i) = real(maskf_)
-      enddo
-
-      end
-c=======================================================
+        
       

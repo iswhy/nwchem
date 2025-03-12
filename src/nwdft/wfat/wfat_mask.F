@@ -156,3 +156,55 @@ c=======================================================
       end
 c=======================================================
       
+
+c=======================================================
+c=======================================================
+      subroutine wfat_collect_maskf(geom, natom, nptp, nptop, v_m, v_oc,
+     &     mask_param, maskf, maskfo)
+
+      implicit none
+#include "errquit.fh"
+      integer geom
+      integer natom
+      integer nptp
+      integer nptop
+      double precision v_m(3,nptp)      ! [input], Cartesian coordinate of the nucleus-grid evaluation points in molecular frame.
+      double precision v_oc(3,nptop)    ! [input], Cartesian coordinate of the channel-origin-grid evaluation points in channel-origin frame.
+      double precision mask_param(2)
+      double precision maskf(nptp)
+      double precision maskfo(nptp,nch)
+
+      logical t
+      integer i, j
+      double complex maskf_, v_t(3)
+
+
+      call errquit('WFAT: Make sure all instances of call '//
+     &     'wfat_collect_maskf have used the new list of '//
+     &     'arguments', 54, UERR)
+
+c     ==== Evaluating mask function at nucleus grids ====
+      do i = 1, nptp
+         maskf_ = cmplx(1.0d0, 0.0d0, kind=kind(1.0d0))
+         call wfat_mask_intd(geom, natom, 1, 1, 1, v_m(:,i), 
+     &        mask_param, maskf_)
+         maskf(i) = real(maskf_)
+      enddo
+
+c     ==== Evaluating mask function at channel-origin grids ====
+      do j = 1, nch
+         do i = 1, nptop
+            call geom_arb2cent(-1000, chpos(:,j), v_oc(:,i), 0, v_t, t)    ! 1)
+c           v_t = Channel-origin grid point in molecular frame.
+c           1) The argument geom is supplied with an arbitrary integer 1000 because
+c           geom_arb2cent will not verify it if icent2=0, which it is in the call above.
+            maskf_ = cmplx(1.0d0, 0.0d0, kind=kind(1.0d0))
+            call wfat_mask_intd(geom, natom, 1, 1, 1, v_t, mask_param, 
+     &           maskf_)
+            maskfo(i,j) = real(maskf_)
+         enddo
+      enddo
+
+      end
+c=======================================================
+    

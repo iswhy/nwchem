@@ -48,11 +48,13 @@ c========================================================
 c========================================================
 c========================================================
       subroutine geom_cent2arb(geom, icent1, v1, cent2, v2, tt)
-
+c     DESCRIPTION:
+c     Express a vector given in the frame of a center in a geometry object
+c     in the frame of an arbitrary point in space.
       implicit none
 #include "nwc_const.fh"
 #include "geomP.fh"
-      integer geom
+      integer geom                  ! [input], geom must be a valid geometry handle unless icent1 = 0.
       integer icent1
       double precision v1(3)
       double precision cent2(3)
@@ -66,7 +68,7 @@ c========================================================
 c
       
       if (icent1 /= 0) then
-         tt = geom_check_handle(geom, 'geom_cent2cent')
+         tt = geom_check_handle(geom, 'geom_cent2arb')
          if (.not. tt) return
          tt = geom_check_cent(geom, 'geom_cent2arb - icent1', icent1)
          if (.not. tt) return
@@ -84,11 +86,13 @@ c========================================================
 c========================================================
 c========================================================
       subroutine geom_arb2cent(geom, cent1, v1, icent2, v2, tt)
-
+c     DESCRIPTION:
+c     Express a vector given in the frame of an arbitrary point in space
+c     in the frame of a center in a geometry object.
       implicit none
 #include "nwc_const.fh"
 #include "geomP.fh"
-      integer geom
+      integer geom                  ! [input], geom must be a valid geometry handle unless icent2 = 0.
       double precision cent1(3)
       double precision v1(3)
       integer icent2
@@ -102,9 +106,9 @@ c========================================================
 c
       
       if (icent2 /= 0) then
-         tt = geom_check_handle(geom, 'geom_cent2cent')
+         tt = geom_check_handle(geom, 'geom_arb2cent')
          if (.not. tt) return
-         tt = geom_check_cent(geom, 'geom_cent2arb - icent2', icent2)
+         tt = geom_check_cent(geom, 'geom_arb2cent - icent2', icent2)
          if (.not. tt) return
          at2(1:3) = coords(1:3, icent2, geom)
       else
@@ -120,7 +124,10 @@ c========================================================
 c========================================================
 c========================================================
       subroutine wfat_channel_geom0(geom, natom, tag, cd, cg, geomo)
-
+c     DESCRIPTION:
+c     Create a geometry in which the first center has coordinate cd and
+c     charge cg while the remaining centers are identical to those in
+c     geom.
       implicit none
 #include "errquit.fh"
 #include "geom.fh"
@@ -164,7 +171,12 @@ c========================================================
 c========================================================
 c========================================================
       subroutine wfat_cgeom_create(geom, ozn, nch, chpos, geomc)
-
+c     DESCRIPTION:
+c     Create a vector of geometry handles, each corresponding to a channel.
+c     Each geometry in the vector contains natom+1 centers, where the first
+c     center is determined by the channel center/origin and the remaining
+c     centers is identical to those contained in geom. This vector of
+c     geometry handles will be used by wfat_celf_1pt_c.
       implicit none
 #include "geom.fh"
 #include "errquit.fh"

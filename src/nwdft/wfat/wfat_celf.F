@@ -32,10 +32,16 @@ c     ====  nucleus and when the channel does not have center ====
             k = i
             call geom_cent2cent(geom, 0, v_m(:,k), icent, v_c, t)
             call wfat_celf_1pt(geom, icent, v_c, msm, celf(k))
-            exit
+            exit    ! 1)
          endif
       enddo
-
+c     1) This block of code is only used to get the value of cell function
+c        that will be used multiple times, that's why this loop exits
+c        once the condition for mutiple use is found. This condition is when
+c        the center is a nucleus for a channel that does not require a
+c        center/origin grid. When this condition is satisfied, the cell
+c        function is independent of channel.
+      
       
 c     ==== Cell functions for all channels ====
       if (icent /= -1) then
@@ -239,4 +245,90 @@ c
 c     References :
 c    [1] "Quadrature schemes for integrals of density functional theory",
 c        Mol. Phys., 78 (4) 1993.      
+c=======================================================
+
+
+c=======================================================
+c=======================================================
+      subroutine wfat_collect_celf(geom, nch, nptp, nptop, ozn, 
+     &     cgrid, chpos, v_m, v_oc, msm, celf, celfo)
+
+      implicit none
+#include "errquit.fh"
+      integer geom
+      integer nch
+      integer nptp              ! [input], total number of grid points belonging to all nuclei for the current process.
+      integer nptop           ! [input], number of grid points belonging to channel origin for the current process.
+      integer ozn
+      logical cgrid(nch)
+      double precision chpos(3, nch)
+      double precision v_m(3,nptp)      ! [input], molecular-frame grid point coordinates belonging to nuclei for the current process.
+      double precision v_oc(3,nptop)  ! [input], center-frame grid points coordinates belonging to channel origin for the current process.
+      integer msm
+      double precision celf(nptp, nch)
+      double precision celfo(nptop, nch)
+
+      integer i, geomc(nch)
+      double precision vpta(3,nch)
+
+
+      call errquit('WFAT: Make sure all instances of call '//
+     &     'wfat_collect_celf have used the new list of '//
+     &     'arguments', 54, UERR)
+
+
+      call wfat_cgeom_create(geom, ozn, nch, chpos, geomc)
+
+c     ==== Evaluating cell function at nucleus grids ====
+      do i = 1, nptp
+         vpta(1,:) = v_m(1,i)
+         vpta(2,:) = v_m(2,i)
+         vpta(3,:) = v_m(3,i)
+         call wfat_celf_1pt_c(geom, nch, geomc, 500, cgrid, chpos,
+     &        vpta, msm, celf(i,:))
+      enddo
+
+c     ==== Evaluating cell function at channel-origin grids ====
+      do i = 1, nptop
+         call wfat_mf_ogrid(nch, chpos, v_oc(:,i), vpta)
+         call wfat_celf_1pt_c(geom, nch, geomc, -1, cgrid, chpos,
+     &        vpta, msm, celfo(i,:))
+      enddo
+
+      call wfat_cgeom_destroy(nch, geomc)
+      
+   
+cOLDc     ==== Calculate cell functions at nuclei grid points ====
+cOLD      call wfat_cgeom_create(geom, ozn, nch, chpos, geomc)
+cOLD      do k = 1, nch
+cOLD         j = 0
+cOLD         do icp = 1, natp
+cOLD            ic = centid(icp)
+cOLD            do i = ptlim(1,icp), ptlim(2,icp)
+cOLD               j = j + 1
+cOLD               call geom_cent2cent(geom, 0, v_m(:,j), ic, v_c, t1)
+cOLD               call wfat_celf_1pt(geomc(k), ic+1, v_c, msm, celf(j,k))
+cOLD            enddo
+cOLD         enddo
+cOLD         
+cOLD         if (j /= nptp) call errquit('WFAT: The requirement j=nptp is'//
+cOLD     &        ' not satisfied. This is a bug, check the '//
+cOLD     &        'wfat_collect_celf subroutine file.', 99, UERR)
+cOLD      enddo
+cOLD
+cOLDc     ==== Calculate cell functions at channel origin grid points ====
+cOLD      do k = 1, nch
+cOLD         do i = 1, nptorip
+cOLD            if (cgrid(k)) then
+cOLD               call wfat_celf_1pt(geomc(k), 1, v_oc(:,i), msm,
+cOLD     &              celfo(i,k))
+cOLD            else
+cOLD               celfo(i,k) = 0.0d0
+cOLD            endif
+cOLD         enddo
+cOLD      enddo
+cOLD
+cOLD      call wfat_cgeom_destroy(nch, geomc)
+
+      end
 c=======================================================
