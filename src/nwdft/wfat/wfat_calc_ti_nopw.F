@@ -50,20 +50,24 @@ c=======================================================
       double precision dps(1:*)       ! [input]. Only used when wfat1=.true..
       double precision pbs(1:*)       ! [input]. Only used when wfat1=.true..
       logical wfat1_exc(1:*)          ! [input]. Only used when wfat1=.true..
-      
-      logical gap, interm
+
+      character*16 tagt
+      logical gap, interm, cgrid(nch)
       integer l_sg, l_fc, l_rt, l_icp, l_ipp, l_pt, l_wt, l_vc, l_cl
       integer l_ma, l_tu0, l_tu1, l_acg, l_acj, l_ack, l_dum, l_sc, l_sx
-      integer l_pbd, l_sj, l_sk, l_on, l_si, l_pos
+      integer l_pbd, l_sj, l_sk, l_on, l_si, l_pos, l_pto, l_wto, l_vco
+      integer l_clo, l_mao, l_tu0o, l_tu1o
       integer k_sg, k_fc, k_rt, k_icp, k_ipp, k_pt, k_wt, k_vc, k_cl
       integer k_ma, k_tu0, k_tu1, k_acg, k_acj, k_ack, k_dum, k_sc, k_sx
-      integer k_pbd, k_sj, k_sk, k_on, k_si, k_pos
-      integer natom, n_sg, nfc, nrt, n_pt, n_wt, n_acg, n_acj, n_ack
-      integer n_dum, nsc, nsx, npbd, n_sj, n_sk, n_on, nch1
-      integer ndid, nbt, ngm, natp, nptp, i, k, iqn, i_on, ig, ib, i_tu0
-      integer i_vc, i_acj
+      integer k_pbd, k_sj, k_sk, k_on, k_si, k_pos, k_pto, k_wto, k_vco
+      integer k_clo, k_mao, k_tu0o, k_tu1o
+      integer natom, n_sg, nfc, nrt, n_pt, n_wt, n_pto, n_wto, n_acg
+      integer n_acj, n_ack, n_dum, nsc, nsx, npbd, n_sj, n_sk, n_on
+      integer nch1, ndid, nbt, ngm, natp, natop, nptp, nptop, i, k, iqn
+      integer i_on, ig, ib, i_tu0, i_vc, i_acj, icpo, ippo(2), ozn
+      integer geomo
       double precision bt_start, bt_last, dbt, dbtr, gm_start, gm_last
-      double precision dgm, dgmr, dthr, bt, gm, rate
+      double precision dgm, dgmr, dthr, bt, gm, rate, vdum(3)
       double precision deg2rad
       parameter(deg2rad=0.01745329251994d0)
 
@@ -99,19 +103,22 @@ c     ==== Calculate and gather channel origin grid points ====
      &     call errquit('WFAT: Error in creating geomo.', 25, GEOM_ERR)
       vdum = (/0.0d0, 0.0d0, 0.0d0/)     ! 1)
       tagt = 'dummycent'
-      if (.not. geom_cart_set(geomo, 1, tagt, vdum, 0.0d0))
+      if (.not. rtdb_get(rtdb, 'wfat:ozn', mt_int, 1, ozn))
+     &     call errquit('WFAT: Cannot read ozn.', 40, RTDB_ERR)
+      if (.not. geom_cart_set(geomo, 1, tagt, vdum, dble(ozn)))
      &     call errquit('WFAT: Error in initializing geometry object.',
      &     32, GEOM_ERR)
 c     1) The coordinate of the only center in geomo is set to the zero vector
 c     because we will use wfat_collect_mfgrid below to generate the grids
 c     in the frame of channel origin. This choice of the coordinate of the
 c     center in geomo will not and should not affect other parts of the code.
-      call wfat_get_gridrange(geomo, ndid, gq, icpo, ippo, natop, nptop)    ! icpo = natop = 1
+      call wfat_get_gridrange(geomo, ndid, gq, icpo, ippo, natop, nptop)    ! 3)
+c     3) Since geomo contains only one center, we have icpo = natop = 1.
       call wfat_prep_allgrid(nptop, n_pto, l_pto, k_pto, n_wto, l_wto,
      &     k_wto)
       call wfat_collect_mfgrid(geomo, gq, natop, nptop, icpo, ippo, 
      &     dbl_mb(k_pto), dbl_mb(k_wto))    ! 2)
-c     2) Although this subroutine calculates grids in molecular frame, since
+c     2) Although this subroutine returns grids in molecular frame, since
 c     the coordinate of the only center in geomo is the zero vector (see
 c     note 1)), the output is effectively the grids in the frame of the
 c     channel center.
@@ -135,10 +142,14 @@ c     ==== Calculate and gather V_c|psi> at all grid points ====
       if (.not. MA_alloc_get(MT_DBL, nptp*(nch+nch1), 'vc_psi',
      &     l_vc, k_vc))
      &     call errquit('WFAT: vc_psi allocation failed', 81, MA_ERR)
+      if (.not. MA_alloc_get(MT_DBL, nptop*(nch+nch1), 'vc_psi_o',
+     &     l_vco, k_vco))
+     &     call errquit('WFAT: vc_psi_o allocation failed', 81, MA_ERR)
+      call wfat_need_cgrid(rtdb, geom, nch, chpos, cgrid)
       call wfat_collect_vcpsi(geom, bas, nb, ns, nch, wfat1, vch,
      &     int_mb(k_si), dbl_mb(k_pos), nptp, nptop, dbl_mb(k_pt), 
-     &     dbl_mb(k_pto), rdm, zi, smh, ismask_e, ergmask, amsk, bmsk,
-     &     dbl_mb(k_vc), dbl_mb(k_vco))
+     &     dbl_mb(k_pto), cgrid, rdm, zi, smh, ismask_e, ergmask, amsk,
+     &     bmsk, dbl_mb(k_vc), dbl_mb(k_vco))
       
 
 c     ==== Calculate and gather the mask ====
@@ -146,18 +157,27 @@ c     ====  function at all grid points  ====
       if (ismask) then
          if (.not. MA_alloc_get(MT_DBL, nptp, 'maskf', l_ma, k_ma))
      &        call errquit('WFAT: maskf allocation failed', 81, MA_ERR)
-         call wfat_collect_maskf(geom, natom, nptp, nptop, dbl_mb(k_pt),
-     &        dbl_mb(k_pto), mask_param, dbl_mb(k_ma), dbl_mb(k_mao))
+         if (.not. MA_alloc_get(MT_DBL, nptop, 'maskfo', l_mao, k_mao))
+     &        call errquit('WFAT: maskfo allocation failed', 81, MA_ERR)
+         call wfat_collect_maskf(geom, natom, nch, cgrid, nptp, nptop,
+     &        dbl_mb(k_pt), dbl_mb(k_pto), mask_param, dbl_mb(k_ma),
+     &        dbl_mb(k_mao))
       endif
 
 c     ==== Allocate tau at all grid points and as. coeff. ====
       if (.not. MA_alloc_get(MT_DCPL, nptp*nqn*nch, 'tau0',
      &     l_tu0, k_tu0))
      &     call errquit('WFAT: tau0 allocation failed', 81, MA_ERR)
+      if (.not. MA_alloc_get(MT_DCPL, nptop*nqn*nch, 'tau0o',
+     &     l_tu0o, k_tu0o))
+     &     call errquit('WFAT: tau0o allocation failed', 81, MA_ERR)
       if (wfat1) then
          if (.not. MA_alloc_get(MT_DCPL, nptp*nqn*nch, 'tau1',
      &        l_tu1, k_tu1))
      &        call errquit('WFAT: tau1 allocation failed', 81, MA_ERR)
+         if (.not. MA_alloc_get(MT_DCPL, nptop*nqn*nch, 'tau1o',
+     &        l_tu1o, k_tu1o))
+     &        call errquit('WFAT: tau1o allocation failed', 81, MA_ERR)
       endif
       call wfat_prep_acoef(natom, nqn, nch, wfat1, n_acg, l_acg,
      &     k_acg, n_acj, l_acj, k_acj, n_ack, l_ack, k_ack, n_dum,
@@ -253,11 +273,12 @@ c     ==== Scan over the orientation angles ====
             
 c           ==== Calculate tau ====
             if (pr_srfc .or. pr_rate) then
-               call wfat_collect_tau0(geom, nch, nqn, chpos, erg, nid, 
-     &              mid, bt, gm, nptp, zi, dbl_mb(k_pt), dcpl_mb(k_tu0))
+               call wfat_collect_tau0(geom, nch, nqn, cgrid, chpos, erg,
+     &              nid, mid, bt, gm, nptp, nptop, zi, dbl_mb(k_pt),
+     &              dbl_mb(k_pto), dcpl_mb(k_tu0), dcpl_mb(k_tu0o))
                if (wfat1) then
-                  call wfat_collect_tau1(geom, nch, nqn, chmmt, chpos, 
-     &                 erg, nid, mid, bt, gm, nptp, nptop, zi, 
+                  call wfat_collect_tau1(geom, nch, nqn, cgrid, chmmt,
+     &                 chpos, erg, nid, mid, bt, gm, nptp, nptop, zi, 
      &                 dbl_mb(k_pt), dbl_mb(k_pto), wfat1_exc,
      &                 dcpl_mb(k_tu1), dcpl_mb(k_tu1o))
                endif
@@ -293,8 +314,8 @@ c              ==== Calculate the structure factors ====
      &                 natom, int_mb(k_icp), int_mb(k_ipp), 
      &                 dbl_mb(k_vc), dcpl_mb(k_tu1), dbl_mb(k_cl), 
      &                 dbl_mb(k_wt), ismask, dbl_mb(k_ma),
-     &                 dcpl_mb(k_ack))      ! 1)
-c                 * 1) Unlike k_acj, k_ack is not decomposed into its two
+     &                 dcpl_mb(k_ack))      ! 4)
+c                 * 4) Unlike k_acj, k_ack is not decomposed into its two
 c                      orientation-independent components. This is because
 c                      tau1 has been calculated as a whole, not decomposed
 c                      into the two components above.
@@ -303,10 +324,10 @@ c                      into the two components above.
      &                 dcpl_mb(k_ack), dcpl_mb(k_dum), nsub, maxn, dgs, 
      &                 ndgs, dthr, dps, pbs, .true., dbl_mb(k_sc),
      &                 dcpl_mb(k_sx), dbl_mb(k_pbd), dcpl_mb(k_sg),
-     &                 dcpl_mb(k_sj), dcpl_mb(k_sk))    ! 2)
-c                 * 2) k_dum takes the place of the second component of
+     &                 dcpl_mb(k_sj), dcpl_mb(k_sk))    ! 5)
+c                 * 5) k_dum takes the place of the second component of
 c                      k_ack in the argument list of wfat_get_srfc1.
-c                      Related to note 1).
+c                      Related to note 4).
                else
                   call wfat_get_srfc0(geom, bt, gm, nch, erg, nqn, mid,
      &                 0, chmmt, dcpl_mb(k_acg), .true., dcpl_mb(k_sg))
@@ -356,20 +377,32 @@ c     ==== Deallocations ====
       call wfat_erase_rate(l_sg, l_fc, l_rt)
       call wfat_dealloc_gridrange(l_icp, l_ipp)
       call wfat_erase_allgrid(l_pt, l_wt)
+      call wfat_erase_allgrid(l_pto, l_wto)
       call wfat_erase_acoef(wfat1, l_acg, l_acj, l_ack, l_dum)
       if (.not. MA_free_heap(l_vc))
      &     call errquit('WFAT: vc_psi deallocation failed', 3, MA_ERR)
+      if (.not. MA_free_heap(l_vco))
+     &     call errquit('WFAT: vc_psi_o deallocation failed', 3, MA_ERR)
       if (.not. MA_free_heap(l_cl))
      &     call errquit('WFAT: celf deallocation failed', 3, MA_ERR)
+      if (.not. MA_free_heap(l_clo))
+     &     call errquit('WFAT: celfo deallocation failed', 3, MA_ERR)
       if (ismask) then
          if (.not. MA_free_heap(l_ma))
      &        call errquit('WFAT: maskf deallocation failed', 3, MA_ERR)
+         if (.not. MA_free_heap(l_mao))
+     &        call errquit('WFAT: maskfo deallocation failed', 3,
+     &        MA_ERR)
       endif
       if (.not. MA_free_heap(l_tu0))
      &     call errquit('WFAT: tau0 deallocation failed', 3, MA_ERR)
+      if (.not. MA_free_heap(l_tu0o))
+     &     call errquit('WFAT: tau0o deallocation failed', 3, MA_ERR)
       if (wfat1) then
          if (.not. MA_free_heap(l_tu1))
      &        call errquit('WFAT: tau1 deallocation failed', 3, MA_ERR)
+         if (.not. MA_free_heap(l_tu1o))
+     &        call errquit('WFAT: tau1o deallocation failed', 3, MA_ERR)
          call wfat_erase_an(l_sc, l_sx, l_pbd, l_sj, l_sk, l_on)
       endif
       if (.not. MA_free_heap(l_si))

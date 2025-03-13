@@ -391,29 +391,41 @@ c=======================================================
 
 c=======================================================
 c=======================================================
-      subroutine wfat_collect_tau0(geom, nch, nqn, chpos, erg, nid, 
-     &     mid, bt, gm, nptp, zi, v_m, tau0)
+      subroutine wfat_collect_tau0(geom, nch, nqn, cgrid, chpos, erg,
+     &     nid, mid, bt, gm, nptp, nptop, zi, v_m, v_oc, tau0, tau0o)
 
       implicit none
 #include "stdio.fh"
       integer geom
       integer nch
       integer nqn
+      logical cgrid(nch)
       double precision chpos(3,nch)
-      double precision erg(nch)     ! [input],
-      integer nid(nqn)              ! [input], 
-      integer mid(nqn)              ! [input], 
-      double precision bt           ! [input], beta orientation angle in degrees.
-      double precision gm           ! [input], gamma orientation angle in degrees.
-      integer nptp                  ! [input], the number of quadrature points for the current process.
-      double precision zi           ! [input],
-      double precision v_m(3,nptp)  ! in molecular frame.
-      double complex tau0(nptp, nqn, nch)
+      double precision erg(nch)            ! [input],
+      integer nid(nqn)                     ! [input], 
+      integer mid(nqn)                     ! [input], 
+      double precision bt                  ! [input], beta orientation angle in degrees.
+      double precision gm                  ! [input], gamma orientation angle in degrees.
+      integer nptp                         ! [input], the number of nuclei quadrature points for the current process.
+      integer nptop                        ! [input], the number of channel-origin quadrature points for the current process.
+      double precision zi                  ! [input],
+      double precision v_m(3,nptp)         ! [input], in molecular frame.
+      double precision v_oc(3,nptop)       ! [input], in center frame.
+      double complex tau0(nptp,nqn,nch)    ! [output],
+      double complex tau0o(nptop,nqn,nch)  ! [output],
 
       logical t1
       integer i, j, k, n, m
       double precision r, t, p, v_f(3), v_r(3), protmat(3,3)
+      double complex tau0_, czero
+      parameter ( czero = cmplx(0.0d0, 0.0d0, kind=kind(1.0d0)) )
 
+
+      call errquit('WFAT: Make sure all instances of call '//
+     &     'wfat_collect_tau0 have used the new list of '//
+     &     'arguments', 54, UERR)
+
+            
       
       call wfat_passrot(bt, gm, protmat)
       
@@ -422,20 +434,34 @@ c=======================================================
             n = nid(j)
             m = mid(j)
 
-            do k = 1, nptp
+            do k = 1, nptp+nptop
 c              v_m = grid point in molecular frame
 c              v_f = grid point in unrotated channel-center frame (the axes of the
 c                    unrotated frame are parallel to those of the molecular frame)
 c              v_r = grid point in rotated channel-center frame
-               call geom_cent2arb(geom, 0, v_m(:,k), chpos(:,i), v_f,
-     &              t1)
-               v_r = matmul(transpose(protmat), v_f)
-               r = sqrt(sum(v_r*v_r))
-               t = acos(v_r(3)/r)
-               p = atan(v_r(2), v_r(1))
-         
-               call wfat_calc_tau0(n, m, 1, r, t, p, erg(i), zi, 
-     &              tau0(k,j,i))
+               if (k <= nptp) then
+                  call geom_cent2arb(geom, 0, v_m(:,k), chpos(:,i), v_f,
+     &                 t1)
+               else
+                  v_f = v_oc(:,k)
+               endif
+
+               if (k <= nptp .or. (k > nptp .and. cgrid(i))) then
+                  v_r = matmul(transpose(protmat), v_f)
+                  r = sqrt(sum(v_r*v_r))
+                  t = acos(v_r(3)/r)
+                  p = atan(v_r(2), v_r(1))
+                  call wfat_calc_tau0(n, m, 1, r, t, p, erg(i), zi, 
+     &                 tau0_)
+               else
+                  tau0_ = czero
+               endif
+
+               if (k <= nptp) then
+                  tau0(k,j,i) = tau0_
+               else
+                  tau0o(k-nptp,j,i) = tau0_
+               endif
             enddo
             
          enddo
@@ -447,9 +473,9 @@ c=======================================================
 
 c=======================================================
 c=======================================================
-      subroutine wfat_collect_tau1(geom, nch, nqn, chmmt, chpos, erg,
-     &     nid, mid, bt, gm, nptp, nptop, zi, v_m, v_oc, wfat0, tau1,
-     &     tau1o)
+      subroutine wfat_collect_tau1(geom, nch, nqn, cgrid, chmmt, chpos,
+     &     erg, nid, mid, bt, gm, nptp, nptop, zi, v_m, v_oc, wfat0,
+     &     tau1, tau1o)
 
       implicit none
 #include "stdio.fh"      
@@ -458,6 +484,7 @@ c=======================================================
       integer geom                  ! [input],
       integer nch                   ! [input],
       integer nqn                   ! [input],
+      logical cgrid(nch)            ! [input],
       double precision chmmt(3,nch) ! [input],
       double precision chpos(3,nch) ! [input],
       double precision erg(nch)     ! [input],
@@ -530,12 +557,19 @@ c           v_r = grid point in rotated channel-center frame
      &              dcpl_mb(k_tu))
             endif
 
+c           ==== At nuclei grids ====
             i_tu1 = k_tu
             i_tu2 = i_tu1 + nptp - 1
             tau1(:,j,i) = dcpl_mb(i_tu1:i_tu2)
-            i_tu1 = i_tu2 + 1
-            i_tu2 = i_tu1 + nptop - 1
-            tau1o(:,j,i) = dcpl_mb(i_tu1:i_tu2)
+            
+c           ==== At channel-origin grids ====
+            if (cgrid(i)) then
+               i_tu1 = i_tu2 + 1
+               i_tu2 = i_tu1 + nptop - 1
+               tau1o(:,j,i) = dcpl_mb(i_tu1:i_tu2)
+            else
+               tau1o(:,j,i) = czero
+            endif
          enddo
       enddo
       

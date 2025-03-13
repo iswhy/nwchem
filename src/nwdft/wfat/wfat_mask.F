@@ -159,13 +159,15 @@ c=======================================================
 
 c=======================================================
 c=======================================================
-      subroutine wfat_collect_maskf(geom, natom, nptp, nptop, v_m, v_oc,
-     &     mask_param, maskf, maskfo)
+      subroutine wfat_collect_maskf(geom, natom, nch, cgrid, nptp, 
+     &     nptop, v_m, v_oc, mask_param, maskf, maskfo)
 
       implicit none
 #include "errquit.fh"
       integer geom
       integer natom
+      integer nch
+      logical cgrid(nch)
       integer nptp
       integer nptop
       double precision v_m(3,nptp)      ! [input], Cartesian coordinate of the nucleus-grid evaluation points in molecular frame.
@@ -193,16 +195,21 @@ c     ==== Evaluating mask function at nucleus grids ====
 
 c     ==== Evaluating mask function at channel-origin grids ====
       do j = 1, nch
-         do i = 1, nptop
-            call geom_arb2cent(-1000, chpos(:,j), v_oc(:,i), 0, v_t, t)    ! 1)
-c           v_t = Channel-origin grid point in molecular frame.
-c           1) The argument geom is supplied with an arbitrary integer 1000 because
-c           geom_arb2cent will not verify it if icent2=0, which it is in the call above.
-            maskf_ = cmplx(1.0d0, 0.0d0, kind=kind(1.0d0))
-            call wfat_mask_intd(geom, natom, 1, 1, 1, v_t, mask_param, 
-     &           maskf_)
-            maskfo(i,j) = real(maskf_)
-         enddo
+         if (cgrid(j)) then
+            do i = 1, nptop
+               call geom_arb2cent(-1000, chpos(:,j), v_oc(:,i), 0, v_t,
+     &              t)          ! 1)
+c              v_t = Channel-origin grid point in molecular frame.
+c              1) The argument geom is supplied with an arbitrary integer 1000 because
+c              geom_arb2cent will not verify it if icent2=0, which it is in the call above.
+               maskf_ = cmplx(1.0d0, 0.0d0, kind=kind(1.0d0))
+               call wfat_mask_intd(geom, natom, 1, 1, 1, v_t, mask_param, 
+     &              maskf_)
+               maskfo(i,j) = real(maskf_)
+            enddo
+         else
+            maskfo(:,j) = 0.0d0
+         endif
       enddo
 
       end
