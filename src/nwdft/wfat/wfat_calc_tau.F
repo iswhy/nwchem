@@ -395,6 +395,7 @@ c=======================================================
      &     nid, mid, bt, gm, nptp, nptop, zi, v_m, v_oc, tau0, tau0o)
 
       implicit none
+#include "errquit.fh"
 #include "stdio.fh"
       integer geom
       integer nch

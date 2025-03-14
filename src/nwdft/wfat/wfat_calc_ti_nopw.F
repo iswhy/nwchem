@@ -157,11 +157,12 @@ c     ====  function at all grid points  ====
       if (ismask) then
          if (.not. MA_alloc_get(MT_DBL, nptp, 'maskf', l_ma, k_ma))
      &        call errquit('WFAT: maskf allocation failed', 81, MA_ERR)
-         if (.not. MA_alloc_get(MT_DBL, nptop, 'maskfo', l_mao, k_mao))
+         if (.not. MA_alloc_get(MT_DBL, nptop*nch, 'maskfo',
+     &        l_mao, k_mao))
      &        call errquit('WFAT: maskfo allocation failed', 81, MA_ERR)
          call wfat_collect_maskf(geom, natom, nch, cgrid, nptp, nptop,
-     &        dbl_mb(k_pt), dbl_mb(k_pto), mask_param, dbl_mb(k_ma),
-     &        dbl_mb(k_mao))
+     &        chpos, dbl_mb(k_pt), dbl_mb(k_pto), mask_param, 
+     &        dbl_mb(k_ma), dbl_mb(k_mao))
       endif
 
 c     ==== Allocate tau at all grid points and as. coeff. ====
@@ -196,7 +197,7 @@ c     ====  function at all grid points  ====
      &     call errquit('WFAT: celfo allocation failed', 81, MA_ERR)
       call wfat_collect_celf(geom, nch, nptp, nptop, ozn, cgrid, chpos,
      &     dbl_mb(k_pt), dbl_mb(k_pto), celm, dbl_mb(k_cl), 
-     &     dlb_mb(k_clo))
+     &     dbl_mb(k_clo))
 
       
 c     ==== Obtain field factor ====

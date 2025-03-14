@@ -160,7 +160,7 @@ c=======================================================
 c=======================================================
 c=======================================================
       subroutine wfat_collect_maskf(geom, natom, nch, cgrid, nptp, 
-     &     nptop, v_m, v_oc, mask_param, maskf, maskfo)
+     &     nptop, chpos, v_m, v_oc, mask_param, maskf, maskfo)
 
       implicit none
 #include "errquit.fh"
@@ -170,11 +170,12 @@ c=======================================================
       logical cgrid(nch)
       integer nptp
       integer nptop
+      double precision chpos(3,nch)
       double precision v_m(3,nptp)      ! [input], Cartesian coordinate of the nucleus-grid evaluation points in molecular frame.
       double precision v_oc(3,nptop)    ! [input], Cartesian coordinate of the channel-origin-grid evaluation points in channel-origin frame.
       double precision mask_param(2)
       double precision maskf(nptp)
-      double precision maskfo(nptp,nch)
+      double precision maskfo(nptop,nch)
 
       logical t
       integer i, j
@@ -203,8 +204,8 @@ c              v_t = Channel-origin grid point in molecular frame.
 c              1) The argument geom is supplied with an arbitrary integer 1000 because
 c              geom_arb2cent will not verify it if icent2=0, which it is in the call above.
                maskf_ = cmplx(1.0d0, 0.0d0, kind=kind(1.0d0))
-               call wfat_mask_intd(geom, natom, 1, 1, 1, v_t, mask_param, 
-     &              maskf_)
+               call wfat_mask_intd(geom, natom, 1, 1, 1, v_t, 
+     &              mask_param, maskf_)
                maskfo(i,j) = real(maskf_)
             enddo
          else

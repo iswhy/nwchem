@@ -527,7 +527,8 @@ c     ==== Evaluating V_c|psi> at nucleus grids ====
          vpta(3,:) = vpt(3,i)
          call wfat_dft_vcpsi_1pt_c(500, geom, bas, nb, ns, nch, wfat1,
      &        vch, spinid, chpos, vpta, cgrid, rdm, zi, smh,
-     &        dbl_mb(k_sc), mask, ergmask, amsk, bmsk, vc_psi(i,:))
+     &        dbl_mb(k_sc), ismask, ergmask, amsk, bmsk,
+     &        vc_psi(i,1:nch+nch1))
       enddo
 
 c     ==== Evaluating V_c|psi> at channel-origin grids ====
@@ -535,7 +536,8 @@ c     ==== Evaluating V_c|psi> at channel-origin grids ====
          call wfat_mf_ogrid(nch, chpos, vpto(:,i), vpta)
          call wfat_dft_vcpsi_1pt_c(-1, geom, bas, nb, ns, nch, wfat1,
      &        vch, spinid, chpos, vpta, cgrid, rdm, zi, smh,
-     &        dbl_mb(k_sc), mask, ergmask, amsk, bmsk, vc_psio(i,:))
+     &        dbl_mb(k_sc), ismask, ergmask, amsk, bmsk,
+     &        vc_psio(i,1:nch+nch1))
       enddo
       
 
