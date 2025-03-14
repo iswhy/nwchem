@@ -357,10 +357,10 @@ c           ==== Quadrature summation ====
                endif
             endif
 
-cdebug            if (ga_nodeid() >= 0 .and. icent /= -1)
-cdebug     &           write(luout, '("@grid: ", i8, 2es20.10, '//
-cdebug     &           '3es20.10, i5)')
-cdebug     &           jpt, dcpl_mb(k_om), dbl_mb(k_vc), celf
+cdebug            if (icent == -1)
+cdebug     &           write(luout, '("@grid: ", i8, 3es16.6, 2es20.10, '//
+cdebug     &           'es20.10, es20.10)')
+cdebug     &           jpt, v_m(:,1), dcpl_mb(k_om), dbl_mb(k_vc), celf(1)
 
 
 c           ==== Print progress ====

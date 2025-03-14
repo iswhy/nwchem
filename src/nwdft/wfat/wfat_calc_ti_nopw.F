@@ -64,8 +64,8 @@ c=======================================================
       integer natom, n_sg, nfc, nrt, n_pt, n_wt, n_pto, n_wto, n_acg
       integer n_acj, n_ack, n_dum, nsc, nsx, npbd, n_sj, n_sk, n_on
       integer nch1, ndid, nbt, ngm, natp, natop, nptp, nptop, i, k, iqn
-      integer i_on, ig, ib, i_tu0, i_vc, i_acj, icpo, ippo(2), ozn
-      integer geomo
+      integer i_on, ig, ib, i_tu0, i_tu0o, i_vc, i_vco, i_acj, icpo
+      integer ippo(2), ozn, geomo
       double precision bt_start, bt_last, dbt, dbtr, gm_start, gm_last
       double precision dgm, dgmr, dthr, bt, gm, rate, vdum(3)
       double precision deg2rad
@@ -124,6 +124,8 @@ c     note 1)), the output is effectively the grids in the frame of the
 c     channel center.
       if (.not. geom_destroy(geomo))
      &     call errquit('WFAT: Cannot destroy geomo.', 52, GEOM_ERR)
+      call wfat_need_cgrid(rtdb, geom, nch, chpos, cgrid)
+      call wfat_print_gridpt(rtdb, geom, gq, ozn, nch, cgrid, chpos)
       
 
 c     ==== Construct new spinid and chpos that can ====
@@ -145,7 +147,6 @@ c     ==== Calculate and gather V_c|psi> at all grid points ====
       if (.not. MA_alloc_get(MT_DBL, nptop*(nch+nch1), 'vc_psi_o',
      &     l_vco, k_vco))
      &     call errquit('WFAT: vc_psi_o allocation failed', 81, MA_ERR)
-      call wfat_need_cgrid(rtdb, geom, nch, chpos, cgrid)
       call wfat_collect_vcpsi(geom, bas, nb, ns, nch, wfat1, vch,
      &     int_mb(k_si), dbl_mb(k_pos), nptp, nptop, dbl_mb(k_pt), 
      &     dbl_mb(k_pto), cgrid, rdm, zi, smh, ismask_e, ergmask, amsk,
@@ -195,9 +196,9 @@ c     ====  function at all grid points  ====
       if (.not. MA_alloc_get(MT_DBL, nptop*nch, 'celfo',
      &     l_clo, k_clo))
      &     call errquit('WFAT: celfo allocation failed', 81, MA_ERR)
-      call wfat_collect_celf(geom, nch, nptp, nptop, ozn, cgrid, chpos,
-     &     dbl_mb(k_pt), dbl_mb(k_pto), celm, dbl_mb(k_cl), 
-     &     dbl_mb(k_clo))
+      call wfat_collect_celf(geom, nch, natp, int_mb(k_icp),
+     &     int_mb(k_ipp), nptp, nptop, ozn, cgrid, chpos, dbl_mb(k_pt),
+     &     dbl_mb(k_pto), celm, dbl_mb(k_cl), dbl_mb(k_clo))
 
       
 c     ==== Obtain field factor ====
@@ -293,29 +294,38 @@ c     &                 dcpl_mb(k_tu1)
                                              
 c              ==== Calculate the structure factors ====
                call wfat_calc_acf_nopw(bt, gm, nch, nqn, natp, nptp, 
-     &              natom, int_mb(k_icp), int_mb(k_ipp), dbl_mb(k_vc), 
-     &              dcpl_mb(k_tu0), dbl_mb(k_cl), dbl_mb(k_wt), ismask,
-     &              dbl_mb(k_ma), dcpl_mb(k_acg))               
+     &              nptop, natom, int_mb(k_icp), int_mb(k_ipp), ippo, 
+     &              dbl_mb(k_vc), dbl_mb(k_vco), dcpl_mb(k_tu0), 
+     &              dcpl_mb(k_tu0o), dbl_mb(k_cl), dbl_mb(k_clo),
+     &              dbl_mb(k_wt), dbl_mb(k_wto), ismask, dbl_mb(k_ma),
+     &              dbl_mb(k_mao), dcpl_mb(k_acg))
                if (wfat1) then
                   do i = 1, nch
                      i_tu0 = k_tu0 + nptp*nqn*(i-1)
+                     i_tu0o = k_tu0o + nptop*nqn*(i-1)
                      do k = 1, 3
-                        i_vc = (k_vc+nptp*nch) + 3*nptp*(i-1) +
+                        i_vc = (k_vc+nptp*nch) + nptp*3*(i-1) +
      &                         nptp*(k-1)
+                        i_vco = (k_vco+nptop*nch) + nptop*3*(i-1) +
+     &                          nptop*(k-1)
                         i_acj = k_acj + natom*nqn*3*(i-1) +
      &                          natom*nqn*(k-1)
                         call wfat_calc_acf_nopw(bt, gm, 1, nqn, natp,
-     &                       nptp, natom, int_mb(k_icp), int_mb(k_ipp), 
-     &                       dbl_mb(i_vc), dcpl_mb(i_tu0), 
-     &                       dbl_mb(k_cl), dbl_mb(k_wt), ismask, 
-     &                       dbl_mb(k_ma), dcpl_mb(i_acj))
+     &                       nptp, nptop, natom, int_mb(k_icp), 
+     &                       int_mb(k_ipp), ippo, dbl_mb(i_vc), 
+     &                       dbl_mb(i_vco), dcpl_mb(i_tu0),
+     &                       dcpl_mb(i_tu0o), dbl_mb(k_cl),
+     &                       dbl_mb(k_clo), dbl_mb(k_wt), dbl_mb(k_wto),
+     &                       ismask, dbl_mb(k_ma), dbl_mb(k_mao),
+     &                       dcpl_mb(i_acj))
                      enddo
                   enddo
                   call wfat_calc_acf_nopw(bt, gm, nch, nqn, natp, nptp, 
-     &                 natom, int_mb(k_icp), int_mb(k_ipp), 
-     &                 dbl_mb(k_vc), dcpl_mb(k_tu1), dbl_mb(k_cl), 
-     &                 dbl_mb(k_wt), ismask, dbl_mb(k_ma),
-     &                 dcpl_mb(k_ack))      ! 4)
+     &                 nptop, natom, int_mb(k_icp), int_mb(k_ipp), ippo,
+     &                 dbl_mb(k_vc), dbl_mb(k_vco), dcpl_mb(k_tu1),
+     &                 dcpl_mb(k_tu1o), dbl_mb(k_cl), dbl_mb(k_clo),
+     &                 dbl_mb(k_wt), dbl_mb(k_wto), ismask,
+     &                 dbl_mb(k_ma), dbl_mb(k_mao), dcpl_mb(k_ack))      ! 4)
 c                 * 4) Unlike k_acj, k_ack is not decomposed into its two
 c                      orientation-independent components. This is because
 c                      tau1 has been calculated as a whole, not decomposed
@@ -419,9 +429,9 @@ c=======================================================
 
 c=======================================================
 c=======================================================
-      subroutine wfat_calc_acf_nopw(bt, gm, nch, nqn, natp, nptp, 
-     &     natom, centid, ptlim, vc_psi, tau0, celf, wt, ismask, maskf,
-     &     acf)
+      subroutine wfat_calc_acf_nopw(bt, gm, nch, nqn, natp, nptp, nptop,
+     &     natom, centid, ptlim, ptlimo, vc_psi, vc_psi_o, tau, tauo, 
+     &     celf, celfo, wt, wto, ismask, maskf, maskfo, acf)
 
       implicit none
 #include "mafdecls.fh"
@@ -434,22 +444,34 @@ c=======================================================
       integer nqn
       integer natp
       integer nptp
+      integer nptop
       integer natom
       integer centid(natp)
       integer ptlim(2,natp)
+      integer ptlimo(2)
       double precision vc_psi(nptp,nch)
-      double complex tau0(nptp,nqn,nch)
-      double precision celf(nptp)
+      double precision vc_psi_o(nptop,nch)
+      double complex tau(nptp,nqn,nch)
+      double complex tauo(nptop,nqn,nch)
+      double precision celf(nptp,nch)
+      double precision celfo(nptop,nch)
       double precision wt(nptp)
+      double precision wto(nptop)
       logical ismask
-      double precision maskf(*)      ! [input], if ismask is .true., its dimension must be at least nptp.
+      double precision maskf(*)           ! [input], if ismask is .true., its dimension must be at least nptp.
+      double precision maskfo(*)          ! [input], if ismask is .true., its dimension must be at least nptop*nch.
       double complex acf(natom,nqn,nch)   ! [output]
 
-      integer nac, nac_p, l_acp, k_acp, g_ac
+      integer nac, nac_p, l_acp, k_acp, l_acop, k_acop, g_ac
       double complex czero
       parameter ( czero = cmplx(0.0d0, 0.0d0, kind=kind(1.0d0)) )
 
 
+cnopw      call errquit('WFAT: Make sure all instances of call '//
+cnopw     &     'wfat_calc_acf_nopw have used the new list of '//
+cnopw     &     'arguments', 54, UERR)
+
+      
       call ga_sync()
       acf = czero               ! 1)
 c     1) It is necessary to populate acf with zeros in the beginning because
@@ -465,19 +487,27 @@ c        subroutine, which is undesireable.
      &     1, GA_ERR)
       call ga_zero(g_ac)
 
-c     ==== Calculate the asymptotic coefficients for the ====
-c     ====    atoms contained in the current process     ====
+c     ==== Calculate the asymptotic coefficients contributions ====
+c     ====   from the atoms contained in the current process   ====
       nac_p = natp * nqn * nch
       if (.not. MA_alloc_get(MT_DCPL, nac_p, 'acf_p', l_acp, k_acp))
      &     call errquit('WFAT: acf_p allocation failed', 59, MA_ERR)
-      call wfat_calc_acf_nopw_p(nch, nqn, natp, nptp, ptlim, 
-     &     vc_psi, tau0, celf, wt, ismask, maskf, dcpl_mb(k_acp))
+      call wfat_calc_acf_nopw_p(nch, nqn, natp, nptp, ptlim, vc_psi, 
+     &     tau, celf, wt, ismask, maskf, dcpl_mb(k_acp))
 
+c     ==== Calculate the asymptotic coefficients contributions ====
+c     ====   from the channel origin in the current process    ====
+      nac_p = nqn * nch
+      if (.not. MA_alloc_get(MT_DCPL, nac_p, 'acfo_p', l_acop, k_acop))
+     &     call errquit('WFAT: acfo_p allocation failed', 59, MA_ERR)
+      call wfat_calc_acf_nopw_p(nch, nqn, 1, nptop, ptlimo, vc_psi_o, 
+     &     tauo, celfo, wto, ismask, maskfo, dcpl_mb(k_acop))
+      
 c     ==== Transfer the values of the asymptotic coefficients in ====
 c     ====   the current process to their respective positions   ====
 c     ====          in the array that holds all atoms            ====
       call wfat_assign_acf_nopw_p(nch, nqn, natp, natom, centid,
-     &     dcpl_mb(k_acp), acf)    ! 2)
+     &     dcpl_mb(k_acp), dcpl_mb(k_acop), acf)    ! 2)
 c     2) At this point, acf contains the current process' contribution to the
 c        asymptotic coefficients. It will be added with the contributions of
 c        all the other processes below in the call to ga_acc.
@@ -495,6 +525,8 @@ c        values for acf.
 c     ==== Deallocations ====
       if (.not. MA_free_heap(l_acp))
      &     call errquit('WFAT: acf_p deallocation failed', 61, MA_ERR)
+      if (.not. MA_free_heap(l_acop))
+     &     call errquit('WFAT: acfo_p deallocation failed', 61, MA_ERR)
       if (.not. ga_destroy(g_ac))
      &     call errquit('WFAT: Cannot destroy acf.', 1, GA_ERR)
       
@@ -505,7 +537,7 @@ c=======================================================
 c=======================================================
 c=======================================================
       subroutine wfat_assign_acf_nopw_p(nch, nqn, natp, natom, centid,
-     &     acf_p, acf)
+     &     acf_p, acfo_p, acf)
 
       implicit none
       integer nch
@@ -514,6 +546,7 @@ c=======================================================
       integer natom
       integer centid(natp)
       double complex acf_p(natp,nqn,nch)
+      double complex acfo_p(nqn,nch)
       double complex acf(natom,nqn,nch)
 
       integer i, j, icp, ic
@@ -524,6 +557,7 @@ c=======================================================
                ic = centid(icp)
                acf(ic,j,i) = acf_p(icp,j,i)
             enddo
+            acf(:,j,i) = acf(:,j,i) + acfo_p(j,i)/natom
          enddo
       enddo
 

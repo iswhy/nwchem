@@ -422,9 +422,9 @@ c=======================================================
       parameter ( czero = cmplx(0.0d0, 0.0d0, kind=kind(1.0d0)) )
 
 
-      call errquit('WFAT: Make sure all instances of call '//
-     &     'wfat_collect_tau0 have used the new list of '//
-     &     'arguments', 54, UERR)
+cnopw      call errquit('WFAT: Make sure all instances of call '//
+cnopw     &     'wfat_collect_tau0 have used the new list of '//
+cnopw     &     'arguments', 54, UERR)
 
             
       
@@ -444,7 +444,7 @@ c              v_r = grid point in rotated channel-center frame
                   call geom_cent2arb(geom, 0, v_m(:,k), chpos(:,i), v_f,
      &                 t1)
                else
-                  v_f = v_oc(:,k)
+                  v_f = v_oc(:,k-nptp)
                endif
 
                if (k <= nptp .or. (k > nptp .and. cgrid(i))) then
@@ -512,9 +512,9 @@ c=======================================================
       parameter ( czero = cmplx(0.0d0, 0.0d0, kind=kind(1.0d0)) )
 
 
-      call errquit('WFAT: Make sure all instances of call '//
-     &     'wfat_collect_tau1 have used the new list of '//
-     &     'arguments', 54, UERR)
+cnopw      call errquit('WFAT: Make sure all instances of call '//
+cnopw     &     'wfat_collect_tau1 have used the new list of '//
+cnopw     &     'arguments', 54, UERR)
       
 
       call wfat_passrot(bt, gm, protmat)
@@ -539,7 +539,7 @@ c           v_r = grid point in rotated channel-center frame
                call geom_cent2arb(geom, 0, v_m(:,k), chpos(:,i), v_f,
      &              t1)
             else
-               v_f = v_oc(:,k)
+               v_f = v_oc(:,k-nptp)
             endif
             v_r = matmul(transpose(protmat), v_f)
             dbl_mb(k_r+k-1) = sqrt(sum(v_r*v_r))
@@ -553,9 +553,9 @@ c           v_r = grid point in rotated channel-center frame
             if (wfat0(j,i)) then
                dcpl_mb(k_tu:k_tu+nptp+nptop-1) = czero
             else
-               call wfat_calc_tau1(n, m, nptp, dbl_mb(k_r), dbl_mb(k_t),
-     &              dbl_mb(k_p), erg(i), zi, bt, gm, chmmt(:,i),
-     &              dcpl_mb(k_tu))
+               call wfat_calc_tau1(n, m, nptp+nptop, dbl_mb(k_r),
+     &              dbl_mb(k_t), dbl_mb(k_p), erg(i), zi, bt, gm,
+     &              chmmt(:,i), dcpl_mb(k_tu))
             endif
 
 c           ==== At nuclei grids ====

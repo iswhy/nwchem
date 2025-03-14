@@ -3,6 +3,8 @@ c=======================================================
       subroutine wfat_celf_1pt_c(geom, nch, geomc, icent, cgrid, chpos,
      &     v_m, msm, celf)
 c     DESCRIPTION:
+c     This subroutine evaluates the function w_A defined in eq. (23) in
+c     Ref. [1] for a range of ionized channels given the center.
 c     geomc is an array of geometry objects. Each element of geomc consists
 c     of atomic coordinates such that the second up to the last atoms and
 c     their coordinates are identical to those in geom. The first atom in the
@@ -11,7 +13,7 @@ c     elements of geomc is the parabolic channel center of each channel.
       integer geom
       integer nch
       integer geomc(nch)
-      integer icent
+      integer icent                   ! [input], the index of the nucleus in geom. 1<=icent<=natom where natom is the number of centers in geom.
       logical cgrid(nch)
       double precision chpos(3,nch)
       double precision v_m(3,nch)
@@ -22,8 +24,6 @@ c     elements of geomc is the parabolic channel center of each channel.
       integer ic, i, k
       double precision v_c(3)
 
-
-      ic = icent + 1
 
 c     ==== Calculate cell function for a point belonging to a ====
 c     ====  nucleus and when the channel does not have center ====
@@ -45,6 +45,7 @@ c        function is independent of channel.
       
 c     ==== Cell functions for all channels ====
       if (icent /= -1) then
+         ic = icent + 1
 c        == When the center is a nucleus ==
          do i = 1, nch
             if (.not. cgrid(i)) then
@@ -70,6 +71,10 @@ c              is the first center of the geometry object geomc(i).
       endif
       
       end
+      
+c  References :
+c    [1] "Quadrature schemes for integrals of density functional theory",
+c        Mol. Phys., 78 (4) 1993.
 c=======================================================
 
       
@@ -78,7 +83,7 @@ c=======================================================
       subroutine wfat_celf_1pt(geom, ia1, d1, msm, celf)
 c     DESCRIPTION:
 c     This subroutine evaluates the function w_A defined in eq. (23) in
-c     Ref. [1].
+c     Ref. [1] given the center.
       
       implicit none
 #include "errquit.fh"
@@ -250,13 +255,17 @@ c=======================================================
 
 c=======================================================
 c=======================================================
-      subroutine wfat_collect_celf(geom, nch, nptp, nptop, ozn, 
-     &     cgrid, chpos, v_m, v_oc, msm, celf, celfo)
+      subroutine wfat_collect_celf(geom, nch, natp, centid, ptlim, nptp,
+     &     nptop, ozn, cgrid, chpos, v_m, v_oc, msm, celf, celfo)
 
       implicit none
+#include "stdio.fh"
 #include "errquit.fh"
       integer geom
       integer nch
+      integer natp
+      integer centid(natp)
+      integer ptlim(2,natp)
       integer nptp              ! [input], total number of grid points belonging to all nuclei for the current process.
       integer nptop           ! [input], number of grid points belonging to channel origin for the current process.
       integer ozn
@@ -268,67 +277,45 @@ c=======================================================
       double precision celf(nptp, nch)
       double precision celfo(nptop, nch)
 
-      integer i, geomc(nch)
+      integer i, j, ic, icp, geomc(nch)
       double precision vpta(3,nch)
 
 
-      call errquit('WFAT: Make sure all instances of call '//
-     &     'wfat_collect_celf have used the new list of '//
-     &     'arguments', 54, UERR)
+cnopw      call errquit('WFAT: Make sure all instances of call '//
+cnopw     &     'wfat_collect_celf have used the new list of '//
+cnopw     &     'arguments', 54, UERR)
 
 
       call wfat_cgeom_create(geom, ozn, nch, chpos, geomc)
 
 c     ==== Evaluating cell function at nucleus grids ====
-      do i = 1, nptp
-         vpta(1,:) = v_m(1,i)
-         vpta(2,:) = v_m(2,i)
-         vpta(3,:) = v_m(3,i)
-         call wfat_celf_1pt_c(geom, nch, geomc, 500, cgrid, chpos,
-     &        vpta, msm, celf(i,:))
+      j = 0
+      do icp = 1, natp
+         ic = centid(icp)
+         do i = ptlim(1,icp), ptlim(2,icp)
+            j = j + 1
+            vpta(1,:) = v_m(1,j)
+            vpta(2,:) = v_m(2,j)
+            vpta(3,:) = v_m(3,j)
+            call wfat_celf_1pt_c(geom, nch, geomc, ic, cgrid, chpos,
+     &           vpta, msm, celf(j,:))
+         enddo
       enddo
+
+      if (j /= nptp) call errquit('WFAT: The requirement j=nptp is '//
+     &     'not satisfied. This is a bug, check the wfat_collect_celf'//
+     &     ' subroutine file.', 99, UERR)
 
 c     ==== Evaluating cell function at channel-origin grids ====
       do i = 1, nptop
          call wfat_mf_ogrid(nch, chpos, v_oc(:,i), vpta)
          call wfat_celf_1pt_c(geom, nch, geomc, -1, cgrid, chpos,
      &        vpta, msm, celfo(i,:))
+cdebug         write(luout, '("@grid-celf: ", i8, 3es16.6, es20.10)')
+cdebug     &        i, vpta(:,1), celfo(i,1)
       enddo
 
       call wfat_cgeom_destroy(nch, geomc)
       
-   
-cOLDc     ==== Calculate cell functions at nuclei grid points ====
-cOLD      call wfat_cgeom_create(geom, ozn, nch, chpos, geomc)
-cOLD      do k = 1, nch
-cOLD         j = 0
-cOLD         do icp = 1, natp
-cOLD            ic = centid(icp)
-cOLD            do i = ptlim(1,icp), ptlim(2,icp)
-cOLD               j = j + 1
-cOLD               call geom_cent2cent(geom, 0, v_m(:,j), ic, v_c, t1)
-cOLD               call wfat_celf_1pt(geomc(k), ic+1, v_c, msm, celf(j,k))
-cOLD            enddo
-cOLD         enddo
-cOLD         
-cOLD         if (j /= nptp) call errquit('WFAT: The requirement j=nptp is'//
-cOLD     &        ' not satisfied. This is a bug, check the '//
-cOLD     &        'wfat_collect_celf subroutine file.', 99, UERR)
-cOLD      enddo
-cOLD
-cOLDc     ==== Calculate cell functions at channel origin grid points ====
-cOLD      do k = 1, nch
-cOLD         do i = 1, nptorip
-cOLD            if (cgrid(k)) then
-cOLD               call wfat_celf_1pt(geomc(k), 1, v_oc(:,i), msm,
-cOLD     &              celfo(i,k))
-cOLD            else
-cOLD               celfo(i,k) = 0.0d0
-cOLD            endif
-cOLD         enddo
-cOLD      enddo
-cOLD
-cOLD      call wfat_cgeom_destroy(nch, geomc)
-
       end
 c=======================================================

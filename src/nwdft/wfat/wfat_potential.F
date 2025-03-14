@@ -480,6 +480,7 @@ c=======================================================
 
       implicit none
 #include "mafdecls.fh"
+#include "stdio.fh"
 #include "errquit.fh"
       integer geom
       integer bas
@@ -509,9 +510,9 @@ c=======================================================
       double precision vpta(3,nch)
 
       
-      call errquit('WFAT: Make sure all instances of call '//
-     &     'wfat_collect_vcpsi have used the new list of '//
-     &     'arguments', 54, UERR)
+cnopw      call errquit('WFAT: Make sure all instances of call '//
+cnopw     &     'wfat_collect_vcpsi have used the new list of '//
+cnopw     &     'arguments', 54, UERR)
 
 
       nch1 = 0
@@ -538,6 +539,8 @@ c     ==== Evaluating V_c|psi> at channel-origin grids ====
      &        vch, spinid, chpos, vpta, cgrid, rdm, zi, smh,
      &        dbl_mb(k_sc), ismask, ergmask, amsk, bmsk,
      &        vc_psio(i,1:nch+nch1))
+cdebug         write(luout, '("@grid-vcpsi: ", i8, 3es16.6, es20.10)')
+cdebug     &        i, vpta(:,1), vc_psio(i,1)
       enddo
       
 

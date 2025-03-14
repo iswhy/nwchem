@@ -182,9 +182,9 @@ c=======================================================
       double complex maskf_, v_t(3)
 
 
-      call errquit('WFAT: Make sure all instances of call '//
-     &     'wfat_collect_maskf have used the new list of '//
-     &     'arguments', 54, UERR)
+cnopw      call errquit('WFAT: Make sure all instances of call '//
+cnopw     &     'wfat_collect_maskf have used the new list of '//
+cnopw     &     'arguments', 54, UERR)
 
 c     ==== Evaluating mask function at nucleus grids ====
       do i = 1, nptp
