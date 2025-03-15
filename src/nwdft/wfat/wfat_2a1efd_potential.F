@@ -290,8 +290,8 @@ c===============================================================
 c===============================================================
 c===============================================================
       subroutine wfat_2a1efd_collect_vcpsi(geom, sphi, m, nfe, ndvr, 
-     &        maxn, xq, wq, nr, nt, nptp, pottype, nel, potparam, zi, 
-     &        vcf, chpos, vpt, vc_psi)
+     &        maxn, xq, wq, nr, nt, nptp, nptop, pottype, nel, potparam,
+     &        zi, vcf, chpos, vpt, vpto, cgrid, vc_psi, vc_psio)
 
       implicit none
 #include "stdio.fh"      
@@ -308,26 +308,45 @@ c===============================================================
       integer nr                    ! [input],
       integer nt                    ! [input],
       integer nptp                  ! [input],
+      integer nptop                 ! [input],
       character*3 pottype           ! [input],
       integer nel                   ! [input], not used when pottype = 'cou', but still has to be supplied a value.
       double precision potparam(2)  ! [input], 1)
       double precision zi           ! [input],
       double precision vcf(nr*nt)   ! [input],
       double precision chpos(3)     ! [input],
-      double precision vpt(3,nptp)  ! [input],
+      double precision vpt(3,nptp) ! [input],
+      double precision vpto(3,nptop) ! [input],
+      logical cgrid
       double precision vc_psi(nptp) ! [output],
+      double precision vc_psio(nptop) ! [output],
 
       integer nscr, l_sc, k_sc, i
+      double precision vpta(3)
+      
 
       nscr = nr + nt + nr*nt + maxn**2 + maxn
       if (.not. MA_alloc_get(MT_DBL, nscr, 'vscr', l_sc, k_sc))
      &     call errquit('WFAT: vscr allocation failed', 59, MA_ERR)
-      
+
+c     ==== Evaluating V_c|psi> at nucleus grids ====
       do i = 1, nptp
          call wfat_2a1efd_vcpsi(geom, sphi, m, nfe, ndvr, maxn, xq, 
      &        wq, nr, nt, pottype, nel, potparam, zi, vcf, chpos, 
      &        vpt(:,i), dbl_mb(k_sc), vc_psi(i))
       enddo
+
+c     ==== Evaluating V_c|psi> at channel-origin grids ====
+      if (cgrid) then
+         do i = 1, nptop
+            call wfat_mf_ogrid(1, chpos, vpto(:,i), vpta)
+            call wfat_2a1efd_vcpsi(geom, sphi, m, nfe, ndvr, maxn, xq, 
+     &           wq, nr, nt, pottype, nel, potparam, zi, vcf, chpos, 
+     &           vpta, dbl_mb(k_sc), vc_psio(i))
+         enddo
+      else
+         vc_psio(:) = 0.0d0
+      endif
 
       if (.not. MA_free_heap(l_sc))
      &     call errquit('WFAT: vscr deallocation failed', 61, MA_ERR)
@@ -339,9 +358,9 @@ c===============================================================
 c===============================================================
 c===============================================================
       subroutine wfat_2a1efd_collect_vcpsi_ord1(geom, sphi, m, nfe, 
-     &     ndvr, maxn, xq, wq, nr, nt, nt_m, nt_p, nptp, pottype, nel, 
-     &     potparam, zi, vcf, cfx, cfy, cfz, chpos, vpt, vc_psi, 
-     &     vc_cpsi)
+     &     ndvr, maxn, xq, wq, nr, nt, nt_m, nt_p, nptp, nptop, pottype,
+     &     nel, potparam, zi, vcf, cfx, cfy, cfz, chpos, vpt, vpto,
+     &     cgrid, vc_psi, vc_psio, vc_cpsi, vc_cpsio)
 
       implicit none
 #include "stdio.fh"      
@@ -360,6 +379,7 @@ c===============================================================
       integer nt_m                      ! [input],
       integer nt_p                      ! [input],
       integer nptp                      ! [input],
+      integer nptop                     ! [input],
       character*3 pottype               ! [input],
       integer nel                       ! [input], not used when pottype = 'cou', but still has to be supplied a value.
       double precision potparam(2)      ! [input], 1)
@@ -370,18 +390,22 @@ c===============================================================
       double precision cfz(nr*nt)       ! [input],
       double precision chpos(3)         ! [input],
       double precision vpt(3,nptp)      ! [input],
+      double precision vpto(3,nptop)    ! [input],
+      logical cgrid
       double precision vc_psi(nptp)     ! [input],
-      double precision vc_cpsi(nptp, 3) ! [output],
+      double precision vc_psio(nptop)   ! [input],
+      double precision vc_cpsi(nptp,3)  ! [output],
+      double precision vc_cpsio(nptop,3)  ! [output],
 
       integer nscr, l_sc, k_sc, i
-
-      nscr = maxn**2 + maxn +
-     &     (nr + nt + nr*nt) +
-     &     (nt_p + nr*nt_p)
+      double precision vpta(3)
+      
+      nscr = maxn**2 + maxn + (nr + nt + nr*nt) + (nt_p + nr*nt_p)
       if (m >= 1) nscr = nscr + (nt_m + nr*nt_m)
       if (.not. MA_alloc_get(MT_DBL, nscr, 'vscr', l_sc, k_sc))
      &     call errquit('WFAT: vscr allocation failed', 59, MA_ERR)
       
+c     ==== Evaluating V_c|psi> at nucleus grids ====
       do i = 1, nptp
          call wfat_2a1efd_vcpsi_ord1(geom, sphi, m, nfe, ndvr, maxn, xq,
      &        wq, nr, nt, nt_m, nt_p, pottype, nel, potparam, zi, vcf, 
@@ -389,6 +413,20 @@ c===============================================================
      &        vc_cpsi(i,:))
       enddo
 
+c     ==== Evaluating V_c|psi> at channel-origin grids ====
+      if (cgrid) then
+         do i = 1, nptop
+            call wfat_mf_ogrid(1, chpos, vpto(:,i), vpta)
+            call wfat_2a1efd_vcpsi_ord1(geom, sphi, m, nfe, ndvr, maxn, 
+     &           xq, wq, nr, nt, nt_m, nt_p, pottype, nel, potparam, zi,
+     &           vcf, cfx, cfy, cfz, chpos, vpta, dbl_mb(k_sc), 
+     &           vc_psio(i), vc_cpsio(i,:))
+         enddo
+      else
+         vc_psio(:) = 0.0d0
+         vc_cpsio(:,:) = 0.0d0
+      endif
+      
       if (.not. MA_free_heap(l_sc))
      &     call errquit('WFAT: vscr deallocation failed', 61, MA_ERR)
 
