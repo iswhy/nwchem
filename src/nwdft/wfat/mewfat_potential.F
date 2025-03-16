@@ -317,9 +317,9 @@ c=======================================================
 
 c=======================================================
 c=======================================================
-      subroutine mewfat_collect_vcpsi(geom, bas, nb, sx, sy, n0, n1,
-     &     nch, nptp, vpt, ocmo0, ocmo1, pcf, rcf, qcf, scf, zi, ccent,
-     &     smh, vc_psi)
+      subroutine mewfat_collect_hf_vcpsi(geom, bas, nb, sx, sy, n0, n1,
+     &     nch, nptp, nptop, vpt, vpto, cgrid, ocmo0, ocmo1, pcf, rcf, 
+     &     qcf, scf, zi, ccent, smh, vc_psi, vc_psio)
       
       implicit none
 #include "stdio.fh"
@@ -334,7 +334,10 @@ c=======================================================
       integer n1(2)                                   ! [input], no. of electrons in cation.
       integer nch
       integer nptp
+      integer nptop
       double precision vpt(3,nptp)                    ! [input], evaluation point.
+      double precision vpto(3,nptop)                  ! [input], evaluation point.
+      logical cgrid(nch)
       double precision ocmo0(nb, n0(1)+n0(2))         ! [input], occupied neutral MO coeffs. The first n0(1) columns hold spin-a coeffs., the rest holds spin-b coeffs.
       double precision ocmo1(nb, n1(1)+n1(2))         ! [input], occupied cation MO coeffs. The first n1(1) columns hold spin-a coeffs., the rest holds spin-b coeffs.
       double precision pcf(n0(sx))                    ! [input], P det. coefficients. Its elements index neutral MO's.
@@ -345,10 +348,12 @@ c=======================================================
       double precision ccent(3,nch)                   ! [input],
       double precision smh                            ! [input],
       double precision vc_psi(nptp,nch)               ! [output],
+      double precision vc_psio(nptop,nch)             ! [output],
 
       integer nscr, i
-      integer l_sc, k_sc, l_vc, k_vc
-
+      integer l_sc, k_sc
+      double precision vpta(3,nch)
+      
       
       if (nch /= 1) call errquit('MEWFAT: At the moment, the argument'//
      &     ' nch of mewfat_collect_vcpsi can only be equal to 1.',
@@ -359,21 +364,28 @@ c     ==== Prepare scratch ====
      &      sum(n1*n0)
       if (.not. MA_alloc_get(MT_DBL, nscr, 'scratch', l_sc, k_sc))
      &     call errquit('WFAT: scratch allocation failed', 59, MA_ERR)
-      
-      if (.not. MA_alloc_get(MT_DBL, nch, 'vc_psi', l_vc, k_vc))
-     &     call errquit('WFAT: vc_psi allocation failed', 25, MA_ERR)
+
+c     ==== Evaluating V_c|psi> at nucleus grids ====
       do i = 1, nptp
-         call mewfat_hf_vcpsi_1pt(geom, bas, nb, sx, sy, n0, n1,
-     &        vpt(:,i), ocmo0, ocmo1, pcf, rcf, qcf, scf, zi, ccent, 
-     &        smh, dbl_mb(k_sc), dbl_mb(k_vc))
-         vc_psi(i,:) = dbl_mb(k_vc:k_vc+nch-1)
+         vpta(1,:) = vpt(1,i)
+         vpta(2,:) = vpt(2,i)
+         vpta(3,:) = vpt(3,i)
+         call mewfat_hf_vcpsi_1pt_c(600, geom, bas, nb, sx, sy, n0, n1, 
+     &        vpta, cgrid, ocmo0, ocmo1, pcf, rcf, qcf, scf, zi, ccent, 
+     &        smh, dbl_mb(k_sc), vc_psi(i,:))
+      enddo
+
+c     ==== Evaluating V_c|psi> at channel-origin grids ====
+      do i = 1, nptop
+         call wfat_mf_ogrid(nch, ccent, vpto(:,i), vpta)
+         call mewfat_hf_vcpsi_1pt_c(-1, geom, bas, nb, sx, sy, n0, n1, 
+     &        vpta, cgrid, ocmo0, ocmo1, pcf, rcf, qcf, scf, zi, ccent, 
+     &        smh, dbl_mb(k_sc), vc_psio(i,:))
       enddo
 
 c     ==== Deallocations ====
       if (.not. MA_free_heap(l_sc))
      &     call errquit('WFAT: scratch deallocation failed', 49, MA_ERR)
-      if (.not. MA_free_heap(l_vc))
-     &     call errquit('WFAT: vc_psi deallocation failed', 49, MA_ERR)
 
       end
 c=======================================================
@@ -382,8 +394,8 @@ c=======================================================
 c=======================================================
 c=======================================================
       subroutine mewfat_collect_dft_vcpsi(geom, bas, nb, sx, sy, n0, n1,
-     &     nch, nptp, vpt, ocmo0, ocmo1, pcf, rcf, qcf, scf, zi, ccent,
-     &     smh, rs, si_type, vc_psi)
+     &     nch, nptp, nptop, vpt, vpto, cgrid, ocmo0, ocmo1, pcf, rcf, 
+     &     qcf, scf, zi, ccent, smh, rs, si_type, vc_psi, vc_psio)
 
       implicit none
 #include "stdio.fh"
@@ -398,7 +410,10 @@ c=======================================================
       integer n1(2)                                   ! [input], no. of electrons in cation.
       integer nch
       integer nptp
+      integer nptop
       double precision vpt(3,nptp)                    ! [input], evaluation point.
+      double precision vpto(3,nptop)                  ! [input], evaluation point.
+      logical cgrid(nch)
       double precision ocmo0(nb, n0(1)+n0(2))         ! [input], occupied neutral MO coeffs. The first n0(1) columns hold spin-a coeffs., the rest holds spin-b coeffs.
       double precision ocmo1(nb, n1(1)+n1(2))         ! [input], occupied cation MO coeffs. The first n1(1) columns hold spin-a coeffs., the rest holds spin-b coeffs.
       double precision pcf(n0(sx))                    ! [input], P det. coefficients. Its elements index neutral MO's.
@@ -411,9 +426,11 @@ c=======================================================
       logical rs                                      ! [input],
       character*5 si_type                             ! [input], self-interaction type.
       double precision vc_psi(nptp,nch)               ! [output],
+      double precision vc_psio(nptop,nch)               ! [output],
 
       integer nsc_rs, nscr, i
-      integer l_sc, k_sc, l_rd0, k_rd0, l_vc, k_vc
+      integer l_sc, k_sc, l_rd0, k_rd0
+      double precision vpta(3,nch)
 
       
       if (nch /= 1) call errquit('MEWFAT: At the moment, the argument'//
@@ -434,23 +451,31 @@ c     ==== Prepare scratch ====
 c     ==== Obtain RDM of the neutral ====
       if (.not. ma_alloc_get(mt_dbl, nb*nb*2, 'rdm0', l_rd0, k_rd0))
      &     call errquit('MEWFAT: Cannot allocate rdm0', 61, MA_ERR)
-      call mewfat_calc_rdm0(nb, n0, ocmo0, dbl_mb(k_rd0))
-      
-      if (.not. MA_alloc_get(MT_DBL, nch, 'vc_psi', l_vc, k_vc))
-     &     call errquit('WFAT: vc_psi allocation failed', 25, MA_ERR)
+      call mewfat_calc_rdm0(nb, n0, ocmo0, dbl_mb(k_rd0))      
+
+c     ==== Evaluating V_c|psi> at nucleus grids ====
       do i = 1, nptp
-         call mewfat_dft_vcpsi_1pt(geom, bas, nb, sx, sy, n0, n1,
-     &        vpt(:,i), ocmo0, ocmo1, dbl_mb(k_rd0), pcf, rcf, qcf,
-     &        scf, zi, ccent, smh, rs, si_type, dbl_mb(k_sc),
-     &        dbl_mb(k_vc))
-         vc_psi(i,:) = dbl_mb(k_vc:k_vc+nch-1)
+         vpta(1,:) = vpt(1,i)
+         vpta(2,:) = vpt(2,i)
+         vpta(3,:) = vpt(3,i)
+         call mewfat_dft_vcpsi_1pt_c(600, geom, bas, nb, sx, sy,
+     &        n0, n1, vpta, cgrid, ocmo0, ocmo1, dbl_mb(k_rd0), 
+     &        pcf, rcf, qcf, scf, zi, ccent, smh, rs, si_type, 
+     &        dbl_mb(k_sc), vc_psi(i,:))
       enddo
 
+c     ==== Evaluating V_c|psi> at channel-origin grids ====
+      do i = 1, nptop
+         call wfat_mf_ogrid(nch, ccent, vpto(:,i), vpta)
+         call mewfat_dft_vcpsi_1pt_c(-1, geom, bas, nb, sx, sy,
+     &        n0, n1, vpta, cgrid, ocmo0, ocmo1, dbl_mb(k_rd0), 
+     &        pcf, rcf, qcf, scf, zi, ccent, smh, rs, si_type, 
+     &        dbl_mb(k_sc), vc_psio(i,:))
+      enddo
+      
 c     ==== Deallocations ====
       if (.not. MA_free_heap(l_sc))
      &     call errquit('WFAT: scratch deallocation failed', 49, MA_ERR)
-      if (.not. MA_free_heap(l_vc))
-     &     call errquit('WFAT: vc_psi deallocation failed', 49, MA_ERR)
       if (.not. MA_free_heap(l_rd0))
      &     call errquit('WFAT: rdm0 deallocation failed', 49, MA_ERR)
 

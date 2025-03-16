@@ -265,7 +265,8 @@ c        ============================================
      &        dbl_mb(k_rcf), dbl_mb(k_qcf), dbl_mb(k_scf), 1, 0, 
      &        dbl_mb(k_ieg), dbl_mb(k_cmm), dbl_mb(k_ps), nqn, 
      &        int_mb(k_npa), int_mb(k_mpa), zion, gqual, wf_msm, smh, 
-     &        ismask_e, ergmask, amsk, bmsk, ismask_i, mask_param)
+     &        ismask_e, ergmask, amsk, bmsk, ismask_i, mask_param,
+     &        wfphase)
       endif
       
 
