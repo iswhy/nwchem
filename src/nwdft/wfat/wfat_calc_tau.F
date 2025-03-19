@@ -45,18 +45,19 @@ c        == R_\nu^{(0)} ===
          else
             r0 = d * kappa**(b/2) * exp(-z/2) * real(chgm_)
          endif
+         if (isnan(r0) .or. abs(r0) > 1.0d20) r0 = 0.0d0
 
 c        == phi_\nu^{(0)} ==
          xi = r(i) * (1 + cos(th(i)))         
          call wfat_calc_phi0xi(xi, n, m, erg, phi0)
 
          tau0(i) = r0 * phi0 * exp(imnum*m*ph(i)) / sqrt(2*pi_const)
-         if ( isnan(abs( tau0(i) )) ) tau0(i) = czero
+cOLD         if ( isnan(abs( tau0(i) )) ) tau0(i) = czero
       enddo
 
       beta0 = zq - kappa*(n + (abs(m)+1)/2.0d0)
       tau0 = -2*kappa**(beta0/kappa-1) * tau0
-      
+
       end
 c=======================================================
 
