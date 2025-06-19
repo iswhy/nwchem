@@ -44,19 +44,19 @@ cmake_force:
 SHELL = /bin/sh
 
 # The CMake executable.
-CMAKE_COMMAND = /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/libext_utils/cmake-3.24.0-linux-x86_64/bin/cmake
+CMAKE_COMMAND = /home/imam77/src/nwchem/NWChem-WFAT/src/libext/libext_utils/cmake-3.24.0-linux-x86_64/bin/cmake
 
 # The command to remove a file.
-RM = /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/libext_utils/cmake-3.24.0-linux-x86_64/bin/cmake -E rm -f
+RM = /home/imam77/src/nwchem/NWChem-WFAT/src/libext/libext_utils/cmake-3.24.0-linux-x86_64/bin/cmake -E rm -f
 
 # Escaping for special characters.
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack
+CMAKE_SOURCE_DIR = /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build
+CMAKE_BINARY_DIR = /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build
 
 # Include any dependencies generated for this target.
 include TESTING/EIG/CMakeFiles/xssyevr.dir/depend.make
@@ -70,186 +70,186 @@ include TESTING/EIG/CMakeFiles/xssyevr.dir/progress.make
 include TESTING/EIG/CMakeFiles/xssyevr.dir/flags.make
 
 TESTING/EIG/CMakeFiles/xssyevr.dir/pslasizesepr.f.o: TESTING/EIG/CMakeFiles/xssyevr.dir/flags.make
-TESTING/EIG/CMakeFiles/xssyevr.dir/pslasizesepr.f.o: /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/EIG/pslasizesepr.f
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building Fortran object TESTING/EIG/CMakeFiles/xssyevr.dir/pslasizesepr.f.o"
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/TESTING/EIG && /home/packages/compilers/intel/mpi/2021.5.1/bin/mpif90 $(Fortran_DEFINES) $(Fortran_INCLUDES) $(Fortran_FLAGS) -c /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/EIG/pslasizesepr.f -o CMakeFiles/xssyevr.dir/pslasizesepr.f.o
+TESTING/EIG/CMakeFiles/xssyevr.dir/pslasizesepr.f.o: /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/EIG/pslasizesepr.f
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building Fortran object TESTING/EIG/CMakeFiles/xssyevr.dir/pslasizesepr.f.o"
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/TESTING/EIG && /home/packages/compilers/intel/mpi/2021.5.1/bin/mpif90 $(Fortran_DEFINES) $(Fortran_INCLUDES) $(Fortran_FLAGS) -c /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/EIG/pslasizesepr.f -o CMakeFiles/xssyevr.dir/pslasizesepr.f.o
 
 TESTING/EIG/CMakeFiles/xssyevr.dir/pslasizesepr.f.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing Fortran source to CMakeFiles/xssyevr.dir/pslasizesepr.f.i"
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/TESTING/EIG && /home/packages/compilers/intel/mpi/2021.5.1/bin/mpif90 $(Fortran_DEFINES) $(Fortran_INCLUDES) $(Fortran_FLAGS) -E /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/EIG/pslasizesepr.f > CMakeFiles/xssyevr.dir/pslasizesepr.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/TESTING/EIG && /home/packages/compilers/intel/mpi/2021.5.1/bin/mpif90 $(Fortran_DEFINES) $(Fortran_INCLUDES) $(Fortran_FLAGS) -E /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/EIG/pslasizesepr.f > CMakeFiles/xssyevr.dir/pslasizesepr.f.i
 
 TESTING/EIG/CMakeFiles/xssyevr.dir/pslasizesepr.f.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling Fortran source to assembly CMakeFiles/xssyevr.dir/pslasizesepr.f.s"
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/TESTING/EIG && /home/packages/compilers/intel/mpi/2021.5.1/bin/mpif90 $(Fortran_DEFINES) $(Fortran_INCLUDES) $(Fortran_FLAGS) -S /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/EIG/pslasizesepr.f -o CMakeFiles/xssyevr.dir/pslasizesepr.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/TESTING/EIG && /home/packages/compilers/intel/mpi/2021.5.1/bin/mpif90 $(Fortran_DEFINES) $(Fortran_INCLUDES) $(Fortran_FLAGS) -S /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/EIG/pslasizesepr.f -o CMakeFiles/xssyevr.dir/pslasizesepr.f.s
 
 TESTING/EIG/CMakeFiles/xssyevr.dir/pslasizesyevr.f.o: TESTING/EIG/CMakeFiles/xssyevr.dir/flags.make
-TESTING/EIG/CMakeFiles/xssyevr.dir/pslasizesyevr.f.o: /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/EIG/pslasizesyevr.f
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building Fortran object TESTING/EIG/CMakeFiles/xssyevr.dir/pslasizesyevr.f.o"
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/TESTING/EIG && /home/packages/compilers/intel/mpi/2021.5.1/bin/mpif90 $(Fortran_DEFINES) $(Fortran_INCLUDES) $(Fortran_FLAGS) -c /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/EIG/pslasizesyevr.f -o CMakeFiles/xssyevr.dir/pslasizesyevr.f.o
+TESTING/EIG/CMakeFiles/xssyevr.dir/pslasizesyevr.f.o: /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/EIG/pslasizesyevr.f
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building Fortran object TESTING/EIG/CMakeFiles/xssyevr.dir/pslasizesyevr.f.o"
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/TESTING/EIG && /home/packages/compilers/intel/mpi/2021.5.1/bin/mpif90 $(Fortran_DEFINES) $(Fortran_INCLUDES) $(Fortran_FLAGS) -c /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/EIG/pslasizesyevr.f -o CMakeFiles/xssyevr.dir/pslasizesyevr.f.o
 
 TESTING/EIG/CMakeFiles/xssyevr.dir/pslasizesyevr.f.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing Fortran source to CMakeFiles/xssyevr.dir/pslasizesyevr.f.i"
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/TESTING/EIG && /home/packages/compilers/intel/mpi/2021.5.1/bin/mpif90 $(Fortran_DEFINES) $(Fortran_INCLUDES) $(Fortran_FLAGS) -E /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/EIG/pslasizesyevr.f > CMakeFiles/xssyevr.dir/pslasizesyevr.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/TESTING/EIG && /home/packages/compilers/intel/mpi/2021.5.1/bin/mpif90 $(Fortran_DEFINES) $(Fortran_INCLUDES) $(Fortran_FLAGS) -E /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/EIG/pslasizesyevr.f > CMakeFiles/xssyevr.dir/pslasizesyevr.f.i
 
 TESTING/EIG/CMakeFiles/xssyevr.dir/pslasizesyevr.f.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling Fortran source to assembly CMakeFiles/xssyevr.dir/pslasizesyevr.f.s"
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/TESTING/EIG && /home/packages/compilers/intel/mpi/2021.5.1/bin/mpif90 $(Fortran_DEFINES) $(Fortran_INCLUDES) $(Fortran_FLAGS) -S /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/EIG/pslasizesyevr.f -o CMakeFiles/xssyevr.dir/pslasizesyevr.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/TESTING/EIG && /home/packages/compilers/intel/mpi/2021.5.1/bin/mpif90 $(Fortran_DEFINES) $(Fortran_INCLUDES) $(Fortran_FLAGS) -S /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/EIG/pslasizesyevr.f -o CMakeFiles/xssyevr.dir/pslasizesyevr.f.s
 
 TESTING/EIG/CMakeFiles/xssyevr.dir/psseprdriver.f.o: TESTING/EIG/CMakeFiles/xssyevr.dir/flags.make
-TESTING/EIG/CMakeFiles/xssyevr.dir/psseprdriver.f.o: /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/EIG/psseprdriver.f
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building Fortran object TESTING/EIG/CMakeFiles/xssyevr.dir/psseprdriver.f.o"
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/TESTING/EIG && /home/packages/compilers/intel/mpi/2021.5.1/bin/mpif90 $(Fortran_DEFINES) $(Fortran_INCLUDES) $(Fortran_FLAGS) -c /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/EIG/psseprdriver.f -o CMakeFiles/xssyevr.dir/psseprdriver.f.o
+TESTING/EIG/CMakeFiles/xssyevr.dir/psseprdriver.f.o: /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/EIG/psseprdriver.f
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building Fortran object TESTING/EIG/CMakeFiles/xssyevr.dir/psseprdriver.f.o"
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/TESTING/EIG && /home/packages/compilers/intel/mpi/2021.5.1/bin/mpif90 $(Fortran_DEFINES) $(Fortran_INCLUDES) $(Fortran_FLAGS) -c /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/EIG/psseprdriver.f -o CMakeFiles/xssyevr.dir/psseprdriver.f.o
 
 TESTING/EIG/CMakeFiles/xssyevr.dir/psseprdriver.f.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing Fortran source to CMakeFiles/xssyevr.dir/psseprdriver.f.i"
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/TESTING/EIG && /home/packages/compilers/intel/mpi/2021.5.1/bin/mpif90 $(Fortran_DEFINES) $(Fortran_INCLUDES) $(Fortran_FLAGS) -E /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/EIG/psseprdriver.f > CMakeFiles/xssyevr.dir/psseprdriver.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/TESTING/EIG && /home/packages/compilers/intel/mpi/2021.5.1/bin/mpif90 $(Fortran_DEFINES) $(Fortran_INCLUDES) $(Fortran_FLAGS) -E /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/EIG/psseprdriver.f > CMakeFiles/xssyevr.dir/psseprdriver.f.i
 
 TESTING/EIG/CMakeFiles/xssyevr.dir/psseprdriver.f.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling Fortran source to assembly CMakeFiles/xssyevr.dir/psseprdriver.f.s"
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/TESTING/EIG && /home/packages/compilers/intel/mpi/2021.5.1/bin/mpif90 $(Fortran_DEFINES) $(Fortran_INCLUDES) $(Fortran_FLAGS) -S /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/EIG/psseprdriver.f -o CMakeFiles/xssyevr.dir/psseprdriver.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/TESTING/EIG && /home/packages/compilers/intel/mpi/2021.5.1/bin/mpif90 $(Fortran_DEFINES) $(Fortran_INCLUDES) $(Fortran_FLAGS) -S /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/EIG/psseprdriver.f -o CMakeFiles/xssyevr.dir/psseprdriver.f.s
 
 TESTING/EIG/CMakeFiles/xssyevr.dir/psseprreq.f.o: TESTING/EIG/CMakeFiles/xssyevr.dir/flags.make
-TESTING/EIG/CMakeFiles/xssyevr.dir/psseprreq.f.o: /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/EIG/psseprreq.f
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building Fortran object TESTING/EIG/CMakeFiles/xssyevr.dir/psseprreq.f.o"
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/TESTING/EIG && /home/packages/compilers/intel/mpi/2021.5.1/bin/mpif90 $(Fortran_DEFINES) $(Fortran_INCLUDES) $(Fortran_FLAGS) -c /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/EIG/psseprreq.f -o CMakeFiles/xssyevr.dir/psseprreq.f.o
+TESTING/EIG/CMakeFiles/xssyevr.dir/psseprreq.f.o: /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/EIG/psseprreq.f
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building Fortran object TESTING/EIG/CMakeFiles/xssyevr.dir/psseprreq.f.o"
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/TESTING/EIG && /home/packages/compilers/intel/mpi/2021.5.1/bin/mpif90 $(Fortran_DEFINES) $(Fortran_INCLUDES) $(Fortran_FLAGS) -c /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/EIG/psseprreq.f -o CMakeFiles/xssyevr.dir/psseprreq.f.o
 
 TESTING/EIG/CMakeFiles/xssyevr.dir/psseprreq.f.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing Fortran source to CMakeFiles/xssyevr.dir/psseprreq.f.i"
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/TESTING/EIG && /home/packages/compilers/intel/mpi/2021.5.1/bin/mpif90 $(Fortran_DEFINES) $(Fortran_INCLUDES) $(Fortran_FLAGS) -E /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/EIG/psseprreq.f > CMakeFiles/xssyevr.dir/psseprreq.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/TESTING/EIG && /home/packages/compilers/intel/mpi/2021.5.1/bin/mpif90 $(Fortran_DEFINES) $(Fortran_INCLUDES) $(Fortran_FLAGS) -E /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/EIG/psseprreq.f > CMakeFiles/xssyevr.dir/psseprreq.f.i
 
 TESTING/EIG/CMakeFiles/xssyevr.dir/psseprreq.f.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling Fortran source to assembly CMakeFiles/xssyevr.dir/psseprreq.f.s"
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/TESTING/EIG && /home/packages/compilers/intel/mpi/2021.5.1/bin/mpif90 $(Fortran_DEFINES) $(Fortran_INCLUDES) $(Fortran_FLAGS) -S /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/EIG/psseprreq.f -o CMakeFiles/xssyevr.dir/psseprreq.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/TESTING/EIG && /home/packages/compilers/intel/mpi/2021.5.1/bin/mpif90 $(Fortran_DEFINES) $(Fortran_INCLUDES) $(Fortran_FLAGS) -S /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/EIG/psseprreq.f -o CMakeFiles/xssyevr.dir/psseprreq.f.s
 
 TESTING/EIG/CMakeFiles/xssyevr.dir/psseprsubtst.f.o: TESTING/EIG/CMakeFiles/xssyevr.dir/flags.make
-TESTING/EIG/CMakeFiles/xssyevr.dir/psseprsubtst.f.o: /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/EIG/psseprsubtst.f
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building Fortran object TESTING/EIG/CMakeFiles/xssyevr.dir/psseprsubtst.f.o"
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/TESTING/EIG && /home/packages/compilers/intel/mpi/2021.5.1/bin/mpif90 $(Fortran_DEFINES) $(Fortran_INCLUDES) $(Fortran_FLAGS) -c /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/EIG/psseprsubtst.f -o CMakeFiles/xssyevr.dir/psseprsubtst.f.o
+TESTING/EIG/CMakeFiles/xssyevr.dir/psseprsubtst.f.o: /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/EIG/psseprsubtst.f
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building Fortran object TESTING/EIG/CMakeFiles/xssyevr.dir/psseprsubtst.f.o"
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/TESTING/EIG && /home/packages/compilers/intel/mpi/2021.5.1/bin/mpif90 $(Fortran_DEFINES) $(Fortran_INCLUDES) $(Fortran_FLAGS) -c /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/EIG/psseprsubtst.f -o CMakeFiles/xssyevr.dir/psseprsubtst.f.o
 
 TESTING/EIG/CMakeFiles/xssyevr.dir/psseprsubtst.f.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing Fortran source to CMakeFiles/xssyevr.dir/psseprsubtst.f.i"
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/TESTING/EIG && /home/packages/compilers/intel/mpi/2021.5.1/bin/mpif90 $(Fortran_DEFINES) $(Fortran_INCLUDES) $(Fortran_FLAGS) -E /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/EIG/psseprsubtst.f > CMakeFiles/xssyevr.dir/psseprsubtst.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/TESTING/EIG && /home/packages/compilers/intel/mpi/2021.5.1/bin/mpif90 $(Fortran_DEFINES) $(Fortran_INCLUDES) $(Fortran_FLAGS) -E /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/EIG/psseprsubtst.f > CMakeFiles/xssyevr.dir/psseprsubtst.f.i
 
 TESTING/EIG/CMakeFiles/xssyevr.dir/psseprsubtst.f.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling Fortran source to assembly CMakeFiles/xssyevr.dir/psseprsubtst.f.s"
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/TESTING/EIG && /home/packages/compilers/intel/mpi/2021.5.1/bin/mpif90 $(Fortran_DEFINES) $(Fortran_INCLUDES) $(Fortran_FLAGS) -S /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/EIG/psseprsubtst.f -o CMakeFiles/xssyevr.dir/psseprsubtst.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/TESTING/EIG && /home/packages/compilers/intel/mpi/2021.5.1/bin/mpif90 $(Fortran_DEFINES) $(Fortran_INCLUDES) $(Fortran_FLAGS) -S /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/EIG/psseprsubtst.f -o CMakeFiles/xssyevr.dir/psseprsubtst.f.s
 
 TESTING/EIG/CMakeFiles/xssyevr.dir/pssepchk.f.o: TESTING/EIG/CMakeFiles/xssyevr.dir/flags.make
-TESTING/EIG/CMakeFiles/xssyevr.dir/pssepchk.f.o: /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/EIG/pssepchk.f
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building Fortran object TESTING/EIG/CMakeFiles/xssyevr.dir/pssepchk.f.o"
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/TESTING/EIG && /home/packages/compilers/intel/mpi/2021.5.1/bin/mpif90 $(Fortran_DEFINES) $(Fortran_INCLUDES) $(Fortran_FLAGS) -c /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/EIG/pssepchk.f -o CMakeFiles/xssyevr.dir/pssepchk.f.o
+TESTING/EIG/CMakeFiles/xssyevr.dir/pssepchk.f.o: /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/EIG/pssepchk.f
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building Fortran object TESTING/EIG/CMakeFiles/xssyevr.dir/pssepchk.f.o"
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/TESTING/EIG && /home/packages/compilers/intel/mpi/2021.5.1/bin/mpif90 $(Fortran_DEFINES) $(Fortran_INCLUDES) $(Fortran_FLAGS) -c /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/EIG/pssepchk.f -o CMakeFiles/xssyevr.dir/pssepchk.f.o
 
 TESTING/EIG/CMakeFiles/xssyevr.dir/pssepchk.f.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing Fortran source to CMakeFiles/xssyevr.dir/pssepchk.f.i"
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/TESTING/EIG && /home/packages/compilers/intel/mpi/2021.5.1/bin/mpif90 $(Fortran_DEFINES) $(Fortran_INCLUDES) $(Fortran_FLAGS) -E /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/EIG/pssepchk.f > CMakeFiles/xssyevr.dir/pssepchk.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/TESTING/EIG && /home/packages/compilers/intel/mpi/2021.5.1/bin/mpif90 $(Fortran_DEFINES) $(Fortran_INCLUDES) $(Fortran_FLAGS) -E /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/EIG/pssepchk.f > CMakeFiles/xssyevr.dir/pssepchk.f.i
 
 TESTING/EIG/CMakeFiles/xssyevr.dir/pssepchk.f.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling Fortran source to assembly CMakeFiles/xssyevr.dir/pssepchk.f.s"
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/TESTING/EIG && /home/packages/compilers/intel/mpi/2021.5.1/bin/mpif90 $(Fortran_DEFINES) $(Fortran_INCLUDES) $(Fortran_FLAGS) -S /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/EIG/pssepchk.f -o CMakeFiles/xssyevr.dir/pssepchk.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/TESTING/EIG && /home/packages/compilers/intel/mpi/2021.5.1/bin/mpif90 $(Fortran_DEFINES) $(Fortran_INCLUDES) $(Fortran_FLAGS) -S /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/EIG/pssepchk.f -o CMakeFiles/xssyevr.dir/pssepchk.f.s
 
 TESTING/EIG/CMakeFiles/xssyevr.dir/pssepqtq.f.o: TESTING/EIG/CMakeFiles/xssyevr.dir/flags.make
-TESTING/EIG/CMakeFiles/xssyevr.dir/pssepqtq.f.o: /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/EIG/pssepqtq.f
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building Fortran object TESTING/EIG/CMakeFiles/xssyevr.dir/pssepqtq.f.o"
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/TESTING/EIG && /home/packages/compilers/intel/mpi/2021.5.1/bin/mpif90 $(Fortran_DEFINES) $(Fortran_INCLUDES) $(Fortran_FLAGS) -c /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/EIG/pssepqtq.f -o CMakeFiles/xssyevr.dir/pssepqtq.f.o
+TESTING/EIG/CMakeFiles/xssyevr.dir/pssepqtq.f.o: /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/EIG/pssepqtq.f
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building Fortran object TESTING/EIG/CMakeFiles/xssyevr.dir/pssepqtq.f.o"
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/TESTING/EIG && /home/packages/compilers/intel/mpi/2021.5.1/bin/mpif90 $(Fortran_DEFINES) $(Fortran_INCLUDES) $(Fortran_FLAGS) -c /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/EIG/pssepqtq.f -o CMakeFiles/xssyevr.dir/pssepqtq.f.o
 
 TESTING/EIG/CMakeFiles/xssyevr.dir/pssepqtq.f.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing Fortran source to CMakeFiles/xssyevr.dir/pssepqtq.f.i"
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/TESTING/EIG && /home/packages/compilers/intel/mpi/2021.5.1/bin/mpif90 $(Fortran_DEFINES) $(Fortran_INCLUDES) $(Fortran_FLAGS) -E /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/EIG/pssepqtq.f > CMakeFiles/xssyevr.dir/pssepqtq.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/TESTING/EIG && /home/packages/compilers/intel/mpi/2021.5.1/bin/mpif90 $(Fortran_DEFINES) $(Fortran_INCLUDES) $(Fortran_FLAGS) -E /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/EIG/pssepqtq.f > CMakeFiles/xssyevr.dir/pssepqtq.f.i
 
 TESTING/EIG/CMakeFiles/xssyevr.dir/pssepqtq.f.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling Fortran source to assembly CMakeFiles/xssyevr.dir/pssepqtq.f.s"
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/TESTING/EIG && /home/packages/compilers/intel/mpi/2021.5.1/bin/mpif90 $(Fortran_DEFINES) $(Fortran_INCLUDES) $(Fortran_FLAGS) -S /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/EIG/pssepqtq.f -o CMakeFiles/xssyevr.dir/pssepqtq.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/TESTING/EIG && /home/packages/compilers/intel/mpi/2021.5.1/bin/mpif90 $(Fortran_DEFINES) $(Fortran_INCLUDES) $(Fortran_FLAGS) -S /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/EIG/pssepqtq.f -o CMakeFiles/xssyevr.dir/pssepqtq.f.s
 
 TESTING/EIG/CMakeFiles/xssyevr.dir/pslatms.f.o: TESTING/EIG/CMakeFiles/xssyevr.dir/flags.make
-TESTING/EIG/CMakeFiles/xssyevr.dir/pslatms.f.o: /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/EIG/pslatms.f
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building Fortran object TESTING/EIG/CMakeFiles/xssyevr.dir/pslatms.f.o"
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/TESTING/EIG && /home/packages/compilers/intel/mpi/2021.5.1/bin/mpif90 $(Fortran_DEFINES) $(Fortran_INCLUDES) $(Fortran_FLAGS) -c /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/EIG/pslatms.f -o CMakeFiles/xssyevr.dir/pslatms.f.o
+TESTING/EIG/CMakeFiles/xssyevr.dir/pslatms.f.o: /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/EIG/pslatms.f
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building Fortran object TESTING/EIG/CMakeFiles/xssyevr.dir/pslatms.f.o"
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/TESTING/EIG && /home/packages/compilers/intel/mpi/2021.5.1/bin/mpif90 $(Fortran_DEFINES) $(Fortran_INCLUDES) $(Fortran_FLAGS) -c /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/EIG/pslatms.f -o CMakeFiles/xssyevr.dir/pslatms.f.o
 
 TESTING/EIG/CMakeFiles/xssyevr.dir/pslatms.f.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing Fortran source to CMakeFiles/xssyevr.dir/pslatms.f.i"
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/TESTING/EIG && /home/packages/compilers/intel/mpi/2021.5.1/bin/mpif90 $(Fortran_DEFINES) $(Fortran_INCLUDES) $(Fortran_FLAGS) -E /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/EIG/pslatms.f > CMakeFiles/xssyevr.dir/pslatms.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/TESTING/EIG && /home/packages/compilers/intel/mpi/2021.5.1/bin/mpif90 $(Fortran_DEFINES) $(Fortran_INCLUDES) $(Fortran_FLAGS) -E /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/EIG/pslatms.f > CMakeFiles/xssyevr.dir/pslatms.f.i
 
 TESTING/EIG/CMakeFiles/xssyevr.dir/pslatms.f.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling Fortran source to assembly CMakeFiles/xssyevr.dir/pslatms.f.s"
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/TESTING/EIG && /home/packages/compilers/intel/mpi/2021.5.1/bin/mpif90 $(Fortran_DEFINES) $(Fortran_INCLUDES) $(Fortran_FLAGS) -S /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/EIG/pslatms.f -o CMakeFiles/xssyevr.dir/pslatms.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/TESTING/EIG && /home/packages/compilers/intel/mpi/2021.5.1/bin/mpif90 $(Fortran_DEFINES) $(Fortran_INCLUDES) $(Fortran_FLAGS) -S /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/EIG/pslatms.f -o CMakeFiles/xssyevr.dir/pslatms.f.s
 
 TESTING/EIG/CMakeFiles/xssyevr.dir/psseprtst.f.o: TESTING/EIG/CMakeFiles/xssyevr.dir/flags.make
-TESTING/EIG/CMakeFiles/xssyevr.dir/psseprtst.f.o: /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/EIG/psseprtst.f
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building Fortran object TESTING/EIG/CMakeFiles/xssyevr.dir/psseprtst.f.o"
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/TESTING/EIG && /home/packages/compilers/intel/mpi/2021.5.1/bin/mpif90 $(Fortran_DEFINES) $(Fortran_INCLUDES) $(Fortran_FLAGS) -c /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/EIG/psseprtst.f -o CMakeFiles/xssyevr.dir/psseprtst.f.o
+TESTING/EIG/CMakeFiles/xssyevr.dir/psseprtst.f.o: /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/EIG/psseprtst.f
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building Fortran object TESTING/EIG/CMakeFiles/xssyevr.dir/psseprtst.f.o"
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/TESTING/EIG && /home/packages/compilers/intel/mpi/2021.5.1/bin/mpif90 $(Fortran_DEFINES) $(Fortran_INCLUDES) $(Fortran_FLAGS) -c /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/EIG/psseprtst.f -o CMakeFiles/xssyevr.dir/psseprtst.f.o
 
 TESTING/EIG/CMakeFiles/xssyevr.dir/psseprtst.f.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing Fortran source to CMakeFiles/xssyevr.dir/psseprtst.f.i"
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/TESTING/EIG && /home/packages/compilers/intel/mpi/2021.5.1/bin/mpif90 $(Fortran_DEFINES) $(Fortran_INCLUDES) $(Fortran_FLAGS) -E /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/EIG/psseprtst.f > CMakeFiles/xssyevr.dir/psseprtst.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/TESTING/EIG && /home/packages/compilers/intel/mpi/2021.5.1/bin/mpif90 $(Fortran_DEFINES) $(Fortran_INCLUDES) $(Fortran_FLAGS) -E /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/EIG/psseprtst.f > CMakeFiles/xssyevr.dir/psseprtst.f.i
 
 TESTING/EIG/CMakeFiles/xssyevr.dir/psseprtst.f.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling Fortran source to assembly CMakeFiles/xssyevr.dir/psseprtst.f.s"
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/TESTING/EIG && /home/packages/compilers/intel/mpi/2021.5.1/bin/mpif90 $(Fortran_DEFINES) $(Fortran_INCLUDES) $(Fortran_FLAGS) -S /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/EIG/psseprtst.f -o CMakeFiles/xssyevr.dir/psseprtst.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/TESTING/EIG && /home/packages/compilers/intel/mpi/2021.5.1/bin/mpif90 $(Fortran_DEFINES) $(Fortran_INCLUDES) $(Fortran_FLAGS) -S /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/EIG/psseprtst.f -o CMakeFiles/xssyevr.dir/psseprtst.f.s
 
 TESTING/EIG/CMakeFiles/xssyevr.dir/pssepinfo.f.o: TESTING/EIG/CMakeFiles/xssyevr.dir/flags.make
-TESTING/EIG/CMakeFiles/xssyevr.dir/pssepinfo.f.o: /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/EIG/pssepinfo.f
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building Fortran object TESTING/EIG/CMakeFiles/xssyevr.dir/pssepinfo.f.o"
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/TESTING/EIG && /home/packages/compilers/intel/mpi/2021.5.1/bin/mpif90 $(Fortran_DEFINES) $(Fortran_INCLUDES) $(Fortran_FLAGS) -c /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/EIG/pssepinfo.f -o CMakeFiles/xssyevr.dir/pssepinfo.f.o
+TESTING/EIG/CMakeFiles/xssyevr.dir/pssepinfo.f.o: /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/EIG/pssepinfo.f
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building Fortran object TESTING/EIG/CMakeFiles/xssyevr.dir/pssepinfo.f.o"
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/TESTING/EIG && /home/packages/compilers/intel/mpi/2021.5.1/bin/mpif90 $(Fortran_DEFINES) $(Fortran_INCLUDES) $(Fortran_FLAGS) -c /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/EIG/pssepinfo.f -o CMakeFiles/xssyevr.dir/pssepinfo.f.o
 
 TESTING/EIG/CMakeFiles/xssyevr.dir/pssepinfo.f.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing Fortran source to CMakeFiles/xssyevr.dir/pssepinfo.f.i"
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/TESTING/EIG && /home/packages/compilers/intel/mpi/2021.5.1/bin/mpif90 $(Fortran_DEFINES) $(Fortran_INCLUDES) $(Fortran_FLAGS) -E /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/EIG/pssepinfo.f > CMakeFiles/xssyevr.dir/pssepinfo.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/TESTING/EIG && /home/packages/compilers/intel/mpi/2021.5.1/bin/mpif90 $(Fortran_DEFINES) $(Fortran_INCLUDES) $(Fortran_FLAGS) -E /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/EIG/pssepinfo.f > CMakeFiles/xssyevr.dir/pssepinfo.f.i
 
 TESTING/EIG/CMakeFiles/xssyevr.dir/pssepinfo.f.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling Fortran source to assembly CMakeFiles/xssyevr.dir/pssepinfo.f.s"
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/TESTING/EIG && /home/packages/compilers/intel/mpi/2021.5.1/bin/mpif90 $(Fortran_DEFINES) $(Fortran_INCLUDES) $(Fortran_FLAGS) -S /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/EIG/pssepinfo.f -o CMakeFiles/xssyevr.dir/pssepinfo.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/TESTING/EIG && /home/packages/compilers/intel/mpi/2021.5.1/bin/mpif90 $(Fortran_DEFINES) $(Fortran_INCLUDES) $(Fortran_FLAGS) -S /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/EIG/pssepinfo.f -o CMakeFiles/xssyevr.dir/pssepinfo.f.s
 
 TESTING/EIG/CMakeFiles/xssyevr.dir/pslagsy.f.o: TESTING/EIG/CMakeFiles/xssyevr.dir/flags.make
-TESTING/EIG/CMakeFiles/xssyevr.dir/pslagsy.f.o: /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/EIG/pslagsy.f
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building Fortran object TESTING/EIG/CMakeFiles/xssyevr.dir/pslagsy.f.o"
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/TESTING/EIG && /home/packages/compilers/intel/mpi/2021.5.1/bin/mpif90 $(Fortran_DEFINES) $(Fortran_INCLUDES) $(Fortran_FLAGS) -c /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/EIG/pslagsy.f -o CMakeFiles/xssyevr.dir/pslagsy.f.o
+TESTING/EIG/CMakeFiles/xssyevr.dir/pslagsy.f.o: /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/EIG/pslagsy.f
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building Fortran object TESTING/EIG/CMakeFiles/xssyevr.dir/pslagsy.f.o"
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/TESTING/EIG && /home/packages/compilers/intel/mpi/2021.5.1/bin/mpif90 $(Fortran_DEFINES) $(Fortran_INCLUDES) $(Fortran_FLAGS) -c /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/EIG/pslagsy.f -o CMakeFiles/xssyevr.dir/pslagsy.f.o
 
 TESTING/EIG/CMakeFiles/xssyevr.dir/pslagsy.f.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing Fortran source to CMakeFiles/xssyevr.dir/pslagsy.f.i"
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/TESTING/EIG && /home/packages/compilers/intel/mpi/2021.5.1/bin/mpif90 $(Fortran_DEFINES) $(Fortran_INCLUDES) $(Fortran_FLAGS) -E /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/EIG/pslagsy.f > CMakeFiles/xssyevr.dir/pslagsy.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/TESTING/EIG && /home/packages/compilers/intel/mpi/2021.5.1/bin/mpif90 $(Fortran_DEFINES) $(Fortran_INCLUDES) $(Fortran_FLAGS) -E /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/EIG/pslagsy.f > CMakeFiles/xssyevr.dir/pslagsy.f.i
 
 TESTING/EIG/CMakeFiles/xssyevr.dir/pslagsy.f.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling Fortran source to assembly CMakeFiles/xssyevr.dir/pslagsy.f.s"
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/TESTING/EIG && /home/packages/compilers/intel/mpi/2021.5.1/bin/mpif90 $(Fortran_DEFINES) $(Fortran_INCLUDES) $(Fortran_FLAGS) -S /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/EIG/pslagsy.f -o CMakeFiles/xssyevr.dir/pslagsy.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/TESTING/EIG && /home/packages/compilers/intel/mpi/2021.5.1/bin/mpif90 $(Fortran_DEFINES) $(Fortran_INCLUDES) $(Fortran_FLAGS) -S /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/EIG/pslagsy.f -o CMakeFiles/xssyevr.dir/pslagsy.f.s
 
 TESTING/EIG/CMakeFiles/xssyevr.dir/pslasizesep.f.o: TESTING/EIG/CMakeFiles/xssyevr.dir/flags.make
-TESTING/EIG/CMakeFiles/xssyevr.dir/pslasizesep.f.o: /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/EIG/pslasizesep.f
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Building Fortran object TESTING/EIG/CMakeFiles/xssyevr.dir/pslasizesep.f.o"
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/TESTING/EIG && /home/packages/compilers/intel/mpi/2021.5.1/bin/mpif90 $(Fortran_DEFINES) $(Fortran_INCLUDES) $(Fortran_FLAGS) -c /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/EIG/pslasizesep.f -o CMakeFiles/xssyevr.dir/pslasizesep.f.o
+TESTING/EIG/CMakeFiles/xssyevr.dir/pslasizesep.f.o: /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/EIG/pslasizesep.f
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Building Fortran object TESTING/EIG/CMakeFiles/xssyevr.dir/pslasizesep.f.o"
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/TESTING/EIG && /home/packages/compilers/intel/mpi/2021.5.1/bin/mpif90 $(Fortran_DEFINES) $(Fortran_INCLUDES) $(Fortran_FLAGS) -c /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/EIG/pslasizesep.f -o CMakeFiles/xssyevr.dir/pslasizesep.f.o
 
 TESTING/EIG/CMakeFiles/xssyevr.dir/pslasizesep.f.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing Fortran source to CMakeFiles/xssyevr.dir/pslasizesep.f.i"
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/TESTING/EIG && /home/packages/compilers/intel/mpi/2021.5.1/bin/mpif90 $(Fortran_DEFINES) $(Fortran_INCLUDES) $(Fortran_FLAGS) -E /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/EIG/pslasizesep.f > CMakeFiles/xssyevr.dir/pslasizesep.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/TESTING/EIG && /home/packages/compilers/intel/mpi/2021.5.1/bin/mpif90 $(Fortran_DEFINES) $(Fortran_INCLUDES) $(Fortran_FLAGS) -E /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/EIG/pslasizesep.f > CMakeFiles/xssyevr.dir/pslasizesep.f.i
 
 TESTING/EIG/CMakeFiles/xssyevr.dir/pslasizesep.f.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling Fortran source to assembly CMakeFiles/xssyevr.dir/pslasizesep.f.s"
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/TESTING/EIG && /home/packages/compilers/intel/mpi/2021.5.1/bin/mpif90 $(Fortran_DEFINES) $(Fortran_INCLUDES) $(Fortran_FLAGS) -S /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/EIG/pslasizesep.f -o CMakeFiles/xssyevr.dir/pslasizesep.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/TESTING/EIG && /home/packages/compilers/intel/mpi/2021.5.1/bin/mpif90 $(Fortran_DEFINES) $(Fortran_INCLUDES) $(Fortran_FLAGS) -S /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/EIG/pslasizesep.f -o CMakeFiles/xssyevr.dir/pslasizesep.f.s
 
 TESTING/EIG/CMakeFiles/xssyevr.dir/psmatgen.f.o: TESTING/EIG/CMakeFiles/xssyevr.dir/flags.make
-TESTING/EIG/CMakeFiles/xssyevr.dir/psmatgen.f.o: /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/EIG/psmatgen.f
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Building Fortran object TESTING/EIG/CMakeFiles/xssyevr.dir/psmatgen.f.o"
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/TESTING/EIG && /home/packages/compilers/intel/mpi/2021.5.1/bin/mpif90 $(Fortran_DEFINES) $(Fortran_INCLUDES) $(Fortran_FLAGS) -c /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/EIG/psmatgen.f -o CMakeFiles/xssyevr.dir/psmatgen.f.o
+TESTING/EIG/CMakeFiles/xssyevr.dir/psmatgen.f.o: /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/EIG/psmatgen.f
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Building Fortran object TESTING/EIG/CMakeFiles/xssyevr.dir/psmatgen.f.o"
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/TESTING/EIG && /home/packages/compilers/intel/mpi/2021.5.1/bin/mpif90 $(Fortran_DEFINES) $(Fortran_INCLUDES) $(Fortran_FLAGS) -c /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/EIG/psmatgen.f -o CMakeFiles/xssyevr.dir/psmatgen.f.o
 
 TESTING/EIG/CMakeFiles/xssyevr.dir/psmatgen.f.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing Fortran source to CMakeFiles/xssyevr.dir/psmatgen.f.i"
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/TESTING/EIG && /home/packages/compilers/intel/mpi/2021.5.1/bin/mpif90 $(Fortran_DEFINES) $(Fortran_INCLUDES) $(Fortran_FLAGS) -E /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/EIG/psmatgen.f > CMakeFiles/xssyevr.dir/psmatgen.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/TESTING/EIG && /home/packages/compilers/intel/mpi/2021.5.1/bin/mpif90 $(Fortran_DEFINES) $(Fortran_INCLUDES) $(Fortran_FLAGS) -E /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/EIG/psmatgen.f > CMakeFiles/xssyevr.dir/psmatgen.f.i
 
 TESTING/EIG/CMakeFiles/xssyevr.dir/psmatgen.f.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling Fortran source to assembly CMakeFiles/xssyevr.dir/psmatgen.f.s"
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/TESTING/EIG && /home/packages/compilers/intel/mpi/2021.5.1/bin/mpif90 $(Fortran_DEFINES) $(Fortran_INCLUDES) $(Fortran_FLAGS) -S /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/EIG/psmatgen.f -o CMakeFiles/xssyevr.dir/psmatgen.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/TESTING/EIG && /home/packages/compilers/intel/mpi/2021.5.1/bin/mpif90 $(Fortran_DEFINES) $(Fortran_INCLUDES) $(Fortran_FLAGS) -S /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/EIG/psmatgen.f -o CMakeFiles/xssyevr.dir/psmatgen.f.s
 
 TESTING/EIG/CMakeFiles/xssyevr.dir/pmatgeninc.f.o: TESTING/EIG/CMakeFiles/xssyevr.dir/flags.make
-TESTING/EIG/CMakeFiles/xssyevr.dir/pmatgeninc.f.o: /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/EIG/pmatgeninc.f
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_14) "Building Fortran object TESTING/EIG/CMakeFiles/xssyevr.dir/pmatgeninc.f.o"
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/TESTING/EIG && /home/packages/compilers/intel/mpi/2021.5.1/bin/mpif90 $(Fortran_DEFINES) $(Fortran_INCLUDES) $(Fortran_FLAGS) -c /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/EIG/pmatgeninc.f -o CMakeFiles/xssyevr.dir/pmatgeninc.f.o
+TESTING/EIG/CMakeFiles/xssyevr.dir/pmatgeninc.f.o: /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/EIG/pmatgeninc.f
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_14) "Building Fortran object TESTING/EIG/CMakeFiles/xssyevr.dir/pmatgeninc.f.o"
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/TESTING/EIG && /home/packages/compilers/intel/mpi/2021.5.1/bin/mpif90 $(Fortran_DEFINES) $(Fortran_INCLUDES) $(Fortran_FLAGS) -c /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/EIG/pmatgeninc.f -o CMakeFiles/xssyevr.dir/pmatgeninc.f.o
 
 TESTING/EIG/CMakeFiles/xssyevr.dir/pmatgeninc.f.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing Fortran source to CMakeFiles/xssyevr.dir/pmatgeninc.f.i"
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/TESTING/EIG && /home/packages/compilers/intel/mpi/2021.5.1/bin/mpif90 $(Fortran_DEFINES) $(Fortran_INCLUDES) $(Fortran_FLAGS) -E /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/EIG/pmatgeninc.f > CMakeFiles/xssyevr.dir/pmatgeninc.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/TESTING/EIG && /home/packages/compilers/intel/mpi/2021.5.1/bin/mpif90 $(Fortran_DEFINES) $(Fortran_INCLUDES) $(Fortran_FLAGS) -E /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/EIG/pmatgeninc.f > CMakeFiles/xssyevr.dir/pmatgeninc.f.i
 
 TESTING/EIG/CMakeFiles/xssyevr.dir/pmatgeninc.f.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling Fortran source to assembly CMakeFiles/xssyevr.dir/pmatgeninc.f.s"
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/TESTING/EIG && /home/packages/compilers/intel/mpi/2021.5.1/bin/mpif90 $(Fortran_DEFINES) $(Fortran_INCLUDES) $(Fortran_FLAGS) -S /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/EIG/pmatgeninc.f -o CMakeFiles/xssyevr.dir/pmatgeninc.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/TESTING/EIG && /home/packages/compilers/intel/mpi/2021.5.1/bin/mpif90 $(Fortran_DEFINES) $(Fortran_INCLUDES) $(Fortran_FLAGS) -S /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/EIG/pmatgeninc.f -o CMakeFiles/xssyevr.dir/pmatgeninc.f.s
 
 # Object files for target xssyevr
 xssyevr_OBJECTS = \
@@ -288,18 +288,18 @@ TESTING/xssyevr: TESTING/EIG/CMakeFiles/xssyevr.dir/pmatgeninc.f.o
 TESTING/xssyevr: TESTING/EIG/CMakeFiles/xssyevr.dir/build.make
 TESTING/xssyevr: lib/libscalapack.a
 TESTING/xssyevr: TESTING/EIG/CMakeFiles/xssyevr.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_15) "Linking Fortran executable ../xssyevr"
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/TESTING/EIG && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/xssyevr.dir/link.txt --verbose=$(VERBOSE)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_15) "Linking Fortran executable ../xssyevr"
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/TESTING/EIG && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/xssyevr.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
 TESTING/EIG/CMakeFiles/xssyevr.dir/build: TESTING/xssyevr
 .PHONY : TESTING/EIG/CMakeFiles/xssyevr.dir/build
 
 TESTING/EIG/CMakeFiles/xssyevr.dir/clean:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/TESTING/EIG && $(CMAKE_COMMAND) -P CMakeFiles/xssyevr.dir/cmake_clean.cmake
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/TESTING/EIG && $(CMAKE_COMMAND) -P CMakeFiles/xssyevr.dir/cmake_clean.cmake
 .PHONY : TESTING/EIG/CMakeFiles/xssyevr.dir/clean
 
 TESTING/EIG/CMakeFiles/xssyevr.dir/depend:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/EIG /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/TESTING/EIG /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/TESTING/EIG/CMakeFiles/xssyevr.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/EIG /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/TESTING/EIG /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/TESTING/EIG/CMakeFiles/xssyevr.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : TESTING/EIG/CMakeFiles/xssyevr.dir/depend
 

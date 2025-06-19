@@ -1196,7 +1196,12 @@ c=======================================================
       character*(*) unit_out
 
       double precision au2twcm, ff
-      parameter (au2twcm=3.5094448d4)
+      parameter (au2twcm=3.5094448d4)    ! 1)
+c     Based on the formula for intensity of I = c e_0 |E|^2 / 2
+c     where c is light speed, e_0 is vacuum permittivity, and E is electric
+c     field, and electric field conversion factor of 5.14220675112E11 V/m
+c     between SI and atomic units.
+
 
       if (unit_in == 'au' .and. unit_out == 'tw/cm2') then
          ff = au2twcm * val_in**2

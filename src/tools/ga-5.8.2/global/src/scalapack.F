@@ -1076,12 +1076,13 @@ c***********************************************************************
 c****
       character*1 uplo         ! (input) 'U' or 'L'
       integer     g_A          ! (input/output)
+      logical status
       integer dimA1, dimA2, typeA
       integer me, nproc
       integer n
       integer i, j, hBUF
-      integer j0,j1,i0,i1
       MA_ACCESS_INDEX_TYPE adrBUF
+
 c**** Check Environment
       nproc = ga_nnodes()
       me    = ga_nodeid()
@@ -1100,38 +1101,27 @@ c****
       n = dimA1
       
 c**** Allocate BUF
-      if(.not.ma_push_get(MT_DBL, n, 'BUF', hBUF, adrBUF))
+      status = ma_push_get(MT_DBL, n, 'BUF', hBUF, adrBUF)
+      if (.not.status)
      &     call ga_error(' ga_zeroUL: mem alloc failed BUF ', -1)
-      do i=0,n-1
-         dbl_mb(adrBUF+i)=0d0
-      enddo
       
       call ga_sync()
 
-      i0=me+1
-      i1=n
-      if (uplo.eq.'L') then
-         i0=me+2
-      elseif (uplo.eq.'U') then 
-         i1=n-1   
-      else
-         call ga_error('ga_symUL: uplo must be L or U ', 1)
-      endif
-      do i = i0, i1, nproc
+      do i = me+1, n, nproc
+         call ga_get(g_A, 1, n, i, i, dbl_mb(adrBUF), n)
          if (uplo.eq.'L') then
-c**** case L: make zero the upper triangle            
-            j0=1
-            j1=i-1
+c****       case L: make zero the upper triangle            
+            call dcopy(i-1,0.0d0,0, dbl_mb(adrBUF),1)
          elseif (uplo.eq.'U') then
-c**** case U: make zero the lower triangle            
-            j0=i+1
-            j1=n
+c****       case U: make zero the lower triangle            
+            call dcopy(n-i,0.0d0,0, dbl_mb(adrBUF+i),1)
+         else
+            call ga_error('ga_symUL: uplo must be L or U ', 1)
          endif
-         call ga_put(g_a, j0, j1, i, i, dbl_mb(adrBUF), n)
-      end do                    !i
+         call ga_put(g_A, 1, n, i, i, dbl_mb(adrBUF), n)
+      end do    !i
 c
-      if(.not.ma_pop_stack(hBUF)) call
-     c     ga_error(' ga_zeroUL: pop_stack failed  ',-1)
+      status = ma_pop_stack(hBUF)
       call ga_sync()
       end
 

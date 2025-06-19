@@ -1,6 +1,6 @@
 #! /bin/sh
 # Generated automatically by config.status (comex) 1.1
-# Libtool was configured on host qbc2:
+# Libtool was configured on host mike2:
 # NOTE: Changes made to this file will be lost: look at ltmain.sh.
 
 # Provide generalized library-building support services.
@@ -285,7 +285,7 @@ hardcode_into_libs=yes
 sys_lib_search_path_spec="/home/packages/compilers/intel/compiler/2022.0.2/linux/compiler/lib/intel64_lin /usr/lib64 "
 
 # Detected run-time system search path for libraries.
-sys_lib_dlsearch_path_spec="/lib /usr/lib /usr/lib64/atlas /usr/lib64//bind9-export/ /usr/lib64/dyninst /opt/mellanox/hcoll/lib           /opt/mellanox/sharp/lib /opt/dell/srvadmin/lib64 /opt/dell/srvadmin/lib64 /opt/dell/srvadmin/lib64 /opt/dell/srvadmin/lib64/openmanage /opt/dell/srvadmin/lib64 /opt/dell/srvadmin/lib64 /opt/dell/srvadmin/lib64/srvadmin-idrac7 /opt/dell/srvadmin/lib64 /opt/dell/srvadmin/lib64/srvadmin-isvc /opt/dell/srvadmin/lib64 /opt/dell/srvadmin/lib64 /opt/dell/srvadmin/lib64/openmanage /opt/dell/srvadmin/lib64 /opt/dell/srvadmin/lib64/openmanage /opt/dell/srvadmin/lib64 /opt/dell/srvadmin/lib64 /opt/dell/srvadmin/lib64/openmanage /opt/dell/srvadmin/lib64/openmanage/smpop /opt/dell/srvadmin/lib64 "
+sys_lib_dlsearch_path_spec="/lib /usr/lib /usr/lib64/atlas /usr/lib64//bind9-export/ /usr/lib64/dyninst /opt/mellanox/hcoll/lib           /opt/mellanox/sharp/lib /opt/dell/srvadmin/lib64 /opt/dell/srvadmin/lib64/openmanage /opt/dell/srvadmin/lib64 /opt/dell/srvadmin/lib64 /opt/dell/srvadmin/lib64/srvadmin-idrac7 /opt/dell/srvadmin/lib64 /opt/dell/srvadmin/lib64/srvadmin-isvc /opt/dell/srvadmin/lib64 /opt/dell/srvadmin/lib64 /opt/dell/srvadmin/lib64/openmanage /opt/dell/srvadmin/lib64 /opt/dell/srvadmin/lib64/openmanage /opt/dell/srvadmin/lib64 /opt/dell/srvadmin/lib64 /opt/dell/srvadmin/lib64/openmanage /opt/dell/srvadmin/lib64/openmanage/smpop /opt/dell/srvadmin/lib64 "
 
 # Explicit LT_SYS_LIBRARY_PATH set during ./configure time.
 configure_time_lt_sys_library_path=""

@@ -8,13 +8,13 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_Fortran
-  "/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/LIN/pdbmatgen.f" "/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/TESTING/LIN/CMakeFiles/xdgblu.dir/pdbmatgen.f.o"
-  "/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/LIN/pddblaschk.f" "/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/TESTING/LIN/CMakeFiles/xdgblu.dir/pddblaschk.f.o"
-  "/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/LIN/pdgbdriver.f" "/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/TESTING/LIN/CMakeFiles/xdgblu.dir/pdgbdriver.f.o"
-  "/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/LIN/pdgbinfo.f" "/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/TESTING/LIN/CMakeFiles/xdgblu.dir/pdgbinfo.f.o"
-  "/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/LIN/pdgbmv1.f" "/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/TESTING/LIN/CMakeFiles/xdgblu.dir/pdgbmv1.f.o"
-  "/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/LIN/pdmatgen.f" "/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/TESTING/LIN/CMakeFiles/xdgblu.dir/pdmatgen.f.o"
-  "/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/LIN/pmatgeninc.f" "/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/TESTING/LIN/CMakeFiles/xdgblu.dir/pmatgeninc.f.o"
+  "/home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/LIN/pdbmatgen.f" "/home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/TESTING/LIN/CMakeFiles/xdgblu.dir/pdbmatgen.f.o"
+  "/home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/LIN/pddblaschk.f" "/home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/TESTING/LIN/CMakeFiles/xdgblu.dir/pddblaschk.f.o"
+  "/home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/LIN/pdgbdriver.f" "/home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/TESTING/LIN/CMakeFiles/xdgblu.dir/pdgbdriver.f.o"
+  "/home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/LIN/pdgbinfo.f" "/home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/TESTING/LIN/CMakeFiles/xdgblu.dir/pdgbinfo.f.o"
+  "/home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/LIN/pdgbmv1.f" "/home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/TESTING/LIN/CMakeFiles/xdgblu.dir/pdgbmv1.f.o"
+  "/home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/LIN/pdmatgen.f" "/home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/TESTING/LIN/CMakeFiles/xdgblu.dir/pdmatgen.f.o"
+  "/home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/LIN/pmatgeninc.f" "/home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/TESTING/LIN/CMakeFiles/xdgblu.dir/pmatgeninc.f.o"
   )
 set(CMAKE_Fortran_COMPILER_ID "Intel")
 set(CMAKE_Fortran_SUBMODULE_SEP "@")
@@ -35,7 +35,7 @@ set(CMAKE_DEPENDS_DEPENDENCY_FILES
 
 # Targets to which this target links.
 set(CMAKE_TARGET_LINKED_INFO_FILES
-  "/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/CMakeFiles/scalapack.dir/DependInfo.cmake"
+  "/home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/CMakeFiles/scalapack.dir/DependInfo.cmake"
   )
 
 # Fortran module output directory.

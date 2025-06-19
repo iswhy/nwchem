@@ -8,13 +8,13 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_Fortran
-  "/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/LIN/pmatgeninc.f" "/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/TESTING/LIN/CMakeFiles/xzdtlu.dir/pmatgeninc.f.o"
-  "/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/LIN/pzbmatgen.f" "/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/TESTING/LIN/CMakeFiles/xzdtlu.dir/pzbmatgen.f.o"
-  "/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/LIN/pzdbmv1.f" "/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/TESTING/LIN/CMakeFiles/xzdtlu.dir/pzdbmv1.f.o"
-  "/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/LIN/pzdtdriver.f" "/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/TESTING/LIN/CMakeFiles/xzdtlu.dir/pzdtdriver.f.o"
-  "/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/LIN/pzdtinfo.f" "/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/TESTING/LIN/CMakeFiles/xzdtlu.dir/pzdtinfo.f.o"
-  "/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/LIN/pzdtlaschk.f" "/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/TESTING/LIN/CMakeFiles/xzdtlu.dir/pzdtlaschk.f.o"
-  "/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/LIN/pzmatgen.f" "/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/TESTING/LIN/CMakeFiles/xzdtlu.dir/pzmatgen.f.o"
+  "/home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/LIN/pmatgeninc.f" "/home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/TESTING/LIN/CMakeFiles/xzdtlu.dir/pmatgeninc.f.o"
+  "/home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/LIN/pzbmatgen.f" "/home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/TESTING/LIN/CMakeFiles/xzdtlu.dir/pzbmatgen.f.o"
+  "/home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/LIN/pzdbmv1.f" "/home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/TESTING/LIN/CMakeFiles/xzdtlu.dir/pzdbmv1.f.o"
+  "/home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/LIN/pzdtdriver.f" "/home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/TESTING/LIN/CMakeFiles/xzdtlu.dir/pzdtdriver.f.o"
+  "/home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/LIN/pzdtinfo.f" "/home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/TESTING/LIN/CMakeFiles/xzdtlu.dir/pzdtinfo.f.o"
+  "/home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/LIN/pzdtlaschk.f" "/home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/TESTING/LIN/CMakeFiles/xzdtlu.dir/pzdtlaschk.f.o"
+  "/home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/LIN/pzmatgen.f" "/home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/TESTING/LIN/CMakeFiles/xzdtlu.dir/pzmatgen.f.o"
   )
 set(CMAKE_Fortran_COMPILER_ID "Intel")
 set(CMAKE_Fortran_SUBMODULE_SEP "@")
@@ -35,7 +35,7 @@ set(CMAKE_DEPENDS_DEPENDENCY_FILES
 
 # Targets to which this target links.
 set(CMAKE_TARGET_LINKED_INFO_FILES
-  "/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/CMakeFiles/scalapack.dir/DependInfo.cmake"
+  "/home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/CMakeFiles/scalapack.dir/DependInfo.cmake"
   )
 
 # Fortran module output directory.

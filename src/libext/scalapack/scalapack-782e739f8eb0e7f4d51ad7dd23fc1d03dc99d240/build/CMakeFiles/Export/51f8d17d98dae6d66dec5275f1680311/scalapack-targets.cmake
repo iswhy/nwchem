@@ -59,7 +59,7 @@ endif()
 add_library(scalapack STATIC IMPORTED)
 
 set_target_properties(scalapack PROPERTIES
-  INTERFACE_LINK_LIBRARIES "-L/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/../lib -lnwc_openblas;-L/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/../lib -lnwc_openblas;MPI::MPI_C"
+  INTERFACE_LINK_LIBRARIES "-L/home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/../lib -lnwc_openblas;-L/home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/../lib -lnwc_openblas;MPI::MPI_C"
 )
 
 if(CMAKE_VERSION VERSION_LESS 2.8.12)

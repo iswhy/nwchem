@@ -44,19 +44,19 @@ cmake_force:
 SHELL = /bin/sh
 
 # The CMake executable.
-CMAKE_COMMAND = /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/libext_utils/cmake-3.24.0-linux-x86_64/bin/cmake
+CMAKE_COMMAND = /home/imam77/src/nwchem/NWChem-WFAT/src/libext/libext_utils/cmake-3.24.0-linux-x86_64/bin/cmake
 
 # The command to remove a file.
-RM = /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/libext_utils/cmake-3.24.0-linux-x86_64/bin/cmake -E rm -f
+RM = /home/imam77/src/nwchem/NWChem-WFAT/src/libext/libext_utils/cmake-3.24.0-linux-x86_64/bin/cmake -E rm -f
 
 # Escaping for special characters.
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack
+CMAKE_SOURCE_DIR = /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build
+CMAKE_BINARY_DIR = /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build
 
 # Include any dependencies generated for this target.
 include TESTING/LIN/CMakeFiles/xzllt.dir/depend.make
@@ -70,95 +70,95 @@ include TESTING/LIN/CMakeFiles/xzllt.dir/progress.make
 include TESTING/LIN/CMakeFiles/xzllt.dir/flags.make
 
 TESTING/LIN/CMakeFiles/xzllt.dir/pzlltdriver.f.o: TESTING/LIN/CMakeFiles/xzllt.dir/flags.make
-TESTING/LIN/CMakeFiles/xzllt.dir/pzlltdriver.f.o: /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/LIN/pzlltdriver.f
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building Fortran object TESTING/LIN/CMakeFiles/xzllt.dir/pzlltdriver.f.o"
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/TESTING/LIN && /home/packages/compilers/intel/mpi/2021.5.1/bin/mpif90 $(Fortran_DEFINES) $(Fortran_INCLUDES) $(Fortran_FLAGS) -c /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/LIN/pzlltdriver.f -o CMakeFiles/xzllt.dir/pzlltdriver.f.o
+TESTING/LIN/CMakeFiles/xzllt.dir/pzlltdriver.f.o: /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/LIN/pzlltdriver.f
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building Fortran object TESTING/LIN/CMakeFiles/xzllt.dir/pzlltdriver.f.o"
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/TESTING/LIN && /home/packages/compilers/intel/mpi/2021.5.1/bin/mpif90 $(Fortran_DEFINES) $(Fortran_INCLUDES) $(Fortran_FLAGS) -c /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/LIN/pzlltdriver.f -o CMakeFiles/xzllt.dir/pzlltdriver.f.o
 
 TESTING/LIN/CMakeFiles/xzllt.dir/pzlltdriver.f.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing Fortran source to CMakeFiles/xzllt.dir/pzlltdriver.f.i"
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/TESTING/LIN && /home/packages/compilers/intel/mpi/2021.5.1/bin/mpif90 $(Fortran_DEFINES) $(Fortran_INCLUDES) $(Fortran_FLAGS) -E /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/LIN/pzlltdriver.f > CMakeFiles/xzllt.dir/pzlltdriver.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/TESTING/LIN && /home/packages/compilers/intel/mpi/2021.5.1/bin/mpif90 $(Fortran_DEFINES) $(Fortran_INCLUDES) $(Fortran_FLAGS) -E /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/LIN/pzlltdriver.f > CMakeFiles/xzllt.dir/pzlltdriver.f.i
 
 TESTING/LIN/CMakeFiles/xzllt.dir/pzlltdriver.f.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling Fortran source to assembly CMakeFiles/xzllt.dir/pzlltdriver.f.s"
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/TESTING/LIN && /home/packages/compilers/intel/mpi/2021.5.1/bin/mpif90 $(Fortran_DEFINES) $(Fortran_INCLUDES) $(Fortran_FLAGS) -S /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/LIN/pzlltdriver.f -o CMakeFiles/xzllt.dir/pzlltdriver.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/TESTING/LIN && /home/packages/compilers/intel/mpi/2021.5.1/bin/mpif90 $(Fortran_DEFINES) $(Fortran_INCLUDES) $(Fortran_FLAGS) -S /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/LIN/pzlltdriver.f -o CMakeFiles/xzllt.dir/pzlltdriver.f.s
 
 TESTING/LIN/CMakeFiles/xzllt.dir/pzlltinfo.f.o: TESTING/LIN/CMakeFiles/xzllt.dir/flags.make
-TESTING/LIN/CMakeFiles/xzllt.dir/pzlltinfo.f.o: /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/LIN/pzlltinfo.f
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building Fortran object TESTING/LIN/CMakeFiles/xzllt.dir/pzlltinfo.f.o"
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/TESTING/LIN && /home/packages/compilers/intel/mpi/2021.5.1/bin/mpif90 $(Fortran_DEFINES) $(Fortran_INCLUDES) $(Fortran_FLAGS) -c /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/LIN/pzlltinfo.f -o CMakeFiles/xzllt.dir/pzlltinfo.f.o
+TESTING/LIN/CMakeFiles/xzllt.dir/pzlltinfo.f.o: /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/LIN/pzlltinfo.f
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building Fortran object TESTING/LIN/CMakeFiles/xzllt.dir/pzlltinfo.f.o"
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/TESTING/LIN && /home/packages/compilers/intel/mpi/2021.5.1/bin/mpif90 $(Fortran_DEFINES) $(Fortran_INCLUDES) $(Fortran_FLAGS) -c /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/LIN/pzlltinfo.f -o CMakeFiles/xzllt.dir/pzlltinfo.f.o
 
 TESTING/LIN/CMakeFiles/xzllt.dir/pzlltinfo.f.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing Fortran source to CMakeFiles/xzllt.dir/pzlltinfo.f.i"
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/TESTING/LIN && /home/packages/compilers/intel/mpi/2021.5.1/bin/mpif90 $(Fortran_DEFINES) $(Fortran_INCLUDES) $(Fortran_FLAGS) -E /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/LIN/pzlltinfo.f > CMakeFiles/xzllt.dir/pzlltinfo.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/TESTING/LIN && /home/packages/compilers/intel/mpi/2021.5.1/bin/mpif90 $(Fortran_DEFINES) $(Fortran_INCLUDES) $(Fortran_FLAGS) -E /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/LIN/pzlltinfo.f > CMakeFiles/xzllt.dir/pzlltinfo.f.i
 
 TESTING/LIN/CMakeFiles/xzllt.dir/pzlltinfo.f.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling Fortran source to assembly CMakeFiles/xzllt.dir/pzlltinfo.f.s"
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/TESTING/LIN && /home/packages/compilers/intel/mpi/2021.5.1/bin/mpif90 $(Fortran_DEFINES) $(Fortran_INCLUDES) $(Fortran_FLAGS) -S /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/LIN/pzlltinfo.f -o CMakeFiles/xzllt.dir/pzlltinfo.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/TESTING/LIN && /home/packages/compilers/intel/mpi/2021.5.1/bin/mpif90 $(Fortran_DEFINES) $(Fortran_INCLUDES) $(Fortran_FLAGS) -S /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/LIN/pzlltinfo.f -o CMakeFiles/xzllt.dir/pzlltinfo.f.s
 
 TESTING/LIN/CMakeFiles/xzllt.dir/pzpotrrv.f.o: TESTING/LIN/CMakeFiles/xzllt.dir/flags.make
-TESTING/LIN/CMakeFiles/xzllt.dir/pzpotrrv.f.o: /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/LIN/pzpotrrv.f
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building Fortran object TESTING/LIN/CMakeFiles/xzllt.dir/pzpotrrv.f.o"
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/TESTING/LIN && /home/packages/compilers/intel/mpi/2021.5.1/bin/mpif90 $(Fortran_DEFINES) $(Fortran_INCLUDES) $(Fortran_FLAGS) -c /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/LIN/pzpotrrv.f -o CMakeFiles/xzllt.dir/pzpotrrv.f.o
+TESTING/LIN/CMakeFiles/xzllt.dir/pzpotrrv.f.o: /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/LIN/pzpotrrv.f
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building Fortran object TESTING/LIN/CMakeFiles/xzllt.dir/pzpotrrv.f.o"
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/TESTING/LIN && /home/packages/compilers/intel/mpi/2021.5.1/bin/mpif90 $(Fortran_DEFINES) $(Fortran_INCLUDES) $(Fortran_FLAGS) -c /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/LIN/pzpotrrv.f -o CMakeFiles/xzllt.dir/pzpotrrv.f.o
 
 TESTING/LIN/CMakeFiles/xzllt.dir/pzpotrrv.f.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing Fortran source to CMakeFiles/xzllt.dir/pzpotrrv.f.i"
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/TESTING/LIN && /home/packages/compilers/intel/mpi/2021.5.1/bin/mpif90 $(Fortran_DEFINES) $(Fortran_INCLUDES) $(Fortran_FLAGS) -E /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/LIN/pzpotrrv.f > CMakeFiles/xzllt.dir/pzpotrrv.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/TESTING/LIN && /home/packages/compilers/intel/mpi/2021.5.1/bin/mpif90 $(Fortran_DEFINES) $(Fortran_INCLUDES) $(Fortran_FLAGS) -E /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/LIN/pzpotrrv.f > CMakeFiles/xzllt.dir/pzpotrrv.f.i
 
 TESTING/LIN/CMakeFiles/xzllt.dir/pzpotrrv.f.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling Fortran source to assembly CMakeFiles/xzllt.dir/pzpotrrv.f.s"
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/TESTING/LIN && /home/packages/compilers/intel/mpi/2021.5.1/bin/mpif90 $(Fortran_DEFINES) $(Fortran_INCLUDES) $(Fortran_FLAGS) -S /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/LIN/pzpotrrv.f -o CMakeFiles/xzllt.dir/pzpotrrv.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/TESTING/LIN && /home/packages/compilers/intel/mpi/2021.5.1/bin/mpif90 $(Fortran_DEFINES) $(Fortran_INCLUDES) $(Fortran_FLAGS) -S /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/LIN/pzpotrrv.f -o CMakeFiles/xzllt.dir/pzpotrrv.f.s
 
 TESTING/LIN/CMakeFiles/xzllt.dir/pzmatgen.f.o: TESTING/LIN/CMakeFiles/xzllt.dir/flags.make
-TESTING/LIN/CMakeFiles/xzllt.dir/pzmatgen.f.o: /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/LIN/pzmatgen.f
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building Fortran object TESTING/LIN/CMakeFiles/xzllt.dir/pzmatgen.f.o"
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/TESTING/LIN && /home/packages/compilers/intel/mpi/2021.5.1/bin/mpif90 $(Fortran_DEFINES) $(Fortran_INCLUDES) $(Fortran_FLAGS) -c /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/LIN/pzmatgen.f -o CMakeFiles/xzllt.dir/pzmatgen.f.o
+TESTING/LIN/CMakeFiles/xzllt.dir/pzmatgen.f.o: /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/LIN/pzmatgen.f
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building Fortran object TESTING/LIN/CMakeFiles/xzllt.dir/pzmatgen.f.o"
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/TESTING/LIN && /home/packages/compilers/intel/mpi/2021.5.1/bin/mpif90 $(Fortran_DEFINES) $(Fortran_INCLUDES) $(Fortran_FLAGS) -c /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/LIN/pzmatgen.f -o CMakeFiles/xzllt.dir/pzmatgen.f.o
 
 TESTING/LIN/CMakeFiles/xzllt.dir/pzmatgen.f.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing Fortran source to CMakeFiles/xzllt.dir/pzmatgen.f.i"
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/TESTING/LIN && /home/packages/compilers/intel/mpi/2021.5.1/bin/mpif90 $(Fortran_DEFINES) $(Fortran_INCLUDES) $(Fortran_FLAGS) -E /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/LIN/pzmatgen.f > CMakeFiles/xzllt.dir/pzmatgen.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/TESTING/LIN && /home/packages/compilers/intel/mpi/2021.5.1/bin/mpif90 $(Fortran_DEFINES) $(Fortran_INCLUDES) $(Fortran_FLAGS) -E /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/LIN/pzmatgen.f > CMakeFiles/xzllt.dir/pzmatgen.f.i
 
 TESTING/LIN/CMakeFiles/xzllt.dir/pzmatgen.f.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling Fortran source to assembly CMakeFiles/xzllt.dir/pzmatgen.f.s"
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/TESTING/LIN && /home/packages/compilers/intel/mpi/2021.5.1/bin/mpif90 $(Fortran_DEFINES) $(Fortran_INCLUDES) $(Fortran_FLAGS) -S /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/LIN/pzmatgen.f -o CMakeFiles/xzllt.dir/pzmatgen.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/TESTING/LIN && /home/packages/compilers/intel/mpi/2021.5.1/bin/mpif90 $(Fortran_DEFINES) $(Fortran_INCLUDES) $(Fortran_FLAGS) -S /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/LIN/pzmatgen.f -o CMakeFiles/xzllt.dir/pzmatgen.f.s
 
 TESTING/LIN/CMakeFiles/xzllt.dir/pmatgeninc.f.o: TESTING/LIN/CMakeFiles/xzllt.dir/flags.make
-TESTING/LIN/CMakeFiles/xzllt.dir/pmatgeninc.f.o: /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/LIN/pmatgeninc.f
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building Fortran object TESTING/LIN/CMakeFiles/xzllt.dir/pmatgeninc.f.o"
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/TESTING/LIN && /home/packages/compilers/intel/mpi/2021.5.1/bin/mpif90 $(Fortran_DEFINES) $(Fortran_INCLUDES) $(Fortran_FLAGS) -c /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/LIN/pmatgeninc.f -o CMakeFiles/xzllt.dir/pmatgeninc.f.o
+TESTING/LIN/CMakeFiles/xzllt.dir/pmatgeninc.f.o: /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/LIN/pmatgeninc.f
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building Fortran object TESTING/LIN/CMakeFiles/xzllt.dir/pmatgeninc.f.o"
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/TESTING/LIN && /home/packages/compilers/intel/mpi/2021.5.1/bin/mpif90 $(Fortran_DEFINES) $(Fortran_INCLUDES) $(Fortran_FLAGS) -c /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/LIN/pmatgeninc.f -o CMakeFiles/xzllt.dir/pmatgeninc.f.o
 
 TESTING/LIN/CMakeFiles/xzllt.dir/pmatgeninc.f.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing Fortran source to CMakeFiles/xzllt.dir/pmatgeninc.f.i"
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/TESTING/LIN && /home/packages/compilers/intel/mpi/2021.5.1/bin/mpif90 $(Fortran_DEFINES) $(Fortran_INCLUDES) $(Fortran_FLAGS) -E /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/LIN/pmatgeninc.f > CMakeFiles/xzllt.dir/pmatgeninc.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/TESTING/LIN && /home/packages/compilers/intel/mpi/2021.5.1/bin/mpif90 $(Fortran_DEFINES) $(Fortran_INCLUDES) $(Fortran_FLAGS) -E /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/LIN/pmatgeninc.f > CMakeFiles/xzllt.dir/pmatgeninc.f.i
 
 TESTING/LIN/CMakeFiles/xzllt.dir/pmatgeninc.f.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling Fortran source to assembly CMakeFiles/xzllt.dir/pmatgeninc.f.s"
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/TESTING/LIN && /home/packages/compilers/intel/mpi/2021.5.1/bin/mpif90 $(Fortran_DEFINES) $(Fortran_INCLUDES) $(Fortran_FLAGS) -S /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/LIN/pmatgeninc.f -o CMakeFiles/xzllt.dir/pmatgeninc.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/TESTING/LIN && /home/packages/compilers/intel/mpi/2021.5.1/bin/mpif90 $(Fortran_DEFINES) $(Fortran_INCLUDES) $(Fortran_FLAGS) -S /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/LIN/pmatgeninc.f -o CMakeFiles/xzllt.dir/pmatgeninc.f.s
 
 TESTING/LIN/CMakeFiles/xzllt.dir/pzlaschk.f.o: TESTING/LIN/CMakeFiles/xzllt.dir/flags.make
-TESTING/LIN/CMakeFiles/xzllt.dir/pzlaschk.f.o: /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/LIN/pzlaschk.f
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building Fortran object TESTING/LIN/CMakeFiles/xzllt.dir/pzlaschk.f.o"
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/TESTING/LIN && /home/packages/compilers/intel/mpi/2021.5.1/bin/mpif90 $(Fortran_DEFINES) $(Fortran_INCLUDES) $(Fortran_FLAGS) -c /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/LIN/pzlaschk.f -o CMakeFiles/xzllt.dir/pzlaschk.f.o
+TESTING/LIN/CMakeFiles/xzllt.dir/pzlaschk.f.o: /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/LIN/pzlaschk.f
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building Fortran object TESTING/LIN/CMakeFiles/xzllt.dir/pzlaschk.f.o"
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/TESTING/LIN && /home/packages/compilers/intel/mpi/2021.5.1/bin/mpif90 $(Fortran_DEFINES) $(Fortran_INCLUDES) $(Fortran_FLAGS) -c /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/LIN/pzlaschk.f -o CMakeFiles/xzllt.dir/pzlaschk.f.o
 
 TESTING/LIN/CMakeFiles/xzllt.dir/pzlaschk.f.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing Fortran source to CMakeFiles/xzllt.dir/pzlaschk.f.i"
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/TESTING/LIN && /home/packages/compilers/intel/mpi/2021.5.1/bin/mpif90 $(Fortran_DEFINES) $(Fortran_INCLUDES) $(Fortran_FLAGS) -E /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/LIN/pzlaschk.f > CMakeFiles/xzllt.dir/pzlaschk.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/TESTING/LIN && /home/packages/compilers/intel/mpi/2021.5.1/bin/mpif90 $(Fortran_DEFINES) $(Fortran_INCLUDES) $(Fortran_FLAGS) -E /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/LIN/pzlaschk.f > CMakeFiles/xzllt.dir/pzlaschk.f.i
 
 TESTING/LIN/CMakeFiles/xzllt.dir/pzlaschk.f.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling Fortran source to assembly CMakeFiles/xzllt.dir/pzlaschk.f.s"
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/TESTING/LIN && /home/packages/compilers/intel/mpi/2021.5.1/bin/mpif90 $(Fortran_DEFINES) $(Fortran_INCLUDES) $(Fortran_FLAGS) -S /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/LIN/pzlaschk.f -o CMakeFiles/xzllt.dir/pzlaschk.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/TESTING/LIN && /home/packages/compilers/intel/mpi/2021.5.1/bin/mpif90 $(Fortran_DEFINES) $(Fortran_INCLUDES) $(Fortran_FLAGS) -S /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/LIN/pzlaschk.f -o CMakeFiles/xzllt.dir/pzlaschk.f.s
 
 TESTING/LIN/CMakeFiles/xzllt.dir/pzlafchk.f.o: TESTING/LIN/CMakeFiles/xzllt.dir/flags.make
-TESTING/LIN/CMakeFiles/xzllt.dir/pzlafchk.f.o: /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/LIN/pzlafchk.f
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building Fortran object TESTING/LIN/CMakeFiles/xzllt.dir/pzlafchk.f.o"
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/TESTING/LIN && /home/packages/compilers/intel/mpi/2021.5.1/bin/mpif90 $(Fortran_DEFINES) $(Fortran_INCLUDES) $(Fortran_FLAGS) -c /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/LIN/pzlafchk.f -o CMakeFiles/xzllt.dir/pzlafchk.f.o
+TESTING/LIN/CMakeFiles/xzllt.dir/pzlafchk.f.o: /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/LIN/pzlafchk.f
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building Fortran object TESTING/LIN/CMakeFiles/xzllt.dir/pzlafchk.f.o"
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/TESTING/LIN && /home/packages/compilers/intel/mpi/2021.5.1/bin/mpif90 $(Fortran_DEFINES) $(Fortran_INCLUDES) $(Fortran_FLAGS) -c /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/LIN/pzlafchk.f -o CMakeFiles/xzllt.dir/pzlafchk.f.o
 
 TESTING/LIN/CMakeFiles/xzllt.dir/pzlafchk.f.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing Fortran source to CMakeFiles/xzllt.dir/pzlafchk.f.i"
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/TESTING/LIN && /home/packages/compilers/intel/mpi/2021.5.1/bin/mpif90 $(Fortran_DEFINES) $(Fortran_INCLUDES) $(Fortran_FLAGS) -E /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/LIN/pzlafchk.f > CMakeFiles/xzllt.dir/pzlafchk.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/TESTING/LIN && /home/packages/compilers/intel/mpi/2021.5.1/bin/mpif90 $(Fortran_DEFINES) $(Fortran_INCLUDES) $(Fortran_FLAGS) -E /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/LIN/pzlafchk.f > CMakeFiles/xzllt.dir/pzlafchk.f.i
 
 TESTING/LIN/CMakeFiles/xzllt.dir/pzlafchk.f.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling Fortran source to assembly CMakeFiles/xzllt.dir/pzlafchk.f.s"
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/TESTING/LIN && /home/packages/compilers/intel/mpi/2021.5.1/bin/mpif90 $(Fortran_DEFINES) $(Fortran_INCLUDES) $(Fortran_FLAGS) -S /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/LIN/pzlafchk.f -o CMakeFiles/xzllt.dir/pzlafchk.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/TESTING/LIN && /home/packages/compilers/intel/mpi/2021.5.1/bin/mpif90 $(Fortran_DEFINES) $(Fortran_INCLUDES) $(Fortran_FLAGS) -S /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/LIN/pzlafchk.f -o CMakeFiles/xzllt.dir/pzlafchk.f.s
 
 # Object files for target xzllt
 xzllt_OBJECTS = \
@@ -183,18 +183,18 @@ TESTING/xzllt: TESTING/LIN/CMakeFiles/xzllt.dir/pzlafchk.f.o
 TESTING/xzllt: TESTING/LIN/CMakeFiles/xzllt.dir/build.make
 TESTING/xzllt: lib/libscalapack.a
 TESTING/xzllt: TESTING/LIN/CMakeFiles/xzllt.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Linking Fortran executable ../xzllt"
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/TESTING/LIN && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/xzllt.dir/link.txt --verbose=$(VERBOSE)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Linking Fortran executable ../xzllt"
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/TESTING/LIN && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/xzllt.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
 TESTING/LIN/CMakeFiles/xzllt.dir/build: TESTING/xzllt
 .PHONY : TESTING/LIN/CMakeFiles/xzllt.dir/build
 
 TESTING/LIN/CMakeFiles/xzllt.dir/clean:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/TESTING/LIN && $(CMAKE_COMMAND) -P CMakeFiles/xzllt.dir/cmake_clean.cmake
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/TESTING/LIN && $(CMAKE_COMMAND) -P CMakeFiles/xzllt.dir/cmake_clean.cmake
 .PHONY : TESTING/LIN/CMakeFiles/xzllt.dir/clean
 
 TESTING/LIN/CMakeFiles/xzllt.dir/depend:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/LIN /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/TESTING/LIN /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/TESTING/LIN/CMakeFiles/xzllt.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/TESTING/LIN /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/TESTING/LIN /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/TESTING/LIN/CMakeFiles/xzllt.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : TESTING/LIN/CMakeFiles/xzllt.dir/depend
 

@@ -50,14 +50,14 @@ unset(_cmake_expected_targets)
 add_library(scalapack STATIC IMPORTED)
 
 set_target_properties(scalapack PROPERTIES
-  INTERFACE_LINK_LIBRARIES "-L/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/../lib -lnwc_openblas;-L/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/../lib -lnwc_openblas;MPI::MPI_C"
+  INTERFACE_LINK_LIBRARIES "-L/home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/../lib -lnwc_openblas;-L/home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/../lib -lnwc_openblas;MPI::MPI_C"
 )
 
 # Import target "scalapack" for configuration "MinSizeRel"
 set_property(TARGET scalapack APPEND PROPERTY IMPORTED_CONFIGURATIONS MINSIZEREL)
 set_target_properties(scalapack PROPERTIES
   IMPORTED_LINK_INTERFACE_LANGUAGES_MINSIZEREL "C;Fortran"
-  IMPORTED_LOCATION_MINSIZEREL "/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/lib/libscalapack.a"
+  IMPORTED_LOCATION_MINSIZEREL "/home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/lib/libscalapack.a"
   )
 
 # This file does not depend on other imported targets which have

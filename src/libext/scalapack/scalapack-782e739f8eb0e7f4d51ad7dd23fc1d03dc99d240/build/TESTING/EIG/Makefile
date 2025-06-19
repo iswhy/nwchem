@@ -48,19 +48,19 @@ cmake_force:
 SHELL = /bin/sh
 
 # The CMake executable.
-CMAKE_COMMAND = /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/libext_utils/cmake-3.24.0-linux-x86_64/bin/cmake
+CMAKE_COMMAND = /home/imam77/src/nwchem/NWChem-WFAT/src/libext/libext_utils/cmake-3.24.0-linux-x86_64/bin/cmake
 
 # The command to remove a file.
-RM = /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/libext_utils/cmake-3.24.0-linux-x86_64/bin/cmake -E rm -f
+RM = /home/imam77/src/nwchem/NWChem-WFAT/src/libext/libext_utils/cmake-3.24.0-linux-x86_64/bin/cmake -E rm -f
 
 # Escaping for special characters.
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack
+CMAKE_SOURCE_DIR = /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build
+CMAKE_BINARY_DIR = /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -68,7 +68,7 @@ CMAKE_BINARY_DIR = /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/
 # Special rule for the target package
 package: preinstall
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Run CPack packaging tool..."
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/libext_utils/cmake-3.24.0-linux-x86_64/bin/cpack --config ./CPackConfig.cmake
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && /home/imam77/src/nwchem/NWChem-WFAT/src/libext/libext_utils/cmake-3.24.0-linux-x86_64/bin/cpack --config ./CPackConfig.cmake
 .PHONY : package
 
 # Special rule for the target package
@@ -78,7 +78,7 @@ package/fast: package
 # Special rule for the target package_source
 package_source:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Run CPack packaging tool for source..."
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/libext_utils/cmake-3.24.0-linux-x86_64/bin/cpack --config ./CPackSourceConfig.cmake /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/CPackSourceConfig.cmake
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && /home/imam77/src/nwchem/NWChem-WFAT/src/libext/libext_utils/cmake-3.24.0-linux-x86_64/bin/cpack --config ./CPackSourceConfig.cmake /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/CPackSourceConfig.cmake
 .PHONY : package_source
 
 # Special rule for the target package_source
@@ -88,7 +88,7 @@ package_source/fast: package_source
 # Special rule for the target test
 test:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running tests..."
-	/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/libext_utils/cmake-3.24.0-linux-x86_64/bin/ctest --force-new-ctest-process $(ARGS)
+	/home/imam77/src/nwchem/NWChem-WFAT/src/libext/libext_utils/cmake-3.24.0-linux-x86_64/bin/ctest --force-new-ctest-process $(ARGS)
 .PHONY : test
 
 # Special rule for the target test
@@ -98,7 +98,7 @@ test/fast: test
 # Special rule for the target edit_cache
 edit_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake cache editor..."
-	/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/libext_utils/cmake-3.24.0-linux-x86_64/bin/ccmake -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+	/home/imam77/src/nwchem/NWChem-WFAT/src/libext/libext_utils/cmake-3.24.0-linux-x86_64/bin/ccmake -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
 .PHONY : edit_cache
 
 # Special rule for the target edit_cache
@@ -108,7 +108,7 @@ edit_cache/fast: edit_cache
 # Special rule for the target rebuild_cache
 rebuild_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
-	/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/libext_utils/cmake-3.24.0-linux-x86_64/bin/cmake --regenerate-during-build -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+	/home/imam77/src/nwchem/NWChem-WFAT/src/libext/libext_utils/cmake-3.24.0-linux-x86_64/bin/cmake --regenerate-during-build -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
 .PHONY : rebuild_cache
 
 # Special rule for the target rebuild_cache
@@ -127,49 +127,49 @@ list_install_components/fast: list_install_components
 # Special rule for the target install
 install: preinstall
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
-	/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/libext_utils/cmake-3.24.0-linux-x86_64/bin/cmake -P cmake_install.cmake
+	/home/imam77/src/nwchem/NWChem-WFAT/src/libext/libext_utils/cmake-3.24.0-linux-x86_64/bin/cmake -P cmake_install.cmake
 .PHONY : install
 
 # Special rule for the target install
 install/fast: preinstall/fast
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
-	/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/libext_utils/cmake-3.24.0-linux-x86_64/bin/cmake -P cmake_install.cmake
+	/home/imam77/src/nwchem/NWChem-WFAT/src/libext/libext_utils/cmake-3.24.0-linux-x86_64/bin/cmake -P cmake_install.cmake
 .PHONY : install/fast
 
 # Special rule for the target install/local
 install/local: preinstall
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
-	/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/libext_utils/cmake-3.24.0-linux-x86_64/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+	/home/imam77/src/nwchem/NWChem-WFAT/src/libext/libext_utils/cmake-3.24.0-linux-x86_64/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
 .PHONY : install/local
 
 # Special rule for the target install/local
 install/local/fast: preinstall/fast
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
-	/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/libext_utils/cmake-3.24.0-linux-x86_64/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+	/home/imam77/src/nwchem/NWChem-WFAT/src/libext/libext_utils/cmake-3.24.0-linux-x86_64/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
 .PHONY : install/local/fast
 
 # Special rule for the target install/strip
 install/strip: preinstall
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
-	/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/libext_utils/cmake-3.24.0-linux-x86_64/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+	/home/imam77/src/nwchem/NWChem-WFAT/src/libext/libext_utils/cmake-3.24.0-linux-x86_64/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
 .PHONY : install/strip
 
 # Special rule for the target install/strip
 install/strip/fast: preinstall/fast
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
-	/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/libext_utils/cmake-3.24.0-linux-x86_64/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+	/home/imam77/src/nwchem/NWChem-WFAT/src/libext/libext_utils/cmake-3.24.0-linux-x86_64/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
 .PHONY : install/strip/fast
 
 # The main all target
 all: cmake_check_build_system
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(CMAKE_COMMAND) -E cmake_progress_start /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/CMakeFiles /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/TESTING/EIG//CMakeFiles/progress.marks
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 TESTING/EIG/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/CMakeFiles 0
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(CMAKE_COMMAND) -E cmake_progress_start /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/CMakeFiles /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/TESTING/EIG//CMakeFiles/progress.marks
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 TESTING/EIG/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 TESTING/EIG/clean
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 TESTING/EIG/clean
 .PHONY : clean
 
 # The main clean target
@@ -178,22 +178,22 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 TESTING/EIG/preinstall
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 TESTING/EIG/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 TESTING/EIG/preinstall
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 TESTING/EIG/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
 # Convenience name for target.
 TESTING/EIG/CMakeFiles/xsbrd.dir/rule:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 TESTING/EIG/CMakeFiles/xsbrd.dir/rule
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 TESTING/EIG/CMakeFiles/xsbrd.dir/rule
 .PHONY : TESTING/EIG/CMakeFiles/xsbrd.dir/rule
 
 # Convenience name for target.
@@ -202,12 +202,12 @@ xsbrd: TESTING/EIG/CMakeFiles/xsbrd.dir/rule
 
 # fast build rule for target.
 xsbrd/fast:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xsbrd.dir/build.make TESTING/EIG/CMakeFiles/xsbrd.dir/build
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xsbrd.dir/build.make TESTING/EIG/CMakeFiles/xsbrd.dir/build
 .PHONY : xsbrd/fast
 
 # Convenience name for target.
 TESTING/EIG/CMakeFiles/xdbrd.dir/rule:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 TESTING/EIG/CMakeFiles/xdbrd.dir/rule
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 TESTING/EIG/CMakeFiles/xdbrd.dir/rule
 .PHONY : TESTING/EIG/CMakeFiles/xdbrd.dir/rule
 
 # Convenience name for target.
@@ -216,12 +216,12 @@ xdbrd: TESTING/EIG/CMakeFiles/xdbrd.dir/rule
 
 # fast build rule for target.
 xdbrd/fast:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdbrd.dir/build.make TESTING/EIG/CMakeFiles/xdbrd.dir/build
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdbrd.dir/build.make TESTING/EIG/CMakeFiles/xdbrd.dir/build
 .PHONY : xdbrd/fast
 
 # Convenience name for target.
 TESTING/EIG/CMakeFiles/xcbrd.dir/rule:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 TESTING/EIG/CMakeFiles/xcbrd.dir/rule
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 TESTING/EIG/CMakeFiles/xcbrd.dir/rule
 .PHONY : TESTING/EIG/CMakeFiles/xcbrd.dir/rule
 
 # Convenience name for target.
@@ -230,12 +230,12 @@ xcbrd: TESTING/EIG/CMakeFiles/xcbrd.dir/rule
 
 # fast build rule for target.
 xcbrd/fast:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcbrd.dir/build.make TESTING/EIG/CMakeFiles/xcbrd.dir/build
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcbrd.dir/build.make TESTING/EIG/CMakeFiles/xcbrd.dir/build
 .PHONY : xcbrd/fast
 
 # Convenience name for target.
 TESTING/EIG/CMakeFiles/xzbrd.dir/rule:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 TESTING/EIG/CMakeFiles/xzbrd.dir/rule
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 TESTING/EIG/CMakeFiles/xzbrd.dir/rule
 .PHONY : TESTING/EIG/CMakeFiles/xzbrd.dir/rule
 
 # Convenience name for target.
@@ -244,12 +244,12 @@ xzbrd: TESTING/EIG/CMakeFiles/xzbrd.dir/rule
 
 # fast build rule for target.
 xzbrd/fast:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzbrd.dir/build.make TESTING/EIG/CMakeFiles/xzbrd.dir/build
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzbrd.dir/build.make TESTING/EIG/CMakeFiles/xzbrd.dir/build
 .PHONY : xzbrd/fast
 
 # Convenience name for target.
 TESTING/EIG/CMakeFiles/xshrd.dir/rule:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 TESTING/EIG/CMakeFiles/xshrd.dir/rule
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 TESTING/EIG/CMakeFiles/xshrd.dir/rule
 .PHONY : TESTING/EIG/CMakeFiles/xshrd.dir/rule
 
 # Convenience name for target.
@@ -258,12 +258,12 @@ xshrd: TESTING/EIG/CMakeFiles/xshrd.dir/rule
 
 # fast build rule for target.
 xshrd/fast:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xshrd.dir/build.make TESTING/EIG/CMakeFiles/xshrd.dir/build
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xshrd.dir/build.make TESTING/EIG/CMakeFiles/xshrd.dir/build
 .PHONY : xshrd/fast
 
 # Convenience name for target.
 TESTING/EIG/CMakeFiles/xdhrd.dir/rule:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 TESTING/EIG/CMakeFiles/xdhrd.dir/rule
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 TESTING/EIG/CMakeFiles/xdhrd.dir/rule
 .PHONY : TESTING/EIG/CMakeFiles/xdhrd.dir/rule
 
 # Convenience name for target.
@@ -272,12 +272,12 @@ xdhrd: TESTING/EIG/CMakeFiles/xdhrd.dir/rule
 
 # fast build rule for target.
 xdhrd/fast:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdhrd.dir/build.make TESTING/EIG/CMakeFiles/xdhrd.dir/build
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdhrd.dir/build.make TESTING/EIG/CMakeFiles/xdhrd.dir/build
 .PHONY : xdhrd/fast
 
 # Convenience name for target.
 TESTING/EIG/CMakeFiles/xchrd.dir/rule:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 TESTING/EIG/CMakeFiles/xchrd.dir/rule
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 TESTING/EIG/CMakeFiles/xchrd.dir/rule
 .PHONY : TESTING/EIG/CMakeFiles/xchrd.dir/rule
 
 # Convenience name for target.
@@ -286,12 +286,12 @@ xchrd: TESTING/EIG/CMakeFiles/xchrd.dir/rule
 
 # fast build rule for target.
 xchrd/fast:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xchrd.dir/build.make TESTING/EIG/CMakeFiles/xchrd.dir/build
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xchrd.dir/build.make TESTING/EIG/CMakeFiles/xchrd.dir/build
 .PHONY : xchrd/fast
 
 # Convenience name for target.
 TESTING/EIG/CMakeFiles/xzhrd.dir/rule:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 TESTING/EIG/CMakeFiles/xzhrd.dir/rule
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 TESTING/EIG/CMakeFiles/xzhrd.dir/rule
 .PHONY : TESTING/EIG/CMakeFiles/xzhrd.dir/rule
 
 # Convenience name for target.
@@ -300,12 +300,12 @@ xzhrd: TESTING/EIG/CMakeFiles/xzhrd.dir/rule
 
 # fast build rule for target.
 xzhrd/fast:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzhrd.dir/build.make TESTING/EIG/CMakeFiles/xzhrd.dir/build
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzhrd.dir/build.make TESTING/EIG/CMakeFiles/xzhrd.dir/build
 .PHONY : xzhrd/fast
 
 # Convenience name for target.
 TESTING/EIG/CMakeFiles/xstrd.dir/rule:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 TESTING/EIG/CMakeFiles/xstrd.dir/rule
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 TESTING/EIG/CMakeFiles/xstrd.dir/rule
 .PHONY : TESTING/EIG/CMakeFiles/xstrd.dir/rule
 
 # Convenience name for target.
@@ -314,12 +314,12 @@ xstrd: TESTING/EIG/CMakeFiles/xstrd.dir/rule
 
 # fast build rule for target.
 xstrd/fast:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xstrd.dir/build.make TESTING/EIG/CMakeFiles/xstrd.dir/build
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xstrd.dir/build.make TESTING/EIG/CMakeFiles/xstrd.dir/build
 .PHONY : xstrd/fast
 
 # Convenience name for target.
 TESTING/EIG/CMakeFiles/xdtrd.dir/rule:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 TESTING/EIG/CMakeFiles/xdtrd.dir/rule
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 TESTING/EIG/CMakeFiles/xdtrd.dir/rule
 .PHONY : TESTING/EIG/CMakeFiles/xdtrd.dir/rule
 
 # Convenience name for target.
@@ -328,12 +328,12 @@ xdtrd: TESTING/EIG/CMakeFiles/xdtrd.dir/rule
 
 # fast build rule for target.
 xdtrd/fast:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdtrd.dir/build.make TESTING/EIG/CMakeFiles/xdtrd.dir/build
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdtrd.dir/build.make TESTING/EIG/CMakeFiles/xdtrd.dir/build
 .PHONY : xdtrd/fast
 
 # Convenience name for target.
 TESTING/EIG/CMakeFiles/xctrd.dir/rule:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 TESTING/EIG/CMakeFiles/xctrd.dir/rule
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 TESTING/EIG/CMakeFiles/xctrd.dir/rule
 .PHONY : TESTING/EIG/CMakeFiles/xctrd.dir/rule
 
 # Convenience name for target.
@@ -342,12 +342,12 @@ xctrd: TESTING/EIG/CMakeFiles/xctrd.dir/rule
 
 # fast build rule for target.
 xctrd/fast:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xctrd.dir/build.make TESTING/EIG/CMakeFiles/xctrd.dir/build
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xctrd.dir/build.make TESTING/EIG/CMakeFiles/xctrd.dir/build
 .PHONY : xctrd/fast
 
 # Convenience name for target.
 TESTING/EIG/CMakeFiles/xztrd.dir/rule:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 TESTING/EIG/CMakeFiles/xztrd.dir/rule
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 TESTING/EIG/CMakeFiles/xztrd.dir/rule
 .PHONY : TESTING/EIG/CMakeFiles/xztrd.dir/rule
 
 # Convenience name for target.
@@ -356,12 +356,12 @@ xztrd: TESTING/EIG/CMakeFiles/xztrd.dir/rule
 
 # fast build rule for target.
 xztrd/fast:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xztrd.dir/build.make TESTING/EIG/CMakeFiles/xztrd.dir/build
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xztrd.dir/build.make TESTING/EIG/CMakeFiles/xztrd.dir/build
 .PHONY : xztrd/fast
 
 # Convenience name for target.
 TESTING/EIG/CMakeFiles/xssvd.dir/rule:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 TESTING/EIG/CMakeFiles/xssvd.dir/rule
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 TESTING/EIG/CMakeFiles/xssvd.dir/rule
 .PHONY : TESTING/EIG/CMakeFiles/xssvd.dir/rule
 
 # Convenience name for target.
@@ -370,12 +370,12 @@ xssvd: TESTING/EIG/CMakeFiles/xssvd.dir/rule
 
 # fast build rule for target.
 xssvd/fast:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssvd.dir/build.make TESTING/EIG/CMakeFiles/xssvd.dir/build
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssvd.dir/build.make TESTING/EIG/CMakeFiles/xssvd.dir/build
 .PHONY : xssvd/fast
 
 # Convenience name for target.
 TESTING/EIG/CMakeFiles/xdsvd.dir/rule:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 TESTING/EIG/CMakeFiles/xdsvd.dir/rule
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 TESTING/EIG/CMakeFiles/xdsvd.dir/rule
 .PHONY : TESTING/EIG/CMakeFiles/xdsvd.dir/rule
 
 # Convenience name for target.
@@ -384,12 +384,12 @@ xdsvd: TESTING/EIG/CMakeFiles/xdsvd.dir/rule
 
 # fast build rule for target.
 xdsvd/fast:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsvd.dir/build.make TESTING/EIG/CMakeFiles/xdsvd.dir/build
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsvd.dir/build.make TESTING/EIG/CMakeFiles/xdsvd.dir/build
 .PHONY : xdsvd/fast
 
 # Convenience name for target.
 TESTING/EIG/CMakeFiles/xssep.dir/rule:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 TESTING/EIG/CMakeFiles/xssep.dir/rule
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 TESTING/EIG/CMakeFiles/xssep.dir/rule
 .PHONY : TESTING/EIG/CMakeFiles/xssep.dir/rule
 
 # Convenience name for target.
@@ -398,12 +398,12 @@ xssep: TESTING/EIG/CMakeFiles/xssep.dir/rule
 
 # fast build rule for target.
 xssep/fast:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssep.dir/build.make TESTING/EIG/CMakeFiles/xssep.dir/build
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssep.dir/build.make TESTING/EIG/CMakeFiles/xssep.dir/build
 .PHONY : xssep/fast
 
 # Convenience name for target.
 TESTING/EIG/CMakeFiles/xdsep.dir/rule:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 TESTING/EIG/CMakeFiles/xdsep.dir/rule
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 TESTING/EIG/CMakeFiles/xdsep.dir/rule
 .PHONY : TESTING/EIG/CMakeFiles/xdsep.dir/rule
 
 # Convenience name for target.
@@ -412,12 +412,12 @@ xdsep: TESTING/EIG/CMakeFiles/xdsep.dir/rule
 
 # fast build rule for target.
 xdsep/fast:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsep.dir/build.make TESTING/EIG/CMakeFiles/xdsep.dir/build
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsep.dir/build.make TESTING/EIG/CMakeFiles/xdsep.dir/build
 .PHONY : xdsep/fast
 
 # Convenience name for target.
 TESTING/EIG/CMakeFiles/xcsep.dir/rule:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 TESTING/EIG/CMakeFiles/xcsep.dir/rule
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 TESTING/EIG/CMakeFiles/xcsep.dir/rule
 .PHONY : TESTING/EIG/CMakeFiles/xcsep.dir/rule
 
 # Convenience name for target.
@@ -426,12 +426,12 @@ xcsep: TESTING/EIG/CMakeFiles/xcsep.dir/rule
 
 # fast build rule for target.
 xcsep/fast:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcsep.dir/build.make TESTING/EIG/CMakeFiles/xcsep.dir/build
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcsep.dir/build.make TESTING/EIG/CMakeFiles/xcsep.dir/build
 .PHONY : xcsep/fast
 
 # Convenience name for target.
 TESTING/EIG/CMakeFiles/xzsep.dir/rule:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 TESTING/EIG/CMakeFiles/xzsep.dir/rule
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 TESTING/EIG/CMakeFiles/xzsep.dir/rule
 .PHONY : TESTING/EIG/CMakeFiles/xzsep.dir/rule
 
 # Convenience name for target.
@@ -440,12 +440,12 @@ xzsep: TESTING/EIG/CMakeFiles/xzsep.dir/rule
 
 # fast build rule for target.
 xzsep/fast:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzsep.dir/build.make TESTING/EIG/CMakeFiles/xzsep.dir/build
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzsep.dir/build.make TESTING/EIG/CMakeFiles/xzsep.dir/build
 .PHONY : xzsep/fast
 
 # Convenience name for target.
 TESTING/EIG/CMakeFiles/xsgsep.dir/rule:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 TESTING/EIG/CMakeFiles/xsgsep.dir/rule
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 TESTING/EIG/CMakeFiles/xsgsep.dir/rule
 .PHONY : TESTING/EIG/CMakeFiles/xsgsep.dir/rule
 
 # Convenience name for target.
@@ -454,12 +454,12 @@ xsgsep: TESTING/EIG/CMakeFiles/xsgsep.dir/rule
 
 # fast build rule for target.
 xsgsep/fast:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xsgsep.dir/build.make TESTING/EIG/CMakeFiles/xsgsep.dir/build
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xsgsep.dir/build.make TESTING/EIG/CMakeFiles/xsgsep.dir/build
 .PHONY : xsgsep/fast
 
 # Convenience name for target.
 TESTING/EIG/CMakeFiles/xdgsep.dir/rule:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 TESTING/EIG/CMakeFiles/xdgsep.dir/rule
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 TESTING/EIG/CMakeFiles/xdgsep.dir/rule
 .PHONY : TESTING/EIG/CMakeFiles/xdgsep.dir/rule
 
 # Convenience name for target.
@@ -468,12 +468,12 @@ xdgsep: TESTING/EIG/CMakeFiles/xdgsep.dir/rule
 
 # fast build rule for target.
 xdgsep/fast:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdgsep.dir/build.make TESTING/EIG/CMakeFiles/xdgsep.dir/build
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdgsep.dir/build.make TESTING/EIG/CMakeFiles/xdgsep.dir/build
 .PHONY : xdgsep/fast
 
 # Convenience name for target.
 TESTING/EIG/CMakeFiles/xcgsep.dir/rule:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 TESTING/EIG/CMakeFiles/xcgsep.dir/rule
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 TESTING/EIG/CMakeFiles/xcgsep.dir/rule
 .PHONY : TESTING/EIG/CMakeFiles/xcgsep.dir/rule
 
 # Convenience name for target.
@@ -482,12 +482,12 @@ xcgsep: TESTING/EIG/CMakeFiles/xcgsep.dir/rule
 
 # fast build rule for target.
 xcgsep/fast:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcgsep.dir/build.make TESTING/EIG/CMakeFiles/xcgsep.dir/build
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcgsep.dir/build.make TESTING/EIG/CMakeFiles/xcgsep.dir/build
 .PHONY : xcgsep/fast
 
 # Convenience name for target.
 TESTING/EIG/CMakeFiles/xzgsep.dir/rule:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 TESTING/EIG/CMakeFiles/xzgsep.dir/rule
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 TESTING/EIG/CMakeFiles/xzgsep.dir/rule
 .PHONY : TESTING/EIG/CMakeFiles/xzgsep.dir/rule
 
 # Convenience name for target.
@@ -496,12 +496,12 @@ xzgsep: TESTING/EIG/CMakeFiles/xzgsep.dir/rule
 
 # fast build rule for target.
 xzgsep/fast:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzgsep.dir/build.make TESTING/EIG/CMakeFiles/xzgsep.dir/build
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzgsep.dir/build.make TESTING/EIG/CMakeFiles/xzgsep.dir/build
 .PHONY : xzgsep/fast
 
 # Convenience name for target.
 TESTING/EIG/CMakeFiles/xsnep.dir/rule:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 TESTING/EIG/CMakeFiles/xsnep.dir/rule
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 TESTING/EIG/CMakeFiles/xsnep.dir/rule
 .PHONY : TESTING/EIG/CMakeFiles/xsnep.dir/rule
 
 # Convenience name for target.
@@ -510,12 +510,12 @@ xsnep: TESTING/EIG/CMakeFiles/xsnep.dir/rule
 
 # fast build rule for target.
 xsnep/fast:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xsnep.dir/build.make TESTING/EIG/CMakeFiles/xsnep.dir/build
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xsnep.dir/build.make TESTING/EIG/CMakeFiles/xsnep.dir/build
 .PHONY : xsnep/fast
 
 # Convenience name for target.
 TESTING/EIG/CMakeFiles/xdnep.dir/rule:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 TESTING/EIG/CMakeFiles/xdnep.dir/rule
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 TESTING/EIG/CMakeFiles/xdnep.dir/rule
 .PHONY : TESTING/EIG/CMakeFiles/xdnep.dir/rule
 
 # Convenience name for target.
@@ -524,12 +524,12 @@ xdnep: TESTING/EIG/CMakeFiles/xdnep.dir/rule
 
 # fast build rule for target.
 xdnep/fast:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdnep.dir/build.make TESTING/EIG/CMakeFiles/xdnep.dir/build
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdnep.dir/build.make TESTING/EIG/CMakeFiles/xdnep.dir/build
 .PHONY : xdnep/fast
 
 # Convenience name for target.
 TESTING/EIG/CMakeFiles/xcnep.dir/rule:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 TESTING/EIG/CMakeFiles/xcnep.dir/rule
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 TESTING/EIG/CMakeFiles/xcnep.dir/rule
 .PHONY : TESTING/EIG/CMakeFiles/xcnep.dir/rule
 
 # Convenience name for target.
@@ -538,12 +538,12 @@ xcnep: TESTING/EIG/CMakeFiles/xcnep.dir/rule
 
 # fast build rule for target.
 xcnep/fast:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcnep.dir/build.make TESTING/EIG/CMakeFiles/xcnep.dir/build
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcnep.dir/build.make TESTING/EIG/CMakeFiles/xcnep.dir/build
 .PHONY : xcnep/fast
 
 # Convenience name for target.
 TESTING/EIG/CMakeFiles/xznep.dir/rule:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 TESTING/EIG/CMakeFiles/xznep.dir/rule
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 TESTING/EIG/CMakeFiles/xznep.dir/rule
 .PHONY : TESTING/EIG/CMakeFiles/xznep.dir/rule
 
 # Convenience name for target.
@@ -552,12 +552,12 @@ xznep: TESTING/EIG/CMakeFiles/xznep.dir/rule
 
 # fast build rule for target.
 xznep/fast:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xznep.dir/build.make TESTING/EIG/CMakeFiles/xznep.dir/build
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xznep.dir/build.make TESTING/EIG/CMakeFiles/xznep.dir/build
 .PHONY : xznep/fast
 
 # Convenience name for target.
 TESTING/EIG/CMakeFiles/xcevc.dir/rule:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 TESTING/EIG/CMakeFiles/xcevc.dir/rule
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 TESTING/EIG/CMakeFiles/xcevc.dir/rule
 .PHONY : TESTING/EIG/CMakeFiles/xcevc.dir/rule
 
 # Convenience name for target.
@@ -566,12 +566,12 @@ xcevc: TESTING/EIG/CMakeFiles/xcevc.dir/rule
 
 # fast build rule for target.
 xcevc/fast:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcevc.dir/build.make TESTING/EIG/CMakeFiles/xcevc.dir/build
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcevc.dir/build.make TESTING/EIG/CMakeFiles/xcevc.dir/build
 .PHONY : xcevc/fast
 
 # Convenience name for target.
 TESTING/EIG/CMakeFiles/xzevc.dir/rule:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 TESTING/EIG/CMakeFiles/xzevc.dir/rule
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 TESTING/EIG/CMakeFiles/xzevc.dir/rule
 .PHONY : TESTING/EIG/CMakeFiles/xzevc.dir/rule
 
 # Convenience name for target.
@@ -580,12 +580,12 @@ xzevc: TESTING/EIG/CMakeFiles/xzevc.dir/rule
 
 # fast build rule for target.
 xzevc/fast:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzevc.dir/build.make TESTING/EIG/CMakeFiles/xzevc.dir/build
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzevc.dir/build.make TESTING/EIG/CMakeFiles/xzevc.dir/build
 .PHONY : xzevc/fast
 
 # Convenience name for target.
 TESTING/EIG/CMakeFiles/xssyevr.dir/rule:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 TESTING/EIG/CMakeFiles/xssyevr.dir/rule
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 TESTING/EIG/CMakeFiles/xssyevr.dir/rule
 .PHONY : TESTING/EIG/CMakeFiles/xssyevr.dir/rule
 
 # Convenience name for target.
@@ -594,12 +594,12 @@ xssyevr: TESTING/EIG/CMakeFiles/xssyevr.dir/rule
 
 # fast build rule for target.
 xssyevr/fast:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssyevr.dir/build.make TESTING/EIG/CMakeFiles/xssyevr.dir/build
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssyevr.dir/build.make TESTING/EIG/CMakeFiles/xssyevr.dir/build
 .PHONY : xssyevr/fast
 
 # Convenience name for target.
 TESTING/EIG/CMakeFiles/xdsyevr.dir/rule:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 TESTING/EIG/CMakeFiles/xdsyevr.dir/rule
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 TESTING/EIG/CMakeFiles/xdsyevr.dir/rule
 .PHONY : TESTING/EIG/CMakeFiles/xdsyevr.dir/rule
 
 # Convenience name for target.
@@ -608,12 +608,12 @@ xdsyevr: TESTING/EIG/CMakeFiles/xdsyevr.dir/rule
 
 # fast build rule for target.
 xdsyevr/fast:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsyevr.dir/build.make TESTING/EIG/CMakeFiles/xdsyevr.dir/build
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsyevr.dir/build.make TESTING/EIG/CMakeFiles/xdsyevr.dir/build
 .PHONY : xdsyevr/fast
 
 # Convenience name for target.
 TESTING/EIG/CMakeFiles/xcheevr.dir/rule:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 TESTING/EIG/CMakeFiles/xcheevr.dir/rule
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 TESTING/EIG/CMakeFiles/xcheevr.dir/rule
 .PHONY : TESTING/EIG/CMakeFiles/xcheevr.dir/rule
 
 # Convenience name for target.
@@ -622,12 +622,12 @@ xcheevr: TESTING/EIG/CMakeFiles/xcheevr.dir/rule
 
 # fast build rule for target.
 xcheevr/fast:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcheevr.dir/build.make TESTING/EIG/CMakeFiles/xcheevr.dir/build
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcheevr.dir/build.make TESTING/EIG/CMakeFiles/xcheevr.dir/build
 .PHONY : xcheevr/fast
 
 # Convenience name for target.
 TESTING/EIG/CMakeFiles/xzheevr.dir/rule:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 TESTING/EIG/CMakeFiles/xzheevr.dir/rule
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 TESTING/EIG/CMakeFiles/xzheevr.dir/rule
 .PHONY : TESTING/EIG/CMakeFiles/xzheevr.dir/rule
 
 # Convenience name for target.
@@ -636,12 +636,12 @@ xzheevr: TESTING/EIG/CMakeFiles/xzheevr.dir/rule
 
 # fast build rule for target.
 xzheevr/fast:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzheevr.dir/build.make TESTING/EIG/CMakeFiles/xzheevr.dir/build
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzheevr.dir/build.make TESTING/EIG/CMakeFiles/xzheevr.dir/build
 .PHONY : xzheevr/fast
 
 # Convenience name for target.
 TESTING/EIG/CMakeFiles/xshseqr.dir/rule:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 TESTING/EIG/CMakeFiles/xshseqr.dir/rule
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 TESTING/EIG/CMakeFiles/xshseqr.dir/rule
 .PHONY : TESTING/EIG/CMakeFiles/xshseqr.dir/rule
 
 # Convenience name for target.
@@ -650,12 +650,12 @@ xshseqr: TESTING/EIG/CMakeFiles/xshseqr.dir/rule
 
 # fast build rule for target.
 xshseqr/fast:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xshseqr.dir/build.make TESTING/EIG/CMakeFiles/xshseqr.dir/build
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xshseqr.dir/build.make TESTING/EIG/CMakeFiles/xshseqr.dir/build
 .PHONY : xshseqr/fast
 
 # Convenience name for target.
 TESTING/EIG/CMakeFiles/xdhseqr.dir/rule:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 TESTING/EIG/CMakeFiles/xdhseqr.dir/rule
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 TESTING/EIG/CMakeFiles/xdhseqr.dir/rule
 .PHONY : TESTING/EIG/CMakeFiles/xdhseqr.dir/rule
 
 # Convenience name for target.
@@ -664,7 +664,7 @@ xdhseqr: TESTING/EIG/CMakeFiles/xdhseqr.dir/rule
 
 # fast build rule for target.
 xdhseqr/fast:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdhseqr.dir/build.make TESTING/EIG/CMakeFiles/xdhseqr.dir/build
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdhseqr.dir/build.make TESTING/EIG/CMakeFiles/xdhseqr.dir/build
 .PHONY : xdhseqr/fast
 
 pcbrddriver.o: pcbrddriver.f.o
@@ -672,7 +672,7 @@ pcbrddriver.o: pcbrddriver.f.o
 
 # target to build an object file
 pcbrddriver.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcbrd.dir/build.make TESTING/EIG/CMakeFiles/xcbrd.dir/pcbrddriver.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcbrd.dir/build.make TESTING/EIG/CMakeFiles/xcbrd.dir/pcbrddriver.f.o
 .PHONY : pcbrddriver.f.o
 
 pcbrddriver.i: pcbrddriver.f.i
@@ -680,7 +680,7 @@ pcbrddriver.i: pcbrddriver.f.i
 
 # target to preprocess a source file
 pcbrddriver.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcbrd.dir/build.make TESTING/EIG/CMakeFiles/xcbrd.dir/pcbrddriver.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcbrd.dir/build.make TESTING/EIG/CMakeFiles/xcbrd.dir/pcbrddriver.f.i
 .PHONY : pcbrddriver.f.i
 
 pcbrddriver.s: pcbrddriver.f.s
@@ -688,7 +688,7 @@ pcbrddriver.s: pcbrddriver.f.s
 
 # target to generate assembly for a file
 pcbrddriver.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcbrd.dir/build.make TESTING/EIG/CMakeFiles/xcbrd.dir/pcbrddriver.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcbrd.dir/build.make TESTING/EIG/CMakeFiles/xcbrd.dir/pcbrddriver.f.s
 .PHONY : pcbrddriver.f.s
 
 pcbrdinfo.o: pcbrdinfo.f.o
@@ -696,7 +696,7 @@ pcbrdinfo.o: pcbrdinfo.f.o
 
 # target to build an object file
 pcbrdinfo.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcbrd.dir/build.make TESTING/EIG/CMakeFiles/xcbrd.dir/pcbrdinfo.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcbrd.dir/build.make TESTING/EIG/CMakeFiles/xcbrd.dir/pcbrdinfo.f.o
 .PHONY : pcbrdinfo.f.o
 
 pcbrdinfo.i: pcbrdinfo.f.i
@@ -704,7 +704,7 @@ pcbrdinfo.i: pcbrdinfo.f.i
 
 # target to preprocess a source file
 pcbrdinfo.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcbrd.dir/build.make TESTING/EIG/CMakeFiles/xcbrd.dir/pcbrdinfo.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcbrd.dir/build.make TESTING/EIG/CMakeFiles/xcbrd.dir/pcbrdinfo.f.i
 .PHONY : pcbrdinfo.f.i
 
 pcbrdinfo.s: pcbrdinfo.f.s
@@ -712,7 +712,7 @@ pcbrdinfo.s: pcbrdinfo.f.s
 
 # target to generate assembly for a file
 pcbrdinfo.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcbrd.dir/build.make TESTING/EIG/CMakeFiles/xcbrd.dir/pcbrdinfo.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcbrd.dir/build.make TESTING/EIG/CMakeFiles/xcbrd.dir/pcbrdinfo.f.s
 .PHONY : pcbrdinfo.f.s
 
 pcevcdriver.o: pcevcdriver.f.o
@@ -720,7 +720,7 @@ pcevcdriver.o: pcevcdriver.f.o
 
 # target to build an object file
 pcevcdriver.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcevc.dir/build.make TESTING/EIG/CMakeFiles/xcevc.dir/pcevcdriver.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcevc.dir/build.make TESTING/EIG/CMakeFiles/xcevc.dir/pcevcdriver.f.o
 .PHONY : pcevcdriver.f.o
 
 pcevcdriver.i: pcevcdriver.f.i
@@ -728,7 +728,7 @@ pcevcdriver.i: pcevcdriver.f.i
 
 # target to preprocess a source file
 pcevcdriver.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcevc.dir/build.make TESTING/EIG/CMakeFiles/xcevc.dir/pcevcdriver.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcevc.dir/build.make TESTING/EIG/CMakeFiles/xcevc.dir/pcevcdriver.f.i
 .PHONY : pcevcdriver.f.i
 
 pcevcdriver.s: pcevcdriver.f.s
@@ -736,7 +736,7 @@ pcevcdriver.s: pcevcdriver.f.s
 
 # target to generate assembly for a file
 pcevcdriver.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcevc.dir/build.make TESTING/EIG/CMakeFiles/xcevc.dir/pcevcdriver.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcevc.dir/build.make TESTING/EIG/CMakeFiles/xcevc.dir/pcevcdriver.f.s
 .PHONY : pcevcdriver.f.s
 
 pcevcinfo.o: pcevcinfo.f.o
@@ -744,7 +744,7 @@ pcevcinfo.o: pcevcinfo.f.o
 
 # target to build an object file
 pcevcinfo.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcevc.dir/build.make TESTING/EIG/CMakeFiles/xcevc.dir/pcevcinfo.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcevc.dir/build.make TESTING/EIG/CMakeFiles/xcevc.dir/pcevcinfo.f.o
 .PHONY : pcevcinfo.f.o
 
 pcevcinfo.i: pcevcinfo.f.i
@@ -752,7 +752,7 @@ pcevcinfo.i: pcevcinfo.f.i
 
 # target to preprocess a source file
 pcevcinfo.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcevc.dir/build.make TESTING/EIG/CMakeFiles/xcevc.dir/pcevcinfo.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcevc.dir/build.make TESTING/EIG/CMakeFiles/xcevc.dir/pcevcinfo.f.i
 .PHONY : pcevcinfo.f.i
 
 pcevcinfo.s: pcevcinfo.f.s
@@ -760,7 +760,7 @@ pcevcinfo.s: pcevcinfo.f.s
 
 # target to generate assembly for a file
 pcevcinfo.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcevc.dir/build.make TESTING/EIG/CMakeFiles/xcevc.dir/pcevcinfo.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcevc.dir/build.make TESTING/EIG/CMakeFiles/xcevc.dir/pcevcinfo.f.s
 .PHONY : pcevcinfo.f.s
 
 pcgebdrv.o: pcgebdrv.f.o
@@ -768,7 +768,7 @@ pcgebdrv.o: pcgebdrv.f.o
 
 # target to build an object file
 pcgebdrv.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcbrd.dir/build.make TESTING/EIG/CMakeFiles/xcbrd.dir/pcgebdrv.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcbrd.dir/build.make TESTING/EIG/CMakeFiles/xcbrd.dir/pcgebdrv.f.o
 .PHONY : pcgebdrv.f.o
 
 pcgebdrv.i: pcgebdrv.f.i
@@ -776,7 +776,7 @@ pcgebdrv.i: pcgebdrv.f.i
 
 # target to preprocess a source file
 pcgebdrv.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcbrd.dir/build.make TESTING/EIG/CMakeFiles/xcbrd.dir/pcgebdrv.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcbrd.dir/build.make TESTING/EIG/CMakeFiles/xcbrd.dir/pcgebdrv.f.i
 .PHONY : pcgebdrv.f.i
 
 pcgebdrv.s: pcgebdrv.f.s
@@ -784,7 +784,7 @@ pcgebdrv.s: pcgebdrv.f.s
 
 # target to generate assembly for a file
 pcgebdrv.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcbrd.dir/build.make TESTING/EIG/CMakeFiles/xcbrd.dir/pcgebdrv.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcbrd.dir/build.make TESTING/EIG/CMakeFiles/xcbrd.dir/pcgebdrv.f.s
 .PHONY : pcgebdrv.f.s
 
 pcgehdrv.o: pcgehdrv.f.o
@@ -792,7 +792,7 @@ pcgehdrv.o: pcgehdrv.f.o
 
 # target to build an object file
 pcgehdrv.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xchrd.dir/build.make TESTING/EIG/CMakeFiles/xchrd.dir/pcgehdrv.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xchrd.dir/build.make TESTING/EIG/CMakeFiles/xchrd.dir/pcgehdrv.f.o
 .PHONY : pcgehdrv.f.o
 
 pcgehdrv.i: pcgehdrv.f.i
@@ -800,7 +800,7 @@ pcgehdrv.i: pcgehdrv.f.i
 
 # target to preprocess a source file
 pcgehdrv.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xchrd.dir/build.make TESTING/EIG/CMakeFiles/xchrd.dir/pcgehdrv.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xchrd.dir/build.make TESTING/EIG/CMakeFiles/xchrd.dir/pcgehdrv.f.i
 .PHONY : pcgehdrv.f.i
 
 pcgehdrv.s: pcgehdrv.f.s
@@ -808,7 +808,7 @@ pcgehdrv.s: pcgehdrv.f.s
 
 # target to generate assembly for a file
 pcgehdrv.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xchrd.dir/build.make TESTING/EIG/CMakeFiles/xchrd.dir/pcgehdrv.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xchrd.dir/build.make TESTING/EIG/CMakeFiles/xchrd.dir/pcgehdrv.f.s
 .PHONY : pcgehdrv.f.s
 
 pcget22.o: pcget22.f.o
@@ -816,7 +816,7 @@ pcget22.o: pcget22.f.o
 
 # target to build an object file
 pcget22.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcevc.dir/build.make TESTING/EIG/CMakeFiles/xcevc.dir/pcget22.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcevc.dir/build.make TESTING/EIG/CMakeFiles/xcevc.dir/pcget22.f.o
 .PHONY : pcget22.f.o
 
 pcget22.i: pcget22.f.i
@@ -824,7 +824,7 @@ pcget22.i: pcget22.f.i
 
 # target to preprocess a source file
 pcget22.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcevc.dir/build.make TESTING/EIG/CMakeFiles/xcevc.dir/pcget22.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcevc.dir/build.make TESTING/EIG/CMakeFiles/xcevc.dir/pcget22.f.i
 .PHONY : pcget22.f.i
 
 pcget22.s: pcget22.f.s
@@ -832,7 +832,7 @@ pcget22.s: pcget22.f.s
 
 # target to generate assembly for a file
 pcget22.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcevc.dir/build.make TESTING/EIG/CMakeFiles/xcevc.dir/pcget22.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcevc.dir/build.make TESTING/EIG/CMakeFiles/xcevc.dir/pcget22.f.s
 .PHONY : pcget22.f.s
 
 pcgsepchk.o: pcgsepchk.f.o
@@ -840,7 +840,7 @@ pcgsepchk.o: pcgsepchk.f.o
 
 # target to build an object file
 pcgsepchk.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcgsep.dir/build.make TESTING/EIG/CMakeFiles/xcgsep.dir/pcgsepchk.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcgsep.dir/build.make TESTING/EIG/CMakeFiles/xcgsep.dir/pcgsepchk.f.o
 .PHONY : pcgsepchk.f.o
 
 pcgsepchk.i: pcgsepchk.f.i
@@ -848,7 +848,7 @@ pcgsepchk.i: pcgsepchk.f.i
 
 # target to preprocess a source file
 pcgsepchk.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcgsep.dir/build.make TESTING/EIG/CMakeFiles/xcgsep.dir/pcgsepchk.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcgsep.dir/build.make TESTING/EIG/CMakeFiles/xcgsep.dir/pcgsepchk.f.i
 .PHONY : pcgsepchk.f.i
 
 pcgsepchk.s: pcgsepchk.f.s
@@ -856,7 +856,7 @@ pcgsepchk.s: pcgsepchk.f.s
 
 # target to generate assembly for a file
 pcgsepchk.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcgsep.dir/build.make TESTING/EIG/CMakeFiles/xcgsep.dir/pcgsepchk.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcgsep.dir/build.make TESTING/EIG/CMakeFiles/xcgsep.dir/pcgsepchk.f.s
 .PHONY : pcgsepchk.f.s
 
 pcgsepdriver.o: pcgsepdriver.f.o
@@ -864,7 +864,7 @@ pcgsepdriver.o: pcgsepdriver.f.o
 
 # target to build an object file
 pcgsepdriver.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcgsep.dir/build.make TESTING/EIG/CMakeFiles/xcgsep.dir/pcgsepdriver.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcgsep.dir/build.make TESTING/EIG/CMakeFiles/xcgsep.dir/pcgsepdriver.f.o
 .PHONY : pcgsepdriver.f.o
 
 pcgsepdriver.i: pcgsepdriver.f.i
@@ -872,7 +872,7 @@ pcgsepdriver.i: pcgsepdriver.f.i
 
 # target to preprocess a source file
 pcgsepdriver.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcgsep.dir/build.make TESTING/EIG/CMakeFiles/xcgsep.dir/pcgsepdriver.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcgsep.dir/build.make TESTING/EIG/CMakeFiles/xcgsep.dir/pcgsepdriver.f.i
 .PHONY : pcgsepdriver.f.i
 
 pcgsepdriver.s: pcgsepdriver.f.s
@@ -880,7 +880,7 @@ pcgsepdriver.s: pcgsepdriver.f.s
 
 # target to generate assembly for a file
 pcgsepdriver.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcgsep.dir/build.make TESTING/EIG/CMakeFiles/xcgsep.dir/pcgsepdriver.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcgsep.dir/build.make TESTING/EIG/CMakeFiles/xcgsep.dir/pcgsepdriver.f.s
 .PHONY : pcgsepdriver.f.s
 
 pcgsepreq.o: pcgsepreq.f.o
@@ -888,7 +888,7 @@ pcgsepreq.o: pcgsepreq.f.o
 
 # target to build an object file
 pcgsepreq.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcgsep.dir/build.make TESTING/EIG/CMakeFiles/xcgsep.dir/pcgsepreq.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcgsep.dir/build.make TESTING/EIG/CMakeFiles/xcgsep.dir/pcgsepreq.f.o
 .PHONY : pcgsepreq.f.o
 
 pcgsepreq.i: pcgsepreq.f.i
@@ -896,7 +896,7 @@ pcgsepreq.i: pcgsepreq.f.i
 
 # target to preprocess a source file
 pcgsepreq.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcgsep.dir/build.make TESTING/EIG/CMakeFiles/xcgsep.dir/pcgsepreq.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcgsep.dir/build.make TESTING/EIG/CMakeFiles/xcgsep.dir/pcgsepreq.f.i
 .PHONY : pcgsepreq.f.i
 
 pcgsepreq.s: pcgsepreq.f.s
@@ -904,7 +904,7 @@ pcgsepreq.s: pcgsepreq.f.s
 
 # target to generate assembly for a file
 pcgsepreq.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcgsep.dir/build.make TESTING/EIG/CMakeFiles/xcgsep.dir/pcgsepreq.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcgsep.dir/build.make TESTING/EIG/CMakeFiles/xcgsep.dir/pcgsepreq.f.s
 .PHONY : pcgsepreq.f.s
 
 pcgsepsubtst.o: pcgsepsubtst.f.o
@@ -912,7 +912,7 @@ pcgsepsubtst.o: pcgsepsubtst.f.o
 
 # target to build an object file
 pcgsepsubtst.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcgsep.dir/build.make TESTING/EIG/CMakeFiles/xcgsep.dir/pcgsepsubtst.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcgsep.dir/build.make TESTING/EIG/CMakeFiles/xcgsep.dir/pcgsepsubtst.f.o
 .PHONY : pcgsepsubtst.f.o
 
 pcgsepsubtst.i: pcgsepsubtst.f.i
@@ -920,7 +920,7 @@ pcgsepsubtst.i: pcgsepsubtst.f.i
 
 # target to preprocess a source file
 pcgsepsubtst.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcgsep.dir/build.make TESTING/EIG/CMakeFiles/xcgsep.dir/pcgsepsubtst.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcgsep.dir/build.make TESTING/EIG/CMakeFiles/xcgsep.dir/pcgsepsubtst.f.i
 .PHONY : pcgsepsubtst.f.i
 
 pcgsepsubtst.s: pcgsepsubtst.f.s
@@ -928,7 +928,7 @@ pcgsepsubtst.s: pcgsepsubtst.f.s
 
 # target to generate assembly for a file
 pcgsepsubtst.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcgsep.dir/build.make TESTING/EIG/CMakeFiles/xcgsep.dir/pcgsepsubtst.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcgsep.dir/build.make TESTING/EIG/CMakeFiles/xcgsep.dir/pcgsepsubtst.f.s
 .PHONY : pcgsepsubtst.f.s
 
 pcgseptst.o: pcgseptst.f.o
@@ -936,7 +936,7 @@ pcgseptst.o: pcgseptst.f.o
 
 # target to build an object file
 pcgseptst.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcgsep.dir/build.make TESTING/EIG/CMakeFiles/xcgsep.dir/pcgseptst.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcgsep.dir/build.make TESTING/EIG/CMakeFiles/xcgsep.dir/pcgseptst.f.o
 .PHONY : pcgseptst.f.o
 
 pcgseptst.i: pcgseptst.f.i
@@ -944,7 +944,7 @@ pcgseptst.i: pcgseptst.f.i
 
 # target to preprocess a source file
 pcgseptst.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcgsep.dir/build.make TESTING/EIG/CMakeFiles/xcgsep.dir/pcgseptst.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcgsep.dir/build.make TESTING/EIG/CMakeFiles/xcgsep.dir/pcgseptst.f.i
 .PHONY : pcgseptst.f.i
 
 pcgseptst.s: pcgseptst.f.s
@@ -952,7 +952,7 @@ pcgseptst.s: pcgseptst.f.s
 
 # target to generate assembly for a file
 pcgseptst.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcgsep.dir/build.make TESTING/EIG/CMakeFiles/xcgsep.dir/pcgseptst.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcgsep.dir/build.make TESTING/EIG/CMakeFiles/xcgsep.dir/pcgseptst.f.s
 .PHONY : pcgseptst.f.s
 
 pchetdrv.o: pchetdrv.f.o
@@ -960,7 +960,7 @@ pchetdrv.o: pchetdrv.f.o
 
 # target to build an object file
 pchetdrv.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xctrd.dir/build.make TESTING/EIG/CMakeFiles/xctrd.dir/pchetdrv.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xctrd.dir/build.make TESTING/EIG/CMakeFiles/xctrd.dir/pchetdrv.f.o
 .PHONY : pchetdrv.f.o
 
 pchetdrv.i: pchetdrv.f.i
@@ -968,7 +968,7 @@ pchetdrv.i: pchetdrv.f.i
 
 # target to preprocess a source file
 pchetdrv.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xctrd.dir/build.make TESTING/EIG/CMakeFiles/xctrd.dir/pchetdrv.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xctrd.dir/build.make TESTING/EIG/CMakeFiles/xctrd.dir/pchetdrv.f.i
 .PHONY : pchetdrv.f.i
 
 pchetdrv.s: pchetdrv.f.s
@@ -976,7 +976,7 @@ pchetdrv.s: pchetdrv.f.s
 
 # target to generate assembly for a file
 pchetdrv.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xctrd.dir/build.make TESTING/EIG/CMakeFiles/xctrd.dir/pchetdrv.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xctrd.dir/build.make TESTING/EIG/CMakeFiles/xctrd.dir/pchetdrv.f.s
 .PHONY : pchetdrv.f.s
 
 pchrddriver.o: pchrddriver.f.o
@@ -984,7 +984,7 @@ pchrddriver.o: pchrddriver.f.o
 
 # target to build an object file
 pchrddriver.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xchrd.dir/build.make TESTING/EIG/CMakeFiles/xchrd.dir/pchrddriver.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xchrd.dir/build.make TESTING/EIG/CMakeFiles/xchrd.dir/pchrddriver.f.o
 .PHONY : pchrddriver.f.o
 
 pchrddriver.i: pchrddriver.f.i
@@ -992,7 +992,7 @@ pchrddriver.i: pchrddriver.f.i
 
 # target to preprocess a source file
 pchrddriver.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xchrd.dir/build.make TESTING/EIG/CMakeFiles/xchrd.dir/pchrddriver.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xchrd.dir/build.make TESTING/EIG/CMakeFiles/xchrd.dir/pchrddriver.f.i
 .PHONY : pchrddriver.f.i
 
 pchrddriver.s: pchrddriver.f.s
@@ -1000,7 +1000,7 @@ pchrddriver.s: pchrddriver.f.s
 
 # target to generate assembly for a file
 pchrddriver.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xchrd.dir/build.make TESTING/EIG/CMakeFiles/xchrd.dir/pchrddriver.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xchrd.dir/build.make TESTING/EIG/CMakeFiles/xchrd.dir/pchrddriver.f.s
 .PHONY : pchrddriver.f.s
 
 pchrdinfo.o: pchrdinfo.f.o
@@ -1008,7 +1008,7 @@ pchrdinfo.o: pchrdinfo.f.o
 
 # target to build an object file
 pchrdinfo.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xchrd.dir/build.make TESTING/EIG/CMakeFiles/xchrd.dir/pchrdinfo.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xchrd.dir/build.make TESTING/EIG/CMakeFiles/xchrd.dir/pchrdinfo.f.o
 .PHONY : pchrdinfo.f.o
 
 pchrdinfo.i: pchrdinfo.f.i
@@ -1016,7 +1016,7 @@ pchrdinfo.i: pchrdinfo.f.i
 
 # target to preprocess a source file
 pchrdinfo.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xchrd.dir/build.make TESTING/EIG/CMakeFiles/xchrd.dir/pchrdinfo.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xchrd.dir/build.make TESTING/EIG/CMakeFiles/xchrd.dir/pchrdinfo.f.i
 .PHONY : pchrdinfo.f.i
 
 pchrdinfo.s: pchrdinfo.f.s
@@ -1024,7 +1024,7 @@ pchrdinfo.s: pchrdinfo.f.s
 
 # target to generate assembly for a file
 pchrdinfo.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xchrd.dir/build.make TESTING/EIG/CMakeFiles/xchrd.dir/pchrdinfo.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xchrd.dir/build.make TESTING/EIG/CMakeFiles/xchrd.dir/pchrdinfo.f.s
 .PHONY : pchrdinfo.f.s
 
 pclafchk.o: pclafchk.f.o
@@ -1032,9 +1032,9 @@ pclafchk.o: pclafchk.f.o
 
 # target to build an object file
 pclafchk.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcbrd.dir/build.make TESTING/EIG/CMakeFiles/xcbrd.dir/pclafchk.f.o
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xchrd.dir/build.make TESTING/EIG/CMakeFiles/xchrd.dir/pclafchk.f.o
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xctrd.dir/build.make TESTING/EIG/CMakeFiles/xctrd.dir/pclafchk.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcbrd.dir/build.make TESTING/EIG/CMakeFiles/xcbrd.dir/pclafchk.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xchrd.dir/build.make TESTING/EIG/CMakeFiles/xchrd.dir/pclafchk.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xctrd.dir/build.make TESTING/EIG/CMakeFiles/xctrd.dir/pclafchk.f.o
 .PHONY : pclafchk.f.o
 
 pclafchk.i: pclafchk.f.i
@@ -1042,9 +1042,9 @@ pclafchk.i: pclafchk.f.i
 
 # target to preprocess a source file
 pclafchk.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcbrd.dir/build.make TESTING/EIG/CMakeFiles/xcbrd.dir/pclafchk.f.i
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xchrd.dir/build.make TESTING/EIG/CMakeFiles/xchrd.dir/pclafchk.f.i
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xctrd.dir/build.make TESTING/EIG/CMakeFiles/xctrd.dir/pclafchk.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcbrd.dir/build.make TESTING/EIG/CMakeFiles/xcbrd.dir/pclafchk.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xchrd.dir/build.make TESTING/EIG/CMakeFiles/xchrd.dir/pclafchk.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xctrd.dir/build.make TESTING/EIG/CMakeFiles/xctrd.dir/pclafchk.f.i
 .PHONY : pclafchk.f.i
 
 pclafchk.s: pclafchk.f.s
@@ -1052,9 +1052,9 @@ pclafchk.s: pclafchk.f.s
 
 # target to generate assembly for a file
 pclafchk.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcbrd.dir/build.make TESTING/EIG/CMakeFiles/xcbrd.dir/pclafchk.f.s
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xchrd.dir/build.make TESTING/EIG/CMakeFiles/xchrd.dir/pclafchk.f.s
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xctrd.dir/build.make TESTING/EIG/CMakeFiles/xctrd.dir/pclafchk.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcbrd.dir/build.make TESTING/EIG/CMakeFiles/xcbrd.dir/pclafchk.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xchrd.dir/build.make TESTING/EIG/CMakeFiles/xchrd.dir/pclafchk.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xctrd.dir/build.make TESTING/EIG/CMakeFiles/xctrd.dir/pclafchk.f.s
 .PHONY : pclafchk.f.s
 
 pclagsy.o: pclagsy.f.o
@@ -1062,9 +1062,9 @@ pclagsy.o: pclagsy.f.o
 
 # target to build an object file
 pclagsy.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcsep.dir/build.make TESTING/EIG/CMakeFiles/xcsep.dir/pclagsy.f.o
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcgsep.dir/build.make TESTING/EIG/CMakeFiles/xcgsep.dir/pclagsy.f.o
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcheevr.dir/build.make TESTING/EIG/CMakeFiles/xcheevr.dir/pclagsy.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcsep.dir/build.make TESTING/EIG/CMakeFiles/xcsep.dir/pclagsy.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcgsep.dir/build.make TESTING/EIG/CMakeFiles/xcgsep.dir/pclagsy.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcheevr.dir/build.make TESTING/EIG/CMakeFiles/xcheevr.dir/pclagsy.f.o
 .PHONY : pclagsy.f.o
 
 pclagsy.i: pclagsy.f.i
@@ -1072,9 +1072,9 @@ pclagsy.i: pclagsy.f.i
 
 # target to preprocess a source file
 pclagsy.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcsep.dir/build.make TESTING/EIG/CMakeFiles/xcsep.dir/pclagsy.f.i
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcgsep.dir/build.make TESTING/EIG/CMakeFiles/xcgsep.dir/pclagsy.f.i
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcheevr.dir/build.make TESTING/EIG/CMakeFiles/xcheevr.dir/pclagsy.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcsep.dir/build.make TESTING/EIG/CMakeFiles/xcsep.dir/pclagsy.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcgsep.dir/build.make TESTING/EIG/CMakeFiles/xcgsep.dir/pclagsy.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcheevr.dir/build.make TESTING/EIG/CMakeFiles/xcheevr.dir/pclagsy.f.i
 .PHONY : pclagsy.f.i
 
 pclagsy.s: pclagsy.f.s
@@ -1082,9 +1082,9 @@ pclagsy.s: pclagsy.f.s
 
 # target to generate assembly for a file
 pclagsy.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcsep.dir/build.make TESTING/EIG/CMakeFiles/xcsep.dir/pclagsy.f.s
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcgsep.dir/build.make TESTING/EIG/CMakeFiles/xcgsep.dir/pclagsy.f.s
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcheevr.dir/build.make TESTING/EIG/CMakeFiles/xcheevr.dir/pclagsy.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcsep.dir/build.make TESTING/EIG/CMakeFiles/xcsep.dir/pclagsy.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcgsep.dir/build.make TESTING/EIG/CMakeFiles/xcgsep.dir/pclagsy.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcheevr.dir/build.make TESTING/EIG/CMakeFiles/xcheevr.dir/pclagsy.f.s
 .PHONY : pclagsy.f.s
 
 pclasizegsep.o: pclasizegsep.f.o
@@ -1092,7 +1092,7 @@ pclasizegsep.o: pclasizegsep.f.o
 
 # target to build an object file
 pclasizegsep.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcgsep.dir/build.make TESTING/EIG/CMakeFiles/xcgsep.dir/pclasizegsep.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcgsep.dir/build.make TESTING/EIG/CMakeFiles/xcgsep.dir/pclasizegsep.f.o
 .PHONY : pclasizegsep.f.o
 
 pclasizegsep.i: pclasizegsep.f.i
@@ -1100,7 +1100,7 @@ pclasizegsep.i: pclasizegsep.f.i
 
 # target to preprocess a source file
 pclasizegsep.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcgsep.dir/build.make TESTING/EIG/CMakeFiles/xcgsep.dir/pclasizegsep.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcgsep.dir/build.make TESTING/EIG/CMakeFiles/xcgsep.dir/pclasizegsep.f.i
 .PHONY : pclasizegsep.f.i
 
 pclasizegsep.s: pclasizegsep.f.s
@@ -1108,7 +1108,7 @@ pclasizegsep.s: pclasizegsep.f.s
 
 # target to generate assembly for a file
 pclasizegsep.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcgsep.dir/build.make TESTING/EIG/CMakeFiles/xcgsep.dir/pclasizegsep.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcgsep.dir/build.make TESTING/EIG/CMakeFiles/xcgsep.dir/pclasizegsep.f.s
 .PHONY : pclasizegsep.f.s
 
 pclasizeheevr.o: pclasizeheevr.f.o
@@ -1116,7 +1116,7 @@ pclasizeheevr.o: pclasizeheevr.f.o
 
 # target to build an object file
 pclasizeheevr.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcheevr.dir/build.make TESTING/EIG/CMakeFiles/xcheevr.dir/pclasizeheevr.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcheevr.dir/build.make TESTING/EIG/CMakeFiles/xcheevr.dir/pclasizeheevr.f.o
 .PHONY : pclasizeheevr.f.o
 
 pclasizeheevr.i: pclasizeheevr.f.i
@@ -1124,7 +1124,7 @@ pclasizeheevr.i: pclasizeheevr.f.i
 
 # target to preprocess a source file
 pclasizeheevr.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcheevr.dir/build.make TESTING/EIG/CMakeFiles/xcheevr.dir/pclasizeheevr.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcheevr.dir/build.make TESTING/EIG/CMakeFiles/xcheevr.dir/pclasizeheevr.f.i
 .PHONY : pclasizeheevr.f.i
 
 pclasizeheevr.s: pclasizeheevr.f.s
@@ -1132,7 +1132,7 @@ pclasizeheevr.s: pclasizeheevr.f.s
 
 # target to generate assembly for a file
 pclasizeheevr.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcheevr.dir/build.make TESTING/EIG/CMakeFiles/xcheevr.dir/pclasizeheevr.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcheevr.dir/build.make TESTING/EIG/CMakeFiles/xcheevr.dir/pclasizeheevr.f.s
 .PHONY : pclasizeheevr.f.s
 
 pclasizeheevx.o: pclasizeheevx.f.o
@@ -1140,8 +1140,8 @@ pclasizeheevx.o: pclasizeheevx.f.o
 
 # target to build an object file
 pclasizeheevx.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcsep.dir/build.make TESTING/EIG/CMakeFiles/xcsep.dir/pclasizeheevx.f.o
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcgsep.dir/build.make TESTING/EIG/CMakeFiles/xcgsep.dir/pclasizeheevx.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcsep.dir/build.make TESTING/EIG/CMakeFiles/xcsep.dir/pclasizeheevx.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcgsep.dir/build.make TESTING/EIG/CMakeFiles/xcgsep.dir/pclasizeheevx.f.o
 .PHONY : pclasizeheevx.f.o
 
 pclasizeheevx.i: pclasizeheevx.f.i
@@ -1149,8 +1149,8 @@ pclasizeheevx.i: pclasizeheevx.f.i
 
 # target to preprocess a source file
 pclasizeheevx.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcsep.dir/build.make TESTING/EIG/CMakeFiles/xcsep.dir/pclasizeheevx.f.i
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcgsep.dir/build.make TESTING/EIG/CMakeFiles/xcgsep.dir/pclasizeheevx.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcsep.dir/build.make TESTING/EIG/CMakeFiles/xcsep.dir/pclasizeheevx.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcgsep.dir/build.make TESTING/EIG/CMakeFiles/xcgsep.dir/pclasizeheevx.f.i
 .PHONY : pclasizeheevx.f.i
 
 pclasizeheevx.s: pclasizeheevx.f.s
@@ -1158,8 +1158,8 @@ pclasizeheevx.s: pclasizeheevx.f.s
 
 # target to generate assembly for a file
 pclasizeheevx.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcsep.dir/build.make TESTING/EIG/CMakeFiles/xcsep.dir/pclasizeheevx.f.s
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcgsep.dir/build.make TESTING/EIG/CMakeFiles/xcgsep.dir/pclasizeheevx.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcsep.dir/build.make TESTING/EIG/CMakeFiles/xcsep.dir/pclasizeheevx.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcgsep.dir/build.make TESTING/EIG/CMakeFiles/xcgsep.dir/pclasizeheevx.f.s
 .PHONY : pclasizeheevx.f.s
 
 pclasizesep.o: pclasizesep.f.o
@@ -1167,9 +1167,9 @@ pclasizesep.o: pclasizesep.f.o
 
 # target to build an object file
 pclasizesep.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcsep.dir/build.make TESTING/EIG/CMakeFiles/xcsep.dir/pclasizesep.f.o
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcgsep.dir/build.make TESTING/EIG/CMakeFiles/xcgsep.dir/pclasizesep.f.o
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcheevr.dir/build.make TESTING/EIG/CMakeFiles/xcheevr.dir/pclasizesep.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcsep.dir/build.make TESTING/EIG/CMakeFiles/xcsep.dir/pclasizesep.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcgsep.dir/build.make TESTING/EIG/CMakeFiles/xcgsep.dir/pclasizesep.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcheevr.dir/build.make TESTING/EIG/CMakeFiles/xcheevr.dir/pclasizesep.f.o
 .PHONY : pclasizesep.f.o
 
 pclasizesep.i: pclasizesep.f.i
@@ -1177,9 +1177,9 @@ pclasizesep.i: pclasizesep.f.i
 
 # target to preprocess a source file
 pclasizesep.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcsep.dir/build.make TESTING/EIG/CMakeFiles/xcsep.dir/pclasizesep.f.i
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcgsep.dir/build.make TESTING/EIG/CMakeFiles/xcgsep.dir/pclasizesep.f.i
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcheevr.dir/build.make TESTING/EIG/CMakeFiles/xcheevr.dir/pclasizesep.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcsep.dir/build.make TESTING/EIG/CMakeFiles/xcsep.dir/pclasizesep.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcgsep.dir/build.make TESTING/EIG/CMakeFiles/xcgsep.dir/pclasizesep.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcheevr.dir/build.make TESTING/EIG/CMakeFiles/xcheevr.dir/pclasizesep.f.i
 .PHONY : pclasizesep.f.i
 
 pclasizesep.s: pclasizesep.f.s
@@ -1187,9 +1187,9 @@ pclasizesep.s: pclasizesep.f.s
 
 # target to generate assembly for a file
 pclasizesep.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcsep.dir/build.make TESTING/EIG/CMakeFiles/xcsep.dir/pclasizesep.f.s
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcgsep.dir/build.make TESTING/EIG/CMakeFiles/xcgsep.dir/pclasizesep.f.s
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcheevr.dir/build.make TESTING/EIG/CMakeFiles/xcheevr.dir/pclasizesep.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcsep.dir/build.make TESTING/EIG/CMakeFiles/xcsep.dir/pclasizesep.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcgsep.dir/build.make TESTING/EIG/CMakeFiles/xcgsep.dir/pclasizesep.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcheevr.dir/build.make TESTING/EIG/CMakeFiles/xcheevr.dir/pclasizesep.f.s
 .PHONY : pclasizesep.f.s
 
 pclasizesepr.o: pclasizesepr.f.o
@@ -1197,7 +1197,7 @@ pclasizesepr.o: pclasizesepr.f.o
 
 # target to build an object file
 pclasizesepr.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcheevr.dir/build.make TESTING/EIG/CMakeFiles/xcheevr.dir/pclasizesepr.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcheevr.dir/build.make TESTING/EIG/CMakeFiles/xcheevr.dir/pclasizesepr.f.o
 .PHONY : pclasizesepr.f.o
 
 pclasizesepr.i: pclasizesepr.f.i
@@ -1205,7 +1205,7 @@ pclasizesepr.i: pclasizesepr.f.i
 
 # target to preprocess a source file
 pclasizesepr.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcheevr.dir/build.make TESTING/EIG/CMakeFiles/xcheevr.dir/pclasizesepr.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcheevr.dir/build.make TESTING/EIG/CMakeFiles/xcheevr.dir/pclasizesepr.f.i
 .PHONY : pclasizesepr.f.i
 
 pclasizesepr.s: pclasizesepr.f.s
@@ -1213,7 +1213,7 @@ pclasizesepr.s: pclasizesepr.f.s
 
 # target to generate assembly for a file
 pclasizesepr.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcheevr.dir/build.make TESTING/EIG/CMakeFiles/xcheevr.dir/pclasizesepr.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcheevr.dir/build.make TESTING/EIG/CMakeFiles/xcheevr.dir/pclasizesepr.f.s
 .PHONY : pclasizesepr.f.s
 
 pclatms.o: pclatms.f.o
@@ -1221,9 +1221,9 @@ pclatms.o: pclatms.f.o
 
 # target to build an object file
 pclatms.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcsep.dir/build.make TESTING/EIG/CMakeFiles/xcsep.dir/pclatms.f.o
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcgsep.dir/build.make TESTING/EIG/CMakeFiles/xcgsep.dir/pclatms.f.o
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcheevr.dir/build.make TESTING/EIG/CMakeFiles/xcheevr.dir/pclatms.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcsep.dir/build.make TESTING/EIG/CMakeFiles/xcsep.dir/pclatms.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcgsep.dir/build.make TESTING/EIG/CMakeFiles/xcgsep.dir/pclatms.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcheevr.dir/build.make TESTING/EIG/CMakeFiles/xcheevr.dir/pclatms.f.o
 .PHONY : pclatms.f.o
 
 pclatms.i: pclatms.f.i
@@ -1231,9 +1231,9 @@ pclatms.i: pclatms.f.i
 
 # target to preprocess a source file
 pclatms.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcsep.dir/build.make TESTING/EIG/CMakeFiles/xcsep.dir/pclatms.f.i
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcgsep.dir/build.make TESTING/EIG/CMakeFiles/xcgsep.dir/pclatms.f.i
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcheevr.dir/build.make TESTING/EIG/CMakeFiles/xcheevr.dir/pclatms.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcsep.dir/build.make TESTING/EIG/CMakeFiles/xcsep.dir/pclatms.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcgsep.dir/build.make TESTING/EIG/CMakeFiles/xcgsep.dir/pclatms.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcheevr.dir/build.make TESTING/EIG/CMakeFiles/xcheevr.dir/pclatms.f.i
 .PHONY : pclatms.f.i
 
 pclatms.s: pclatms.f.s
@@ -1241,9 +1241,9 @@ pclatms.s: pclatms.f.s
 
 # target to generate assembly for a file
 pclatms.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcsep.dir/build.make TESTING/EIG/CMakeFiles/xcsep.dir/pclatms.f.s
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcgsep.dir/build.make TESTING/EIG/CMakeFiles/xcgsep.dir/pclatms.f.s
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcheevr.dir/build.make TESTING/EIG/CMakeFiles/xcheevr.dir/pclatms.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcsep.dir/build.make TESTING/EIG/CMakeFiles/xcsep.dir/pclatms.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcgsep.dir/build.make TESTING/EIG/CMakeFiles/xcgsep.dir/pclatms.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcheevr.dir/build.make TESTING/EIG/CMakeFiles/xcheevr.dir/pclatms.f.s
 .PHONY : pclatms.f.s
 
 pclatran.o: pclatran.f.o
@@ -1251,7 +1251,7 @@ pclatran.o: pclatran.f.o
 
 # target to build an object file
 pclatran.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xctrd.dir/build.make TESTING/EIG/CMakeFiles/xctrd.dir/pclatran.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xctrd.dir/build.make TESTING/EIG/CMakeFiles/xctrd.dir/pclatran.f.o
 .PHONY : pclatran.f.o
 
 pclatran.i: pclatran.f.i
@@ -1259,7 +1259,7 @@ pclatran.i: pclatran.f.i
 
 # target to preprocess a source file
 pclatran.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xctrd.dir/build.make TESTING/EIG/CMakeFiles/xctrd.dir/pclatran.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xctrd.dir/build.make TESTING/EIG/CMakeFiles/xctrd.dir/pclatran.f.i
 .PHONY : pclatran.f.i
 
 pclatran.s: pclatran.f.s
@@ -1267,7 +1267,7 @@ pclatran.s: pclatran.f.s
 
 # target to generate assembly for a file
 pclatran.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xctrd.dir/build.make TESTING/EIG/CMakeFiles/xctrd.dir/pclatran.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xctrd.dir/build.make TESTING/EIG/CMakeFiles/xctrd.dir/pclatran.f.s
 .PHONY : pclatran.f.s
 
 pcmatgen.o: pcmatgen.f.o
@@ -1275,16 +1275,16 @@ pcmatgen.o: pcmatgen.f.o
 
 # target to build an object file
 pcmatgen.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcbrd.dir/build.make TESTING/EIG/CMakeFiles/xcbrd.dir/pcmatgen.f.o
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xchrd.dir/build.make TESTING/EIG/CMakeFiles/xchrd.dir/pcmatgen.f.o
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xctrd.dir/build.make TESTING/EIG/CMakeFiles/xctrd.dir/pcmatgen.f.o
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcsep.dir/build.make TESTING/EIG/CMakeFiles/xcsep.dir/pcmatgen.f.o
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcgsep.dir/build.make TESTING/EIG/CMakeFiles/xcgsep.dir/pcmatgen.f.o
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcnep.dir/build.make TESTING/EIG/CMakeFiles/xcnep.dir/pcmatgen.f.o
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcevc.dir/build.make TESTING/EIG/CMakeFiles/xcevc.dir/pcmatgen.f.o
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcheevr.dir/build.make TESTING/EIG/CMakeFiles/xcheevr.dir/pcmatgen.f.o
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xshseqr.dir/build.make TESTING/EIG/CMakeFiles/xshseqr.dir/pcmatgen.f.o
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdhseqr.dir/build.make TESTING/EIG/CMakeFiles/xdhseqr.dir/pcmatgen.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcbrd.dir/build.make TESTING/EIG/CMakeFiles/xcbrd.dir/pcmatgen.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xchrd.dir/build.make TESTING/EIG/CMakeFiles/xchrd.dir/pcmatgen.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xctrd.dir/build.make TESTING/EIG/CMakeFiles/xctrd.dir/pcmatgen.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcsep.dir/build.make TESTING/EIG/CMakeFiles/xcsep.dir/pcmatgen.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcgsep.dir/build.make TESTING/EIG/CMakeFiles/xcgsep.dir/pcmatgen.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcnep.dir/build.make TESTING/EIG/CMakeFiles/xcnep.dir/pcmatgen.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcevc.dir/build.make TESTING/EIG/CMakeFiles/xcevc.dir/pcmatgen.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcheevr.dir/build.make TESTING/EIG/CMakeFiles/xcheevr.dir/pcmatgen.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xshseqr.dir/build.make TESTING/EIG/CMakeFiles/xshseqr.dir/pcmatgen.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdhseqr.dir/build.make TESTING/EIG/CMakeFiles/xdhseqr.dir/pcmatgen.f.o
 .PHONY : pcmatgen.f.o
 
 pcmatgen.i: pcmatgen.f.i
@@ -1292,16 +1292,16 @@ pcmatgen.i: pcmatgen.f.i
 
 # target to preprocess a source file
 pcmatgen.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcbrd.dir/build.make TESTING/EIG/CMakeFiles/xcbrd.dir/pcmatgen.f.i
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xchrd.dir/build.make TESTING/EIG/CMakeFiles/xchrd.dir/pcmatgen.f.i
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xctrd.dir/build.make TESTING/EIG/CMakeFiles/xctrd.dir/pcmatgen.f.i
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcsep.dir/build.make TESTING/EIG/CMakeFiles/xcsep.dir/pcmatgen.f.i
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcgsep.dir/build.make TESTING/EIG/CMakeFiles/xcgsep.dir/pcmatgen.f.i
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcnep.dir/build.make TESTING/EIG/CMakeFiles/xcnep.dir/pcmatgen.f.i
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcevc.dir/build.make TESTING/EIG/CMakeFiles/xcevc.dir/pcmatgen.f.i
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcheevr.dir/build.make TESTING/EIG/CMakeFiles/xcheevr.dir/pcmatgen.f.i
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xshseqr.dir/build.make TESTING/EIG/CMakeFiles/xshseqr.dir/pcmatgen.f.i
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdhseqr.dir/build.make TESTING/EIG/CMakeFiles/xdhseqr.dir/pcmatgen.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcbrd.dir/build.make TESTING/EIG/CMakeFiles/xcbrd.dir/pcmatgen.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xchrd.dir/build.make TESTING/EIG/CMakeFiles/xchrd.dir/pcmatgen.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xctrd.dir/build.make TESTING/EIG/CMakeFiles/xctrd.dir/pcmatgen.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcsep.dir/build.make TESTING/EIG/CMakeFiles/xcsep.dir/pcmatgen.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcgsep.dir/build.make TESTING/EIG/CMakeFiles/xcgsep.dir/pcmatgen.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcnep.dir/build.make TESTING/EIG/CMakeFiles/xcnep.dir/pcmatgen.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcevc.dir/build.make TESTING/EIG/CMakeFiles/xcevc.dir/pcmatgen.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcheevr.dir/build.make TESTING/EIG/CMakeFiles/xcheevr.dir/pcmatgen.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xshseqr.dir/build.make TESTING/EIG/CMakeFiles/xshseqr.dir/pcmatgen.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdhseqr.dir/build.make TESTING/EIG/CMakeFiles/xdhseqr.dir/pcmatgen.f.i
 .PHONY : pcmatgen.f.i
 
 pcmatgen.s: pcmatgen.f.s
@@ -1309,16 +1309,16 @@ pcmatgen.s: pcmatgen.f.s
 
 # target to generate assembly for a file
 pcmatgen.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcbrd.dir/build.make TESTING/EIG/CMakeFiles/xcbrd.dir/pcmatgen.f.s
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xchrd.dir/build.make TESTING/EIG/CMakeFiles/xchrd.dir/pcmatgen.f.s
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xctrd.dir/build.make TESTING/EIG/CMakeFiles/xctrd.dir/pcmatgen.f.s
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcsep.dir/build.make TESTING/EIG/CMakeFiles/xcsep.dir/pcmatgen.f.s
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcgsep.dir/build.make TESTING/EIG/CMakeFiles/xcgsep.dir/pcmatgen.f.s
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcnep.dir/build.make TESTING/EIG/CMakeFiles/xcnep.dir/pcmatgen.f.s
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcevc.dir/build.make TESTING/EIG/CMakeFiles/xcevc.dir/pcmatgen.f.s
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcheevr.dir/build.make TESTING/EIG/CMakeFiles/xcheevr.dir/pcmatgen.f.s
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xshseqr.dir/build.make TESTING/EIG/CMakeFiles/xshseqr.dir/pcmatgen.f.s
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdhseqr.dir/build.make TESTING/EIG/CMakeFiles/xdhseqr.dir/pcmatgen.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcbrd.dir/build.make TESTING/EIG/CMakeFiles/xcbrd.dir/pcmatgen.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xchrd.dir/build.make TESTING/EIG/CMakeFiles/xchrd.dir/pcmatgen.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xctrd.dir/build.make TESTING/EIG/CMakeFiles/xctrd.dir/pcmatgen.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcsep.dir/build.make TESTING/EIG/CMakeFiles/xcsep.dir/pcmatgen.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcgsep.dir/build.make TESTING/EIG/CMakeFiles/xcgsep.dir/pcmatgen.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcnep.dir/build.make TESTING/EIG/CMakeFiles/xcnep.dir/pcmatgen.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcevc.dir/build.make TESTING/EIG/CMakeFiles/xcevc.dir/pcmatgen.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcheevr.dir/build.make TESTING/EIG/CMakeFiles/xcheevr.dir/pcmatgen.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xshseqr.dir/build.make TESTING/EIG/CMakeFiles/xshseqr.dir/pcmatgen.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdhseqr.dir/build.make TESTING/EIG/CMakeFiles/xdhseqr.dir/pcmatgen.f.s
 .PHONY : pcmatgen.f.s
 
 pcnepdriver.o: pcnepdriver.f.o
@@ -1326,7 +1326,7 @@ pcnepdriver.o: pcnepdriver.f.o
 
 # target to build an object file
 pcnepdriver.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcnep.dir/build.make TESTING/EIG/CMakeFiles/xcnep.dir/pcnepdriver.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcnep.dir/build.make TESTING/EIG/CMakeFiles/xcnep.dir/pcnepdriver.f.o
 .PHONY : pcnepdriver.f.o
 
 pcnepdriver.i: pcnepdriver.f.i
@@ -1334,7 +1334,7 @@ pcnepdriver.i: pcnepdriver.f.i
 
 # target to preprocess a source file
 pcnepdriver.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcnep.dir/build.make TESTING/EIG/CMakeFiles/xcnep.dir/pcnepdriver.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcnep.dir/build.make TESTING/EIG/CMakeFiles/xcnep.dir/pcnepdriver.f.i
 .PHONY : pcnepdriver.f.i
 
 pcnepdriver.s: pcnepdriver.f.s
@@ -1342,7 +1342,7 @@ pcnepdriver.s: pcnepdriver.f.s
 
 # target to generate assembly for a file
 pcnepdriver.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcnep.dir/build.make TESTING/EIG/CMakeFiles/xcnep.dir/pcnepdriver.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcnep.dir/build.make TESTING/EIG/CMakeFiles/xcnep.dir/pcnepdriver.f.s
 .PHONY : pcnepdriver.f.s
 
 pcnepfchk.o: pcnepfchk.f.o
@@ -1350,7 +1350,7 @@ pcnepfchk.o: pcnepfchk.f.o
 
 # target to build an object file
 pcnepfchk.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcnep.dir/build.make TESTING/EIG/CMakeFiles/xcnep.dir/pcnepfchk.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcnep.dir/build.make TESTING/EIG/CMakeFiles/xcnep.dir/pcnepfchk.f.o
 .PHONY : pcnepfchk.f.o
 
 pcnepfchk.i: pcnepfchk.f.i
@@ -1358,7 +1358,7 @@ pcnepfchk.i: pcnepfchk.f.i
 
 # target to preprocess a source file
 pcnepfchk.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcnep.dir/build.make TESTING/EIG/CMakeFiles/xcnep.dir/pcnepfchk.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcnep.dir/build.make TESTING/EIG/CMakeFiles/xcnep.dir/pcnepfchk.f.i
 .PHONY : pcnepfchk.f.i
 
 pcnepfchk.s: pcnepfchk.f.s
@@ -1366,7 +1366,7 @@ pcnepfchk.s: pcnepfchk.f.s
 
 # target to generate assembly for a file
 pcnepfchk.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcnep.dir/build.make TESTING/EIG/CMakeFiles/xcnep.dir/pcnepfchk.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcnep.dir/build.make TESTING/EIG/CMakeFiles/xcnep.dir/pcnepfchk.f.s
 .PHONY : pcnepfchk.f.s
 
 pcnepinfo.o: pcnepinfo.f.o
@@ -1374,7 +1374,7 @@ pcnepinfo.o: pcnepinfo.f.o
 
 # target to build an object file
 pcnepinfo.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcnep.dir/build.make TESTING/EIG/CMakeFiles/xcnep.dir/pcnepinfo.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcnep.dir/build.make TESTING/EIG/CMakeFiles/xcnep.dir/pcnepinfo.f.o
 .PHONY : pcnepinfo.f.o
 
 pcnepinfo.i: pcnepinfo.f.i
@@ -1382,7 +1382,7 @@ pcnepinfo.i: pcnepinfo.f.i
 
 # target to preprocess a source file
 pcnepinfo.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcnep.dir/build.make TESTING/EIG/CMakeFiles/xcnep.dir/pcnepinfo.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcnep.dir/build.make TESTING/EIG/CMakeFiles/xcnep.dir/pcnepinfo.f.i
 .PHONY : pcnepinfo.f.i
 
 pcnepinfo.s: pcnepinfo.f.s
@@ -1390,7 +1390,7 @@ pcnepinfo.s: pcnepinfo.f.s
 
 # target to generate assembly for a file
 pcnepinfo.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcnep.dir/build.make TESTING/EIG/CMakeFiles/xcnep.dir/pcnepinfo.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcnep.dir/build.make TESTING/EIG/CMakeFiles/xcnep.dir/pcnepinfo.f.s
 .PHONY : pcnepinfo.f.s
 
 pcsdpsubtst.o: pcsdpsubtst.f.o
@@ -1398,7 +1398,7 @@ pcsdpsubtst.o: pcsdpsubtst.f.o
 
 # target to build an object file
 pcsdpsubtst.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcsep.dir/build.make TESTING/EIG/CMakeFiles/xcsep.dir/pcsdpsubtst.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcsep.dir/build.make TESTING/EIG/CMakeFiles/xcsep.dir/pcsdpsubtst.f.o
 .PHONY : pcsdpsubtst.f.o
 
 pcsdpsubtst.i: pcsdpsubtst.f.i
@@ -1406,7 +1406,7 @@ pcsdpsubtst.i: pcsdpsubtst.f.i
 
 # target to preprocess a source file
 pcsdpsubtst.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcsep.dir/build.make TESTING/EIG/CMakeFiles/xcsep.dir/pcsdpsubtst.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcsep.dir/build.make TESTING/EIG/CMakeFiles/xcsep.dir/pcsdpsubtst.f.i
 .PHONY : pcsdpsubtst.f.i
 
 pcsdpsubtst.s: pcsdpsubtst.f.s
@@ -1414,7 +1414,7 @@ pcsdpsubtst.s: pcsdpsubtst.f.s
 
 # target to generate assembly for a file
 pcsdpsubtst.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcsep.dir/build.make TESTING/EIG/CMakeFiles/xcsep.dir/pcsdpsubtst.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcsep.dir/build.make TESTING/EIG/CMakeFiles/xcsep.dir/pcsdpsubtst.f.s
 .PHONY : pcsdpsubtst.f.s
 
 pcsepchk.o: pcsepchk.f.o
@@ -1422,8 +1422,8 @@ pcsepchk.o: pcsepchk.f.o
 
 # target to build an object file
 pcsepchk.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcsep.dir/build.make TESTING/EIG/CMakeFiles/xcsep.dir/pcsepchk.f.o
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcheevr.dir/build.make TESTING/EIG/CMakeFiles/xcheevr.dir/pcsepchk.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcsep.dir/build.make TESTING/EIG/CMakeFiles/xcsep.dir/pcsepchk.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcheevr.dir/build.make TESTING/EIG/CMakeFiles/xcheevr.dir/pcsepchk.f.o
 .PHONY : pcsepchk.f.o
 
 pcsepchk.i: pcsepchk.f.i
@@ -1431,8 +1431,8 @@ pcsepchk.i: pcsepchk.f.i
 
 # target to preprocess a source file
 pcsepchk.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcsep.dir/build.make TESTING/EIG/CMakeFiles/xcsep.dir/pcsepchk.f.i
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcheevr.dir/build.make TESTING/EIG/CMakeFiles/xcheevr.dir/pcsepchk.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcsep.dir/build.make TESTING/EIG/CMakeFiles/xcsep.dir/pcsepchk.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcheevr.dir/build.make TESTING/EIG/CMakeFiles/xcheevr.dir/pcsepchk.f.i
 .PHONY : pcsepchk.f.i
 
 pcsepchk.s: pcsepchk.f.s
@@ -1440,8 +1440,8 @@ pcsepchk.s: pcsepchk.f.s
 
 # target to generate assembly for a file
 pcsepchk.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcsep.dir/build.make TESTING/EIG/CMakeFiles/xcsep.dir/pcsepchk.f.s
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcheevr.dir/build.make TESTING/EIG/CMakeFiles/xcheevr.dir/pcsepchk.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcsep.dir/build.make TESTING/EIG/CMakeFiles/xcsep.dir/pcsepchk.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcheevr.dir/build.make TESTING/EIG/CMakeFiles/xcheevr.dir/pcsepchk.f.s
 .PHONY : pcsepchk.f.s
 
 pcsepdriver.o: pcsepdriver.f.o
@@ -1449,7 +1449,7 @@ pcsepdriver.o: pcsepdriver.f.o
 
 # target to build an object file
 pcsepdriver.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcsep.dir/build.make TESTING/EIG/CMakeFiles/xcsep.dir/pcsepdriver.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcsep.dir/build.make TESTING/EIG/CMakeFiles/xcsep.dir/pcsepdriver.f.o
 .PHONY : pcsepdriver.f.o
 
 pcsepdriver.i: pcsepdriver.f.i
@@ -1457,7 +1457,7 @@ pcsepdriver.i: pcsepdriver.f.i
 
 # target to preprocess a source file
 pcsepdriver.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcsep.dir/build.make TESTING/EIG/CMakeFiles/xcsep.dir/pcsepdriver.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcsep.dir/build.make TESTING/EIG/CMakeFiles/xcsep.dir/pcsepdriver.f.i
 .PHONY : pcsepdriver.f.i
 
 pcsepdriver.s: pcsepdriver.f.s
@@ -1465,7 +1465,7 @@ pcsepdriver.s: pcsepdriver.f.s
 
 # target to generate assembly for a file
 pcsepdriver.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcsep.dir/build.make TESTING/EIG/CMakeFiles/xcsep.dir/pcsepdriver.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcsep.dir/build.make TESTING/EIG/CMakeFiles/xcsep.dir/pcsepdriver.f.s
 .PHONY : pcsepdriver.f.s
 
 pcsepqtq.o: pcsepqtq.f.o
@@ -1473,8 +1473,8 @@ pcsepqtq.o: pcsepqtq.f.o
 
 # target to build an object file
 pcsepqtq.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcsep.dir/build.make TESTING/EIG/CMakeFiles/xcsep.dir/pcsepqtq.f.o
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcheevr.dir/build.make TESTING/EIG/CMakeFiles/xcheevr.dir/pcsepqtq.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcsep.dir/build.make TESTING/EIG/CMakeFiles/xcsep.dir/pcsepqtq.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcheevr.dir/build.make TESTING/EIG/CMakeFiles/xcheevr.dir/pcsepqtq.f.o
 .PHONY : pcsepqtq.f.o
 
 pcsepqtq.i: pcsepqtq.f.i
@@ -1482,8 +1482,8 @@ pcsepqtq.i: pcsepqtq.f.i
 
 # target to preprocess a source file
 pcsepqtq.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcsep.dir/build.make TESTING/EIG/CMakeFiles/xcsep.dir/pcsepqtq.f.i
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcheevr.dir/build.make TESTING/EIG/CMakeFiles/xcheevr.dir/pcsepqtq.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcsep.dir/build.make TESTING/EIG/CMakeFiles/xcsep.dir/pcsepqtq.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcheevr.dir/build.make TESTING/EIG/CMakeFiles/xcheevr.dir/pcsepqtq.f.i
 .PHONY : pcsepqtq.f.i
 
 pcsepqtq.s: pcsepqtq.f.s
@@ -1491,8 +1491,8 @@ pcsepqtq.s: pcsepqtq.f.s
 
 # target to generate assembly for a file
 pcsepqtq.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcsep.dir/build.make TESTING/EIG/CMakeFiles/xcsep.dir/pcsepqtq.f.s
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcheevr.dir/build.make TESTING/EIG/CMakeFiles/xcheevr.dir/pcsepqtq.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcsep.dir/build.make TESTING/EIG/CMakeFiles/xcsep.dir/pcsepqtq.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcheevr.dir/build.make TESTING/EIG/CMakeFiles/xcheevr.dir/pcsepqtq.f.s
 .PHONY : pcsepqtq.f.s
 
 pcseprdriver.o: pcseprdriver.f.o
@@ -1500,7 +1500,7 @@ pcseprdriver.o: pcseprdriver.f.o
 
 # target to build an object file
 pcseprdriver.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcheevr.dir/build.make TESTING/EIG/CMakeFiles/xcheevr.dir/pcseprdriver.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcheevr.dir/build.make TESTING/EIG/CMakeFiles/xcheevr.dir/pcseprdriver.f.o
 .PHONY : pcseprdriver.f.o
 
 pcseprdriver.i: pcseprdriver.f.i
@@ -1508,7 +1508,7 @@ pcseprdriver.i: pcseprdriver.f.i
 
 # target to preprocess a source file
 pcseprdriver.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcheevr.dir/build.make TESTING/EIG/CMakeFiles/xcheevr.dir/pcseprdriver.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcheevr.dir/build.make TESTING/EIG/CMakeFiles/xcheevr.dir/pcseprdriver.f.i
 .PHONY : pcseprdriver.f.i
 
 pcseprdriver.s: pcseprdriver.f.s
@@ -1516,7 +1516,7 @@ pcseprdriver.s: pcseprdriver.f.s
 
 # target to generate assembly for a file
 pcseprdriver.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcheevr.dir/build.make TESTING/EIG/CMakeFiles/xcheevr.dir/pcseprdriver.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcheevr.dir/build.make TESTING/EIG/CMakeFiles/xcheevr.dir/pcseprdriver.f.s
 .PHONY : pcseprdriver.f.s
 
 pcsepreq.o: pcsepreq.f.o
@@ -1524,7 +1524,7 @@ pcsepreq.o: pcsepreq.f.o
 
 # target to build an object file
 pcsepreq.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcsep.dir/build.make TESTING/EIG/CMakeFiles/xcsep.dir/pcsepreq.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcsep.dir/build.make TESTING/EIG/CMakeFiles/xcsep.dir/pcsepreq.f.o
 .PHONY : pcsepreq.f.o
 
 pcsepreq.i: pcsepreq.f.i
@@ -1532,7 +1532,7 @@ pcsepreq.i: pcsepreq.f.i
 
 # target to preprocess a source file
 pcsepreq.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcsep.dir/build.make TESTING/EIG/CMakeFiles/xcsep.dir/pcsepreq.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcsep.dir/build.make TESTING/EIG/CMakeFiles/xcsep.dir/pcsepreq.f.i
 .PHONY : pcsepreq.f.i
 
 pcsepreq.s: pcsepreq.f.s
@@ -1540,7 +1540,7 @@ pcsepreq.s: pcsepreq.f.s
 
 # target to generate assembly for a file
 pcsepreq.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcsep.dir/build.make TESTING/EIG/CMakeFiles/xcsep.dir/pcsepreq.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcsep.dir/build.make TESTING/EIG/CMakeFiles/xcsep.dir/pcsepreq.f.s
 .PHONY : pcsepreq.f.s
 
 pcseprreq.o: pcseprreq.f.o
@@ -1548,7 +1548,7 @@ pcseprreq.o: pcseprreq.f.o
 
 # target to build an object file
 pcseprreq.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcheevr.dir/build.make TESTING/EIG/CMakeFiles/xcheevr.dir/pcseprreq.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcheevr.dir/build.make TESTING/EIG/CMakeFiles/xcheevr.dir/pcseprreq.f.o
 .PHONY : pcseprreq.f.o
 
 pcseprreq.i: pcseprreq.f.i
@@ -1556,7 +1556,7 @@ pcseprreq.i: pcseprreq.f.i
 
 # target to preprocess a source file
 pcseprreq.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcheevr.dir/build.make TESTING/EIG/CMakeFiles/xcheevr.dir/pcseprreq.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcheevr.dir/build.make TESTING/EIG/CMakeFiles/xcheevr.dir/pcseprreq.f.i
 .PHONY : pcseprreq.f.i
 
 pcseprreq.s: pcseprreq.f.s
@@ -1564,7 +1564,7 @@ pcseprreq.s: pcseprreq.f.s
 
 # target to generate assembly for a file
 pcseprreq.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcheevr.dir/build.make TESTING/EIG/CMakeFiles/xcheevr.dir/pcseprreq.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcheevr.dir/build.make TESTING/EIG/CMakeFiles/xcheevr.dir/pcseprreq.f.s
 .PHONY : pcseprreq.f.s
 
 pcseprsubtst.o: pcseprsubtst.f.o
@@ -1572,7 +1572,7 @@ pcseprsubtst.o: pcseprsubtst.f.o
 
 # target to build an object file
 pcseprsubtst.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcheevr.dir/build.make TESTING/EIG/CMakeFiles/xcheevr.dir/pcseprsubtst.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcheevr.dir/build.make TESTING/EIG/CMakeFiles/xcheevr.dir/pcseprsubtst.f.o
 .PHONY : pcseprsubtst.f.o
 
 pcseprsubtst.i: pcseprsubtst.f.i
@@ -1580,7 +1580,7 @@ pcseprsubtst.i: pcseprsubtst.f.i
 
 # target to preprocess a source file
 pcseprsubtst.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcheevr.dir/build.make TESTING/EIG/CMakeFiles/xcheevr.dir/pcseprsubtst.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcheevr.dir/build.make TESTING/EIG/CMakeFiles/xcheevr.dir/pcseprsubtst.f.i
 .PHONY : pcseprsubtst.f.i
 
 pcseprsubtst.s: pcseprsubtst.f.s
@@ -1588,7 +1588,7 @@ pcseprsubtst.s: pcseprsubtst.f.s
 
 # target to generate assembly for a file
 pcseprsubtst.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcheevr.dir/build.make TESTING/EIG/CMakeFiles/xcheevr.dir/pcseprsubtst.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcheevr.dir/build.make TESTING/EIG/CMakeFiles/xcheevr.dir/pcseprsubtst.f.s
 .PHONY : pcseprsubtst.f.s
 
 pcseprtst.o: pcseprtst.f.o
@@ -1596,7 +1596,7 @@ pcseprtst.o: pcseprtst.f.o
 
 # target to build an object file
 pcseprtst.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcheevr.dir/build.make TESTING/EIG/CMakeFiles/xcheevr.dir/pcseprtst.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcheevr.dir/build.make TESTING/EIG/CMakeFiles/xcheevr.dir/pcseprtst.f.o
 .PHONY : pcseprtst.f.o
 
 pcseprtst.i: pcseprtst.f.i
@@ -1604,7 +1604,7 @@ pcseprtst.i: pcseprtst.f.i
 
 # target to preprocess a source file
 pcseprtst.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcheevr.dir/build.make TESTING/EIG/CMakeFiles/xcheevr.dir/pcseprtst.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcheevr.dir/build.make TESTING/EIG/CMakeFiles/xcheevr.dir/pcseprtst.f.i
 .PHONY : pcseprtst.f.i
 
 pcseprtst.s: pcseprtst.f.s
@@ -1612,7 +1612,7 @@ pcseprtst.s: pcseprtst.f.s
 
 # target to generate assembly for a file
 pcseprtst.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcheevr.dir/build.make TESTING/EIG/CMakeFiles/xcheevr.dir/pcseprtst.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcheevr.dir/build.make TESTING/EIG/CMakeFiles/xcheevr.dir/pcseprtst.f.s
 .PHONY : pcseprtst.f.s
 
 pcsepsubtst.o: pcsepsubtst.f.o
@@ -1620,7 +1620,7 @@ pcsepsubtst.o: pcsepsubtst.f.o
 
 # target to build an object file
 pcsepsubtst.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcsep.dir/build.make TESTING/EIG/CMakeFiles/xcsep.dir/pcsepsubtst.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcsep.dir/build.make TESTING/EIG/CMakeFiles/xcsep.dir/pcsepsubtst.f.o
 .PHONY : pcsepsubtst.f.o
 
 pcsepsubtst.i: pcsepsubtst.f.i
@@ -1628,7 +1628,7 @@ pcsepsubtst.i: pcsepsubtst.f.i
 
 # target to preprocess a source file
 pcsepsubtst.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcsep.dir/build.make TESTING/EIG/CMakeFiles/xcsep.dir/pcsepsubtst.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcsep.dir/build.make TESTING/EIG/CMakeFiles/xcsep.dir/pcsepsubtst.f.i
 .PHONY : pcsepsubtst.f.i
 
 pcsepsubtst.s: pcsepsubtst.f.s
@@ -1636,7 +1636,7 @@ pcsepsubtst.s: pcsepsubtst.f.s
 
 # target to generate assembly for a file
 pcsepsubtst.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcsep.dir/build.make TESTING/EIG/CMakeFiles/xcsep.dir/pcsepsubtst.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcsep.dir/build.make TESTING/EIG/CMakeFiles/xcsep.dir/pcsepsubtst.f.s
 .PHONY : pcsepsubtst.f.s
 
 pcseptst.o: pcseptst.f.o
@@ -1644,7 +1644,7 @@ pcseptst.o: pcseptst.f.o
 
 # target to build an object file
 pcseptst.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcsep.dir/build.make TESTING/EIG/CMakeFiles/xcsep.dir/pcseptst.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcsep.dir/build.make TESTING/EIG/CMakeFiles/xcsep.dir/pcseptst.f.o
 .PHONY : pcseptst.f.o
 
 pcseptst.i: pcseptst.f.i
@@ -1652,7 +1652,7 @@ pcseptst.i: pcseptst.f.i
 
 # target to preprocess a source file
 pcseptst.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcsep.dir/build.make TESTING/EIG/CMakeFiles/xcsep.dir/pcseptst.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcsep.dir/build.make TESTING/EIG/CMakeFiles/xcsep.dir/pcseptst.f.i
 .PHONY : pcseptst.f.i
 
 pcseptst.s: pcseptst.f.s
@@ -1660,7 +1660,7 @@ pcseptst.s: pcseptst.f.s
 
 # target to generate assembly for a file
 pcseptst.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcsep.dir/build.make TESTING/EIG/CMakeFiles/xcsep.dir/pcseptst.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcsep.dir/build.make TESTING/EIG/CMakeFiles/xcsep.dir/pcseptst.f.s
 .PHONY : pcseptst.f.s
 
 pctrddriver.o: pctrddriver.f.o
@@ -1668,7 +1668,7 @@ pctrddriver.o: pctrddriver.f.o
 
 # target to build an object file
 pctrddriver.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xctrd.dir/build.make TESTING/EIG/CMakeFiles/xctrd.dir/pctrddriver.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xctrd.dir/build.make TESTING/EIG/CMakeFiles/xctrd.dir/pctrddriver.f.o
 .PHONY : pctrddriver.f.o
 
 pctrddriver.i: pctrddriver.f.i
@@ -1676,7 +1676,7 @@ pctrddriver.i: pctrddriver.f.i
 
 # target to preprocess a source file
 pctrddriver.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xctrd.dir/build.make TESTING/EIG/CMakeFiles/xctrd.dir/pctrddriver.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xctrd.dir/build.make TESTING/EIG/CMakeFiles/xctrd.dir/pctrddriver.f.i
 .PHONY : pctrddriver.f.i
 
 pctrddriver.s: pctrddriver.f.s
@@ -1684,7 +1684,7 @@ pctrddriver.s: pctrddriver.f.s
 
 # target to generate assembly for a file
 pctrddriver.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xctrd.dir/build.make TESTING/EIG/CMakeFiles/xctrd.dir/pctrddriver.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xctrd.dir/build.make TESTING/EIG/CMakeFiles/xctrd.dir/pctrddriver.f.s
 .PHONY : pctrddriver.f.s
 
 pctrdinfo.o: pctrdinfo.f.o
@@ -1692,7 +1692,7 @@ pctrdinfo.o: pctrdinfo.f.o
 
 # target to build an object file
 pctrdinfo.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xctrd.dir/build.make TESTING/EIG/CMakeFiles/xctrd.dir/pctrdinfo.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xctrd.dir/build.make TESTING/EIG/CMakeFiles/xctrd.dir/pctrdinfo.f.o
 .PHONY : pctrdinfo.f.o
 
 pctrdinfo.i: pctrdinfo.f.i
@@ -1700,7 +1700,7 @@ pctrdinfo.i: pctrdinfo.f.i
 
 # target to preprocess a source file
 pctrdinfo.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xctrd.dir/build.make TESTING/EIG/CMakeFiles/xctrd.dir/pctrdinfo.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xctrd.dir/build.make TESTING/EIG/CMakeFiles/xctrd.dir/pctrdinfo.f.i
 .PHONY : pctrdinfo.f.i
 
 pctrdinfo.s: pctrdinfo.f.s
@@ -1708,7 +1708,7 @@ pctrdinfo.s: pctrdinfo.f.s
 
 # target to generate assembly for a file
 pctrdinfo.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xctrd.dir/build.make TESTING/EIG/CMakeFiles/xctrd.dir/pctrdinfo.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xctrd.dir/build.make TESTING/EIG/CMakeFiles/xctrd.dir/pctrdinfo.f.s
 .PHONY : pctrdinfo.f.s
 
 pcttrdtester.o: pcttrdtester.f.o
@@ -1716,7 +1716,7 @@ pcttrdtester.o: pcttrdtester.f.o
 
 # target to build an object file
 pcttrdtester.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xctrd.dir/build.make TESTING/EIG/CMakeFiles/xctrd.dir/pcttrdtester.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xctrd.dir/build.make TESTING/EIG/CMakeFiles/xctrd.dir/pcttrdtester.f.o
 .PHONY : pcttrdtester.f.o
 
 pcttrdtester.i: pcttrdtester.f.i
@@ -1724,7 +1724,7 @@ pcttrdtester.i: pcttrdtester.f.i
 
 # target to preprocess a source file
 pcttrdtester.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xctrd.dir/build.make TESTING/EIG/CMakeFiles/xctrd.dir/pcttrdtester.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xctrd.dir/build.make TESTING/EIG/CMakeFiles/xctrd.dir/pcttrdtester.f.i
 .PHONY : pcttrdtester.f.i
 
 pcttrdtester.s: pcttrdtester.f.s
@@ -1732,7 +1732,7 @@ pcttrdtester.s: pcttrdtester.f.s
 
 # target to generate assembly for a file
 pcttrdtester.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xctrd.dir/build.make TESTING/EIG/CMakeFiles/xctrd.dir/pcttrdtester.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xctrd.dir/build.make TESTING/EIG/CMakeFiles/xctrd.dir/pcttrdtester.f.s
 .PHONY : pcttrdtester.f.s
 
 pdbrddriver.o: pdbrddriver.f.o
@@ -1740,7 +1740,7 @@ pdbrddriver.o: pdbrddriver.f.o
 
 # target to build an object file
 pdbrddriver.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdbrd.dir/build.make TESTING/EIG/CMakeFiles/xdbrd.dir/pdbrddriver.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdbrd.dir/build.make TESTING/EIG/CMakeFiles/xdbrd.dir/pdbrddriver.f.o
 .PHONY : pdbrddriver.f.o
 
 pdbrddriver.i: pdbrddriver.f.i
@@ -1748,7 +1748,7 @@ pdbrddriver.i: pdbrddriver.f.i
 
 # target to preprocess a source file
 pdbrddriver.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdbrd.dir/build.make TESTING/EIG/CMakeFiles/xdbrd.dir/pdbrddriver.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdbrd.dir/build.make TESTING/EIG/CMakeFiles/xdbrd.dir/pdbrddriver.f.i
 .PHONY : pdbrddriver.f.i
 
 pdbrddriver.s: pdbrddriver.f.s
@@ -1756,7 +1756,7 @@ pdbrddriver.s: pdbrddriver.f.s
 
 # target to generate assembly for a file
 pdbrddriver.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdbrd.dir/build.make TESTING/EIG/CMakeFiles/xdbrd.dir/pdbrddriver.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdbrd.dir/build.make TESTING/EIG/CMakeFiles/xdbrd.dir/pdbrddriver.f.s
 .PHONY : pdbrddriver.f.s
 
 pdbrdinfo.o: pdbrdinfo.f.o
@@ -1764,7 +1764,7 @@ pdbrdinfo.o: pdbrdinfo.f.o
 
 # target to build an object file
 pdbrdinfo.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdbrd.dir/build.make TESTING/EIG/CMakeFiles/xdbrd.dir/pdbrdinfo.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdbrd.dir/build.make TESTING/EIG/CMakeFiles/xdbrd.dir/pdbrdinfo.f.o
 .PHONY : pdbrdinfo.f.o
 
 pdbrdinfo.i: pdbrdinfo.f.i
@@ -1772,7 +1772,7 @@ pdbrdinfo.i: pdbrdinfo.f.i
 
 # target to preprocess a source file
 pdbrdinfo.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdbrd.dir/build.make TESTING/EIG/CMakeFiles/xdbrd.dir/pdbrdinfo.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdbrd.dir/build.make TESTING/EIG/CMakeFiles/xdbrd.dir/pdbrdinfo.f.i
 .PHONY : pdbrdinfo.f.i
 
 pdbrdinfo.s: pdbrdinfo.f.s
@@ -1780,7 +1780,7 @@ pdbrdinfo.s: pdbrdinfo.f.s
 
 # target to generate assembly for a file
 pdbrdinfo.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdbrd.dir/build.make TESTING/EIG/CMakeFiles/xdbrd.dir/pdbrdinfo.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdbrd.dir/build.make TESTING/EIG/CMakeFiles/xdbrd.dir/pdbrdinfo.f.s
 .PHONY : pdbrdinfo.f.s
 
 pdgebdrv.o: pdgebdrv.f.o
@@ -1788,7 +1788,7 @@ pdgebdrv.o: pdgebdrv.f.o
 
 # target to build an object file
 pdgebdrv.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdbrd.dir/build.make TESTING/EIG/CMakeFiles/xdbrd.dir/pdgebdrv.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdbrd.dir/build.make TESTING/EIG/CMakeFiles/xdbrd.dir/pdgebdrv.f.o
 .PHONY : pdgebdrv.f.o
 
 pdgebdrv.i: pdgebdrv.f.i
@@ -1796,7 +1796,7 @@ pdgebdrv.i: pdgebdrv.f.i
 
 # target to preprocess a source file
 pdgebdrv.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdbrd.dir/build.make TESTING/EIG/CMakeFiles/xdbrd.dir/pdgebdrv.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdbrd.dir/build.make TESTING/EIG/CMakeFiles/xdbrd.dir/pdgebdrv.f.i
 .PHONY : pdgebdrv.f.i
 
 pdgebdrv.s: pdgebdrv.f.s
@@ -1804,7 +1804,7 @@ pdgebdrv.s: pdgebdrv.f.s
 
 # target to generate assembly for a file
 pdgebdrv.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdbrd.dir/build.make TESTING/EIG/CMakeFiles/xdbrd.dir/pdgebdrv.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdbrd.dir/build.make TESTING/EIG/CMakeFiles/xdbrd.dir/pdgebdrv.f.s
 .PHONY : pdgebdrv.f.s
 
 pdgehdrv.o: pdgehdrv.f.o
@@ -1812,7 +1812,7 @@ pdgehdrv.o: pdgehdrv.f.o
 
 # target to build an object file
 pdgehdrv.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdhrd.dir/build.make TESTING/EIG/CMakeFiles/xdhrd.dir/pdgehdrv.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdhrd.dir/build.make TESTING/EIG/CMakeFiles/xdhrd.dir/pdgehdrv.f.o
 .PHONY : pdgehdrv.f.o
 
 pdgehdrv.i: pdgehdrv.f.i
@@ -1820,7 +1820,7 @@ pdgehdrv.i: pdgehdrv.f.i
 
 # target to preprocess a source file
 pdgehdrv.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdhrd.dir/build.make TESTING/EIG/CMakeFiles/xdhrd.dir/pdgehdrv.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdhrd.dir/build.make TESTING/EIG/CMakeFiles/xdhrd.dir/pdgehdrv.f.i
 .PHONY : pdgehdrv.f.i
 
 pdgehdrv.s: pdgehdrv.f.s
@@ -1828,7 +1828,7 @@ pdgehdrv.s: pdgehdrv.f.s
 
 # target to generate assembly for a file
 pdgehdrv.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdhrd.dir/build.make TESTING/EIG/CMakeFiles/xdhrd.dir/pdgehdrv.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdhrd.dir/build.make TESTING/EIG/CMakeFiles/xdhrd.dir/pdgehdrv.f.s
 .PHONY : pdgehdrv.f.s
 
 pdgsepchk.o: pdgsepchk.f.o
@@ -1836,7 +1836,7 @@ pdgsepchk.o: pdgsepchk.f.o
 
 # target to build an object file
 pdgsepchk.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdgsep.dir/build.make TESTING/EIG/CMakeFiles/xdgsep.dir/pdgsepchk.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdgsep.dir/build.make TESTING/EIG/CMakeFiles/xdgsep.dir/pdgsepchk.f.o
 .PHONY : pdgsepchk.f.o
 
 pdgsepchk.i: pdgsepchk.f.i
@@ -1844,7 +1844,7 @@ pdgsepchk.i: pdgsepchk.f.i
 
 # target to preprocess a source file
 pdgsepchk.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdgsep.dir/build.make TESTING/EIG/CMakeFiles/xdgsep.dir/pdgsepchk.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdgsep.dir/build.make TESTING/EIG/CMakeFiles/xdgsep.dir/pdgsepchk.f.i
 .PHONY : pdgsepchk.f.i
 
 pdgsepchk.s: pdgsepchk.f.s
@@ -1852,7 +1852,7 @@ pdgsepchk.s: pdgsepchk.f.s
 
 # target to generate assembly for a file
 pdgsepchk.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdgsep.dir/build.make TESTING/EIG/CMakeFiles/xdgsep.dir/pdgsepchk.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdgsep.dir/build.make TESTING/EIG/CMakeFiles/xdgsep.dir/pdgsepchk.f.s
 .PHONY : pdgsepchk.f.s
 
 pdgsepdriver.o: pdgsepdriver.f.o
@@ -1860,7 +1860,7 @@ pdgsepdriver.o: pdgsepdriver.f.o
 
 # target to build an object file
 pdgsepdriver.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdgsep.dir/build.make TESTING/EIG/CMakeFiles/xdgsep.dir/pdgsepdriver.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdgsep.dir/build.make TESTING/EIG/CMakeFiles/xdgsep.dir/pdgsepdriver.f.o
 .PHONY : pdgsepdriver.f.o
 
 pdgsepdriver.i: pdgsepdriver.f.i
@@ -1868,7 +1868,7 @@ pdgsepdriver.i: pdgsepdriver.f.i
 
 # target to preprocess a source file
 pdgsepdriver.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdgsep.dir/build.make TESTING/EIG/CMakeFiles/xdgsep.dir/pdgsepdriver.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdgsep.dir/build.make TESTING/EIG/CMakeFiles/xdgsep.dir/pdgsepdriver.f.i
 .PHONY : pdgsepdriver.f.i
 
 pdgsepdriver.s: pdgsepdriver.f.s
@@ -1876,7 +1876,7 @@ pdgsepdriver.s: pdgsepdriver.f.s
 
 # target to generate assembly for a file
 pdgsepdriver.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdgsep.dir/build.make TESTING/EIG/CMakeFiles/xdgsep.dir/pdgsepdriver.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdgsep.dir/build.make TESTING/EIG/CMakeFiles/xdgsep.dir/pdgsepdriver.f.s
 .PHONY : pdgsepdriver.f.s
 
 pdgsepreq.o: pdgsepreq.f.o
@@ -1884,7 +1884,7 @@ pdgsepreq.o: pdgsepreq.f.o
 
 # target to build an object file
 pdgsepreq.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdgsep.dir/build.make TESTING/EIG/CMakeFiles/xdgsep.dir/pdgsepreq.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdgsep.dir/build.make TESTING/EIG/CMakeFiles/xdgsep.dir/pdgsepreq.f.o
 .PHONY : pdgsepreq.f.o
 
 pdgsepreq.i: pdgsepreq.f.i
@@ -1892,7 +1892,7 @@ pdgsepreq.i: pdgsepreq.f.i
 
 # target to preprocess a source file
 pdgsepreq.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdgsep.dir/build.make TESTING/EIG/CMakeFiles/xdgsep.dir/pdgsepreq.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdgsep.dir/build.make TESTING/EIG/CMakeFiles/xdgsep.dir/pdgsepreq.f.i
 .PHONY : pdgsepreq.f.i
 
 pdgsepreq.s: pdgsepreq.f.s
@@ -1900,7 +1900,7 @@ pdgsepreq.s: pdgsepreq.f.s
 
 # target to generate assembly for a file
 pdgsepreq.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdgsep.dir/build.make TESTING/EIG/CMakeFiles/xdgsep.dir/pdgsepreq.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdgsep.dir/build.make TESTING/EIG/CMakeFiles/xdgsep.dir/pdgsepreq.f.s
 .PHONY : pdgsepreq.f.s
 
 pdgsepsubtst.o: pdgsepsubtst.f.o
@@ -1908,7 +1908,7 @@ pdgsepsubtst.o: pdgsepsubtst.f.o
 
 # target to build an object file
 pdgsepsubtst.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdgsep.dir/build.make TESTING/EIG/CMakeFiles/xdgsep.dir/pdgsepsubtst.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdgsep.dir/build.make TESTING/EIG/CMakeFiles/xdgsep.dir/pdgsepsubtst.f.o
 .PHONY : pdgsepsubtst.f.o
 
 pdgsepsubtst.i: pdgsepsubtst.f.i
@@ -1916,7 +1916,7 @@ pdgsepsubtst.i: pdgsepsubtst.f.i
 
 # target to preprocess a source file
 pdgsepsubtst.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdgsep.dir/build.make TESTING/EIG/CMakeFiles/xdgsep.dir/pdgsepsubtst.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdgsep.dir/build.make TESTING/EIG/CMakeFiles/xdgsep.dir/pdgsepsubtst.f.i
 .PHONY : pdgsepsubtst.f.i
 
 pdgsepsubtst.s: pdgsepsubtst.f.s
@@ -1924,7 +1924,7 @@ pdgsepsubtst.s: pdgsepsubtst.f.s
 
 # target to generate assembly for a file
 pdgsepsubtst.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdgsep.dir/build.make TESTING/EIG/CMakeFiles/xdgsep.dir/pdgsepsubtst.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdgsep.dir/build.make TESTING/EIG/CMakeFiles/xdgsep.dir/pdgsepsubtst.f.s
 .PHONY : pdgsepsubtst.f.s
 
 pdgseptst.o: pdgseptst.f.o
@@ -1932,7 +1932,7 @@ pdgseptst.o: pdgseptst.f.o
 
 # target to build an object file
 pdgseptst.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdgsep.dir/build.make TESTING/EIG/CMakeFiles/xdgsep.dir/pdgseptst.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdgsep.dir/build.make TESTING/EIG/CMakeFiles/xdgsep.dir/pdgseptst.f.o
 .PHONY : pdgseptst.f.o
 
 pdgseptst.i: pdgseptst.f.i
@@ -1940,7 +1940,7 @@ pdgseptst.i: pdgseptst.f.i
 
 # target to preprocess a source file
 pdgseptst.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdgsep.dir/build.make TESTING/EIG/CMakeFiles/xdgsep.dir/pdgseptst.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdgsep.dir/build.make TESTING/EIG/CMakeFiles/xdgsep.dir/pdgseptst.f.i
 .PHONY : pdgseptst.f.i
 
 pdgseptst.s: pdgseptst.f.s
@@ -1948,7 +1948,7 @@ pdgseptst.s: pdgseptst.f.s
 
 # target to generate assembly for a file
 pdgseptst.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdgsep.dir/build.make TESTING/EIG/CMakeFiles/xdgsep.dir/pdgseptst.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdgsep.dir/build.make TESTING/EIG/CMakeFiles/xdgsep.dir/pdgseptst.f.s
 .PHONY : pdgseptst.f.s
 
 pdhrddriver.o: pdhrddriver.f.o
@@ -1956,7 +1956,7 @@ pdhrddriver.o: pdhrddriver.f.o
 
 # target to build an object file
 pdhrddriver.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdhrd.dir/build.make TESTING/EIG/CMakeFiles/xdhrd.dir/pdhrddriver.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdhrd.dir/build.make TESTING/EIG/CMakeFiles/xdhrd.dir/pdhrddriver.f.o
 .PHONY : pdhrddriver.f.o
 
 pdhrddriver.i: pdhrddriver.f.i
@@ -1964,7 +1964,7 @@ pdhrddriver.i: pdhrddriver.f.i
 
 # target to preprocess a source file
 pdhrddriver.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdhrd.dir/build.make TESTING/EIG/CMakeFiles/xdhrd.dir/pdhrddriver.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdhrd.dir/build.make TESTING/EIG/CMakeFiles/xdhrd.dir/pdhrddriver.f.i
 .PHONY : pdhrddriver.f.i
 
 pdhrddriver.s: pdhrddriver.f.s
@@ -1972,7 +1972,7 @@ pdhrddriver.s: pdhrddriver.f.s
 
 # target to generate assembly for a file
 pdhrddriver.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdhrd.dir/build.make TESTING/EIG/CMakeFiles/xdhrd.dir/pdhrddriver.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdhrd.dir/build.make TESTING/EIG/CMakeFiles/xdhrd.dir/pdhrddriver.f.s
 .PHONY : pdhrddriver.f.s
 
 pdhrdinfo.o: pdhrdinfo.f.o
@@ -1980,7 +1980,7 @@ pdhrdinfo.o: pdhrdinfo.f.o
 
 # target to build an object file
 pdhrdinfo.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdhrd.dir/build.make TESTING/EIG/CMakeFiles/xdhrd.dir/pdhrdinfo.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdhrd.dir/build.make TESTING/EIG/CMakeFiles/xdhrd.dir/pdhrdinfo.f.o
 .PHONY : pdhrdinfo.f.o
 
 pdhrdinfo.i: pdhrdinfo.f.i
@@ -1988,7 +1988,7 @@ pdhrdinfo.i: pdhrdinfo.f.i
 
 # target to preprocess a source file
 pdhrdinfo.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdhrd.dir/build.make TESTING/EIG/CMakeFiles/xdhrd.dir/pdhrdinfo.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdhrd.dir/build.make TESTING/EIG/CMakeFiles/xdhrd.dir/pdhrdinfo.f.i
 .PHONY : pdhrdinfo.f.i
 
 pdhrdinfo.s: pdhrdinfo.f.s
@@ -1996,7 +1996,7 @@ pdhrdinfo.s: pdhrdinfo.f.s
 
 # target to generate assembly for a file
 pdhrdinfo.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdhrd.dir/build.make TESTING/EIG/CMakeFiles/xdhrd.dir/pdhrdinfo.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdhrd.dir/build.make TESTING/EIG/CMakeFiles/xdhrd.dir/pdhrdinfo.f.s
 .PHONY : pdhrdinfo.f.s
 
 pdhseqrdriver.o: pdhseqrdriver.f.o
@@ -2004,7 +2004,7 @@ pdhseqrdriver.o: pdhseqrdriver.f.o
 
 # target to build an object file
 pdhseqrdriver.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdhseqr.dir/build.make TESTING/EIG/CMakeFiles/xdhseqr.dir/pdhseqrdriver.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdhseqr.dir/build.make TESTING/EIG/CMakeFiles/xdhseqr.dir/pdhseqrdriver.f.o
 .PHONY : pdhseqrdriver.f.o
 
 pdhseqrdriver.i: pdhseqrdriver.f.i
@@ -2012,7 +2012,7 @@ pdhseqrdriver.i: pdhseqrdriver.f.i
 
 # target to preprocess a source file
 pdhseqrdriver.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdhseqr.dir/build.make TESTING/EIG/CMakeFiles/xdhseqr.dir/pdhseqrdriver.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdhseqr.dir/build.make TESTING/EIG/CMakeFiles/xdhseqr.dir/pdhseqrdriver.f.i
 .PHONY : pdhseqrdriver.f.i
 
 pdhseqrdriver.s: pdhseqrdriver.f.s
@@ -2020,7 +2020,7 @@ pdhseqrdriver.s: pdhseqrdriver.f.s
 
 # target to generate assembly for a file
 pdhseqrdriver.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdhseqr.dir/build.make TESTING/EIG/CMakeFiles/xdhseqr.dir/pdhseqrdriver.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdhseqr.dir/build.make TESTING/EIG/CMakeFiles/xdhseqr.dir/pdhseqrdriver.f.s
 .PHONY : pdhseqrdriver.f.s
 
 pdlafchk.o: pdlafchk.f.o
@@ -2028,9 +2028,9 @@ pdlafchk.o: pdlafchk.f.o
 
 # target to build an object file
 pdlafchk.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdbrd.dir/build.make TESTING/EIG/CMakeFiles/xdbrd.dir/pdlafchk.f.o
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdhrd.dir/build.make TESTING/EIG/CMakeFiles/xdhrd.dir/pdlafchk.f.o
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdtrd.dir/build.make TESTING/EIG/CMakeFiles/xdtrd.dir/pdlafchk.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdbrd.dir/build.make TESTING/EIG/CMakeFiles/xdbrd.dir/pdlafchk.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdhrd.dir/build.make TESTING/EIG/CMakeFiles/xdhrd.dir/pdlafchk.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdtrd.dir/build.make TESTING/EIG/CMakeFiles/xdtrd.dir/pdlafchk.f.o
 .PHONY : pdlafchk.f.o
 
 pdlafchk.i: pdlafchk.f.i
@@ -2038,9 +2038,9 @@ pdlafchk.i: pdlafchk.f.i
 
 # target to preprocess a source file
 pdlafchk.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdbrd.dir/build.make TESTING/EIG/CMakeFiles/xdbrd.dir/pdlafchk.f.i
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdhrd.dir/build.make TESTING/EIG/CMakeFiles/xdhrd.dir/pdlafchk.f.i
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdtrd.dir/build.make TESTING/EIG/CMakeFiles/xdtrd.dir/pdlafchk.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdbrd.dir/build.make TESTING/EIG/CMakeFiles/xdbrd.dir/pdlafchk.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdhrd.dir/build.make TESTING/EIG/CMakeFiles/xdhrd.dir/pdlafchk.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdtrd.dir/build.make TESTING/EIG/CMakeFiles/xdtrd.dir/pdlafchk.f.i
 .PHONY : pdlafchk.f.i
 
 pdlafchk.s: pdlafchk.f.s
@@ -2048,9 +2048,9 @@ pdlafchk.s: pdlafchk.f.s
 
 # target to generate assembly for a file
 pdlafchk.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdbrd.dir/build.make TESTING/EIG/CMakeFiles/xdbrd.dir/pdlafchk.f.s
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdhrd.dir/build.make TESTING/EIG/CMakeFiles/xdhrd.dir/pdlafchk.f.s
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdtrd.dir/build.make TESTING/EIG/CMakeFiles/xdtrd.dir/pdlafchk.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdbrd.dir/build.make TESTING/EIG/CMakeFiles/xdbrd.dir/pdlafchk.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdhrd.dir/build.make TESTING/EIG/CMakeFiles/xdhrd.dir/pdlafchk.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdtrd.dir/build.make TESTING/EIG/CMakeFiles/xdtrd.dir/pdlafchk.f.s
 .PHONY : pdlafchk.f.s
 
 pdlagge.o: pdlagge.f.o
@@ -2058,7 +2058,7 @@ pdlagge.o: pdlagge.f.o
 
 # target to build an object file
 pdlagge.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsvd.dir/build.make TESTING/EIG/CMakeFiles/xdsvd.dir/pdlagge.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsvd.dir/build.make TESTING/EIG/CMakeFiles/xdsvd.dir/pdlagge.f.o
 .PHONY : pdlagge.f.o
 
 pdlagge.i: pdlagge.f.i
@@ -2066,7 +2066,7 @@ pdlagge.i: pdlagge.f.i
 
 # target to preprocess a source file
 pdlagge.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsvd.dir/build.make TESTING/EIG/CMakeFiles/xdsvd.dir/pdlagge.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsvd.dir/build.make TESTING/EIG/CMakeFiles/xdsvd.dir/pdlagge.f.i
 .PHONY : pdlagge.f.i
 
 pdlagge.s: pdlagge.f.s
@@ -2074,7 +2074,7 @@ pdlagge.s: pdlagge.f.s
 
 # target to generate assembly for a file
 pdlagge.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsvd.dir/build.make TESTING/EIG/CMakeFiles/xdsvd.dir/pdlagge.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsvd.dir/build.make TESTING/EIG/CMakeFiles/xdsvd.dir/pdlagge.f.s
 .PHONY : pdlagge.f.s
 
 pdlagsy.o: pdlagsy.f.o
@@ -2082,9 +2082,9 @@ pdlagsy.o: pdlagsy.f.o
 
 # target to build an object file
 pdlagsy.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsep.dir/build.make TESTING/EIG/CMakeFiles/xdsep.dir/pdlagsy.f.o
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdgsep.dir/build.make TESTING/EIG/CMakeFiles/xdgsep.dir/pdlagsy.f.o
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsyevr.dir/build.make TESTING/EIG/CMakeFiles/xdsyevr.dir/pdlagsy.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsep.dir/build.make TESTING/EIG/CMakeFiles/xdsep.dir/pdlagsy.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdgsep.dir/build.make TESTING/EIG/CMakeFiles/xdgsep.dir/pdlagsy.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsyevr.dir/build.make TESTING/EIG/CMakeFiles/xdsyevr.dir/pdlagsy.f.o
 .PHONY : pdlagsy.f.o
 
 pdlagsy.i: pdlagsy.f.i
@@ -2092,9 +2092,9 @@ pdlagsy.i: pdlagsy.f.i
 
 # target to preprocess a source file
 pdlagsy.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsep.dir/build.make TESTING/EIG/CMakeFiles/xdsep.dir/pdlagsy.f.i
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdgsep.dir/build.make TESTING/EIG/CMakeFiles/xdgsep.dir/pdlagsy.f.i
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsyevr.dir/build.make TESTING/EIG/CMakeFiles/xdsyevr.dir/pdlagsy.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsep.dir/build.make TESTING/EIG/CMakeFiles/xdsep.dir/pdlagsy.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdgsep.dir/build.make TESTING/EIG/CMakeFiles/xdgsep.dir/pdlagsy.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsyevr.dir/build.make TESTING/EIG/CMakeFiles/xdsyevr.dir/pdlagsy.f.i
 .PHONY : pdlagsy.f.i
 
 pdlagsy.s: pdlagsy.f.s
@@ -2102,9 +2102,9 @@ pdlagsy.s: pdlagsy.f.s
 
 # target to generate assembly for a file
 pdlagsy.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsep.dir/build.make TESTING/EIG/CMakeFiles/xdsep.dir/pdlagsy.f.s
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdgsep.dir/build.make TESTING/EIG/CMakeFiles/xdgsep.dir/pdlagsy.f.s
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsyevr.dir/build.make TESTING/EIG/CMakeFiles/xdsyevr.dir/pdlagsy.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsep.dir/build.make TESTING/EIG/CMakeFiles/xdsep.dir/pdlagsy.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdgsep.dir/build.make TESTING/EIG/CMakeFiles/xdgsep.dir/pdlagsy.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsyevr.dir/build.make TESTING/EIG/CMakeFiles/xdsyevr.dir/pdlagsy.f.s
 .PHONY : pdlagsy.f.s
 
 pdlasizegsep.o: pdlasizegsep.f.o
@@ -2112,7 +2112,7 @@ pdlasizegsep.o: pdlasizegsep.f.o
 
 # target to build an object file
 pdlasizegsep.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdgsep.dir/build.make TESTING/EIG/CMakeFiles/xdgsep.dir/pdlasizegsep.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdgsep.dir/build.make TESTING/EIG/CMakeFiles/xdgsep.dir/pdlasizegsep.f.o
 .PHONY : pdlasizegsep.f.o
 
 pdlasizegsep.i: pdlasizegsep.f.i
@@ -2120,7 +2120,7 @@ pdlasizegsep.i: pdlasizegsep.f.i
 
 # target to preprocess a source file
 pdlasizegsep.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdgsep.dir/build.make TESTING/EIG/CMakeFiles/xdgsep.dir/pdlasizegsep.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdgsep.dir/build.make TESTING/EIG/CMakeFiles/xdgsep.dir/pdlasizegsep.f.i
 .PHONY : pdlasizegsep.f.i
 
 pdlasizegsep.s: pdlasizegsep.f.s
@@ -2128,7 +2128,7 @@ pdlasizegsep.s: pdlasizegsep.f.s
 
 # target to generate assembly for a file
 pdlasizegsep.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdgsep.dir/build.make TESTING/EIG/CMakeFiles/xdgsep.dir/pdlasizegsep.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdgsep.dir/build.make TESTING/EIG/CMakeFiles/xdgsep.dir/pdlasizegsep.f.s
 .PHONY : pdlasizegsep.f.s
 
 pdlasizesep.o: pdlasizesep.f.o
@@ -2136,9 +2136,9 @@ pdlasizesep.o: pdlasizesep.f.o
 
 # target to build an object file
 pdlasizesep.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsep.dir/build.make TESTING/EIG/CMakeFiles/xdsep.dir/pdlasizesep.f.o
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdgsep.dir/build.make TESTING/EIG/CMakeFiles/xdgsep.dir/pdlasizesep.f.o
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsyevr.dir/build.make TESTING/EIG/CMakeFiles/xdsyevr.dir/pdlasizesep.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsep.dir/build.make TESTING/EIG/CMakeFiles/xdsep.dir/pdlasizesep.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdgsep.dir/build.make TESTING/EIG/CMakeFiles/xdgsep.dir/pdlasizesep.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsyevr.dir/build.make TESTING/EIG/CMakeFiles/xdsyevr.dir/pdlasizesep.f.o
 .PHONY : pdlasizesep.f.o
 
 pdlasizesep.i: pdlasizesep.f.i
@@ -2146,9 +2146,9 @@ pdlasizesep.i: pdlasizesep.f.i
 
 # target to preprocess a source file
 pdlasizesep.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsep.dir/build.make TESTING/EIG/CMakeFiles/xdsep.dir/pdlasizesep.f.i
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdgsep.dir/build.make TESTING/EIG/CMakeFiles/xdgsep.dir/pdlasizesep.f.i
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsyevr.dir/build.make TESTING/EIG/CMakeFiles/xdsyevr.dir/pdlasizesep.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsep.dir/build.make TESTING/EIG/CMakeFiles/xdsep.dir/pdlasizesep.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdgsep.dir/build.make TESTING/EIG/CMakeFiles/xdgsep.dir/pdlasizesep.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsyevr.dir/build.make TESTING/EIG/CMakeFiles/xdsyevr.dir/pdlasizesep.f.i
 .PHONY : pdlasizesep.f.i
 
 pdlasizesep.s: pdlasizesep.f.s
@@ -2156,9 +2156,9 @@ pdlasizesep.s: pdlasizesep.f.s
 
 # target to generate assembly for a file
 pdlasizesep.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsep.dir/build.make TESTING/EIG/CMakeFiles/xdsep.dir/pdlasizesep.f.s
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdgsep.dir/build.make TESTING/EIG/CMakeFiles/xdgsep.dir/pdlasizesep.f.s
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsyevr.dir/build.make TESTING/EIG/CMakeFiles/xdsyevr.dir/pdlasizesep.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsep.dir/build.make TESTING/EIG/CMakeFiles/xdsep.dir/pdlasizesep.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdgsep.dir/build.make TESTING/EIG/CMakeFiles/xdgsep.dir/pdlasizesep.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsyevr.dir/build.make TESTING/EIG/CMakeFiles/xdsyevr.dir/pdlasizesep.f.s
 .PHONY : pdlasizesep.f.s
 
 pdlasizesepr.o: pdlasizesepr.f.o
@@ -2166,7 +2166,7 @@ pdlasizesepr.o: pdlasizesepr.f.o
 
 # target to build an object file
 pdlasizesepr.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsyevr.dir/build.make TESTING/EIG/CMakeFiles/xdsyevr.dir/pdlasizesepr.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsyevr.dir/build.make TESTING/EIG/CMakeFiles/xdsyevr.dir/pdlasizesepr.f.o
 .PHONY : pdlasizesepr.f.o
 
 pdlasizesepr.i: pdlasizesepr.f.i
@@ -2174,7 +2174,7 @@ pdlasizesepr.i: pdlasizesepr.f.i
 
 # target to preprocess a source file
 pdlasizesepr.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsyevr.dir/build.make TESTING/EIG/CMakeFiles/xdsyevr.dir/pdlasizesepr.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsyevr.dir/build.make TESTING/EIG/CMakeFiles/xdsyevr.dir/pdlasizesepr.f.i
 .PHONY : pdlasizesepr.f.i
 
 pdlasizesepr.s: pdlasizesepr.f.s
@@ -2182,7 +2182,7 @@ pdlasizesepr.s: pdlasizesepr.f.s
 
 # target to generate assembly for a file
 pdlasizesepr.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsyevr.dir/build.make TESTING/EIG/CMakeFiles/xdsyevr.dir/pdlasizesepr.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsyevr.dir/build.make TESTING/EIG/CMakeFiles/xdsyevr.dir/pdlasizesepr.f.s
 .PHONY : pdlasizesepr.f.s
 
 pdlasizesqp.o: pdlasizesqp.f.o
@@ -2190,7 +2190,7 @@ pdlasizesqp.o: pdlasizesqp.f.o
 
 # target to build an object file
 pdlasizesqp.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsep.dir/build.make TESTING/EIG/CMakeFiles/xdsep.dir/pdlasizesqp.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsep.dir/build.make TESTING/EIG/CMakeFiles/xdsep.dir/pdlasizesqp.f.o
 .PHONY : pdlasizesqp.f.o
 
 pdlasizesqp.i: pdlasizesqp.f.i
@@ -2198,7 +2198,7 @@ pdlasizesqp.i: pdlasizesqp.f.i
 
 # target to preprocess a source file
 pdlasizesqp.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsep.dir/build.make TESTING/EIG/CMakeFiles/xdsep.dir/pdlasizesqp.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsep.dir/build.make TESTING/EIG/CMakeFiles/xdsep.dir/pdlasizesqp.f.i
 .PHONY : pdlasizesqp.f.i
 
 pdlasizesqp.s: pdlasizesqp.f.s
@@ -2206,7 +2206,7 @@ pdlasizesqp.s: pdlasizesqp.f.s
 
 # target to generate assembly for a file
 pdlasizesqp.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsep.dir/build.make TESTING/EIG/CMakeFiles/xdsep.dir/pdlasizesqp.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsep.dir/build.make TESTING/EIG/CMakeFiles/xdsep.dir/pdlasizesqp.f.s
 .PHONY : pdlasizesqp.f.s
 
 pdlasizesyev.o: pdlasizesyev.f.o
@@ -2214,7 +2214,7 @@ pdlasizesyev.o: pdlasizesyev.f.o
 
 # target to build an object file
 pdlasizesyev.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsep.dir/build.make TESTING/EIG/CMakeFiles/xdsep.dir/pdlasizesyev.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsep.dir/build.make TESTING/EIG/CMakeFiles/xdsep.dir/pdlasizesyev.f.o
 .PHONY : pdlasizesyev.f.o
 
 pdlasizesyev.i: pdlasizesyev.f.i
@@ -2222,7 +2222,7 @@ pdlasizesyev.i: pdlasizesyev.f.i
 
 # target to preprocess a source file
 pdlasizesyev.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsep.dir/build.make TESTING/EIG/CMakeFiles/xdsep.dir/pdlasizesyev.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsep.dir/build.make TESTING/EIG/CMakeFiles/xdsep.dir/pdlasizesyev.f.i
 .PHONY : pdlasizesyev.f.i
 
 pdlasizesyev.s: pdlasizesyev.f.s
@@ -2230,7 +2230,7 @@ pdlasizesyev.s: pdlasizesyev.f.s
 
 # target to generate assembly for a file
 pdlasizesyev.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsep.dir/build.make TESTING/EIG/CMakeFiles/xdsep.dir/pdlasizesyev.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsep.dir/build.make TESTING/EIG/CMakeFiles/xdsep.dir/pdlasizesyev.f.s
 .PHONY : pdlasizesyev.f.s
 
 pdlasizesyevr.o: pdlasizesyevr.f.o
@@ -2238,7 +2238,7 @@ pdlasizesyevr.o: pdlasizesyevr.f.o
 
 # target to build an object file
 pdlasizesyevr.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsyevr.dir/build.make TESTING/EIG/CMakeFiles/xdsyevr.dir/pdlasizesyevr.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsyevr.dir/build.make TESTING/EIG/CMakeFiles/xdsyevr.dir/pdlasizesyevr.f.o
 .PHONY : pdlasizesyevr.f.o
 
 pdlasizesyevr.i: pdlasizesyevr.f.i
@@ -2246,7 +2246,7 @@ pdlasizesyevr.i: pdlasizesyevr.f.i
 
 # target to preprocess a source file
 pdlasizesyevr.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsyevr.dir/build.make TESTING/EIG/CMakeFiles/xdsyevr.dir/pdlasizesyevr.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsyevr.dir/build.make TESTING/EIG/CMakeFiles/xdsyevr.dir/pdlasizesyevr.f.i
 .PHONY : pdlasizesyevr.f.i
 
 pdlasizesyevr.s: pdlasizesyevr.f.s
@@ -2254,7 +2254,7 @@ pdlasizesyevr.s: pdlasizesyevr.f.s
 
 # target to generate assembly for a file
 pdlasizesyevr.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsyevr.dir/build.make TESTING/EIG/CMakeFiles/xdsyevr.dir/pdlasizesyevr.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsyevr.dir/build.make TESTING/EIG/CMakeFiles/xdsyevr.dir/pdlasizesyevr.f.s
 .PHONY : pdlasizesyevr.f.s
 
 pdlasizesyevx.o: pdlasizesyevx.f.o
@@ -2262,8 +2262,8 @@ pdlasizesyevx.o: pdlasizesyevx.f.o
 
 # target to build an object file
 pdlasizesyevx.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsep.dir/build.make TESTING/EIG/CMakeFiles/xdsep.dir/pdlasizesyevx.f.o
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdgsep.dir/build.make TESTING/EIG/CMakeFiles/xdgsep.dir/pdlasizesyevx.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsep.dir/build.make TESTING/EIG/CMakeFiles/xdsep.dir/pdlasizesyevx.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdgsep.dir/build.make TESTING/EIG/CMakeFiles/xdgsep.dir/pdlasizesyevx.f.o
 .PHONY : pdlasizesyevx.f.o
 
 pdlasizesyevx.i: pdlasizesyevx.f.i
@@ -2271,8 +2271,8 @@ pdlasizesyevx.i: pdlasizesyevx.f.i
 
 # target to preprocess a source file
 pdlasizesyevx.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsep.dir/build.make TESTING/EIG/CMakeFiles/xdsep.dir/pdlasizesyevx.f.i
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdgsep.dir/build.make TESTING/EIG/CMakeFiles/xdgsep.dir/pdlasizesyevx.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsep.dir/build.make TESTING/EIG/CMakeFiles/xdsep.dir/pdlasizesyevx.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdgsep.dir/build.make TESTING/EIG/CMakeFiles/xdgsep.dir/pdlasizesyevx.f.i
 .PHONY : pdlasizesyevx.f.i
 
 pdlasizesyevx.s: pdlasizesyevx.f.s
@@ -2280,8 +2280,8 @@ pdlasizesyevx.s: pdlasizesyevx.f.s
 
 # target to generate assembly for a file
 pdlasizesyevx.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsep.dir/build.make TESTING/EIG/CMakeFiles/xdsep.dir/pdlasizesyevx.f.s
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdgsep.dir/build.make TESTING/EIG/CMakeFiles/xdgsep.dir/pdlasizesyevx.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsep.dir/build.make TESTING/EIG/CMakeFiles/xdsep.dir/pdlasizesyevx.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdgsep.dir/build.make TESTING/EIG/CMakeFiles/xdgsep.dir/pdlasizesyevx.f.s
 .PHONY : pdlasizesyevx.f.s
 
 pdlatms.o: pdlatms.f.o
@@ -2289,9 +2289,9 @@ pdlatms.o: pdlatms.f.o
 
 # target to build an object file
 pdlatms.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsep.dir/build.make TESTING/EIG/CMakeFiles/xdsep.dir/pdlatms.f.o
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdgsep.dir/build.make TESTING/EIG/CMakeFiles/xdgsep.dir/pdlatms.f.o
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsyevr.dir/build.make TESTING/EIG/CMakeFiles/xdsyevr.dir/pdlatms.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsep.dir/build.make TESTING/EIG/CMakeFiles/xdsep.dir/pdlatms.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdgsep.dir/build.make TESTING/EIG/CMakeFiles/xdgsep.dir/pdlatms.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsyevr.dir/build.make TESTING/EIG/CMakeFiles/xdsyevr.dir/pdlatms.f.o
 .PHONY : pdlatms.f.o
 
 pdlatms.i: pdlatms.f.i
@@ -2299,9 +2299,9 @@ pdlatms.i: pdlatms.f.i
 
 # target to preprocess a source file
 pdlatms.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsep.dir/build.make TESTING/EIG/CMakeFiles/xdsep.dir/pdlatms.f.i
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdgsep.dir/build.make TESTING/EIG/CMakeFiles/xdgsep.dir/pdlatms.f.i
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsyevr.dir/build.make TESTING/EIG/CMakeFiles/xdsyevr.dir/pdlatms.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsep.dir/build.make TESTING/EIG/CMakeFiles/xdsep.dir/pdlatms.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdgsep.dir/build.make TESTING/EIG/CMakeFiles/xdgsep.dir/pdlatms.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsyevr.dir/build.make TESTING/EIG/CMakeFiles/xdsyevr.dir/pdlatms.f.i
 .PHONY : pdlatms.f.i
 
 pdlatms.s: pdlatms.f.s
@@ -2309,9 +2309,9 @@ pdlatms.s: pdlatms.f.s
 
 # target to generate assembly for a file
 pdlatms.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsep.dir/build.make TESTING/EIG/CMakeFiles/xdsep.dir/pdlatms.f.s
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdgsep.dir/build.make TESTING/EIG/CMakeFiles/xdgsep.dir/pdlatms.f.s
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsyevr.dir/build.make TESTING/EIG/CMakeFiles/xdsyevr.dir/pdlatms.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsep.dir/build.make TESTING/EIG/CMakeFiles/xdsep.dir/pdlatms.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdgsep.dir/build.make TESTING/EIG/CMakeFiles/xdgsep.dir/pdlatms.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsyevr.dir/build.make TESTING/EIG/CMakeFiles/xdsyevr.dir/pdlatms.f.s
 .PHONY : pdlatms.f.s
 
 pdlatran.o: pdlatran.f.o
@@ -2319,7 +2319,7 @@ pdlatran.o: pdlatran.f.o
 
 # target to build an object file
 pdlatran.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdtrd.dir/build.make TESTING/EIG/CMakeFiles/xdtrd.dir/pdlatran.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdtrd.dir/build.make TESTING/EIG/CMakeFiles/xdtrd.dir/pdlatran.f.o
 .PHONY : pdlatran.f.o
 
 pdlatran.i: pdlatran.f.i
@@ -2327,7 +2327,7 @@ pdlatran.i: pdlatran.f.i
 
 # target to preprocess a source file
 pdlatran.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdtrd.dir/build.make TESTING/EIG/CMakeFiles/xdtrd.dir/pdlatran.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdtrd.dir/build.make TESTING/EIG/CMakeFiles/xdtrd.dir/pdlatran.f.i
 .PHONY : pdlatran.f.i
 
 pdlatran.s: pdlatran.f.s
@@ -2335,7 +2335,7 @@ pdlatran.s: pdlatran.f.s
 
 # target to generate assembly for a file
 pdlatran.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdtrd.dir/build.make TESTING/EIG/CMakeFiles/xdtrd.dir/pdlatran.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdtrd.dir/build.make TESTING/EIG/CMakeFiles/xdtrd.dir/pdlatran.f.s
 .PHONY : pdlatran.f.s
 
 pdmatgen.o: pdmatgen.f.o
@@ -2343,14 +2343,14 @@ pdmatgen.o: pdmatgen.f.o
 
 # target to build an object file
 pdmatgen.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdbrd.dir/build.make TESTING/EIG/CMakeFiles/xdbrd.dir/pdmatgen.f.o
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdhrd.dir/build.make TESTING/EIG/CMakeFiles/xdhrd.dir/pdmatgen.f.o
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdtrd.dir/build.make TESTING/EIG/CMakeFiles/xdtrd.dir/pdmatgen.f.o
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsvd.dir/build.make TESTING/EIG/CMakeFiles/xdsvd.dir/pdmatgen.f.o
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsep.dir/build.make TESTING/EIG/CMakeFiles/xdsep.dir/pdmatgen.f.o
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdgsep.dir/build.make TESTING/EIG/CMakeFiles/xdgsep.dir/pdmatgen.f.o
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdnep.dir/build.make TESTING/EIG/CMakeFiles/xdnep.dir/pdmatgen.f.o
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsyevr.dir/build.make TESTING/EIG/CMakeFiles/xdsyevr.dir/pdmatgen.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdbrd.dir/build.make TESTING/EIG/CMakeFiles/xdbrd.dir/pdmatgen.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdhrd.dir/build.make TESTING/EIG/CMakeFiles/xdhrd.dir/pdmatgen.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdtrd.dir/build.make TESTING/EIG/CMakeFiles/xdtrd.dir/pdmatgen.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsvd.dir/build.make TESTING/EIG/CMakeFiles/xdsvd.dir/pdmatgen.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsep.dir/build.make TESTING/EIG/CMakeFiles/xdsep.dir/pdmatgen.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdgsep.dir/build.make TESTING/EIG/CMakeFiles/xdgsep.dir/pdmatgen.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdnep.dir/build.make TESTING/EIG/CMakeFiles/xdnep.dir/pdmatgen.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsyevr.dir/build.make TESTING/EIG/CMakeFiles/xdsyevr.dir/pdmatgen.f.o
 .PHONY : pdmatgen.f.o
 
 pdmatgen.i: pdmatgen.f.i
@@ -2358,14 +2358,14 @@ pdmatgen.i: pdmatgen.f.i
 
 # target to preprocess a source file
 pdmatgen.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdbrd.dir/build.make TESTING/EIG/CMakeFiles/xdbrd.dir/pdmatgen.f.i
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdhrd.dir/build.make TESTING/EIG/CMakeFiles/xdhrd.dir/pdmatgen.f.i
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdtrd.dir/build.make TESTING/EIG/CMakeFiles/xdtrd.dir/pdmatgen.f.i
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsvd.dir/build.make TESTING/EIG/CMakeFiles/xdsvd.dir/pdmatgen.f.i
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsep.dir/build.make TESTING/EIG/CMakeFiles/xdsep.dir/pdmatgen.f.i
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdgsep.dir/build.make TESTING/EIG/CMakeFiles/xdgsep.dir/pdmatgen.f.i
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdnep.dir/build.make TESTING/EIG/CMakeFiles/xdnep.dir/pdmatgen.f.i
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsyevr.dir/build.make TESTING/EIG/CMakeFiles/xdsyevr.dir/pdmatgen.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdbrd.dir/build.make TESTING/EIG/CMakeFiles/xdbrd.dir/pdmatgen.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdhrd.dir/build.make TESTING/EIG/CMakeFiles/xdhrd.dir/pdmatgen.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdtrd.dir/build.make TESTING/EIG/CMakeFiles/xdtrd.dir/pdmatgen.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsvd.dir/build.make TESTING/EIG/CMakeFiles/xdsvd.dir/pdmatgen.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsep.dir/build.make TESTING/EIG/CMakeFiles/xdsep.dir/pdmatgen.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdgsep.dir/build.make TESTING/EIG/CMakeFiles/xdgsep.dir/pdmatgen.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdnep.dir/build.make TESTING/EIG/CMakeFiles/xdnep.dir/pdmatgen.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsyevr.dir/build.make TESTING/EIG/CMakeFiles/xdsyevr.dir/pdmatgen.f.i
 .PHONY : pdmatgen.f.i
 
 pdmatgen.s: pdmatgen.f.s
@@ -2373,14 +2373,14 @@ pdmatgen.s: pdmatgen.f.s
 
 # target to generate assembly for a file
 pdmatgen.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdbrd.dir/build.make TESTING/EIG/CMakeFiles/xdbrd.dir/pdmatgen.f.s
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdhrd.dir/build.make TESTING/EIG/CMakeFiles/xdhrd.dir/pdmatgen.f.s
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdtrd.dir/build.make TESTING/EIG/CMakeFiles/xdtrd.dir/pdmatgen.f.s
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsvd.dir/build.make TESTING/EIG/CMakeFiles/xdsvd.dir/pdmatgen.f.s
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsep.dir/build.make TESTING/EIG/CMakeFiles/xdsep.dir/pdmatgen.f.s
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdgsep.dir/build.make TESTING/EIG/CMakeFiles/xdgsep.dir/pdmatgen.f.s
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdnep.dir/build.make TESTING/EIG/CMakeFiles/xdnep.dir/pdmatgen.f.s
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsyevr.dir/build.make TESTING/EIG/CMakeFiles/xdsyevr.dir/pdmatgen.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdbrd.dir/build.make TESTING/EIG/CMakeFiles/xdbrd.dir/pdmatgen.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdhrd.dir/build.make TESTING/EIG/CMakeFiles/xdhrd.dir/pdmatgen.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdtrd.dir/build.make TESTING/EIG/CMakeFiles/xdtrd.dir/pdmatgen.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsvd.dir/build.make TESTING/EIG/CMakeFiles/xdsvd.dir/pdmatgen.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsep.dir/build.make TESTING/EIG/CMakeFiles/xdsep.dir/pdmatgen.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdgsep.dir/build.make TESTING/EIG/CMakeFiles/xdgsep.dir/pdmatgen.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdnep.dir/build.make TESTING/EIG/CMakeFiles/xdnep.dir/pdmatgen.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsyevr.dir/build.make TESTING/EIG/CMakeFiles/xdsyevr.dir/pdmatgen.f.s
 .PHONY : pdmatgen.f.s
 
 pdmatgen2.o: pdmatgen2.f.o
@@ -2388,7 +2388,7 @@ pdmatgen2.o: pdmatgen2.f.o
 
 # target to build an object file
 pdmatgen2.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdhseqr.dir/build.make TESTING/EIG/CMakeFiles/xdhseqr.dir/pdmatgen2.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdhseqr.dir/build.make TESTING/EIG/CMakeFiles/xdhseqr.dir/pdmatgen2.f.o
 .PHONY : pdmatgen2.f.o
 
 pdmatgen2.i: pdmatgen2.f.i
@@ -2396,7 +2396,7 @@ pdmatgen2.i: pdmatgen2.f.i
 
 # target to preprocess a source file
 pdmatgen2.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdhseqr.dir/build.make TESTING/EIG/CMakeFiles/xdhseqr.dir/pdmatgen2.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdhseqr.dir/build.make TESTING/EIG/CMakeFiles/xdhseqr.dir/pdmatgen2.f.i
 .PHONY : pdmatgen2.f.i
 
 pdmatgen2.s: pdmatgen2.f.s
@@ -2404,7 +2404,7 @@ pdmatgen2.s: pdmatgen2.f.s
 
 # target to generate assembly for a file
 pdmatgen2.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdhseqr.dir/build.make TESTING/EIG/CMakeFiles/xdhseqr.dir/pdmatgen2.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdhseqr.dir/build.make TESTING/EIG/CMakeFiles/xdhseqr.dir/pdmatgen2.f.s
 .PHONY : pdmatgen2.f.s
 
 pdnepdriver.o: pdnepdriver.f.o
@@ -2412,7 +2412,7 @@ pdnepdriver.o: pdnepdriver.f.o
 
 # target to build an object file
 pdnepdriver.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdnep.dir/build.make TESTING/EIG/CMakeFiles/xdnep.dir/pdnepdriver.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdnep.dir/build.make TESTING/EIG/CMakeFiles/xdnep.dir/pdnepdriver.f.o
 .PHONY : pdnepdriver.f.o
 
 pdnepdriver.i: pdnepdriver.f.i
@@ -2420,7 +2420,7 @@ pdnepdriver.i: pdnepdriver.f.i
 
 # target to preprocess a source file
 pdnepdriver.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdnep.dir/build.make TESTING/EIG/CMakeFiles/xdnep.dir/pdnepdriver.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdnep.dir/build.make TESTING/EIG/CMakeFiles/xdnep.dir/pdnepdriver.f.i
 .PHONY : pdnepdriver.f.i
 
 pdnepdriver.s: pdnepdriver.f.s
@@ -2428,7 +2428,7 @@ pdnepdriver.s: pdnepdriver.f.s
 
 # target to generate assembly for a file
 pdnepdriver.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdnep.dir/build.make TESTING/EIG/CMakeFiles/xdnep.dir/pdnepdriver.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdnep.dir/build.make TESTING/EIG/CMakeFiles/xdnep.dir/pdnepdriver.f.s
 .PHONY : pdnepdriver.f.s
 
 pdnepfchk.o: pdnepfchk.f.o
@@ -2436,7 +2436,7 @@ pdnepfchk.o: pdnepfchk.f.o
 
 # target to build an object file
 pdnepfchk.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdnep.dir/build.make TESTING/EIG/CMakeFiles/xdnep.dir/pdnepfchk.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdnep.dir/build.make TESTING/EIG/CMakeFiles/xdnep.dir/pdnepfchk.f.o
 .PHONY : pdnepfchk.f.o
 
 pdnepfchk.i: pdnepfchk.f.i
@@ -2444,7 +2444,7 @@ pdnepfchk.i: pdnepfchk.f.i
 
 # target to preprocess a source file
 pdnepfchk.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdnep.dir/build.make TESTING/EIG/CMakeFiles/xdnep.dir/pdnepfchk.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdnep.dir/build.make TESTING/EIG/CMakeFiles/xdnep.dir/pdnepfchk.f.i
 .PHONY : pdnepfchk.f.i
 
 pdnepfchk.s: pdnepfchk.f.s
@@ -2452,7 +2452,7 @@ pdnepfchk.s: pdnepfchk.f.s
 
 # target to generate assembly for a file
 pdnepfchk.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdnep.dir/build.make TESTING/EIG/CMakeFiles/xdnep.dir/pdnepfchk.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdnep.dir/build.make TESTING/EIG/CMakeFiles/xdnep.dir/pdnepfchk.f.s
 .PHONY : pdnepfchk.f.s
 
 pdnepinfo.o: pdnepinfo.f.o
@@ -2460,7 +2460,7 @@ pdnepinfo.o: pdnepinfo.f.o
 
 # target to build an object file
 pdnepinfo.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdnep.dir/build.make TESTING/EIG/CMakeFiles/xdnep.dir/pdnepinfo.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdnep.dir/build.make TESTING/EIG/CMakeFiles/xdnep.dir/pdnepinfo.f.o
 .PHONY : pdnepinfo.f.o
 
 pdnepinfo.i: pdnepinfo.f.i
@@ -2468,7 +2468,7 @@ pdnepinfo.i: pdnepinfo.f.i
 
 # target to preprocess a source file
 pdnepinfo.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdnep.dir/build.make TESTING/EIG/CMakeFiles/xdnep.dir/pdnepinfo.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdnep.dir/build.make TESTING/EIG/CMakeFiles/xdnep.dir/pdnepinfo.f.i
 .PHONY : pdnepinfo.f.i
 
 pdnepinfo.s: pdnepinfo.f.s
@@ -2476,7 +2476,7 @@ pdnepinfo.s: pdnepinfo.f.s
 
 # target to generate assembly for a file
 pdnepinfo.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdnep.dir/build.make TESTING/EIG/CMakeFiles/xdnep.dir/pdnepinfo.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdnep.dir/build.make TESTING/EIG/CMakeFiles/xdnep.dir/pdnepinfo.f.s
 .PHONY : pdnepinfo.f.s
 
 pdsdpsubtst.o: pdsdpsubtst.f.o
@@ -2484,7 +2484,7 @@ pdsdpsubtst.o: pdsdpsubtst.f.o
 
 # target to build an object file
 pdsdpsubtst.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsep.dir/build.make TESTING/EIG/CMakeFiles/xdsep.dir/pdsdpsubtst.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsep.dir/build.make TESTING/EIG/CMakeFiles/xdsep.dir/pdsdpsubtst.f.o
 .PHONY : pdsdpsubtst.f.o
 
 pdsdpsubtst.i: pdsdpsubtst.f.i
@@ -2492,7 +2492,7 @@ pdsdpsubtst.i: pdsdpsubtst.f.i
 
 # target to preprocess a source file
 pdsdpsubtst.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsep.dir/build.make TESTING/EIG/CMakeFiles/xdsep.dir/pdsdpsubtst.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsep.dir/build.make TESTING/EIG/CMakeFiles/xdsep.dir/pdsdpsubtst.f.i
 .PHONY : pdsdpsubtst.f.i
 
 pdsdpsubtst.s: pdsdpsubtst.f.s
@@ -2500,7 +2500,7 @@ pdsdpsubtst.s: pdsdpsubtst.f.s
 
 # target to generate assembly for a file
 pdsdpsubtst.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsep.dir/build.make TESTING/EIG/CMakeFiles/xdsep.dir/pdsdpsubtst.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsep.dir/build.make TESTING/EIG/CMakeFiles/xdsep.dir/pdsdpsubtst.f.s
 .PHONY : pdsdpsubtst.f.s
 
 pdsepchk.o: pdsepchk.f.o
@@ -2508,8 +2508,8 @@ pdsepchk.o: pdsepchk.f.o
 
 # target to build an object file
 pdsepchk.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsep.dir/build.make TESTING/EIG/CMakeFiles/xdsep.dir/pdsepchk.f.o
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsyevr.dir/build.make TESTING/EIG/CMakeFiles/xdsyevr.dir/pdsepchk.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsep.dir/build.make TESTING/EIG/CMakeFiles/xdsep.dir/pdsepchk.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsyevr.dir/build.make TESTING/EIG/CMakeFiles/xdsyevr.dir/pdsepchk.f.o
 .PHONY : pdsepchk.f.o
 
 pdsepchk.i: pdsepchk.f.i
@@ -2517,8 +2517,8 @@ pdsepchk.i: pdsepchk.f.i
 
 # target to preprocess a source file
 pdsepchk.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsep.dir/build.make TESTING/EIG/CMakeFiles/xdsep.dir/pdsepchk.f.i
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsyevr.dir/build.make TESTING/EIG/CMakeFiles/xdsyevr.dir/pdsepchk.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsep.dir/build.make TESTING/EIG/CMakeFiles/xdsep.dir/pdsepchk.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsyevr.dir/build.make TESTING/EIG/CMakeFiles/xdsyevr.dir/pdsepchk.f.i
 .PHONY : pdsepchk.f.i
 
 pdsepchk.s: pdsepchk.f.s
@@ -2526,8 +2526,8 @@ pdsepchk.s: pdsepchk.f.s
 
 # target to generate assembly for a file
 pdsepchk.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsep.dir/build.make TESTING/EIG/CMakeFiles/xdsep.dir/pdsepchk.f.s
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsyevr.dir/build.make TESTING/EIG/CMakeFiles/xdsyevr.dir/pdsepchk.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsep.dir/build.make TESTING/EIG/CMakeFiles/xdsep.dir/pdsepchk.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsyevr.dir/build.make TESTING/EIG/CMakeFiles/xdsyevr.dir/pdsepchk.f.s
 .PHONY : pdsepchk.f.s
 
 pdsepdriver.o: pdsepdriver.f.o
@@ -2535,7 +2535,7 @@ pdsepdriver.o: pdsepdriver.f.o
 
 # target to build an object file
 pdsepdriver.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsep.dir/build.make TESTING/EIG/CMakeFiles/xdsep.dir/pdsepdriver.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsep.dir/build.make TESTING/EIG/CMakeFiles/xdsep.dir/pdsepdriver.f.o
 .PHONY : pdsepdriver.f.o
 
 pdsepdriver.i: pdsepdriver.f.i
@@ -2543,7 +2543,7 @@ pdsepdriver.i: pdsepdriver.f.i
 
 # target to preprocess a source file
 pdsepdriver.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsep.dir/build.make TESTING/EIG/CMakeFiles/xdsep.dir/pdsepdriver.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsep.dir/build.make TESTING/EIG/CMakeFiles/xdsep.dir/pdsepdriver.f.i
 .PHONY : pdsepdriver.f.i
 
 pdsepdriver.s: pdsepdriver.f.s
@@ -2551,7 +2551,7 @@ pdsepdriver.s: pdsepdriver.f.s
 
 # target to generate assembly for a file
 pdsepdriver.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsep.dir/build.make TESTING/EIG/CMakeFiles/xdsep.dir/pdsepdriver.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsep.dir/build.make TESTING/EIG/CMakeFiles/xdsep.dir/pdsepdriver.f.s
 .PHONY : pdsepdriver.f.s
 
 pdsepinfo.o: pdsepinfo.f.o
@@ -2559,12 +2559,12 @@ pdsepinfo.o: pdsepinfo.f.o
 
 # target to build an object file
 pdsepinfo.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsep.dir/build.make TESTING/EIG/CMakeFiles/xdsep.dir/pdsepinfo.f.o
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzsep.dir/build.make TESTING/EIG/CMakeFiles/xzsep.dir/pdsepinfo.f.o
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdgsep.dir/build.make TESTING/EIG/CMakeFiles/xdgsep.dir/pdsepinfo.f.o
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzgsep.dir/build.make TESTING/EIG/CMakeFiles/xzgsep.dir/pdsepinfo.f.o
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsyevr.dir/build.make TESTING/EIG/CMakeFiles/xdsyevr.dir/pdsepinfo.f.o
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzheevr.dir/build.make TESTING/EIG/CMakeFiles/xzheevr.dir/pdsepinfo.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsep.dir/build.make TESTING/EIG/CMakeFiles/xdsep.dir/pdsepinfo.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzsep.dir/build.make TESTING/EIG/CMakeFiles/xzsep.dir/pdsepinfo.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdgsep.dir/build.make TESTING/EIG/CMakeFiles/xdgsep.dir/pdsepinfo.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzgsep.dir/build.make TESTING/EIG/CMakeFiles/xzgsep.dir/pdsepinfo.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsyevr.dir/build.make TESTING/EIG/CMakeFiles/xdsyevr.dir/pdsepinfo.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzheevr.dir/build.make TESTING/EIG/CMakeFiles/xzheevr.dir/pdsepinfo.f.o
 .PHONY : pdsepinfo.f.o
 
 pdsepinfo.i: pdsepinfo.f.i
@@ -2572,12 +2572,12 @@ pdsepinfo.i: pdsepinfo.f.i
 
 # target to preprocess a source file
 pdsepinfo.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsep.dir/build.make TESTING/EIG/CMakeFiles/xdsep.dir/pdsepinfo.f.i
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzsep.dir/build.make TESTING/EIG/CMakeFiles/xzsep.dir/pdsepinfo.f.i
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdgsep.dir/build.make TESTING/EIG/CMakeFiles/xdgsep.dir/pdsepinfo.f.i
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzgsep.dir/build.make TESTING/EIG/CMakeFiles/xzgsep.dir/pdsepinfo.f.i
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsyevr.dir/build.make TESTING/EIG/CMakeFiles/xdsyevr.dir/pdsepinfo.f.i
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzheevr.dir/build.make TESTING/EIG/CMakeFiles/xzheevr.dir/pdsepinfo.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsep.dir/build.make TESTING/EIG/CMakeFiles/xdsep.dir/pdsepinfo.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzsep.dir/build.make TESTING/EIG/CMakeFiles/xzsep.dir/pdsepinfo.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdgsep.dir/build.make TESTING/EIG/CMakeFiles/xdgsep.dir/pdsepinfo.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzgsep.dir/build.make TESTING/EIG/CMakeFiles/xzgsep.dir/pdsepinfo.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsyevr.dir/build.make TESTING/EIG/CMakeFiles/xdsyevr.dir/pdsepinfo.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzheevr.dir/build.make TESTING/EIG/CMakeFiles/xzheevr.dir/pdsepinfo.f.i
 .PHONY : pdsepinfo.f.i
 
 pdsepinfo.s: pdsepinfo.f.s
@@ -2585,12 +2585,12 @@ pdsepinfo.s: pdsepinfo.f.s
 
 # target to generate assembly for a file
 pdsepinfo.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsep.dir/build.make TESTING/EIG/CMakeFiles/xdsep.dir/pdsepinfo.f.s
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzsep.dir/build.make TESTING/EIG/CMakeFiles/xzsep.dir/pdsepinfo.f.s
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdgsep.dir/build.make TESTING/EIG/CMakeFiles/xdgsep.dir/pdsepinfo.f.s
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzgsep.dir/build.make TESTING/EIG/CMakeFiles/xzgsep.dir/pdsepinfo.f.s
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsyevr.dir/build.make TESTING/EIG/CMakeFiles/xdsyevr.dir/pdsepinfo.f.s
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzheevr.dir/build.make TESTING/EIG/CMakeFiles/xzheevr.dir/pdsepinfo.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsep.dir/build.make TESTING/EIG/CMakeFiles/xdsep.dir/pdsepinfo.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzsep.dir/build.make TESTING/EIG/CMakeFiles/xzsep.dir/pdsepinfo.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdgsep.dir/build.make TESTING/EIG/CMakeFiles/xdgsep.dir/pdsepinfo.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzgsep.dir/build.make TESTING/EIG/CMakeFiles/xzgsep.dir/pdsepinfo.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsyevr.dir/build.make TESTING/EIG/CMakeFiles/xdsyevr.dir/pdsepinfo.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzheevr.dir/build.make TESTING/EIG/CMakeFiles/xzheevr.dir/pdsepinfo.f.s
 .PHONY : pdsepinfo.f.s
 
 pdsepqtq.o: pdsepqtq.f.o
@@ -2598,8 +2598,8 @@ pdsepqtq.o: pdsepqtq.f.o
 
 # target to build an object file
 pdsepqtq.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsep.dir/build.make TESTING/EIG/CMakeFiles/xdsep.dir/pdsepqtq.f.o
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsyevr.dir/build.make TESTING/EIG/CMakeFiles/xdsyevr.dir/pdsepqtq.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsep.dir/build.make TESTING/EIG/CMakeFiles/xdsep.dir/pdsepqtq.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsyevr.dir/build.make TESTING/EIG/CMakeFiles/xdsyevr.dir/pdsepqtq.f.o
 .PHONY : pdsepqtq.f.o
 
 pdsepqtq.i: pdsepqtq.f.i
@@ -2607,8 +2607,8 @@ pdsepqtq.i: pdsepqtq.f.i
 
 # target to preprocess a source file
 pdsepqtq.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsep.dir/build.make TESTING/EIG/CMakeFiles/xdsep.dir/pdsepqtq.f.i
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsyevr.dir/build.make TESTING/EIG/CMakeFiles/xdsyevr.dir/pdsepqtq.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsep.dir/build.make TESTING/EIG/CMakeFiles/xdsep.dir/pdsepqtq.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsyevr.dir/build.make TESTING/EIG/CMakeFiles/xdsyevr.dir/pdsepqtq.f.i
 .PHONY : pdsepqtq.f.i
 
 pdsepqtq.s: pdsepqtq.f.s
@@ -2616,8 +2616,8 @@ pdsepqtq.s: pdsepqtq.f.s
 
 # target to generate assembly for a file
 pdsepqtq.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsep.dir/build.make TESTING/EIG/CMakeFiles/xdsep.dir/pdsepqtq.f.s
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsyevr.dir/build.make TESTING/EIG/CMakeFiles/xdsyevr.dir/pdsepqtq.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsep.dir/build.make TESTING/EIG/CMakeFiles/xdsep.dir/pdsepqtq.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsyevr.dir/build.make TESTING/EIG/CMakeFiles/xdsyevr.dir/pdsepqtq.f.s
 .PHONY : pdsepqtq.f.s
 
 pdseprdriver.o: pdseprdriver.f.o
@@ -2625,7 +2625,7 @@ pdseprdriver.o: pdseprdriver.f.o
 
 # target to build an object file
 pdseprdriver.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsyevr.dir/build.make TESTING/EIG/CMakeFiles/xdsyevr.dir/pdseprdriver.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsyevr.dir/build.make TESTING/EIG/CMakeFiles/xdsyevr.dir/pdseprdriver.f.o
 .PHONY : pdseprdriver.f.o
 
 pdseprdriver.i: pdseprdriver.f.i
@@ -2633,7 +2633,7 @@ pdseprdriver.i: pdseprdriver.f.i
 
 # target to preprocess a source file
 pdseprdriver.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsyevr.dir/build.make TESTING/EIG/CMakeFiles/xdsyevr.dir/pdseprdriver.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsyevr.dir/build.make TESTING/EIG/CMakeFiles/xdsyevr.dir/pdseprdriver.f.i
 .PHONY : pdseprdriver.f.i
 
 pdseprdriver.s: pdseprdriver.f.s
@@ -2641,7 +2641,7 @@ pdseprdriver.s: pdseprdriver.f.s
 
 # target to generate assembly for a file
 pdseprdriver.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsyevr.dir/build.make TESTING/EIG/CMakeFiles/xdsyevr.dir/pdseprdriver.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsyevr.dir/build.make TESTING/EIG/CMakeFiles/xdsyevr.dir/pdseprdriver.f.s
 .PHONY : pdseprdriver.f.s
 
 pdsepreq.o: pdsepreq.f.o
@@ -2649,7 +2649,7 @@ pdsepreq.o: pdsepreq.f.o
 
 # target to build an object file
 pdsepreq.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsep.dir/build.make TESTING/EIG/CMakeFiles/xdsep.dir/pdsepreq.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsep.dir/build.make TESTING/EIG/CMakeFiles/xdsep.dir/pdsepreq.f.o
 .PHONY : pdsepreq.f.o
 
 pdsepreq.i: pdsepreq.f.i
@@ -2657,7 +2657,7 @@ pdsepreq.i: pdsepreq.f.i
 
 # target to preprocess a source file
 pdsepreq.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsep.dir/build.make TESTING/EIG/CMakeFiles/xdsep.dir/pdsepreq.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsep.dir/build.make TESTING/EIG/CMakeFiles/xdsep.dir/pdsepreq.f.i
 .PHONY : pdsepreq.f.i
 
 pdsepreq.s: pdsepreq.f.s
@@ -2665,7 +2665,7 @@ pdsepreq.s: pdsepreq.f.s
 
 # target to generate assembly for a file
 pdsepreq.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsep.dir/build.make TESTING/EIG/CMakeFiles/xdsep.dir/pdsepreq.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsep.dir/build.make TESTING/EIG/CMakeFiles/xdsep.dir/pdsepreq.f.s
 .PHONY : pdsepreq.f.s
 
 pdseprreq.o: pdseprreq.f.o
@@ -2673,7 +2673,7 @@ pdseprreq.o: pdseprreq.f.o
 
 # target to build an object file
 pdseprreq.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsyevr.dir/build.make TESTING/EIG/CMakeFiles/xdsyevr.dir/pdseprreq.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsyevr.dir/build.make TESTING/EIG/CMakeFiles/xdsyevr.dir/pdseprreq.f.o
 .PHONY : pdseprreq.f.o
 
 pdseprreq.i: pdseprreq.f.i
@@ -2681,7 +2681,7 @@ pdseprreq.i: pdseprreq.f.i
 
 # target to preprocess a source file
 pdseprreq.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsyevr.dir/build.make TESTING/EIG/CMakeFiles/xdsyevr.dir/pdseprreq.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsyevr.dir/build.make TESTING/EIG/CMakeFiles/xdsyevr.dir/pdseprreq.f.i
 .PHONY : pdseprreq.f.i
 
 pdseprreq.s: pdseprreq.f.s
@@ -2689,7 +2689,7 @@ pdseprreq.s: pdseprreq.f.s
 
 # target to generate assembly for a file
 pdseprreq.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsyevr.dir/build.make TESTING/EIG/CMakeFiles/xdsyevr.dir/pdseprreq.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsyevr.dir/build.make TESTING/EIG/CMakeFiles/xdsyevr.dir/pdseprreq.f.s
 .PHONY : pdseprreq.f.s
 
 pdseprsubtst.o: pdseprsubtst.f.o
@@ -2697,7 +2697,7 @@ pdseprsubtst.o: pdseprsubtst.f.o
 
 # target to build an object file
 pdseprsubtst.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsyevr.dir/build.make TESTING/EIG/CMakeFiles/xdsyevr.dir/pdseprsubtst.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsyevr.dir/build.make TESTING/EIG/CMakeFiles/xdsyevr.dir/pdseprsubtst.f.o
 .PHONY : pdseprsubtst.f.o
 
 pdseprsubtst.i: pdseprsubtst.f.i
@@ -2705,7 +2705,7 @@ pdseprsubtst.i: pdseprsubtst.f.i
 
 # target to preprocess a source file
 pdseprsubtst.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsyevr.dir/build.make TESTING/EIG/CMakeFiles/xdsyevr.dir/pdseprsubtst.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsyevr.dir/build.make TESTING/EIG/CMakeFiles/xdsyevr.dir/pdseprsubtst.f.i
 .PHONY : pdseprsubtst.f.i
 
 pdseprsubtst.s: pdseprsubtst.f.s
@@ -2713,7 +2713,7 @@ pdseprsubtst.s: pdseprsubtst.f.s
 
 # target to generate assembly for a file
 pdseprsubtst.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsyevr.dir/build.make TESTING/EIG/CMakeFiles/xdsyevr.dir/pdseprsubtst.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsyevr.dir/build.make TESTING/EIG/CMakeFiles/xdsyevr.dir/pdseprsubtst.f.s
 .PHONY : pdseprsubtst.f.s
 
 pdseprtst.o: pdseprtst.f.o
@@ -2721,7 +2721,7 @@ pdseprtst.o: pdseprtst.f.o
 
 # target to build an object file
 pdseprtst.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsyevr.dir/build.make TESTING/EIG/CMakeFiles/xdsyevr.dir/pdseprtst.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsyevr.dir/build.make TESTING/EIG/CMakeFiles/xdsyevr.dir/pdseprtst.f.o
 .PHONY : pdseprtst.f.o
 
 pdseprtst.i: pdseprtst.f.i
@@ -2729,7 +2729,7 @@ pdseprtst.i: pdseprtst.f.i
 
 # target to preprocess a source file
 pdseprtst.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsyevr.dir/build.make TESTING/EIG/CMakeFiles/xdsyevr.dir/pdseprtst.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsyevr.dir/build.make TESTING/EIG/CMakeFiles/xdsyevr.dir/pdseprtst.f.i
 .PHONY : pdseprtst.f.i
 
 pdseprtst.s: pdseprtst.f.s
@@ -2737,7 +2737,7 @@ pdseprtst.s: pdseprtst.f.s
 
 # target to generate assembly for a file
 pdseprtst.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsyevr.dir/build.make TESTING/EIG/CMakeFiles/xdsyevr.dir/pdseprtst.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsyevr.dir/build.make TESTING/EIG/CMakeFiles/xdsyevr.dir/pdseprtst.f.s
 .PHONY : pdseprtst.f.s
 
 pdsepsubtst.o: pdsepsubtst.f.o
@@ -2745,7 +2745,7 @@ pdsepsubtst.o: pdsepsubtst.f.o
 
 # target to build an object file
 pdsepsubtst.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsep.dir/build.make TESTING/EIG/CMakeFiles/xdsep.dir/pdsepsubtst.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsep.dir/build.make TESTING/EIG/CMakeFiles/xdsep.dir/pdsepsubtst.f.o
 .PHONY : pdsepsubtst.f.o
 
 pdsepsubtst.i: pdsepsubtst.f.i
@@ -2753,7 +2753,7 @@ pdsepsubtst.i: pdsepsubtst.f.i
 
 # target to preprocess a source file
 pdsepsubtst.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsep.dir/build.make TESTING/EIG/CMakeFiles/xdsep.dir/pdsepsubtst.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsep.dir/build.make TESTING/EIG/CMakeFiles/xdsep.dir/pdsepsubtst.f.i
 .PHONY : pdsepsubtst.f.i
 
 pdsepsubtst.s: pdsepsubtst.f.s
@@ -2761,7 +2761,7 @@ pdsepsubtst.s: pdsepsubtst.f.s
 
 # target to generate assembly for a file
 pdsepsubtst.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsep.dir/build.make TESTING/EIG/CMakeFiles/xdsep.dir/pdsepsubtst.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsep.dir/build.make TESTING/EIG/CMakeFiles/xdsep.dir/pdsepsubtst.f.s
 .PHONY : pdsepsubtst.f.s
 
 pdseptst.o: pdseptst.f.o
@@ -2769,7 +2769,7 @@ pdseptst.o: pdseptst.f.o
 
 # target to build an object file
 pdseptst.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsep.dir/build.make TESTING/EIG/CMakeFiles/xdsep.dir/pdseptst.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsep.dir/build.make TESTING/EIG/CMakeFiles/xdsep.dir/pdseptst.f.o
 .PHONY : pdseptst.f.o
 
 pdseptst.i: pdseptst.f.i
@@ -2777,7 +2777,7 @@ pdseptst.i: pdseptst.f.i
 
 # target to preprocess a source file
 pdseptst.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsep.dir/build.make TESTING/EIG/CMakeFiles/xdsep.dir/pdseptst.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsep.dir/build.make TESTING/EIG/CMakeFiles/xdsep.dir/pdseptst.f.i
 .PHONY : pdseptst.f.i
 
 pdseptst.s: pdseptst.f.s
@@ -2785,7 +2785,7 @@ pdseptst.s: pdseptst.f.s
 
 # target to generate assembly for a file
 pdseptst.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsep.dir/build.make TESTING/EIG/CMakeFiles/xdsep.dir/pdseptst.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsep.dir/build.make TESTING/EIG/CMakeFiles/xdsep.dir/pdseptst.f.s
 .PHONY : pdseptst.f.s
 
 pdsqpsubtst.o: pdsqpsubtst.f.o
@@ -2793,7 +2793,7 @@ pdsqpsubtst.o: pdsqpsubtst.f.o
 
 # target to build an object file
 pdsqpsubtst.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsep.dir/build.make TESTING/EIG/CMakeFiles/xdsep.dir/pdsqpsubtst.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsep.dir/build.make TESTING/EIG/CMakeFiles/xdsep.dir/pdsqpsubtst.f.o
 .PHONY : pdsqpsubtst.f.o
 
 pdsqpsubtst.i: pdsqpsubtst.f.i
@@ -2801,7 +2801,7 @@ pdsqpsubtst.i: pdsqpsubtst.f.i
 
 # target to preprocess a source file
 pdsqpsubtst.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsep.dir/build.make TESTING/EIG/CMakeFiles/xdsep.dir/pdsqpsubtst.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsep.dir/build.make TESTING/EIG/CMakeFiles/xdsep.dir/pdsqpsubtst.f.i
 .PHONY : pdsqpsubtst.f.i
 
 pdsqpsubtst.s: pdsqpsubtst.f.s
@@ -2809,7 +2809,7 @@ pdsqpsubtst.s: pdsqpsubtst.f.s
 
 # target to generate assembly for a file
 pdsqpsubtst.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsep.dir/build.make TESTING/EIG/CMakeFiles/xdsep.dir/pdsqpsubtst.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsep.dir/build.make TESTING/EIG/CMakeFiles/xdsep.dir/pdsqpsubtst.f.s
 .PHONY : pdsqpsubtst.f.s
 
 pdsvdchk.o: pdsvdchk.f.o
@@ -2817,7 +2817,7 @@ pdsvdchk.o: pdsvdchk.f.o
 
 # target to build an object file
 pdsvdchk.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsvd.dir/build.make TESTING/EIG/CMakeFiles/xdsvd.dir/pdsvdchk.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsvd.dir/build.make TESTING/EIG/CMakeFiles/xdsvd.dir/pdsvdchk.f.o
 .PHONY : pdsvdchk.f.o
 
 pdsvdchk.i: pdsvdchk.f.i
@@ -2825,7 +2825,7 @@ pdsvdchk.i: pdsvdchk.f.i
 
 # target to preprocess a source file
 pdsvdchk.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsvd.dir/build.make TESTING/EIG/CMakeFiles/xdsvd.dir/pdsvdchk.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsvd.dir/build.make TESTING/EIG/CMakeFiles/xdsvd.dir/pdsvdchk.f.i
 .PHONY : pdsvdchk.f.i
 
 pdsvdchk.s: pdsvdchk.f.s
@@ -2833,7 +2833,7 @@ pdsvdchk.s: pdsvdchk.f.s
 
 # target to generate assembly for a file
 pdsvdchk.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsvd.dir/build.make TESTING/EIG/CMakeFiles/xdsvd.dir/pdsvdchk.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsvd.dir/build.make TESTING/EIG/CMakeFiles/xdsvd.dir/pdsvdchk.f.s
 .PHONY : pdsvdchk.f.s
 
 pdsvdcmp.o: pdsvdcmp.f.o
@@ -2841,7 +2841,7 @@ pdsvdcmp.o: pdsvdcmp.f.o
 
 # target to build an object file
 pdsvdcmp.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsvd.dir/build.make TESTING/EIG/CMakeFiles/xdsvd.dir/pdsvdcmp.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsvd.dir/build.make TESTING/EIG/CMakeFiles/xdsvd.dir/pdsvdcmp.f.o
 .PHONY : pdsvdcmp.f.o
 
 pdsvdcmp.i: pdsvdcmp.f.i
@@ -2849,7 +2849,7 @@ pdsvdcmp.i: pdsvdcmp.f.i
 
 # target to preprocess a source file
 pdsvdcmp.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsvd.dir/build.make TESTING/EIG/CMakeFiles/xdsvd.dir/pdsvdcmp.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsvd.dir/build.make TESTING/EIG/CMakeFiles/xdsvd.dir/pdsvdcmp.f.i
 .PHONY : pdsvdcmp.f.i
 
 pdsvdcmp.s: pdsvdcmp.f.s
@@ -2857,7 +2857,7 @@ pdsvdcmp.s: pdsvdcmp.f.s
 
 # target to generate assembly for a file
 pdsvdcmp.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsvd.dir/build.make TESTING/EIG/CMakeFiles/xdsvd.dir/pdsvdcmp.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsvd.dir/build.make TESTING/EIG/CMakeFiles/xdsvd.dir/pdsvdcmp.f.s
 .PHONY : pdsvdcmp.f.s
 
 pdsvddriver.o: pdsvddriver.f.o
@@ -2865,7 +2865,7 @@ pdsvddriver.o: pdsvddriver.f.o
 
 # target to build an object file
 pdsvddriver.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsvd.dir/build.make TESTING/EIG/CMakeFiles/xdsvd.dir/pdsvddriver.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsvd.dir/build.make TESTING/EIG/CMakeFiles/xdsvd.dir/pdsvddriver.f.o
 .PHONY : pdsvddriver.f.o
 
 pdsvddriver.i: pdsvddriver.f.i
@@ -2873,7 +2873,7 @@ pdsvddriver.i: pdsvddriver.f.i
 
 # target to preprocess a source file
 pdsvddriver.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsvd.dir/build.make TESTING/EIG/CMakeFiles/xdsvd.dir/pdsvddriver.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsvd.dir/build.make TESTING/EIG/CMakeFiles/xdsvd.dir/pdsvddriver.f.i
 .PHONY : pdsvddriver.f.i
 
 pdsvddriver.s: pdsvddriver.f.s
@@ -2881,7 +2881,7 @@ pdsvddriver.s: pdsvddriver.f.s
 
 # target to generate assembly for a file
 pdsvddriver.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsvd.dir/build.make TESTING/EIG/CMakeFiles/xdsvd.dir/pdsvddriver.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsvd.dir/build.make TESTING/EIG/CMakeFiles/xdsvd.dir/pdsvddriver.f.s
 .PHONY : pdsvddriver.f.s
 
 pdsvdtst.o: pdsvdtst.f.o
@@ -2889,7 +2889,7 @@ pdsvdtst.o: pdsvdtst.f.o
 
 # target to build an object file
 pdsvdtst.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsvd.dir/build.make TESTING/EIG/CMakeFiles/xdsvd.dir/pdsvdtst.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsvd.dir/build.make TESTING/EIG/CMakeFiles/xdsvd.dir/pdsvdtst.f.o
 .PHONY : pdsvdtst.f.o
 
 pdsvdtst.i: pdsvdtst.f.i
@@ -2897,7 +2897,7 @@ pdsvdtst.i: pdsvdtst.f.i
 
 # target to preprocess a source file
 pdsvdtst.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsvd.dir/build.make TESTING/EIG/CMakeFiles/xdsvd.dir/pdsvdtst.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsvd.dir/build.make TESTING/EIG/CMakeFiles/xdsvd.dir/pdsvdtst.f.i
 .PHONY : pdsvdtst.f.i
 
 pdsvdtst.s: pdsvdtst.f.s
@@ -2905,7 +2905,7 @@ pdsvdtst.s: pdsvdtst.f.s
 
 # target to generate assembly for a file
 pdsvdtst.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsvd.dir/build.make TESTING/EIG/CMakeFiles/xdsvd.dir/pdsvdtst.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsvd.dir/build.make TESTING/EIG/CMakeFiles/xdsvd.dir/pdsvdtst.f.s
 .PHONY : pdsvdtst.f.s
 
 pdsytdrv.o: pdsytdrv.f.o
@@ -2913,7 +2913,7 @@ pdsytdrv.o: pdsytdrv.f.o
 
 # target to build an object file
 pdsytdrv.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdtrd.dir/build.make TESTING/EIG/CMakeFiles/xdtrd.dir/pdsytdrv.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdtrd.dir/build.make TESTING/EIG/CMakeFiles/xdtrd.dir/pdsytdrv.f.o
 .PHONY : pdsytdrv.f.o
 
 pdsytdrv.i: pdsytdrv.f.i
@@ -2921,7 +2921,7 @@ pdsytdrv.i: pdsytdrv.f.i
 
 # target to preprocess a source file
 pdsytdrv.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdtrd.dir/build.make TESTING/EIG/CMakeFiles/xdtrd.dir/pdsytdrv.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdtrd.dir/build.make TESTING/EIG/CMakeFiles/xdtrd.dir/pdsytdrv.f.i
 .PHONY : pdsytdrv.f.i
 
 pdsytdrv.s: pdsytdrv.f.s
@@ -2929,7 +2929,7 @@ pdsytdrv.s: pdsytdrv.f.s
 
 # target to generate assembly for a file
 pdsytdrv.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdtrd.dir/build.make TESTING/EIG/CMakeFiles/xdtrd.dir/pdsytdrv.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdtrd.dir/build.make TESTING/EIG/CMakeFiles/xdtrd.dir/pdsytdrv.f.s
 .PHONY : pdsytdrv.f.s
 
 pdtrddriver.o: pdtrddriver.f.o
@@ -2937,7 +2937,7 @@ pdtrddriver.o: pdtrddriver.f.o
 
 # target to build an object file
 pdtrddriver.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdtrd.dir/build.make TESTING/EIG/CMakeFiles/xdtrd.dir/pdtrddriver.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdtrd.dir/build.make TESTING/EIG/CMakeFiles/xdtrd.dir/pdtrddriver.f.o
 .PHONY : pdtrddriver.f.o
 
 pdtrddriver.i: pdtrddriver.f.i
@@ -2945,7 +2945,7 @@ pdtrddriver.i: pdtrddriver.f.i
 
 # target to preprocess a source file
 pdtrddriver.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdtrd.dir/build.make TESTING/EIG/CMakeFiles/xdtrd.dir/pdtrddriver.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdtrd.dir/build.make TESTING/EIG/CMakeFiles/xdtrd.dir/pdtrddriver.f.i
 .PHONY : pdtrddriver.f.i
 
 pdtrddriver.s: pdtrddriver.f.s
@@ -2953,7 +2953,7 @@ pdtrddriver.s: pdtrddriver.f.s
 
 # target to generate assembly for a file
 pdtrddriver.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdtrd.dir/build.make TESTING/EIG/CMakeFiles/xdtrd.dir/pdtrddriver.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdtrd.dir/build.make TESTING/EIG/CMakeFiles/xdtrd.dir/pdtrddriver.f.s
 .PHONY : pdtrddriver.f.s
 
 pdtrdinfo.o: pdtrdinfo.f.o
@@ -2961,7 +2961,7 @@ pdtrdinfo.o: pdtrdinfo.f.o
 
 # target to build an object file
 pdtrdinfo.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdtrd.dir/build.make TESTING/EIG/CMakeFiles/xdtrd.dir/pdtrdinfo.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdtrd.dir/build.make TESTING/EIG/CMakeFiles/xdtrd.dir/pdtrdinfo.f.o
 .PHONY : pdtrdinfo.f.o
 
 pdtrdinfo.i: pdtrdinfo.f.i
@@ -2969,7 +2969,7 @@ pdtrdinfo.i: pdtrdinfo.f.i
 
 # target to preprocess a source file
 pdtrdinfo.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdtrd.dir/build.make TESTING/EIG/CMakeFiles/xdtrd.dir/pdtrdinfo.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdtrd.dir/build.make TESTING/EIG/CMakeFiles/xdtrd.dir/pdtrdinfo.f.i
 .PHONY : pdtrdinfo.f.i
 
 pdtrdinfo.s: pdtrdinfo.f.s
@@ -2977,7 +2977,7 @@ pdtrdinfo.s: pdtrdinfo.f.s
 
 # target to generate assembly for a file
 pdtrdinfo.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdtrd.dir/build.make TESTING/EIG/CMakeFiles/xdtrd.dir/pdtrdinfo.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdtrd.dir/build.make TESTING/EIG/CMakeFiles/xdtrd.dir/pdtrdinfo.f.s
 .PHONY : pdtrdinfo.f.s
 
 pdttrdtester.o: pdttrdtester.f.o
@@ -2985,7 +2985,7 @@ pdttrdtester.o: pdttrdtester.f.o
 
 # target to build an object file
 pdttrdtester.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdtrd.dir/build.make TESTING/EIG/CMakeFiles/xdtrd.dir/pdttrdtester.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdtrd.dir/build.make TESTING/EIG/CMakeFiles/xdtrd.dir/pdttrdtester.f.o
 .PHONY : pdttrdtester.f.o
 
 pdttrdtester.i: pdttrdtester.f.i
@@ -2993,7 +2993,7 @@ pdttrdtester.i: pdttrdtester.f.i
 
 # target to preprocess a source file
 pdttrdtester.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdtrd.dir/build.make TESTING/EIG/CMakeFiles/xdtrd.dir/pdttrdtester.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdtrd.dir/build.make TESTING/EIG/CMakeFiles/xdtrd.dir/pdttrdtester.f.i
 .PHONY : pdttrdtester.f.i
 
 pdttrdtester.s: pdttrdtester.f.s
@@ -3001,7 +3001,7 @@ pdttrdtester.s: pdttrdtester.f.s
 
 # target to generate assembly for a file
 pdttrdtester.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdtrd.dir/build.make TESTING/EIG/CMakeFiles/xdtrd.dir/pdttrdtester.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdtrd.dir/build.make TESTING/EIG/CMakeFiles/xdtrd.dir/pdttrdtester.f.s
 .PHONY : pdttrdtester.f.s
 
 pmatgeninc.o: pmatgeninc.f.o
@@ -3009,40 +3009,40 @@ pmatgeninc.o: pmatgeninc.f.o
 
 # target to build an object file
 pmatgeninc.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xsbrd.dir/build.make TESTING/EIG/CMakeFiles/xsbrd.dir/pmatgeninc.f.o
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdbrd.dir/build.make TESTING/EIG/CMakeFiles/xdbrd.dir/pmatgeninc.f.o
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcbrd.dir/build.make TESTING/EIG/CMakeFiles/xcbrd.dir/pmatgeninc.f.o
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzbrd.dir/build.make TESTING/EIG/CMakeFiles/xzbrd.dir/pmatgeninc.f.o
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xshrd.dir/build.make TESTING/EIG/CMakeFiles/xshrd.dir/pmatgeninc.f.o
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdhrd.dir/build.make TESTING/EIG/CMakeFiles/xdhrd.dir/pmatgeninc.f.o
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xchrd.dir/build.make TESTING/EIG/CMakeFiles/xchrd.dir/pmatgeninc.f.o
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzhrd.dir/build.make TESTING/EIG/CMakeFiles/xzhrd.dir/pmatgeninc.f.o
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xstrd.dir/build.make TESTING/EIG/CMakeFiles/xstrd.dir/pmatgeninc.f.o
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdtrd.dir/build.make TESTING/EIG/CMakeFiles/xdtrd.dir/pmatgeninc.f.o
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xctrd.dir/build.make TESTING/EIG/CMakeFiles/xctrd.dir/pmatgeninc.f.o
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xztrd.dir/build.make TESTING/EIG/CMakeFiles/xztrd.dir/pmatgeninc.f.o
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssvd.dir/build.make TESTING/EIG/CMakeFiles/xssvd.dir/pmatgeninc.f.o
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsvd.dir/build.make TESTING/EIG/CMakeFiles/xdsvd.dir/pmatgeninc.f.o
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssep.dir/build.make TESTING/EIG/CMakeFiles/xssep.dir/pmatgeninc.f.o
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsep.dir/build.make TESTING/EIG/CMakeFiles/xdsep.dir/pmatgeninc.f.o
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcsep.dir/build.make TESTING/EIG/CMakeFiles/xcsep.dir/pmatgeninc.f.o
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzsep.dir/build.make TESTING/EIG/CMakeFiles/xzsep.dir/pmatgeninc.f.o
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xsgsep.dir/build.make TESTING/EIG/CMakeFiles/xsgsep.dir/pmatgeninc.f.o
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdgsep.dir/build.make TESTING/EIG/CMakeFiles/xdgsep.dir/pmatgeninc.f.o
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcgsep.dir/build.make TESTING/EIG/CMakeFiles/xcgsep.dir/pmatgeninc.f.o
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzgsep.dir/build.make TESTING/EIG/CMakeFiles/xzgsep.dir/pmatgeninc.f.o
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xsnep.dir/build.make TESTING/EIG/CMakeFiles/xsnep.dir/pmatgeninc.f.o
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdnep.dir/build.make TESTING/EIG/CMakeFiles/xdnep.dir/pmatgeninc.f.o
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcnep.dir/build.make TESTING/EIG/CMakeFiles/xcnep.dir/pmatgeninc.f.o
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xznep.dir/build.make TESTING/EIG/CMakeFiles/xznep.dir/pmatgeninc.f.o
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcevc.dir/build.make TESTING/EIG/CMakeFiles/xcevc.dir/pmatgeninc.f.o
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzevc.dir/build.make TESTING/EIG/CMakeFiles/xzevc.dir/pmatgeninc.f.o
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssyevr.dir/build.make TESTING/EIG/CMakeFiles/xssyevr.dir/pmatgeninc.f.o
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsyevr.dir/build.make TESTING/EIG/CMakeFiles/xdsyevr.dir/pmatgeninc.f.o
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcheevr.dir/build.make TESTING/EIG/CMakeFiles/xcheevr.dir/pmatgeninc.f.o
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzheevr.dir/build.make TESTING/EIG/CMakeFiles/xzheevr.dir/pmatgeninc.f.o
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xshseqr.dir/build.make TESTING/EIG/CMakeFiles/xshseqr.dir/pmatgeninc.f.o
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdhseqr.dir/build.make TESTING/EIG/CMakeFiles/xdhseqr.dir/pmatgeninc.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xsbrd.dir/build.make TESTING/EIG/CMakeFiles/xsbrd.dir/pmatgeninc.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdbrd.dir/build.make TESTING/EIG/CMakeFiles/xdbrd.dir/pmatgeninc.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcbrd.dir/build.make TESTING/EIG/CMakeFiles/xcbrd.dir/pmatgeninc.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzbrd.dir/build.make TESTING/EIG/CMakeFiles/xzbrd.dir/pmatgeninc.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xshrd.dir/build.make TESTING/EIG/CMakeFiles/xshrd.dir/pmatgeninc.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdhrd.dir/build.make TESTING/EIG/CMakeFiles/xdhrd.dir/pmatgeninc.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xchrd.dir/build.make TESTING/EIG/CMakeFiles/xchrd.dir/pmatgeninc.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzhrd.dir/build.make TESTING/EIG/CMakeFiles/xzhrd.dir/pmatgeninc.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xstrd.dir/build.make TESTING/EIG/CMakeFiles/xstrd.dir/pmatgeninc.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdtrd.dir/build.make TESTING/EIG/CMakeFiles/xdtrd.dir/pmatgeninc.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xctrd.dir/build.make TESTING/EIG/CMakeFiles/xctrd.dir/pmatgeninc.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xztrd.dir/build.make TESTING/EIG/CMakeFiles/xztrd.dir/pmatgeninc.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssvd.dir/build.make TESTING/EIG/CMakeFiles/xssvd.dir/pmatgeninc.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsvd.dir/build.make TESTING/EIG/CMakeFiles/xdsvd.dir/pmatgeninc.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssep.dir/build.make TESTING/EIG/CMakeFiles/xssep.dir/pmatgeninc.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsep.dir/build.make TESTING/EIG/CMakeFiles/xdsep.dir/pmatgeninc.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcsep.dir/build.make TESTING/EIG/CMakeFiles/xcsep.dir/pmatgeninc.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzsep.dir/build.make TESTING/EIG/CMakeFiles/xzsep.dir/pmatgeninc.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xsgsep.dir/build.make TESTING/EIG/CMakeFiles/xsgsep.dir/pmatgeninc.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdgsep.dir/build.make TESTING/EIG/CMakeFiles/xdgsep.dir/pmatgeninc.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcgsep.dir/build.make TESTING/EIG/CMakeFiles/xcgsep.dir/pmatgeninc.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzgsep.dir/build.make TESTING/EIG/CMakeFiles/xzgsep.dir/pmatgeninc.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xsnep.dir/build.make TESTING/EIG/CMakeFiles/xsnep.dir/pmatgeninc.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdnep.dir/build.make TESTING/EIG/CMakeFiles/xdnep.dir/pmatgeninc.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcnep.dir/build.make TESTING/EIG/CMakeFiles/xcnep.dir/pmatgeninc.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xznep.dir/build.make TESTING/EIG/CMakeFiles/xznep.dir/pmatgeninc.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcevc.dir/build.make TESTING/EIG/CMakeFiles/xcevc.dir/pmatgeninc.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzevc.dir/build.make TESTING/EIG/CMakeFiles/xzevc.dir/pmatgeninc.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssyevr.dir/build.make TESTING/EIG/CMakeFiles/xssyevr.dir/pmatgeninc.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsyevr.dir/build.make TESTING/EIG/CMakeFiles/xdsyevr.dir/pmatgeninc.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcheevr.dir/build.make TESTING/EIG/CMakeFiles/xcheevr.dir/pmatgeninc.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzheevr.dir/build.make TESTING/EIG/CMakeFiles/xzheevr.dir/pmatgeninc.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xshseqr.dir/build.make TESTING/EIG/CMakeFiles/xshseqr.dir/pmatgeninc.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdhseqr.dir/build.make TESTING/EIG/CMakeFiles/xdhseqr.dir/pmatgeninc.f.o
 .PHONY : pmatgeninc.f.o
 
 pmatgeninc.i: pmatgeninc.f.i
@@ -3050,40 +3050,40 @@ pmatgeninc.i: pmatgeninc.f.i
 
 # target to preprocess a source file
 pmatgeninc.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xsbrd.dir/build.make TESTING/EIG/CMakeFiles/xsbrd.dir/pmatgeninc.f.i
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdbrd.dir/build.make TESTING/EIG/CMakeFiles/xdbrd.dir/pmatgeninc.f.i
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcbrd.dir/build.make TESTING/EIG/CMakeFiles/xcbrd.dir/pmatgeninc.f.i
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzbrd.dir/build.make TESTING/EIG/CMakeFiles/xzbrd.dir/pmatgeninc.f.i
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xshrd.dir/build.make TESTING/EIG/CMakeFiles/xshrd.dir/pmatgeninc.f.i
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdhrd.dir/build.make TESTING/EIG/CMakeFiles/xdhrd.dir/pmatgeninc.f.i
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xchrd.dir/build.make TESTING/EIG/CMakeFiles/xchrd.dir/pmatgeninc.f.i
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzhrd.dir/build.make TESTING/EIG/CMakeFiles/xzhrd.dir/pmatgeninc.f.i
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xstrd.dir/build.make TESTING/EIG/CMakeFiles/xstrd.dir/pmatgeninc.f.i
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdtrd.dir/build.make TESTING/EIG/CMakeFiles/xdtrd.dir/pmatgeninc.f.i
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xctrd.dir/build.make TESTING/EIG/CMakeFiles/xctrd.dir/pmatgeninc.f.i
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xztrd.dir/build.make TESTING/EIG/CMakeFiles/xztrd.dir/pmatgeninc.f.i
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssvd.dir/build.make TESTING/EIG/CMakeFiles/xssvd.dir/pmatgeninc.f.i
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsvd.dir/build.make TESTING/EIG/CMakeFiles/xdsvd.dir/pmatgeninc.f.i
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssep.dir/build.make TESTING/EIG/CMakeFiles/xssep.dir/pmatgeninc.f.i
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsep.dir/build.make TESTING/EIG/CMakeFiles/xdsep.dir/pmatgeninc.f.i
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcsep.dir/build.make TESTING/EIG/CMakeFiles/xcsep.dir/pmatgeninc.f.i
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzsep.dir/build.make TESTING/EIG/CMakeFiles/xzsep.dir/pmatgeninc.f.i
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xsgsep.dir/build.make TESTING/EIG/CMakeFiles/xsgsep.dir/pmatgeninc.f.i
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdgsep.dir/build.make TESTING/EIG/CMakeFiles/xdgsep.dir/pmatgeninc.f.i
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcgsep.dir/build.make TESTING/EIG/CMakeFiles/xcgsep.dir/pmatgeninc.f.i
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzgsep.dir/build.make TESTING/EIG/CMakeFiles/xzgsep.dir/pmatgeninc.f.i
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xsnep.dir/build.make TESTING/EIG/CMakeFiles/xsnep.dir/pmatgeninc.f.i
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdnep.dir/build.make TESTING/EIG/CMakeFiles/xdnep.dir/pmatgeninc.f.i
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcnep.dir/build.make TESTING/EIG/CMakeFiles/xcnep.dir/pmatgeninc.f.i
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xznep.dir/build.make TESTING/EIG/CMakeFiles/xznep.dir/pmatgeninc.f.i
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcevc.dir/build.make TESTING/EIG/CMakeFiles/xcevc.dir/pmatgeninc.f.i
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzevc.dir/build.make TESTING/EIG/CMakeFiles/xzevc.dir/pmatgeninc.f.i
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssyevr.dir/build.make TESTING/EIG/CMakeFiles/xssyevr.dir/pmatgeninc.f.i
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsyevr.dir/build.make TESTING/EIG/CMakeFiles/xdsyevr.dir/pmatgeninc.f.i
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcheevr.dir/build.make TESTING/EIG/CMakeFiles/xcheevr.dir/pmatgeninc.f.i
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzheevr.dir/build.make TESTING/EIG/CMakeFiles/xzheevr.dir/pmatgeninc.f.i
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xshseqr.dir/build.make TESTING/EIG/CMakeFiles/xshseqr.dir/pmatgeninc.f.i
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdhseqr.dir/build.make TESTING/EIG/CMakeFiles/xdhseqr.dir/pmatgeninc.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xsbrd.dir/build.make TESTING/EIG/CMakeFiles/xsbrd.dir/pmatgeninc.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdbrd.dir/build.make TESTING/EIG/CMakeFiles/xdbrd.dir/pmatgeninc.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcbrd.dir/build.make TESTING/EIG/CMakeFiles/xcbrd.dir/pmatgeninc.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzbrd.dir/build.make TESTING/EIG/CMakeFiles/xzbrd.dir/pmatgeninc.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xshrd.dir/build.make TESTING/EIG/CMakeFiles/xshrd.dir/pmatgeninc.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdhrd.dir/build.make TESTING/EIG/CMakeFiles/xdhrd.dir/pmatgeninc.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xchrd.dir/build.make TESTING/EIG/CMakeFiles/xchrd.dir/pmatgeninc.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzhrd.dir/build.make TESTING/EIG/CMakeFiles/xzhrd.dir/pmatgeninc.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xstrd.dir/build.make TESTING/EIG/CMakeFiles/xstrd.dir/pmatgeninc.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdtrd.dir/build.make TESTING/EIG/CMakeFiles/xdtrd.dir/pmatgeninc.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xctrd.dir/build.make TESTING/EIG/CMakeFiles/xctrd.dir/pmatgeninc.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xztrd.dir/build.make TESTING/EIG/CMakeFiles/xztrd.dir/pmatgeninc.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssvd.dir/build.make TESTING/EIG/CMakeFiles/xssvd.dir/pmatgeninc.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsvd.dir/build.make TESTING/EIG/CMakeFiles/xdsvd.dir/pmatgeninc.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssep.dir/build.make TESTING/EIG/CMakeFiles/xssep.dir/pmatgeninc.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsep.dir/build.make TESTING/EIG/CMakeFiles/xdsep.dir/pmatgeninc.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcsep.dir/build.make TESTING/EIG/CMakeFiles/xcsep.dir/pmatgeninc.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzsep.dir/build.make TESTING/EIG/CMakeFiles/xzsep.dir/pmatgeninc.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xsgsep.dir/build.make TESTING/EIG/CMakeFiles/xsgsep.dir/pmatgeninc.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdgsep.dir/build.make TESTING/EIG/CMakeFiles/xdgsep.dir/pmatgeninc.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcgsep.dir/build.make TESTING/EIG/CMakeFiles/xcgsep.dir/pmatgeninc.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzgsep.dir/build.make TESTING/EIG/CMakeFiles/xzgsep.dir/pmatgeninc.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xsnep.dir/build.make TESTING/EIG/CMakeFiles/xsnep.dir/pmatgeninc.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdnep.dir/build.make TESTING/EIG/CMakeFiles/xdnep.dir/pmatgeninc.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcnep.dir/build.make TESTING/EIG/CMakeFiles/xcnep.dir/pmatgeninc.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xznep.dir/build.make TESTING/EIG/CMakeFiles/xznep.dir/pmatgeninc.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcevc.dir/build.make TESTING/EIG/CMakeFiles/xcevc.dir/pmatgeninc.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzevc.dir/build.make TESTING/EIG/CMakeFiles/xzevc.dir/pmatgeninc.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssyevr.dir/build.make TESTING/EIG/CMakeFiles/xssyevr.dir/pmatgeninc.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsyevr.dir/build.make TESTING/EIG/CMakeFiles/xdsyevr.dir/pmatgeninc.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcheevr.dir/build.make TESTING/EIG/CMakeFiles/xcheevr.dir/pmatgeninc.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzheevr.dir/build.make TESTING/EIG/CMakeFiles/xzheevr.dir/pmatgeninc.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xshseqr.dir/build.make TESTING/EIG/CMakeFiles/xshseqr.dir/pmatgeninc.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdhseqr.dir/build.make TESTING/EIG/CMakeFiles/xdhseqr.dir/pmatgeninc.f.i
 .PHONY : pmatgeninc.f.i
 
 pmatgeninc.s: pmatgeninc.f.s
@@ -3091,40 +3091,40 @@ pmatgeninc.s: pmatgeninc.f.s
 
 # target to generate assembly for a file
 pmatgeninc.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xsbrd.dir/build.make TESTING/EIG/CMakeFiles/xsbrd.dir/pmatgeninc.f.s
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdbrd.dir/build.make TESTING/EIG/CMakeFiles/xdbrd.dir/pmatgeninc.f.s
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcbrd.dir/build.make TESTING/EIG/CMakeFiles/xcbrd.dir/pmatgeninc.f.s
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzbrd.dir/build.make TESTING/EIG/CMakeFiles/xzbrd.dir/pmatgeninc.f.s
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xshrd.dir/build.make TESTING/EIG/CMakeFiles/xshrd.dir/pmatgeninc.f.s
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdhrd.dir/build.make TESTING/EIG/CMakeFiles/xdhrd.dir/pmatgeninc.f.s
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xchrd.dir/build.make TESTING/EIG/CMakeFiles/xchrd.dir/pmatgeninc.f.s
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzhrd.dir/build.make TESTING/EIG/CMakeFiles/xzhrd.dir/pmatgeninc.f.s
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xstrd.dir/build.make TESTING/EIG/CMakeFiles/xstrd.dir/pmatgeninc.f.s
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdtrd.dir/build.make TESTING/EIG/CMakeFiles/xdtrd.dir/pmatgeninc.f.s
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xctrd.dir/build.make TESTING/EIG/CMakeFiles/xctrd.dir/pmatgeninc.f.s
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xztrd.dir/build.make TESTING/EIG/CMakeFiles/xztrd.dir/pmatgeninc.f.s
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssvd.dir/build.make TESTING/EIG/CMakeFiles/xssvd.dir/pmatgeninc.f.s
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsvd.dir/build.make TESTING/EIG/CMakeFiles/xdsvd.dir/pmatgeninc.f.s
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssep.dir/build.make TESTING/EIG/CMakeFiles/xssep.dir/pmatgeninc.f.s
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsep.dir/build.make TESTING/EIG/CMakeFiles/xdsep.dir/pmatgeninc.f.s
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcsep.dir/build.make TESTING/EIG/CMakeFiles/xcsep.dir/pmatgeninc.f.s
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzsep.dir/build.make TESTING/EIG/CMakeFiles/xzsep.dir/pmatgeninc.f.s
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xsgsep.dir/build.make TESTING/EIG/CMakeFiles/xsgsep.dir/pmatgeninc.f.s
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdgsep.dir/build.make TESTING/EIG/CMakeFiles/xdgsep.dir/pmatgeninc.f.s
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcgsep.dir/build.make TESTING/EIG/CMakeFiles/xcgsep.dir/pmatgeninc.f.s
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzgsep.dir/build.make TESTING/EIG/CMakeFiles/xzgsep.dir/pmatgeninc.f.s
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xsnep.dir/build.make TESTING/EIG/CMakeFiles/xsnep.dir/pmatgeninc.f.s
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdnep.dir/build.make TESTING/EIG/CMakeFiles/xdnep.dir/pmatgeninc.f.s
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcnep.dir/build.make TESTING/EIG/CMakeFiles/xcnep.dir/pmatgeninc.f.s
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xznep.dir/build.make TESTING/EIG/CMakeFiles/xznep.dir/pmatgeninc.f.s
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcevc.dir/build.make TESTING/EIG/CMakeFiles/xcevc.dir/pmatgeninc.f.s
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzevc.dir/build.make TESTING/EIG/CMakeFiles/xzevc.dir/pmatgeninc.f.s
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssyevr.dir/build.make TESTING/EIG/CMakeFiles/xssyevr.dir/pmatgeninc.f.s
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsyevr.dir/build.make TESTING/EIG/CMakeFiles/xdsyevr.dir/pmatgeninc.f.s
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcheevr.dir/build.make TESTING/EIG/CMakeFiles/xcheevr.dir/pmatgeninc.f.s
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzheevr.dir/build.make TESTING/EIG/CMakeFiles/xzheevr.dir/pmatgeninc.f.s
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xshseqr.dir/build.make TESTING/EIG/CMakeFiles/xshseqr.dir/pmatgeninc.f.s
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdhseqr.dir/build.make TESTING/EIG/CMakeFiles/xdhseqr.dir/pmatgeninc.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xsbrd.dir/build.make TESTING/EIG/CMakeFiles/xsbrd.dir/pmatgeninc.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdbrd.dir/build.make TESTING/EIG/CMakeFiles/xdbrd.dir/pmatgeninc.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcbrd.dir/build.make TESTING/EIG/CMakeFiles/xcbrd.dir/pmatgeninc.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzbrd.dir/build.make TESTING/EIG/CMakeFiles/xzbrd.dir/pmatgeninc.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xshrd.dir/build.make TESTING/EIG/CMakeFiles/xshrd.dir/pmatgeninc.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdhrd.dir/build.make TESTING/EIG/CMakeFiles/xdhrd.dir/pmatgeninc.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xchrd.dir/build.make TESTING/EIG/CMakeFiles/xchrd.dir/pmatgeninc.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzhrd.dir/build.make TESTING/EIG/CMakeFiles/xzhrd.dir/pmatgeninc.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xstrd.dir/build.make TESTING/EIG/CMakeFiles/xstrd.dir/pmatgeninc.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdtrd.dir/build.make TESTING/EIG/CMakeFiles/xdtrd.dir/pmatgeninc.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xctrd.dir/build.make TESTING/EIG/CMakeFiles/xctrd.dir/pmatgeninc.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xztrd.dir/build.make TESTING/EIG/CMakeFiles/xztrd.dir/pmatgeninc.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssvd.dir/build.make TESTING/EIG/CMakeFiles/xssvd.dir/pmatgeninc.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsvd.dir/build.make TESTING/EIG/CMakeFiles/xdsvd.dir/pmatgeninc.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssep.dir/build.make TESTING/EIG/CMakeFiles/xssep.dir/pmatgeninc.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsep.dir/build.make TESTING/EIG/CMakeFiles/xdsep.dir/pmatgeninc.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcsep.dir/build.make TESTING/EIG/CMakeFiles/xcsep.dir/pmatgeninc.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzsep.dir/build.make TESTING/EIG/CMakeFiles/xzsep.dir/pmatgeninc.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xsgsep.dir/build.make TESTING/EIG/CMakeFiles/xsgsep.dir/pmatgeninc.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdgsep.dir/build.make TESTING/EIG/CMakeFiles/xdgsep.dir/pmatgeninc.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcgsep.dir/build.make TESTING/EIG/CMakeFiles/xcgsep.dir/pmatgeninc.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzgsep.dir/build.make TESTING/EIG/CMakeFiles/xzgsep.dir/pmatgeninc.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xsnep.dir/build.make TESTING/EIG/CMakeFiles/xsnep.dir/pmatgeninc.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdnep.dir/build.make TESTING/EIG/CMakeFiles/xdnep.dir/pmatgeninc.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcnep.dir/build.make TESTING/EIG/CMakeFiles/xcnep.dir/pmatgeninc.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xznep.dir/build.make TESTING/EIG/CMakeFiles/xznep.dir/pmatgeninc.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcevc.dir/build.make TESTING/EIG/CMakeFiles/xcevc.dir/pmatgeninc.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzevc.dir/build.make TESTING/EIG/CMakeFiles/xzevc.dir/pmatgeninc.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssyevr.dir/build.make TESTING/EIG/CMakeFiles/xssyevr.dir/pmatgeninc.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdsyevr.dir/build.make TESTING/EIG/CMakeFiles/xdsyevr.dir/pmatgeninc.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcheevr.dir/build.make TESTING/EIG/CMakeFiles/xcheevr.dir/pmatgeninc.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzheevr.dir/build.make TESTING/EIG/CMakeFiles/xzheevr.dir/pmatgeninc.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xshseqr.dir/build.make TESTING/EIG/CMakeFiles/xshseqr.dir/pmatgeninc.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdhseqr.dir/build.make TESTING/EIG/CMakeFiles/xdhseqr.dir/pmatgeninc.f.s
 .PHONY : pmatgeninc.f.s
 
 psbrddriver.o: psbrddriver.f.o
@@ -3132,7 +3132,7 @@ psbrddriver.o: psbrddriver.f.o
 
 # target to build an object file
 psbrddriver.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xsbrd.dir/build.make TESTING/EIG/CMakeFiles/xsbrd.dir/psbrddriver.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xsbrd.dir/build.make TESTING/EIG/CMakeFiles/xsbrd.dir/psbrddriver.f.o
 .PHONY : psbrddriver.f.o
 
 psbrddriver.i: psbrddriver.f.i
@@ -3140,7 +3140,7 @@ psbrddriver.i: psbrddriver.f.i
 
 # target to preprocess a source file
 psbrddriver.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xsbrd.dir/build.make TESTING/EIG/CMakeFiles/xsbrd.dir/psbrddriver.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xsbrd.dir/build.make TESTING/EIG/CMakeFiles/xsbrd.dir/psbrddriver.f.i
 .PHONY : psbrddriver.f.i
 
 psbrddriver.s: psbrddriver.f.s
@@ -3148,7 +3148,7 @@ psbrddriver.s: psbrddriver.f.s
 
 # target to generate assembly for a file
 psbrddriver.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xsbrd.dir/build.make TESTING/EIG/CMakeFiles/xsbrd.dir/psbrddriver.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xsbrd.dir/build.make TESTING/EIG/CMakeFiles/xsbrd.dir/psbrddriver.f.s
 .PHONY : psbrddriver.f.s
 
 psbrdinfo.o: psbrdinfo.f.o
@@ -3156,7 +3156,7 @@ psbrdinfo.o: psbrdinfo.f.o
 
 # target to build an object file
 psbrdinfo.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xsbrd.dir/build.make TESTING/EIG/CMakeFiles/xsbrd.dir/psbrdinfo.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xsbrd.dir/build.make TESTING/EIG/CMakeFiles/xsbrd.dir/psbrdinfo.f.o
 .PHONY : psbrdinfo.f.o
 
 psbrdinfo.i: psbrdinfo.f.i
@@ -3164,7 +3164,7 @@ psbrdinfo.i: psbrdinfo.f.i
 
 # target to preprocess a source file
 psbrdinfo.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xsbrd.dir/build.make TESTING/EIG/CMakeFiles/xsbrd.dir/psbrdinfo.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xsbrd.dir/build.make TESTING/EIG/CMakeFiles/xsbrd.dir/psbrdinfo.f.i
 .PHONY : psbrdinfo.f.i
 
 psbrdinfo.s: psbrdinfo.f.s
@@ -3172,7 +3172,7 @@ psbrdinfo.s: psbrdinfo.f.s
 
 # target to generate assembly for a file
 psbrdinfo.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xsbrd.dir/build.make TESTING/EIG/CMakeFiles/xsbrd.dir/psbrdinfo.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xsbrd.dir/build.make TESTING/EIG/CMakeFiles/xsbrd.dir/psbrdinfo.f.s
 .PHONY : psbrdinfo.f.s
 
 psgebdrv.o: psgebdrv.f.o
@@ -3180,7 +3180,7 @@ psgebdrv.o: psgebdrv.f.o
 
 # target to build an object file
 psgebdrv.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xsbrd.dir/build.make TESTING/EIG/CMakeFiles/xsbrd.dir/psgebdrv.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xsbrd.dir/build.make TESTING/EIG/CMakeFiles/xsbrd.dir/psgebdrv.f.o
 .PHONY : psgebdrv.f.o
 
 psgebdrv.i: psgebdrv.f.i
@@ -3188,7 +3188,7 @@ psgebdrv.i: psgebdrv.f.i
 
 # target to preprocess a source file
 psgebdrv.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xsbrd.dir/build.make TESTING/EIG/CMakeFiles/xsbrd.dir/psgebdrv.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xsbrd.dir/build.make TESTING/EIG/CMakeFiles/xsbrd.dir/psgebdrv.f.i
 .PHONY : psgebdrv.f.i
 
 psgebdrv.s: psgebdrv.f.s
@@ -3196,7 +3196,7 @@ psgebdrv.s: psgebdrv.f.s
 
 # target to generate assembly for a file
 psgebdrv.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xsbrd.dir/build.make TESTING/EIG/CMakeFiles/xsbrd.dir/psgebdrv.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xsbrd.dir/build.make TESTING/EIG/CMakeFiles/xsbrd.dir/psgebdrv.f.s
 .PHONY : psgebdrv.f.s
 
 psgehdrv.o: psgehdrv.f.o
@@ -3204,7 +3204,7 @@ psgehdrv.o: psgehdrv.f.o
 
 # target to build an object file
 psgehdrv.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xshrd.dir/build.make TESTING/EIG/CMakeFiles/xshrd.dir/psgehdrv.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xshrd.dir/build.make TESTING/EIG/CMakeFiles/xshrd.dir/psgehdrv.f.o
 .PHONY : psgehdrv.f.o
 
 psgehdrv.i: psgehdrv.f.i
@@ -3212,7 +3212,7 @@ psgehdrv.i: psgehdrv.f.i
 
 # target to preprocess a source file
 psgehdrv.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xshrd.dir/build.make TESTING/EIG/CMakeFiles/xshrd.dir/psgehdrv.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xshrd.dir/build.make TESTING/EIG/CMakeFiles/xshrd.dir/psgehdrv.f.i
 .PHONY : psgehdrv.f.i
 
 psgehdrv.s: psgehdrv.f.s
@@ -3220,7 +3220,7 @@ psgehdrv.s: psgehdrv.f.s
 
 # target to generate assembly for a file
 psgehdrv.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xshrd.dir/build.make TESTING/EIG/CMakeFiles/xshrd.dir/psgehdrv.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xshrd.dir/build.make TESTING/EIG/CMakeFiles/xshrd.dir/psgehdrv.f.s
 .PHONY : psgehdrv.f.s
 
 psgsepchk.o: psgsepchk.f.o
@@ -3228,7 +3228,7 @@ psgsepchk.o: psgsepchk.f.o
 
 # target to build an object file
 psgsepchk.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xsgsep.dir/build.make TESTING/EIG/CMakeFiles/xsgsep.dir/psgsepchk.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xsgsep.dir/build.make TESTING/EIG/CMakeFiles/xsgsep.dir/psgsepchk.f.o
 .PHONY : psgsepchk.f.o
 
 psgsepchk.i: psgsepchk.f.i
@@ -3236,7 +3236,7 @@ psgsepchk.i: psgsepchk.f.i
 
 # target to preprocess a source file
 psgsepchk.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xsgsep.dir/build.make TESTING/EIG/CMakeFiles/xsgsep.dir/psgsepchk.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xsgsep.dir/build.make TESTING/EIG/CMakeFiles/xsgsep.dir/psgsepchk.f.i
 .PHONY : psgsepchk.f.i
 
 psgsepchk.s: psgsepchk.f.s
@@ -3244,7 +3244,7 @@ psgsepchk.s: psgsepchk.f.s
 
 # target to generate assembly for a file
 psgsepchk.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xsgsep.dir/build.make TESTING/EIG/CMakeFiles/xsgsep.dir/psgsepchk.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xsgsep.dir/build.make TESTING/EIG/CMakeFiles/xsgsep.dir/psgsepchk.f.s
 .PHONY : psgsepchk.f.s
 
 psgsepdriver.o: psgsepdriver.f.o
@@ -3252,7 +3252,7 @@ psgsepdriver.o: psgsepdriver.f.o
 
 # target to build an object file
 psgsepdriver.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xsgsep.dir/build.make TESTING/EIG/CMakeFiles/xsgsep.dir/psgsepdriver.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xsgsep.dir/build.make TESTING/EIG/CMakeFiles/xsgsep.dir/psgsepdriver.f.o
 .PHONY : psgsepdriver.f.o
 
 psgsepdriver.i: psgsepdriver.f.i
@@ -3260,7 +3260,7 @@ psgsepdriver.i: psgsepdriver.f.i
 
 # target to preprocess a source file
 psgsepdriver.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xsgsep.dir/build.make TESTING/EIG/CMakeFiles/xsgsep.dir/psgsepdriver.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xsgsep.dir/build.make TESTING/EIG/CMakeFiles/xsgsep.dir/psgsepdriver.f.i
 .PHONY : psgsepdriver.f.i
 
 psgsepdriver.s: psgsepdriver.f.s
@@ -3268,7 +3268,7 @@ psgsepdriver.s: psgsepdriver.f.s
 
 # target to generate assembly for a file
 psgsepdriver.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xsgsep.dir/build.make TESTING/EIG/CMakeFiles/xsgsep.dir/psgsepdriver.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xsgsep.dir/build.make TESTING/EIG/CMakeFiles/xsgsep.dir/psgsepdriver.f.s
 .PHONY : psgsepdriver.f.s
 
 psgsepreq.o: psgsepreq.f.o
@@ -3276,7 +3276,7 @@ psgsepreq.o: psgsepreq.f.o
 
 # target to build an object file
 psgsepreq.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xsgsep.dir/build.make TESTING/EIG/CMakeFiles/xsgsep.dir/psgsepreq.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xsgsep.dir/build.make TESTING/EIG/CMakeFiles/xsgsep.dir/psgsepreq.f.o
 .PHONY : psgsepreq.f.o
 
 psgsepreq.i: psgsepreq.f.i
@@ -3284,7 +3284,7 @@ psgsepreq.i: psgsepreq.f.i
 
 # target to preprocess a source file
 psgsepreq.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xsgsep.dir/build.make TESTING/EIG/CMakeFiles/xsgsep.dir/psgsepreq.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xsgsep.dir/build.make TESTING/EIG/CMakeFiles/xsgsep.dir/psgsepreq.f.i
 .PHONY : psgsepreq.f.i
 
 psgsepreq.s: psgsepreq.f.s
@@ -3292,7 +3292,7 @@ psgsepreq.s: psgsepreq.f.s
 
 # target to generate assembly for a file
 psgsepreq.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xsgsep.dir/build.make TESTING/EIG/CMakeFiles/xsgsep.dir/psgsepreq.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xsgsep.dir/build.make TESTING/EIG/CMakeFiles/xsgsep.dir/psgsepreq.f.s
 .PHONY : psgsepreq.f.s
 
 psgsepsubtst.o: psgsepsubtst.f.o
@@ -3300,7 +3300,7 @@ psgsepsubtst.o: psgsepsubtst.f.o
 
 # target to build an object file
 psgsepsubtst.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xsgsep.dir/build.make TESTING/EIG/CMakeFiles/xsgsep.dir/psgsepsubtst.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xsgsep.dir/build.make TESTING/EIG/CMakeFiles/xsgsep.dir/psgsepsubtst.f.o
 .PHONY : psgsepsubtst.f.o
 
 psgsepsubtst.i: psgsepsubtst.f.i
@@ -3308,7 +3308,7 @@ psgsepsubtst.i: psgsepsubtst.f.i
 
 # target to preprocess a source file
 psgsepsubtst.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xsgsep.dir/build.make TESTING/EIG/CMakeFiles/xsgsep.dir/psgsepsubtst.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xsgsep.dir/build.make TESTING/EIG/CMakeFiles/xsgsep.dir/psgsepsubtst.f.i
 .PHONY : psgsepsubtst.f.i
 
 psgsepsubtst.s: psgsepsubtst.f.s
@@ -3316,7 +3316,7 @@ psgsepsubtst.s: psgsepsubtst.f.s
 
 # target to generate assembly for a file
 psgsepsubtst.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xsgsep.dir/build.make TESTING/EIG/CMakeFiles/xsgsep.dir/psgsepsubtst.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xsgsep.dir/build.make TESTING/EIG/CMakeFiles/xsgsep.dir/psgsepsubtst.f.s
 .PHONY : psgsepsubtst.f.s
 
 psgseptst.o: psgseptst.f.o
@@ -3324,7 +3324,7 @@ psgseptst.o: psgseptst.f.o
 
 # target to build an object file
 psgseptst.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xsgsep.dir/build.make TESTING/EIG/CMakeFiles/xsgsep.dir/psgseptst.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xsgsep.dir/build.make TESTING/EIG/CMakeFiles/xsgsep.dir/psgseptst.f.o
 .PHONY : psgseptst.f.o
 
 psgseptst.i: psgseptst.f.i
@@ -3332,7 +3332,7 @@ psgseptst.i: psgseptst.f.i
 
 # target to preprocess a source file
 psgseptst.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xsgsep.dir/build.make TESTING/EIG/CMakeFiles/xsgsep.dir/psgseptst.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xsgsep.dir/build.make TESTING/EIG/CMakeFiles/xsgsep.dir/psgseptst.f.i
 .PHONY : psgseptst.f.i
 
 psgseptst.s: psgseptst.f.s
@@ -3340,7 +3340,7 @@ psgseptst.s: psgseptst.f.s
 
 # target to generate assembly for a file
 psgseptst.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xsgsep.dir/build.make TESTING/EIG/CMakeFiles/xsgsep.dir/psgseptst.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xsgsep.dir/build.make TESTING/EIG/CMakeFiles/xsgsep.dir/psgseptst.f.s
 .PHONY : psgseptst.f.s
 
 pshrddriver.o: pshrddriver.f.o
@@ -3348,7 +3348,7 @@ pshrddriver.o: pshrddriver.f.o
 
 # target to build an object file
 pshrddriver.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xshrd.dir/build.make TESTING/EIG/CMakeFiles/xshrd.dir/pshrddriver.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xshrd.dir/build.make TESTING/EIG/CMakeFiles/xshrd.dir/pshrddriver.f.o
 .PHONY : pshrddriver.f.o
 
 pshrddriver.i: pshrddriver.f.i
@@ -3356,7 +3356,7 @@ pshrddriver.i: pshrddriver.f.i
 
 # target to preprocess a source file
 pshrddriver.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xshrd.dir/build.make TESTING/EIG/CMakeFiles/xshrd.dir/pshrddriver.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xshrd.dir/build.make TESTING/EIG/CMakeFiles/xshrd.dir/pshrddriver.f.i
 .PHONY : pshrddriver.f.i
 
 pshrddriver.s: pshrddriver.f.s
@@ -3364,7 +3364,7 @@ pshrddriver.s: pshrddriver.f.s
 
 # target to generate assembly for a file
 pshrddriver.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xshrd.dir/build.make TESTING/EIG/CMakeFiles/xshrd.dir/pshrddriver.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xshrd.dir/build.make TESTING/EIG/CMakeFiles/xshrd.dir/pshrddriver.f.s
 .PHONY : pshrddriver.f.s
 
 pshrdinfo.o: pshrdinfo.f.o
@@ -3372,7 +3372,7 @@ pshrdinfo.o: pshrdinfo.f.o
 
 # target to build an object file
 pshrdinfo.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xshrd.dir/build.make TESTING/EIG/CMakeFiles/xshrd.dir/pshrdinfo.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xshrd.dir/build.make TESTING/EIG/CMakeFiles/xshrd.dir/pshrdinfo.f.o
 .PHONY : pshrdinfo.f.o
 
 pshrdinfo.i: pshrdinfo.f.i
@@ -3380,7 +3380,7 @@ pshrdinfo.i: pshrdinfo.f.i
 
 # target to preprocess a source file
 pshrdinfo.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xshrd.dir/build.make TESTING/EIG/CMakeFiles/xshrd.dir/pshrdinfo.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xshrd.dir/build.make TESTING/EIG/CMakeFiles/xshrd.dir/pshrdinfo.f.i
 .PHONY : pshrdinfo.f.i
 
 pshrdinfo.s: pshrdinfo.f.s
@@ -3388,7 +3388,7 @@ pshrdinfo.s: pshrdinfo.f.s
 
 # target to generate assembly for a file
 pshrdinfo.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xshrd.dir/build.make TESTING/EIG/CMakeFiles/xshrd.dir/pshrdinfo.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xshrd.dir/build.make TESTING/EIG/CMakeFiles/xshrd.dir/pshrdinfo.f.s
 .PHONY : pshrdinfo.f.s
 
 pshseqrdriver.o: pshseqrdriver.f.o
@@ -3396,7 +3396,7 @@ pshseqrdriver.o: pshseqrdriver.f.o
 
 # target to build an object file
 pshseqrdriver.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xshseqr.dir/build.make TESTING/EIG/CMakeFiles/xshseqr.dir/pshseqrdriver.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xshseqr.dir/build.make TESTING/EIG/CMakeFiles/xshseqr.dir/pshseqrdriver.f.o
 .PHONY : pshseqrdriver.f.o
 
 pshseqrdriver.i: pshseqrdriver.f.i
@@ -3404,7 +3404,7 @@ pshseqrdriver.i: pshseqrdriver.f.i
 
 # target to preprocess a source file
 pshseqrdriver.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xshseqr.dir/build.make TESTING/EIG/CMakeFiles/xshseqr.dir/pshseqrdriver.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xshseqr.dir/build.make TESTING/EIG/CMakeFiles/xshseqr.dir/pshseqrdriver.f.i
 .PHONY : pshseqrdriver.f.i
 
 pshseqrdriver.s: pshseqrdriver.f.s
@@ -3412,7 +3412,7 @@ pshseqrdriver.s: pshseqrdriver.f.s
 
 # target to generate assembly for a file
 pshseqrdriver.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xshseqr.dir/build.make TESTING/EIG/CMakeFiles/xshseqr.dir/pshseqrdriver.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xshseqr.dir/build.make TESTING/EIG/CMakeFiles/xshseqr.dir/pshseqrdriver.f.s
 .PHONY : pshseqrdriver.f.s
 
 pslafchk.o: pslafchk.f.o
@@ -3420,9 +3420,9 @@ pslafchk.o: pslafchk.f.o
 
 # target to build an object file
 pslafchk.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xsbrd.dir/build.make TESTING/EIG/CMakeFiles/xsbrd.dir/pslafchk.f.o
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xshrd.dir/build.make TESTING/EIG/CMakeFiles/xshrd.dir/pslafchk.f.o
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xstrd.dir/build.make TESTING/EIG/CMakeFiles/xstrd.dir/pslafchk.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xsbrd.dir/build.make TESTING/EIG/CMakeFiles/xsbrd.dir/pslafchk.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xshrd.dir/build.make TESTING/EIG/CMakeFiles/xshrd.dir/pslafchk.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xstrd.dir/build.make TESTING/EIG/CMakeFiles/xstrd.dir/pslafchk.f.o
 .PHONY : pslafchk.f.o
 
 pslafchk.i: pslafchk.f.i
@@ -3430,9 +3430,9 @@ pslafchk.i: pslafchk.f.i
 
 # target to preprocess a source file
 pslafchk.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xsbrd.dir/build.make TESTING/EIG/CMakeFiles/xsbrd.dir/pslafchk.f.i
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xshrd.dir/build.make TESTING/EIG/CMakeFiles/xshrd.dir/pslafchk.f.i
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xstrd.dir/build.make TESTING/EIG/CMakeFiles/xstrd.dir/pslafchk.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xsbrd.dir/build.make TESTING/EIG/CMakeFiles/xsbrd.dir/pslafchk.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xshrd.dir/build.make TESTING/EIG/CMakeFiles/xshrd.dir/pslafchk.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xstrd.dir/build.make TESTING/EIG/CMakeFiles/xstrd.dir/pslafchk.f.i
 .PHONY : pslafchk.f.i
 
 pslafchk.s: pslafchk.f.s
@@ -3440,9 +3440,9 @@ pslafchk.s: pslafchk.f.s
 
 # target to generate assembly for a file
 pslafchk.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xsbrd.dir/build.make TESTING/EIG/CMakeFiles/xsbrd.dir/pslafchk.f.s
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xshrd.dir/build.make TESTING/EIG/CMakeFiles/xshrd.dir/pslafchk.f.s
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xstrd.dir/build.make TESTING/EIG/CMakeFiles/xstrd.dir/pslafchk.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xsbrd.dir/build.make TESTING/EIG/CMakeFiles/xsbrd.dir/pslafchk.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xshrd.dir/build.make TESTING/EIG/CMakeFiles/xshrd.dir/pslafchk.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xstrd.dir/build.make TESTING/EIG/CMakeFiles/xstrd.dir/pslafchk.f.s
 .PHONY : pslafchk.f.s
 
 pslagge.o: pslagge.f.o
@@ -3450,7 +3450,7 @@ pslagge.o: pslagge.f.o
 
 # target to build an object file
 pslagge.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssvd.dir/build.make TESTING/EIG/CMakeFiles/xssvd.dir/pslagge.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssvd.dir/build.make TESTING/EIG/CMakeFiles/xssvd.dir/pslagge.f.o
 .PHONY : pslagge.f.o
 
 pslagge.i: pslagge.f.i
@@ -3458,7 +3458,7 @@ pslagge.i: pslagge.f.i
 
 # target to preprocess a source file
 pslagge.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssvd.dir/build.make TESTING/EIG/CMakeFiles/xssvd.dir/pslagge.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssvd.dir/build.make TESTING/EIG/CMakeFiles/xssvd.dir/pslagge.f.i
 .PHONY : pslagge.f.i
 
 pslagge.s: pslagge.f.s
@@ -3466,7 +3466,7 @@ pslagge.s: pslagge.f.s
 
 # target to generate assembly for a file
 pslagge.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssvd.dir/build.make TESTING/EIG/CMakeFiles/xssvd.dir/pslagge.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssvd.dir/build.make TESTING/EIG/CMakeFiles/xssvd.dir/pslagge.f.s
 .PHONY : pslagge.f.s
 
 pslagsy.o: pslagsy.f.o
@@ -3474,9 +3474,9 @@ pslagsy.o: pslagsy.f.o
 
 # target to build an object file
 pslagsy.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssep.dir/build.make TESTING/EIG/CMakeFiles/xssep.dir/pslagsy.f.o
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xsgsep.dir/build.make TESTING/EIG/CMakeFiles/xsgsep.dir/pslagsy.f.o
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssyevr.dir/build.make TESTING/EIG/CMakeFiles/xssyevr.dir/pslagsy.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssep.dir/build.make TESTING/EIG/CMakeFiles/xssep.dir/pslagsy.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xsgsep.dir/build.make TESTING/EIG/CMakeFiles/xsgsep.dir/pslagsy.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssyevr.dir/build.make TESTING/EIG/CMakeFiles/xssyevr.dir/pslagsy.f.o
 .PHONY : pslagsy.f.o
 
 pslagsy.i: pslagsy.f.i
@@ -3484,9 +3484,9 @@ pslagsy.i: pslagsy.f.i
 
 # target to preprocess a source file
 pslagsy.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssep.dir/build.make TESTING/EIG/CMakeFiles/xssep.dir/pslagsy.f.i
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xsgsep.dir/build.make TESTING/EIG/CMakeFiles/xsgsep.dir/pslagsy.f.i
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssyevr.dir/build.make TESTING/EIG/CMakeFiles/xssyevr.dir/pslagsy.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssep.dir/build.make TESTING/EIG/CMakeFiles/xssep.dir/pslagsy.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xsgsep.dir/build.make TESTING/EIG/CMakeFiles/xsgsep.dir/pslagsy.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssyevr.dir/build.make TESTING/EIG/CMakeFiles/xssyevr.dir/pslagsy.f.i
 .PHONY : pslagsy.f.i
 
 pslagsy.s: pslagsy.f.s
@@ -3494,9 +3494,9 @@ pslagsy.s: pslagsy.f.s
 
 # target to generate assembly for a file
 pslagsy.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssep.dir/build.make TESTING/EIG/CMakeFiles/xssep.dir/pslagsy.f.s
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xsgsep.dir/build.make TESTING/EIG/CMakeFiles/xsgsep.dir/pslagsy.f.s
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssyevr.dir/build.make TESTING/EIG/CMakeFiles/xssyevr.dir/pslagsy.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssep.dir/build.make TESTING/EIG/CMakeFiles/xssep.dir/pslagsy.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xsgsep.dir/build.make TESTING/EIG/CMakeFiles/xsgsep.dir/pslagsy.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssyevr.dir/build.make TESTING/EIG/CMakeFiles/xssyevr.dir/pslagsy.f.s
 .PHONY : pslagsy.f.s
 
 pslasizegsep.o: pslasizegsep.f.o
@@ -3504,7 +3504,7 @@ pslasizegsep.o: pslasizegsep.f.o
 
 # target to build an object file
 pslasizegsep.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xsgsep.dir/build.make TESTING/EIG/CMakeFiles/xsgsep.dir/pslasizegsep.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xsgsep.dir/build.make TESTING/EIG/CMakeFiles/xsgsep.dir/pslasizegsep.f.o
 .PHONY : pslasizegsep.f.o
 
 pslasizegsep.i: pslasizegsep.f.i
@@ -3512,7 +3512,7 @@ pslasizegsep.i: pslasizegsep.f.i
 
 # target to preprocess a source file
 pslasizegsep.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xsgsep.dir/build.make TESTING/EIG/CMakeFiles/xsgsep.dir/pslasizegsep.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xsgsep.dir/build.make TESTING/EIG/CMakeFiles/xsgsep.dir/pslasizegsep.f.i
 .PHONY : pslasizegsep.f.i
 
 pslasizegsep.s: pslasizegsep.f.s
@@ -3520,7 +3520,7 @@ pslasizegsep.s: pslasizegsep.f.s
 
 # target to generate assembly for a file
 pslasizegsep.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xsgsep.dir/build.make TESTING/EIG/CMakeFiles/xsgsep.dir/pslasizegsep.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xsgsep.dir/build.make TESTING/EIG/CMakeFiles/xsgsep.dir/pslasizegsep.f.s
 .PHONY : pslasizegsep.f.s
 
 pslasizesep.o: pslasizesep.f.o
@@ -3528,9 +3528,9 @@ pslasizesep.o: pslasizesep.f.o
 
 # target to build an object file
 pslasizesep.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssep.dir/build.make TESTING/EIG/CMakeFiles/xssep.dir/pslasizesep.f.o
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xsgsep.dir/build.make TESTING/EIG/CMakeFiles/xsgsep.dir/pslasizesep.f.o
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssyevr.dir/build.make TESTING/EIG/CMakeFiles/xssyevr.dir/pslasizesep.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssep.dir/build.make TESTING/EIG/CMakeFiles/xssep.dir/pslasizesep.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xsgsep.dir/build.make TESTING/EIG/CMakeFiles/xsgsep.dir/pslasizesep.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssyevr.dir/build.make TESTING/EIG/CMakeFiles/xssyevr.dir/pslasizesep.f.o
 .PHONY : pslasizesep.f.o
 
 pslasizesep.i: pslasizesep.f.i
@@ -3538,9 +3538,9 @@ pslasizesep.i: pslasizesep.f.i
 
 # target to preprocess a source file
 pslasizesep.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssep.dir/build.make TESTING/EIG/CMakeFiles/xssep.dir/pslasizesep.f.i
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xsgsep.dir/build.make TESTING/EIG/CMakeFiles/xsgsep.dir/pslasizesep.f.i
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssyevr.dir/build.make TESTING/EIG/CMakeFiles/xssyevr.dir/pslasizesep.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssep.dir/build.make TESTING/EIG/CMakeFiles/xssep.dir/pslasizesep.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xsgsep.dir/build.make TESTING/EIG/CMakeFiles/xsgsep.dir/pslasizesep.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssyevr.dir/build.make TESTING/EIG/CMakeFiles/xssyevr.dir/pslasizesep.f.i
 .PHONY : pslasizesep.f.i
 
 pslasizesep.s: pslasizesep.f.s
@@ -3548,9 +3548,9 @@ pslasizesep.s: pslasizesep.f.s
 
 # target to generate assembly for a file
 pslasizesep.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssep.dir/build.make TESTING/EIG/CMakeFiles/xssep.dir/pslasizesep.f.s
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xsgsep.dir/build.make TESTING/EIG/CMakeFiles/xsgsep.dir/pslasizesep.f.s
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssyevr.dir/build.make TESTING/EIG/CMakeFiles/xssyevr.dir/pslasizesep.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssep.dir/build.make TESTING/EIG/CMakeFiles/xssep.dir/pslasizesep.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xsgsep.dir/build.make TESTING/EIG/CMakeFiles/xsgsep.dir/pslasizesep.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssyevr.dir/build.make TESTING/EIG/CMakeFiles/xssyevr.dir/pslasizesep.f.s
 .PHONY : pslasizesep.f.s
 
 pslasizesepr.o: pslasizesepr.f.o
@@ -3558,7 +3558,7 @@ pslasizesepr.o: pslasizesepr.f.o
 
 # target to build an object file
 pslasizesepr.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssyevr.dir/build.make TESTING/EIG/CMakeFiles/xssyevr.dir/pslasizesepr.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssyevr.dir/build.make TESTING/EIG/CMakeFiles/xssyevr.dir/pslasizesepr.f.o
 .PHONY : pslasizesepr.f.o
 
 pslasizesepr.i: pslasizesepr.f.i
@@ -3566,7 +3566,7 @@ pslasizesepr.i: pslasizesepr.f.i
 
 # target to preprocess a source file
 pslasizesepr.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssyevr.dir/build.make TESTING/EIG/CMakeFiles/xssyevr.dir/pslasizesepr.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssyevr.dir/build.make TESTING/EIG/CMakeFiles/xssyevr.dir/pslasizesepr.f.i
 .PHONY : pslasizesepr.f.i
 
 pslasizesepr.s: pslasizesepr.f.s
@@ -3574,7 +3574,7 @@ pslasizesepr.s: pslasizesepr.f.s
 
 # target to generate assembly for a file
 pslasizesepr.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssyevr.dir/build.make TESTING/EIG/CMakeFiles/xssyevr.dir/pslasizesepr.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssyevr.dir/build.make TESTING/EIG/CMakeFiles/xssyevr.dir/pslasizesepr.f.s
 .PHONY : pslasizesepr.f.s
 
 pslasizesqp.o: pslasizesqp.f.o
@@ -3582,7 +3582,7 @@ pslasizesqp.o: pslasizesqp.f.o
 
 # target to build an object file
 pslasizesqp.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssep.dir/build.make TESTING/EIG/CMakeFiles/xssep.dir/pslasizesqp.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssep.dir/build.make TESTING/EIG/CMakeFiles/xssep.dir/pslasizesqp.f.o
 .PHONY : pslasizesqp.f.o
 
 pslasizesqp.i: pslasizesqp.f.i
@@ -3590,7 +3590,7 @@ pslasizesqp.i: pslasizesqp.f.i
 
 # target to preprocess a source file
 pslasizesqp.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssep.dir/build.make TESTING/EIG/CMakeFiles/xssep.dir/pslasizesqp.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssep.dir/build.make TESTING/EIG/CMakeFiles/xssep.dir/pslasizesqp.f.i
 .PHONY : pslasizesqp.f.i
 
 pslasizesqp.s: pslasizesqp.f.s
@@ -3598,7 +3598,7 @@ pslasizesqp.s: pslasizesqp.f.s
 
 # target to generate assembly for a file
 pslasizesqp.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssep.dir/build.make TESTING/EIG/CMakeFiles/xssep.dir/pslasizesqp.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssep.dir/build.make TESTING/EIG/CMakeFiles/xssep.dir/pslasizesqp.f.s
 .PHONY : pslasizesqp.f.s
 
 pslasizesyev.o: pslasizesyev.f.o
@@ -3606,7 +3606,7 @@ pslasizesyev.o: pslasizesyev.f.o
 
 # target to build an object file
 pslasizesyev.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssep.dir/build.make TESTING/EIG/CMakeFiles/xssep.dir/pslasizesyev.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssep.dir/build.make TESTING/EIG/CMakeFiles/xssep.dir/pslasizesyev.f.o
 .PHONY : pslasizesyev.f.o
 
 pslasizesyev.i: pslasizesyev.f.i
@@ -3614,7 +3614,7 @@ pslasizesyev.i: pslasizesyev.f.i
 
 # target to preprocess a source file
 pslasizesyev.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssep.dir/build.make TESTING/EIG/CMakeFiles/xssep.dir/pslasizesyev.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssep.dir/build.make TESTING/EIG/CMakeFiles/xssep.dir/pslasizesyev.f.i
 .PHONY : pslasizesyev.f.i
 
 pslasizesyev.s: pslasizesyev.f.s
@@ -3622,7 +3622,7 @@ pslasizesyev.s: pslasizesyev.f.s
 
 # target to generate assembly for a file
 pslasizesyev.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssep.dir/build.make TESTING/EIG/CMakeFiles/xssep.dir/pslasizesyev.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssep.dir/build.make TESTING/EIG/CMakeFiles/xssep.dir/pslasizesyev.f.s
 .PHONY : pslasizesyev.f.s
 
 pslasizesyevr.o: pslasizesyevr.f.o
@@ -3630,7 +3630,7 @@ pslasizesyevr.o: pslasizesyevr.f.o
 
 # target to build an object file
 pslasizesyevr.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssyevr.dir/build.make TESTING/EIG/CMakeFiles/xssyevr.dir/pslasizesyevr.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssyevr.dir/build.make TESTING/EIG/CMakeFiles/xssyevr.dir/pslasizesyevr.f.o
 .PHONY : pslasizesyevr.f.o
 
 pslasizesyevr.i: pslasizesyevr.f.i
@@ -3638,7 +3638,7 @@ pslasizesyevr.i: pslasizesyevr.f.i
 
 # target to preprocess a source file
 pslasizesyevr.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssyevr.dir/build.make TESTING/EIG/CMakeFiles/xssyevr.dir/pslasizesyevr.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssyevr.dir/build.make TESTING/EIG/CMakeFiles/xssyevr.dir/pslasizesyevr.f.i
 .PHONY : pslasizesyevr.f.i
 
 pslasizesyevr.s: pslasizesyevr.f.s
@@ -3646,7 +3646,7 @@ pslasizesyevr.s: pslasizesyevr.f.s
 
 # target to generate assembly for a file
 pslasizesyevr.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssyevr.dir/build.make TESTING/EIG/CMakeFiles/xssyevr.dir/pslasizesyevr.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssyevr.dir/build.make TESTING/EIG/CMakeFiles/xssyevr.dir/pslasizesyevr.f.s
 .PHONY : pslasizesyevr.f.s
 
 pslasizesyevx.o: pslasizesyevx.f.o
@@ -3654,8 +3654,8 @@ pslasizesyevx.o: pslasizesyevx.f.o
 
 # target to build an object file
 pslasizesyevx.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssep.dir/build.make TESTING/EIG/CMakeFiles/xssep.dir/pslasizesyevx.f.o
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xsgsep.dir/build.make TESTING/EIG/CMakeFiles/xsgsep.dir/pslasizesyevx.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssep.dir/build.make TESTING/EIG/CMakeFiles/xssep.dir/pslasizesyevx.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xsgsep.dir/build.make TESTING/EIG/CMakeFiles/xsgsep.dir/pslasizesyevx.f.o
 .PHONY : pslasizesyevx.f.o
 
 pslasizesyevx.i: pslasizesyevx.f.i
@@ -3663,8 +3663,8 @@ pslasizesyevx.i: pslasizesyevx.f.i
 
 # target to preprocess a source file
 pslasizesyevx.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssep.dir/build.make TESTING/EIG/CMakeFiles/xssep.dir/pslasizesyevx.f.i
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xsgsep.dir/build.make TESTING/EIG/CMakeFiles/xsgsep.dir/pslasizesyevx.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssep.dir/build.make TESTING/EIG/CMakeFiles/xssep.dir/pslasizesyevx.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xsgsep.dir/build.make TESTING/EIG/CMakeFiles/xsgsep.dir/pslasizesyevx.f.i
 .PHONY : pslasizesyevx.f.i
 
 pslasizesyevx.s: pslasizesyevx.f.s
@@ -3672,8 +3672,8 @@ pslasizesyevx.s: pslasizesyevx.f.s
 
 # target to generate assembly for a file
 pslasizesyevx.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssep.dir/build.make TESTING/EIG/CMakeFiles/xssep.dir/pslasizesyevx.f.s
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xsgsep.dir/build.make TESTING/EIG/CMakeFiles/xsgsep.dir/pslasizesyevx.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssep.dir/build.make TESTING/EIG/CMakeFiles/xssep.dir/pslasizesyevx.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xsgsep.dir/build.make TESTING/EIG/CMakeFiles/xsgsep.dir/pslasizesyevx.f.s
 .PHONY : pslasizesyevx.f.s
 
 pslatms.o: pslatms.f.o
@@ -3681,9 +3681,9 @@ pslatms.o: pslatms.f.o
 
 # target to build an object file
 pslatms.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssep.dir/build.make TESTING/EIG/CMakeFiles/xssep.dir/pslatms.f.o
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xsgsep.dir/build.make TESTING/EIG/CMakeFiles/xsgsep.dir/pslatms.f.o
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssyevr.dir/build.make TESTING/EIG/CMakeFiles/xssyevr.dir/pslatms.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssep.dir/build.make TESTING/EIG/CMakeFiles/xssep.dir/pslatms.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xsgsep.dir/build.make TESTING/EIG/CMakeFiles/xsgsep.dir/pslatms.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssyevr.dir/build.make TESTING/EIG/CMakeFiles/xssyevr.dir/pslatms.f.o
 .PHONY : pslatms.f.o
 
 pslatms.i: pslatms.f.i
@@ -3691,9 +3691,9 @@ pslatms.i: pslatms.f.i
 
 # target to preprocess a source file
 pslatms.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssep.dir/build.make TESTING/EIG/CMakeFiles/xssep.dir/pslatms.f.i
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xsgsep.dir/build.make TESTING/EIG/CMakeFiles/xsgsep.dir/pslatms.f.i
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssyevr.dir/build.make TESTING/EIG/CMakeFiles/xssyevr.dir/pslatms.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssep.dir/build.make TESTING/EIG/CMakeFiles/xssep.dir/pslatms.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xsgsep.dir/build.make TESTING/EIG/CMakeFiles/xsgsep.dir/pslatms.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssyevr.dir/build.make TESTING/EIG/CMakeFiles/xssyevr.dir/pslatms.f.i
 .PHONY : pslatms.f.i
 
 pslatms.s: pslatms.f.s
@@ -3701,9 +3701,9 @@ pslatms.s: pslatms.f.s
 
 # target to generate assembly for a file
 pslatms.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssep.dir/build.make TESTING/EIG/CMakeFiles/xssep.dir/pslatms.f.s
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xsgsep.dir/build.make TESTING/EIG/CMakeFiles/xsgsep.dir/pslatms.f.s
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssyevr.dir/build.make TESTING/EIG/CMakeFiles/xssyevr.dir/pslatms.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssep.dir/build.make TESTING/EIG/CMakeFiles/xssep.dir/pslatms.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xsgsep.dir/build.make TESTING/EIG/CMakeFiles/xsgsep.dir/pslatms.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssyevr.dir/build.make TESTING/EIG/CMakeFiles/xssyevr.dir/pslatms.f.s
 .PHONY : pslatms.f.s
 
 pslatran.o: pslatran.f.o
@@ -3711,7 +3711,7 @@ pslatran.o: pslatran.f.o
 
 # target to build an object file
 pslatran.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xstrd.dir/build.make TESTING/EIG/CMakeFiles/xstrd.dir/pslatran.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xstrd.dir/build.make TESTING/EIG/CMakeFiles/xstrd.dir/pslatran.f.o
 .PHONY : pslatran.f.o
 
 pslatran.i: pslatran.f.i
@@ -3719,7 +3719,7 @@ pslatran.i: pslatran.f.i
 
 # target to preprocess a source file
 pslatran.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xstrd.dir/build.make TESTING/EIG/CMakeFiles/xstrd.dir/pslatran.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xstrd.dir/build.make TESTING/EIG/CMakeFiles/xstrd.dir/pslatran.f.i
 .PHONY : pslatran.f.i
 
 pslatran.s: pslatran.f.s
@@ -3727,7 +3727,7 @@ pslatran.s: pslatran.f.s
 
 # target to generate assembly for a file
 pslatran.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xstrd.dir/build.make TESTING/EIG/CMakeFiles/xstrd.dir/pslatran.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xstrd.dir/build.make TESTING/EIG/CMakeFiles/xstrd.dir/pslatran.f.s
 .PHONY : pslatran.f.s
 
 psmatgen.o: psmatgen.f.o
@@ -3735,14 +3735,14 @@ psmatgen.o: psmatgen.f.o
 
 # target to build an object file
 psmatgen.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xsbrd.dir/build.make TESTING/EIG/CMakeFiles/xsbrd.dir/psmatgen.f.o
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xshrd.dir/build.make TESTING/EIG/CMakeFiles/xshrd.dir/psmatgen.f.o
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xstrd.dir/build.make TESTING/EIG/CMakeFiles/xstrd.dir/psmatgen.f.o
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssvd.dir/build.make TESTING/EIG/CMakeFiles/xssvd.dir/psmatgen.f.o
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssep.dir/build.make TESTING/EIG/CMakeFiles/xssep.dir/psmatgen.f.o
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xsgsep.dir/build.make TESTING/EIG/CMakeFiles/xsgsep.dir/psmatgen.f.o
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xsnep.dir/build.make TESTING/EIG/CMakeFiles/xsnep.dir/psmatgen.f.o
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssyevr.dir/build.make TESTING/EIG/CMakeFiles/xssyevr.dir/psmatgen.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xsbrd.dir/build.make TESTING/EIG/CMakeFiles/xsbrd.dir/psmatgen.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xshrd.dir/build.make TESTING/EIG/CMakeFiles/xshrd.dir/psmatgen.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xstrd.dir/build.make TESTING/EIG/CMakeFiles/xstrd.dir/psmatgen.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssvd.dir/build.make TESTING/EIG/CMakeFiles/xssvd.dir/psmatgen.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssep.dir/build.make TESTING/EIG/CMakeFiles/xssep.dir/psmatgen.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xsgsep.dir/build.make TESTING/EIG/CMakeFiles/xsgsep.dir/psmatgen.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xsnep.dir/build.make TESTING/EIG/CMakeFiles/xsnep.dir/psmatgen.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssyevr.dir/build.make TESTING/EIG/CMakeFiles/xssyevr.dir/psmatgen.f.o
 .PHONY : psmatgen.f.o
 
 psmatgen.i: psmatgen.f.i
@@ -3750,14 +3750,14 @@ psmatgen.i: psmatgen.f.i
 
 # target to preprocess a source file
 psmatgen.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xsbrd.dir/build.make TESTING/EIG/CMakeFiles/xsbrd.dir/psmatgen.f.i
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xshrd.dir/build.make TESTING/EIG/CMakeFiles/xshrd.dir/psmatgen.f.i
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xstrd.dir/build.make TESTING/EIG/CMakeFiles/xstrd.dir/psmatgen.f.i
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssvd.dir/build.make TESTING/EIG/CMakeFiles/xssvd.dir/psmatgen.f.i
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssep.dir/build.make TESTING/EIG/CMakeFiles/xssep.dir/psmatgen.f.i
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xsgsep.dir/build.make TESTING/EIG/CMakeFiles/xsgsep.dir/psmatgen.f.i
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xsnep.dir/build.make TESTING/EIG/CMakeFiles/xsnep.dir/psmatgen.f.i
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssyevr.dir/build.make TESTING/EIG/CMakeFiles/xssyevr.dir/psmatgen.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xsbrd.dir/build.make TESTING/EIG/CMakeFiles/xsbrd.dir/psmatgen.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xshrd.dir/build.make TESTING/EIG/CMakeFiles/xshrd.dir/psmatgen.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xstrd.dir/build.make TESTING/EIG/CMakeFiles/xstrd.dir/psmatgen.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssvd.dir/build.make TESTING/EIG/CMakeFiles/xssvd.dir/psmatgen.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssep.dir/build.make TESTING/EIG/CMakeFiles/xssep.dir/psmatgen.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xsgsep.dir/build.make TESTING/EIG/CMakeFiles/xsgsep.dir/psmatgen.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xsnep.dir/build.make TESTING/EIG/CMakeFiles/xsnep.dir/psmatgen.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssyevr.dir/build.make TESTING/EIG/CMakeFiles/xssyevr.dir/psmatgen.f.i
 .PHONY : psmatgen.f.i
 
 psmatgen.s: psmatgen.f.s
@@ -3765,14 +3765,14 @@ psmatgen.s: psmatgen.f.s
 
 # target to generate assembly for a file
 psmatgen.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xsbrd.dir/build.make TESTING/EIG/CMakeFiles/xsbrd.dir/psmatgen.f.s
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xshrd.dir/build.make TESTING/EIG/CMakeFiles/xshrd.dir/psmatgen.f.s
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xstrd.dir/build.make TESTING/EIG/CMakeFiles/xstrd.dir/psmatgen.f.s
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssvd.dir/build.make TESTING/EIG/CMakeFiles/xssvd.dir/psmatgen.f.s
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssep.dir/build.make TESTING/EIG/CMakeFiles/xssep.dir/psmatgen.f.s
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xsgsep.dir/build.make TESTING/EIG/CMakeFiles/xsgsep.dir/psmatgen.f.s
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xsnep.dir/build.make TESTING/EIG/CMakeFiles/xsnep.dir/psmatgen.f.s
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssyevr.dir/build.make TESTING/EIG/CMakeFiles/xssyevr.dir/psmatgen.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xsbrd.dir/build.make TESTING/EIG/CMakeFiles/xsbrd.dir/psmatgen.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xshrd.dir/build.make TESTING/EIG/CMakeFiles/xshrd.dir/psmatgen.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xstrd.dir/build.make TESTING/EIG/CMakeFiles/xstrd.dir/psmatgen.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssvd.dir/build.make TESTING/EIG/CMakeFiles/xssvd.dir/psmatgen.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssep.dir/build.make TESTING/EIG/CMakeFiles/xssep.dir/psmatgen.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xsgsep.dir/build.make TESTING/EIG/CMakeFiles/xsgsep.dir/psmatgen.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xsnep.dir/build.make TESTING/EIG/CMakeFiles/xsnep.dir/psmatgen.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssyevr.dir/build.make TESTING/EIG/CMakeFiles/xssyevr.dir/psmatgen.f.s
 .PHONY : psmatgen.f.s
 
 psmatgen2.o: psmatgen2.f.o
@@ -3780,7 +3780,7 @@ psmatgen2.o: psmatgen2.f.o
 
 # target to build an object file
 psmatgen2.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xshseqr.dir/build.make TESTING/EIG/CMakeFiles/xshseqr.dir/psmatgen2.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xshseqr.dir/build.make TESTING/EIG/CMakeFiles/xshseqr.dir/psmatgen2.f.o
 .PHONY : psmatgen2.f.o
 
 psmatgen2.i: psmatgen2.f.i
@@ -3788,7 +3788,7 @@ psmatgen2.i: psmatgen2.f.i
 
 # target to preprocess a source file
 psmatgen2.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xshseqr.dir/build.make TESTING/EIG/CMakeFiles/xshseqr.dir/psmatgen2.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xshseqr.dir/build.make TESTING/EIG/CMakeFiles/xshseqr.dir/psmatgen2.f.i
 .PHONY : psmatgen2.f.i
 
 psmatgen2.s: psmatgen2.f.s
@@ -3796,7 +3796,7 @@ psmatgen2.s: psmatgen2.f.s
 
 # target to generate assembly for a file
 psmatgen2.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xshseqr.dir/build.make TESTING/EIG/CMakeFiles/xshseqr.dir/psmatgen2.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xshseqr.dir/build.make TESTING/EIG/CMakeFiles/xshseqr.dir/psmatgen2.f.s
 .PHONY : psmatgen2.f.s
 
 psnepdriver.o: psnepdriver.f.o
@@ -3804,7 +3804,7 @@ psnepdriver.o: psnepdriver.f.o
 
 # target to build an object file
 psnepdriver.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xsnep.dir/build.make TESTING/EIG/CMakeFiles/xsnep.dir/psnepdriver.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xsnep.dir/build.make TESTING/EIG/CMakeFiles/xsnep.dir/psnepdriver.f.o
 .PHONY : psnepdriver.f.o
 
 psnepdriver.i: psnepdriver.f.i
@@ -3812,7 +3812,7 @@ psnepdriver.i: psnepdriver.f.i
 
 # target to preprocess a source file
 psnepdriver.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xsnep.dir/build.make TESTING/EIG/CMakeFiles/xsnep.dir/psnepdriver.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xsnep.dir/build.make TESTING/EIG/CMakeFiles/xsnep.dir/psnepdriver.f.i
 .PHONY : psnepdriver.f.i
 
 psnepdriver.s: psnepdriver.f.s
@@ -3820,7 +3820,7 @@ psnepdriver.s: psnepdriver.f.s
 
 # target to generate assembly for a file
 psnepdriver.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xsnep.dir/build.make TESTING/EIG/CMakeFiles/xsnep.dir/psnepdriver.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xsnep.dir/build.make TESTING/EIG/CMakeFiles/xsnep.dir/psnepdriver.f.s
 .PHONY : psnepdriver.f.s
 
 psnepfchk.o: psnepfchk.f.o
@@ -3828,7 +3828,7 @@ psnepfchk.o: psnepfchk.f.o
 
 # target to build an object file
 psnepfchk.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xsnep.dir/build.make TESTING/EIG/CMakeFiles/xsnep.dir/psnepfchk.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xsnep.dir/build.make TESTING/EIG/CMakeFiles/xsnep.dir/psnepfchk.f.o
 .PHONY : psnepfchk.f.o
 
 psnepfchk.i: psnepfchk.f.i
@@ -3836,7 +3836,7 @@ psnepfchk.i: psnepfchk.f.i
 
 # target to preprocess a source file
 psnepfchk.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xsnep.dir/build.make TESTING/EIG/CMakeFiles/xsnep.dir/psnepfchk.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xsnep.dir/build.make TESTING/EIG/CMakeFiles/xsnep.dir/psnepfchk.f.i
 .PHONY : psnepfchk.f.i
 
 psnepfchk.s: psnepfchk.f.s
@@ -3844,7 +3844,7 @@ psnepfchk.s: psnepfchk.f.s
 
 # target to generate assembly for a file
 psnepfchk.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xsnep.dir/build.make TESTING/EIG/CMakeFiles/xsnep.dir/psnepfchk.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xsnep.dir/build.make TESTING/EIG/CMakeFiles/xsnep.dir/psnepfchk.f.s
 .PHONY : psnepfchk.f.s
 
 psnepinfo.o: psnepinfo.f.o
@@ -3852,7 +3852,7 @@ psnepinfo.o: psnepinfo.f.o
 
 # target to build an object file
 psnepinfo.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xsnep.dir/build.make TESTING/EIG/CMakeFiles/xsnep.dir/psnepinfo.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xsnep.dir/build.make TESTING/EIG/CMakeFiles/xsnep.dir/psnepinfo.f.o
 .PHONY : psnepinfo.f.o
 
 psnepinfo.i: psnepinfo.f.i
@@ -3860,7 +3860,7 @@ psnepinfo.i: psnepinfo.f.i
 
 # target to preprocess a source file
 psnepinfo.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xsnep.dir/build.make TESTING/EIG/CMakeFiles/xsnep.dir/psnepinfo.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xsnep.dir/build.make TESTING/EIG/CMakeFiles/xsnep.dir/psnepinfo.f.i
 .PHONY : psnepinfo.f.i
 
 psnepinfo.s: psnepinfo.f.s
@@ -3868,7 +3868,7 @@ psnepinfo.s: psnepinfo.f.s
 
 # target to generate assembly for a file
 psnepinfo.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xsnep.dir/build.make TESTING/EIG/CMakeFiles/xsnep.dir/psnepinfo.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xsnep.dir/build.make TESTING/EIG/CMakeFiles/xsnep.dir/psnepinfo.f.s
 .PHONY : psnepinfo.f.s
 
 pssdpsubtst.o: pssdpsubtst.f.o
@@ -3876,7 +3876,7 @@ pssdpsubtst.o: pssdpsubtst.f.o
 
 # target to build an object file
 pssdpsubtst.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssep.dir/build.make TESTING/EIG/CMakeFiles/xssep.dir/pssdpsubtst.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssep.dir/build.make TESTING/EIG/CMakeFiles/xssep.dir/pssdpsubtst.f.o
 .PHONY : pssdpsubtst.f.o
 
 pssdpsubtst.i: pssdpsubtst.f.i
@@ -3884,7 +3884,7 @@ pssdpsubtst.i: pssdpsubtst.f.i
 
 # target to preprocess a source file
 pssdpsubtst.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssep.dir/build.make TESTING/EIG/CMakeFiles/xssep.dir/pssdpsubtst.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssep.dir/build.make TESTING/EIG/CMakeFiles/xssep.dir/pssdpsubtst.f.i
 .PHONY : pssdpsubtst.f.i
 
 pssdpsubtst.s: pssdpsubtst.f.s
@@ -3892,7 +3892,7 @@ pssdpsubtst.s: pssdpsubtst.f.s
 
 # target to generate assembly for a file
 pssdpsubtst.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssep.dir/build.make TESTING/EIG/CMakeFiles/xssep.dir/pssdpsubtst.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssep.dir/build.make TESTING/EIG/CMakeFiles/xssep.dir/pssdpsubtst.f.s
 .PHONY : pssdpsubtst.f.s
 
 pssepchk.o: pssepchk.f.o
@@ -3900,8 +3900,8 @@ pssepchk.o: pssepchk.f.o
 
 # target to build an object file
 pssepchk.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssep.dir/build.make TESTING/EIG/CMakeFiles/xssep.dir/pssepchk.f.o
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssyevr.dir/build.make TESTING/EIG/CMakeFiles/xssyevr.dir/pssepchk.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssep.dir/build.make TESTING/EIG/CMakeFiles/xssep.dir/pssepchk.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssyevr.dir/build.make TESTING/EIG/CMakeFiles/xssyevr.dir/pssepchk.f.o
 .PHONY : pssepchk.f.o
 
 pssepchk.i: pssepchk.f.i
@@ -3909,8 +3909,8 @@ pssepchk.i: pssepchk.f.i
 
 # target to preprocess a source file
 pssepchk.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssep.dir/build.make TESTING/EIG/CMakeFiles/xssep.dir/pssepchk.f.i
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssyevr.dir/build.make TESTING/EIG/CMakeFiles/xssyevr.dir/pssepchk.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssep.dir/build.make TESTING/EIG/CMakeFiles/xssep.dir/pssepchk.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssyevr.dir/build.make TESTING/EIG/CMakeFiles/xssyevr.dir/pssepchk.f.i
 .PHONY : pssepchk.f.i
 
 pssepchk.s: pssepchk.f.s
@@ -3918,8 +3918,8 @@ pssepchk.s: pssepchk.f.s
 
 # target to generate assembly for a file
 pssepchk.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssep.dir/build.make TESTING/EIG/CMakeFiles/xssep.dir/pssepchk.f.s
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssyevr.dir/build.make TESTING/EIG/CMakeFiles/xssyevr.dir/pssepchk.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssep.dir/build.make TESTING/EIG/CMakeFiles/xssep.dir/pssepchk.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssyevr.dir/build.make TESTING/EIG/CMakeFiles/xssyevr.dir/pssepchk.f.s
 .PHONY : pssepchk.f.s
 
 pssepdriver.o: pssepdriver.f.o
@@ -3927,7 +3927,7 @@ pssepdriver.o: pssepdriver.f.o
 
 # target to build an object file
 pssepdriver.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssep.dir/build.make TESTING/EIG/CMakeFiles/xssep.dir/pssepdriver.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssep.dir/build.make TESTING/EIG/CMakeFiles/xssep.dir/pssepdriver.f.o
 .PHONY : pssepdriver.f.o
 
 pssepdriver.i: pssepdriver.f.i
@@ -3935,7 +3935,7 @@ pssepdriver.i: pssepdriver.f.i
 
 # target to preprocess a source file
 pssepdriver.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssep.dir/build.make TESTING/EIG/CMakeFiles/xssep.dir/pssepdriver.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssep.dir/build.make TESTING/EIG/CMakeFiles/xssep.dir/pssepdriver.f.i
 .PHONY : pssepdriver.f.i
 
 pssepdriver.s: pssepdriver.f.s
@@ -3943,7 +3943,7 @@ pssepdriver.s: pssepdriver.f.s
 
 # target to generate assembly for a file
 pssepdriver.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssep.dir/build.make TESTING/EIG/CMakeFiles/xssep.dir/pssepdriver.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssep.dir/build.make TESTING/EIG/CMakeFiles/xssep.dir/pssepdriver.f.s
 .PHONY : pssepdriver.f.s
 
 pssepinfo.o: pssepinfo.f.o
@@ -3951,12 +3951,12 @@ pssepinfo.o: pssepinfo.f.o
 
 # target to build an object file
 pssepinfo.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssep.dir/build.make TESTING/EIG/CMakeFiles/xssep.dir/pssepinfo.f.o
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcsep.dir/build.make TESTING/EIG/CMakeFiles/xcsep.dir/pssepinfo.f.o
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xsgsep.dir/build.make TESTING/EIG/CMakeFiles/xsgsep.dir/pssepinfo.f.o
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcgsep.dir/build.make TESTING/EIG/CMakeFiles/xcgsep.dir/pssepinfo.f.o
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssyevr.dir/build.make TESTING/EIG/CMakeFiles/xssyevr.dir/pssepinfo.f.o
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcheevr.dir/build.make TESTING/EIG/CMakeFiles/xcheevr.dir/pssepinfo.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssep.dir/build.make TESTING/EIG/CMakeFiles/xssep.dir/pssepinfo.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcsep.dir/build.make TESTING/EIG/CMakeFiles/xcsep.dir/pssepinfo.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xsgsep.dir/build.make TESTING/EIG/CMakeFiles/xsgsep.dir/pssepinfo.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcgsep.dir/build.make TESTING/EIG/CMakeFiles/xcgsep.dir/pssepinfo.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssyevr.dir/build.make TESTING/EIG/CMakeFiles/xssyevr.dir/pssepinfo.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcheevr.dir/build.make TESTING/EIG/CMakeFiles/xcheevr.dir/pssepinfo.f.o
 .PHONY : pssepinfo.f.o
 
 pssepinfo.i: pssepinfo.f.i
@@ -3964,12 +3964,12 @@ pssepinfo.i: pssepinfo.f.i
 
 # target to preprocess a source file
 pssepinfo.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssep.dir/build.make TESTING/EIG/CMakeFiles/xssep.dir/pssepinfo.f.i
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcsep.dir/build.make TESTING/EIG/CMakeFiles/xcsep.dir/pssepinfo.f.i
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xsgsep.dir/build.make TESTING/EIG/CMakeFiles/xsgsep.dir/pssepinfo.f.i
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcgsep.dir/build.make TESTING/EIG/CMakeFiles/xcgsep.dir/pssepinfo.f.i
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssyevr.dir/build.make TESTING/EIG/CMakeFiles/xssyevr.dir/pssepinfo.f.i
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcheevr.dir/build.make TESTING/EIG/CMakeFiles/xcheevr.dir/pssepinfo.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssep.dir/build.make TESTING/EIG/CMakeFiles/xssep.dir/pssepinfo.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcsep.dir/build.make TESTING/EIG/CMakeFiles/xcsep.dir/pssepinfo.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xsgsep.dir/build.make TESTING/EIG/CMakeFiles/xsgsep.dir/pssepinfo.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcgsep.dir/build.make TESTING/EIG/CMakeFiles/xcgsep.dir/pssepinfo.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssyevr.dir/build.make TESTING/EIG/CMakeFiles/xssyevr.dir/pssepinfo.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcheevr.dir/build.make TESTING/EIG/CMakeFiles/xcheevr.dir/pssepinfo.f.i
 .PHONY : pssepinfo.f.i
 
 pssepinfo.s: pssepinfo.f.s
@@ -3977,12 +3977,12 @@ pssepinfo.s: pssepinfo.f.s
 
 # target to generate assembly for a file
 pssepinfo.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssep.dir/build.make TESTING/EIG/CMakeFiles/xssep.dir/pssepinfo.f.s
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcsep.dir/build.make TESTING/EIG/CMakeFiles/xcsep.dir/pssepinfo.f.s
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xsgsep.dir/build.make TESTING/EIG/CMakeFiles/xsgsep.dir/pssepinfo.f.s
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcgsep.dir/build.make TESTING/EIG/CMakeFiles/xcgsep.dir/pssepinfo.f.s
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssyevr.dir/build.make TESTING/EIG/CMakeFiles/xssyevr.dir/pssepinfo.f.s
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcheevr.dir/build.make TESTING/EIG/CMakeFiles/xcheevr.dir/pssepinfo.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssep.dir/build.make TESTING/EIG/CMakeFiles/xssep.dir/pssepinfo.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcsep.dir/build.make TESTING/EIG/CMakeFiles/xcsep.dir/pssepinfo.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xsgsep.dir/build.make TESTING/EIG/CMakeFiles/xsgsep.dir/pssepinfo.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcgsep.dir/build.make TESTING/EIG/CMakeFiles/xcgsep.dir/pssepinfo.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssyevr.dir/build.make TESTING/EIG/CMakeFiles/xssyevr.dir/pssepinfo.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xcheevr.dir/build.make TESTING/EIG/CMakeFiles/xcheevr.dir/pssepinfo.f.s
 .PHONY : pssepinfo.f.s
 
 pssepqtq.o: pssepqtq.f.o
@@ -3990,8 +3990,8 @@ pssepqtq.o: pssepqtq.f.o
 
 # target to build an object file
 pssepqtq.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssep.dir/build.make TESTING/EIG/CMakeFiles/xssep.dir/pssepqtq.f.o
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssyevr.dir/build.make TESTING/EIG/CMakeFiles/xssyevr.dir/pssepqtq.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssep.dir/build.make TESTING/EIG/CMakeFiles/xssep.dir/pssepqtq.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssyevr.dir/build.make TESTING/EIG/CMakeFiles/xssyevr.dir/pssepqtq.f.o
 .PHONY : pssepqtq.f.o
 
 pssepqtq.i: pssepqtq.f.i
@@ -3999,8 +3999,8 @@ pssepqtq.i: pssepqtq.f.i
 
 # target to preprocess a source file
 pssepqtq.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssep.dir/build.make TESTING/EIG/CMakeFiles/xssep.dir/pssepqtq.f.i
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssyevr.dir/build.make TESTING/EIG/CMakeFiles/xssyevr.dir/pssepqtq.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssep.dir/build.make TESTING/EIG/CMakeFiles/xssep.dir/pssepqtq.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssyevr.dir/build.make TESTING/EIG/CMakeFiles/xssyevr.dir/pssepqtq.f.i
 .PHONY : pssepqtq.f.i
 
 pssepqtq.s: pssepqtq.f.s
@@ -4008,8 +4008,8 @@ pssepqtq.s: pssepqtq.f.s
 
 # target to generate assembly for a file
 pssepqtq.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssep.dir/build.make TESTING/EIG/CMakeFiles/xssep.dir/pssepqtq.f.s
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssyevr.dir/build.make TESTING/EIG/CMakeFiles/xssyevr.dir/pssepqtq.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssep.dir/build.make TESTING/EIG/CMakeFiles/xssep.dir/pssepqtq.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssyevr.dir/build.make TESTING/EIG/CMakeFiles/xssyevr.dir/pssepqtq.f.s
 .PHONY : pssepqtq.f.s
 
 psseprdriver.o: psseprdriver.f.o
@@ -4017,7 +4017,7 @@ psseprdriver.o: psseprdriver.f.o
 
 # target to build an object file
 psseprdriver.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssyevr.dir/build.make TESTING/EIG/CMakeFiles/xssyevr.dir/psseprdriver.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssyevr.dir/build.make TESTING/EIG/CMakeFiles/xssyevr.dir/psseprdriver.f.o
 .PHONY : psseprdriver.f.o
 
 psseprdriver.i: psseprdriver.f.i
@@ -4025,7 +4025,7 @@ psseprdriver.i: psseprdriver.f.i
 
 # target to preprocess a source file
 psseprdriver.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssyevr.dir/build.make TESTING/EIG/CMakeFiles/xssyevr.dir/psseprdriver.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssyevr.dir/build.make TESTING/EIG/CMakeFiles/xssyevr.dir/psseprdriver.f.i
 .PHONY : psseprdriver.f.i
 
 psseprdriver.s: psseprdriver.f.s
@@ -4033,7 +4033,7 @@ psseprdriver.s: psseprdriver.f.s
 
 # target to generate assembly for a file
 psseprdriver.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssyevr.dir/build.make TESTING/EIG/CMakeFiles/xssyevr.dir/psseprdriver.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssyevr.dir/build.make TESTING/EIG/CMakeFiles/xssyevr.dir/psseprdriver.f.s
 .PHONY : psseprdriver.f.s
 
 pssepreq.o: pssepreq.f.o
@@ -4041,7 +4041,7 @@ pssepreq.o: pssepreq.f.o
 
 # target to build an object file
 pssepreq.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssep.dir/build.make TESTING/EIG/CMakeFiles/xssep.dir/pssepreq.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssep.dir/build.make TESTING/EIG/CMakeFiles/xssep.dir/pssepreq.f.o
 .PHONY : pssepreq.f.o
 
 pssepreq.i: pssepreq.f.i
@@ -4049,7 +4049,7 @@ pssepreq.i: pssepreq.f.i
 
 # target to preprocess a source file
 pssepreq.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssep.dir/build.make TESTING/EIG/CMakeFiles/xssep.dir/pssepreq.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssep.dir/build.make TESTING/EIG/CMakeFiles/xssep.dir/pssepreq.f.i
 .PHONY : pssepreq.f.i
 
 pssepreq.s: pssepreq.f.s
@@ -4057,7 +4057,7 @@ pssepreq.s: pssepreq.f.s
 
 # target to generate assembly for a file
 pssepreq.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssep.dir/build.make TESTING/EIG/CMakeFiles/xssep.dir/pssepreq.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssep.dir/build.make TESTING/EIG/CMakeFiles/xssep.dir/pssepreq.f.s
 .PHONY : pssepreq.f.s
 
 psseprreq.o: psseprreq.f.o
@@ -4065,7 +4065,7 @@ psseprreq.o: psseprreq.f.o
 
 # target to build an object file
 psseprreq.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssyevr.dir/build.make TESTING/EIG/CMakeFiles/xssyevr.dir/psseprreq.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssyevr.dir/build.make TESTING/EIG/CMakeFiles/xssyevr.dir/psseprreq.f.o
 .PHONY : psseprreq.f.o
 
 psseprreq.i: psseprreq.f.i
@@ -4073,7 +4073,7 @@ psseprreq.i: psseprreq.f.i
 
 # target to preprocess a source file
 psseprreq.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssyevr.dir/build.make TESTING/EIG/CMakeFiles/xssyevr.dir/psseprreq.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssyevr.dir/build.make TESTING/EIG/CMakeFiles/xssyevr.dir/psseprreq.f.i
 .PHONY : psseprreq.f.i
 
 psseprreq.s: psseprreq.f.s
@@ -4081,7 +4081,7 @@ psseprreq.s: psseprreq.f.s
 
 # target to generate assembly for a file
 psseprreq.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssyevr.dir/build.make TESTING/EIG/CMakeFiles/xssyevr.dir/psseprreq.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssyevr.dir/build.make TESTING/EIG/CMakeFiles/xssyevr.dir/psseprreq.f.s
 .PHONY : psseprreq.f.s
 
 psseprsubtst.o: psseprsubtst.f.o
@@ -4089,7 +4089,7 @@ psseprsubtst.o: psseprsubtst.f.o
 
 # target to build an object file
 psseprsubtst.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssyevr.dir/build.make TESTING/EIG/CMakeFiles/xssyevr.dir/psseprsubtst.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssyevr.dir/build.make TESTING/EIG/CMakeFiles/xssyevr.dir/psseprsubtst.f.o
 .PHONY : psseprsubtst.f.o
 
 psseprsubtst.i: psseprsubtst.f.i
@@ -4097,7 +4097,7 @@ psseprsubtst.i: psseprsubtst.f.i
 
 # target to preprocess a source file
 psseprsubtst.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssyevr.dir/build.make TESTING/EIG/CMakeFiles/xssyevr.dir/psseprsubtst.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssyevr.dir/build.make TESTING/EIG/CMakeFiles/xssyevr.dir/psseprsubtst.f.i
 .PHONY : psseprsubtst.f.i
 
 psseprsubtst.s: psseprsubtst.f.s
@@ -4105,7 +4105,7 @@ psseprsubtst.s: psseprsubtst.f.s
 
 # target to generate assembly for a file
 psseprsubtst.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssyevr.dir/build.make TESTING/EIG/CMakeFiles/xssyevr.dir/psseprsubtst.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssyevr.dir/build.make TESTING/EIG/CMakeFiles/xssyevr.dir/psseprsubtst.f.s
 .PHONY : psseprsubtst.f.s
 
 psseprtst.o: psseprtst.f.o
@@ -4113,7 +4113,7 @@ psseprtst.o: psseprtst.f.o
 
 # target to build an object file
 psseprtst.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssyevr.dir/build.make TESTING/EIG/CMakeFiles/xssyevr.dir/psseprtst.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssyevr.dir/build.make TESTING/EIG/CMakeFiles/xssyevr.dir/psseprtst.f.o
 .PHONY : psseprtst.f.o
 
 psseprtst.i: psseprtst.f.i
@@ -4121,7 +4121,7 @@ psseprtst.i: psseprtst.f.i
 
 # target to preprocess a source file
 psseprtst.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssyevr.dir/build.make TESTING/EIG/CMakeFiles/xssyevr.dir/psseprtst.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssyevr.dir/build.make TESTING/EIG/CMakeFiles/xssyevr.dir/psseprtst.f.i
 .PHONY : psseprtst.f.i
 
 psseprtst.s: psseprtst.f.s
@@ -4129,7 +4129,7 @@ psseprtst.s: psseprtst.f.s
 
 # target to generate assembly for a file
 psseprtst.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssyevr.dir/build.make TESTING/EIG/CMakeFiles/xssyevr.dir/psseprtst.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssyevr.dir/build.make TESTING/EIG/CMakeFiles/xssyevr.dir/psseprtst.f.s
 .PHONY : psseprtst.f.s
 
 pssepsubtst.o: pssepsubtst.f.o
@@ -4137,7 +4137,7 @@ pssepsubtst.o: pssepsubtst.f.o
 
 # target to build an object file
 pssepsubtst.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssep.dir/build.make TESTING/EIG/CMakeFiles/xssep.dir/pssepsubtst.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssep.dir/build.make TESTING/EIG/CMakeFiles/xssep.dir/pssepsubtst.f.o
 .PHONY : pssepsubtst.f.o
 
 pssepsubtst.i: pssepsubtst.f.i
@@ -4145,7 +4145,7 @@ pssepsubtst.i: pssepsubtst.f.i
 
 # target to preprocess a source file
 pssepsubtst.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssep.dir/build.make TESTING/EIG/CMakeFiles/xssep.dir/pssepsubtst.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssep.dir/build.make TESTING/EIG/CMakeFiles/xssep.dir/pssepsubtst.f.i
 .PHONY : pssepsubtst.f.i
 
 pssepsubtst.s: pssepsubtst.f.s
@@ -4153,7 +4153,7 @@ pssepsubtst.s: pssepsubtst.f.s
 
 # target to generate assembly for a file
 pssepsubtst.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssep.dir/build.make TESTING/EIG/CMakeFiles/xssep.dir/pssepsubtst.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssep.dir/build.make TESTING/EIG/CMakeFiles/xssep.dir/pssepsubtst.f.s
 .PHONY : pssepsubtst.f.s
 
 psseptst.o: psseptst.f.o
@@ -4161,7 +4161,7 @@ psseptst.o: psseptst.f.o
 
 # target to build an object file
 psseptst.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssep.dir/build.make TESTING/EIG/CMakeFiles/xssep.dir/psseptst.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssep.dir/build.make TESTING/EIG/CMakeFiles/xssep.dir/psseptst.f.o
 .PHONY : psseptst.f.o
 
 psseptst.i: psseptst.f.i
@@ -4169,7 +4169,7 @@ psseptst.i: psseptst.f.i
 
 # target to preprocess a source file
 psseptst.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssep.dir/build.make TESTING/EIG/CMakeFiles/xssep.dir/psseptst.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssep.dir/build.make TESTING/EIG/CMakeFiles/xssep.dir/psseptst.f.i
 .PHONY : psseptst.f.i
 
 psseptst.s: psseptst.f.s
@@ -4177,7 +4177,7 @@ psseptst.s: psseptst.f.s
 
 # target to generate assembly for a file
 psseptst.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssep.dir/build.make TESTING/EIG/CMakeFiles/xssep.dir/psseptst.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssep.dir/build.make TESTING/EIG/CMakeFiles/xssep.dir/psseptst.f.s
 .PHONY : psseptst.f.s
 
 pssqpsubtst.o: pssqpsubtst.f.o
@@ -4185,7 +4185,7 @@ pssqpsubtst.o: pssqpsubtst.f.o
 
 # target to build an object file
 pssqpsubtst.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssep.dir/build.make TESTING/EIG/CMakeFiles/xssep.dir/pssqpsubtst.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssep.dir/build.make TESTING/EIG/CMakeFiles/xssep.dir/pssqpsubtst.f.o
 .PHONY : pssqpsubtst.f.o
 
 pssqpsubtst.i: pssqpsubtst.f.i
@@ -4193,7 +4193,7 @@ pssqpsubtst.i: pssqpsubtst.f.i
 
 # target to preprocess a source file
 pssqpsubtst.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssep.dir/build.make TESTING/EIG/CMakeFiles/xssep.dir/pssqpsubtst.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssep.dir/build.make TESTING/EIG/CMakeFiles/xssep.dir/pssqpsubtst.f.i
 .PHONY : pssqpsubtst.f.i
 
 pssqpsubtst.s: pssqpsubtst.f.s
@@ -4201,7 +4201,7 @@ pssqpsubtst.s: pssqpsubtst.f.s
 
 # target to generate assembly for a file
 pssqpsubtst.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssep.dir/build.make TESTING/EIG/CMakeFiles/xssep.dir/pssqpsubtst.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssep.dir/build.make TESTING/EIG/CMakeFiles/xssep.dir/pssqpsubtst.f.s
 .PHONY : pssqpsubtst.f.s
 
 pssvdchk.o: pssvdchk.f.o
@@ -4209,7 +4209,7 @@ pssvdchk.o: pssvdchk.f.o
 
 # target to build an object file
 pssvdchk.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssvd.dir/build.make TESTING/EIG/CMakeFiles/xssvd.dir/pssvdchk.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssvd.dir/build.make TESTING/EIG/CMakeFiles/xssvd.dir/pssvdchk.f.o
 .PHONY : pssvdchk.f.o
 
 pssvdchk.i: pssvdchk.f.i
@@ -4217,7 +4217,7 @@ pssvdchk.i: pssvdchk.f.i
 
 # target to preprocess a source file
 pssvdchk.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssvd.dir/build.make TESTING/EIG/CMakeFiles/xssvd.dir/pssvdchk.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssvd.dir/build.make TESTING/EIG/CMakeFiles/xssvd.dir/pssvdchk.f.i
 .PHONY : pssvdchk.f.i
 
 pssvdchk.s: pssvdchk.f.s
@@ -4225,7 +4225,7 @@ pssvdchk.s: pssvdchk.f.s
 
 # target to generate assembly for a file
 pssvdchk.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssvd.dir/build.make TESTING/EIG/CMakeFiles/xssvd.dir/pssvdchk.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssvd.dir/build.make TESTING/EIG/CMakeFiles/xssvd.dir/pssvdchk.f.s
 .PHONY : pssvdchk.f.s
 
 pssvdcmp.o: pssvdcmp.f.o
@@ -4233,7 +4233,7 @@ pssvdcmp.o: pssvdcmp.f.o
 
 # target to build an object file
 pssvdcmp.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssvd.dir/build.make TESTING/EIG/CMakeFiles/xssvd.dir/pssvdcmp.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssvd.dir/build.make TESTING/EIG/CMakeFiles/xssvd.dir/pssvdcmp.f.o
 .PHONY : pssvdcmp.f.o
 
 pssvdcmp.i: pssvdcmp.f.i
@@ -4241,7 +4241,7 @@ pssvdcmp.i: pssvdcmp.f.i
 
 # target to preprocess a source file
 pssvdcmp.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssvd.dir/build.make TESTING/EIG/CMakeFiles/xssvd.dir/pssvdcmp.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssvd.dir/build.make TESTING/EIG/CMakeFiles/xssvd.dir/pssvdcmp.f.i
 .PHONY : pssvdcmp.f.i
 
 pssvdcmp.s: pssvdcmp.f.s
@@ -4249,7 +4249,7 @@ pssvdcmp.s: pssvdcmp.f.s
 
 # target to generate assembly for a file
 pssvdcmp.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssvd.dir/build.make TESTING/EIG/CMakeFiles/xssvd.dir/pssvdcmp.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssvd.dir/build.make TESTING/EIG/CMakeFiles/xssvd.dir/pssvdcmp.f.s
 .PHONY : pssvdcmp.f.s
 
 pssvddriver.o: pssvddriver.f.o
@@ -4257,7 +4257,7 @@ pssvddriver.o: pssvddriver.f.o
 
 # target to build an object file
 pssvddriver.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssvd.dir/build.make TESTING/EIG/CMakeFiles/xssvd.dir/pssvddriver.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssvd.dir/build.make TESTING/EIG/CMakeFiles/xssvd.dir/pssvddriver.f.o
 .PHONY : pssvddriver.f.o
 
 pssvddriver.i: pssvddriver.f.i
@@ -4265,7 +4265,7 @@ pssvddriver.i: pssvddriver.f.i
 
 # target to preprocess a source file
 pssvddriver.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssvd.dir/build.make TESTING/EIG/CMakeFiles/xssvd.dir/pssvddriver.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssvd.dir/build.make TESTING/EIG/CMakeFiles/xssvd.dir/pssvddriver.f.i
 .PHONY : pssvddriver.f.i
 
 pssvddriver.s: pssvddriver.f.s
@@ -4273,7 +4273,7 @@ pssvddriver.s: pssvddriver.f.s
 
 # target to generate assembly for a file
 pssvddriver.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssvd.dir/build.make TESTING/EIG/CMakeFiles/xssvd.dir/pssvddriver.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssvd.dir/build.make TESTING/EIG/CMakeFiles/xssvd.dir/pssvddriver.f.s
 .PHONY : pssvddriver.f.s
 
 pssvdtst.o: pssvdtst.f.o
@@ -4281,7 +4281,7 @@ pssvdtst.o: pssvdtst.f.o
 
 # target to build an object file
 pssvdtst.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssvd.dir/build.make TESTING/EIG/CMakeFiles/xssvd.dir/pssvdtst.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssvd.dir/build.make TESTING/EIG/CMakeFiles/xssvd.dir/pssvdtst.f.o
 .PHONY : pssvdtst.f.o
 
 pssvdtst.i: pssvdtst.f.i
@@ -4289,7 +4289,7 @@ pssvdtst.i: pssvdtst.f.i
 
 # target to preprocess a source file
 pssvdtst.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssvd.dir/build.make TESTING/EIG/CMakeFiles/xssvd.dir/pssvdtst.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssvd.dir/build.make TESTING/EIG/CMakeFiles/xssvd.dir/pssvdtst.f.i
 .PHONY : pssvdtst.f.i
 
 pssvdtst.s: pssvdtst.f.s
@@ -4297,7 +4297,7 @@ pssvdtst.s: pssvdtst.f.s
 
 # target to generate assembly for a file
 pssvdtst.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssvd.dir/build.make TESTING/EIG/CMakeFiles/xssvd.dir/pssvdtst.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xssvd.dir/build.make TESTING/EIG/CMakeFiles/xssvd.dir/pssvdtst.f.s
 .PHONY : pssvdtst.f.s
 
 pssytdrv.o: pssytdrv.f.o
@@ -4305,7 +4305,7 @@ pssytdrv.o: pssytdrv.f.o
 
 # target to build an object file
 pssytdrv.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xstrd.dir/build.make TESTING/EIG/CMakeFiles/xstrd.dir/pssytdrv.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xstrd.dir/build.make TESTING/EIG/CMakeFiles/xstrd.dir/pssytdrv.f.o
 .PHONY : pssytdrv.f.o
 
 pssytdrv.i: pssytdrv.f.i
@@ -4313,7 +4313,7 @@ pssytdrv.i: pssytdrv.f.i
 
 # target to preprocess a source file
 pssytdrv.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xstrd.dir/build.make TESTING/EIG/CMakeFiles/xstrd.dir/pssytdrv.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xstrd.dir/build.make TESTING/EIG/CMakeFiles/xstrd.dir/pssytdrv.f.i
 .PHONY : pssytdrv.f.i
 
 pssytdrv.s: pssytdrv.f.s
@@ -4321,7 +4321,7 @@ pssytdrv.s: pssytdrv.f.s
 
 # target to generate assembly for a file
 pssytdrv.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xstrd.dir/build.make TESTING/EIG/CMakeFiles/xstrd.dir/pssytdrv.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xstrd.dir/build.make TESTING/EIG/CMakeFiles/xstrd.dir/pssytdrv.f.s
 .PHONY : pssytdrv.f.s
 
 pstrddriver.o: pstrddriver.f.o
@@ -4329,7 +4329,7 @@ pstrddriver.o: pstrddriver.f.o
 
 # target to build an object file
 pstrddriver.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xstrd.dir/build.make TESTING/EIG/CMakeFiles/xstrd.dir/pstrddriver.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xstrd.dir/build.make TESTING/EIG/CMakeFiles/xstrd.dir/pstrddriver.f.o
 .PHONY : pstrddriver.f.o
 
 pstrddriver.i: pstrddriver.f.i
@@ -4337,7 +4337,7 @@ pstrddriver.i: pstrddriver.f.i
 
 # target to preprocess a source file
 pstrddriver.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xstrd.dir/build.make TESTING/EIG/CMakeFiles/xstrd.dir/pstrddriver.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xstrd.dir/build.make TESTING/EIG/CMakeFiles/xstrd.dir/pstrddriver.f.i
 .PHONY : pstrddriver.f.i
 
 pstrddriver.s: pstrddriver.f.s
@@ -4345,7 +4345,7 @@ pstrddriver.s: pstrddriver.f.s
 
 # target to generate assembly for a file
 pstrddriver.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xstrd.dir/build.make TESTING/EIG/CMakeFiles/xstrd.dir/pstrddriver.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xstrd.dir/build.make TESTING/EIG/CMakeFiles/xstrd.dir/pstrddriver.f.s
 .PHONY : pstrddriver.f.s
 
 pstrdinfo.o: pstrdinfo.f.o
@@ -4353,7 +4353,7 @@ pstrdinfo.o: pstrdinfo.f.o
 
 # target to build an object file
 pstrdinfo.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xstrd.dir/build.make TESTING/EIG/CMakeFiles/xstrd.dir/pstrdinfo.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xstrd.dir/build.make TESTING/EIG/CMakeFiles/xstrd.dir/pstrdinfo.f.o
 .PHONY : pstrdinfo.f.o
 
 pstrdinfo.i: pstrdinfo.f.i
@@ -4361,7 +4361,7 @@ pstrdinfo.i: pstrdinfo.f.i
 
 # target to preprocess a source file
 pstrdinfo.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xstrd.dir/build.make TESTING/EIG/CMakeFiles/xstrd.dir/pstrdinfo.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xstrd.dir/build.make TESTING/EIG/CMakeFiles/xstrd.dir/pstrdinfo.f.i
 .PHONY : pstrdinfo.f.i
 
 pstrdinfo.s: pstrdinfo.f.s
@@ -4369,7 +4369,7 @@ pstrdinfo.s: pstrdinfo.f.s
 
 # target to generate assembly for a file
 pstrdinfo.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xstrd.dir/build.make TESTING/EIG/CMakeFiles/xstrd.dir/pstrdinfo.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xstrd.dir/build.make TESTING/EIG/CMakeFiles/xstrd.dir/pstrdinfo.f.s
 .PHONY : pstrdinfo.f.s
 
 psttrdtester.o: psttrdtester.f.o
@@ -4377,7 +4377,7 @@ psttrdtester.o: psttrdtester.f.o
 
 # target to build an object file
 psttrdtester.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xstrd.dir/build.make TESTING/EIG/CMakeFiles/xstrd.dir/psttrdtester.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xstrd.dir/build.make TESTING/EIG/CMakeFiles/xstrd.dir/psttrdtester.f.o
 .PHONY : psttrdtester.f.o
 
 psttrdtester.i: psttrdtester.f.i
@@ -4385,7 +4385,7 @@ psttrdtester.i: psttrdtester.f.i
 
 # target to preprocess a source file
 psttrdtester.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xstrd.dir/build.make TESTING/EIG/CMakeFiles/xstrd.dir/psttrdtester.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xstrd.dir/build.make TESTING/EIG/CMakeFiles/xstrd.dir/psttrdtester.f.i
 .PHONY : psttrdtester.f.i
 
 psttrdtester.s: psttrdtester.f.s
@@ -4393,7 +4393,7 @@ psttrdtester.s: psttrdtester.f.s
 
 # target to generate assembly for a file
 psttrdtester.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xstrd.dir/build.make TESTING/EIG/CMakeFiles/xstrd.dir/psttrdtester.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xstrd.dir/build.make TESTING/EIG/CMakeFiles/xstrd.dir/psttrdtester.f.s
 .PHONY : psttrdtester.f.s
 
 pzbrddriver.o: pzbrddriver.f.o
@@ -4401,7 +4401,7 @@ pzbrddriver.o: pzbrddriver.f.o
 
 # target to build an object file
 pzbrddriver.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzbrd.dir/build.make TESTING/EIG/CMakeFiles/xzbrd.dir/pzbrddriver.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzbrd.dir/build.make TESTING/EIG/CMakeFiles/xzbrd.dir/pzbrddriver.f.o
 .PHONY : pzbrddriver.f.o
 
 pzbrddriver.i: pzbrddriver.f.i
@@ -4409,7 +4409,7 @@ pzbrddriver.i: pzbrddriver.f.i
 
 # target to preprocess a source file
 pzbrddriver.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzbrd.dir/build.make TESTING/EIG/CMakeFiles/xzbrd.dir/pzbrddriver.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzbrd.dir/build.make TESTING/EIG/CMakeFiles/xzbrd.dir/pzbrddriver.f.i
 .PHONY : pzbrddriver.f.i
 
 pzbrddriver.s: pzbrddriver.f.s
@@ -4417,7 +4417,7 @@ pzbrddriver.s: pzbrddriver.f.s
 
 # target to generate assembly for a file
 pzbrddriver.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzbrd.dir/build.make TESTING/EIG/CMakeFiles/xzbrd.dir/pzbrddriver.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzbrd.dir/build.make TESTING/EIG/CMakeFiles/xzbrd.dir/pzbrddriver.f.s
 .PHONY : pzbrddriver.f.s
 
 pzbrdinfo.o: pzbrdinfo.f.o
@@ -4425,7 +4425,7 @@ pzbrdinfo.o: pzbrdinfo.f.o
 
 # target to build an object file
 pzbrdinfo.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzbrd.dir/build.make TESTING/EIG/CMakeFiles/xzbrd.dir/pzbrdinfo.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzbrd.dir/build.make TESTING/EIG/CMakeFiles/xzbrd.dir/pzbrdinfo.f.o
 .PHONY : pzbrdinfo.f.o
 
 pzbrdinfo.i: pzbrdinfo.f.i
@@ -4433,7 +4433,7 @@ pzbrdinfo.i: pzbrdinfo.f.i
 
 # target to preprocess a source file
 pzbrdinfo.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzbrd.dir/build.make TESTING/EIG/CMakeFiles/xzbrd.dir/pzbrdinfo.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzbrd.dir/build.make TESTING/EIG/CMakeFiles/xzbrd.dir/pzbrdinfo.f.i
 .PHONY : pzbrdinfo.f.i
 
 pzbrdinfo.s: pzbrdinfo.f.s
@@ -4441,7 +4441,7 @@ pzbrdinfo.s: pzbrdinfo.f.s
 
 # target to generate assembly for a file
 pzbrdinfo.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzbrd.dir/build.make TESTING/EIG/CMakeFiles/xzbrd.dir/pzbrdinfo.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzbrd.dir/build.make TESTING/EIG/CMakeFiles/xzbrd.dir/pzbrdinfo.f.s
 .PHONY : pzbrdinfo.f.s
 
 pzevcdriver.o: pzevcdriver.f.o
@@ -4449,7 +4449,7 @@ pzevcdriver.o: pzevcdriver.f.o
 
 # target to build an object file
 pzevcdriver.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzevc.dir/build.make TESTING/EIG/CMakeFiles/xzevc.dir/pzevcdriver.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzevc.dir/build.make TESTING/EIG/CMakeFiles/xzevc.dir/pzevcdriver.f.o
 .PHONY : pzevcdriver.f.o
 
 pzevcdriver.i: pzevcdriver.f.i
@@ -4457,7 +4457,7 @@ pzevcdriver.i: pzevcdriver.f.i
 
 # target to preprocess a source file
 pzevcdriver.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzevc.dir/build.make TESTING/EIG/CMakeFiles/xzevc.dir/pzevcdriver.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzevc.dir/build.make TESTING/EIG/CMakeFiles/xzevc.dir/pzevcdriver.f.i
 .PHONY : pzevcdriver.f.i
 
 pzevcdriver.s: pzevcdriver.f.s
@@ -4465,7 +4465,7 @@ pzevcdriver.s: pzevcdriver.f.s
 
 # target to generate assembly for a file
 pzevcdriver.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzevc.dir/build.make TESTING/EIG/CMakeFiles/xzevc.dir/pzevcdriver.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzevc.dir/build.make TESTING/EIG/CMakeFiles/xzevc.dir/pzevcdriver.f.s
 .PHONY : pzevcdriver.f.s
 
 pzevcinfo.o: pzevcinfo.f.o
@@ -4473,7 +4473,7 @@ pzevcinfo.o: pzevcinfo.f.o
 
 # target to build an object file
 pzevcinfo.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzevc.dir/build.make TESTING/EIG/CMakeFiles/xzevc.dir/pzevcinfo.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzevc.dir/build.make TESTING/EIG/CMakeFiles/xzevc.dir/pzevcinfo.f.o
 .PHONY : pzevcinfo.f.o
 
 pzevcinfo.i: pzevcinfo.f.i
@@ -4481,7 +4481,7 @@ pzevcinfo.i: pzevcinfo.f.i
 
 # target to preprocess a source file
 pzevcinfo.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzevc.dir/build.make TESTING/EIG/CMakeFiles/xzevc.dir/pzevcinfo.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzevc.dir/build.make TESTING/EIG/CMakeFiles/xzevc.dir/pzevcinfo.f.i
 .PHONY : pzevcinfo.f.i
 
 pzevcinfo.s: pzevcinfo.f.s
@@ -4489,7 +4489,7 @@ pzevcinfo.s: pzevcinfo.f.s
 
 # target to generate assembly for a file
 pzevcinfo.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzevc.dir/build.make TESTING/EIG/CMakeFiles/xzevc.dir/pzevcinfo.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzevc.dir/build.make TESTING/EIG/CMakeFiles/xzevc.dir/pzevcinfo.f.s
 .PHONY : pzevcinfo.f.s
 
 pzgebdrv.o: pzgebdrv.f.o
@@ -4497,7 +4497,7 @@ pzgebdrv.o: pzgebdrv.f.o
 
 # target to build an object file
 pzgebdrv.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzbrd.dir/build.make TESTING/EIG/CMakeFiles/xzbrd.dir/pzgebdrv.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzbrd.dir/build.make TESTING/EIG/CMakeFiles/xzbrd.dir/pzgebdrv.f.o
 .PHONY : pzgebdrv.f.o
 
 pzgebdrv.i: pzgebdrv.f.i
@@ -4505,7 +4505,7 @@ pzgebdrv.i: pzgebdrv.f.i
 
 # target to preprocess a source file
 pzgebdrv.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzbrd.dir/build.make TESTING/EIG/CMakeFiles/xzbrd.dir/pzgebdrv.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzbrd.dir/build.make TESTING/EIG/CMakeFiles/xzbrd.dir/pzgebdrv.f.i
 .PHONY : pzgebdrv.f.i
 
 pzgebdrv.s: pzgebdrv.f.s
@@ -4513,7 +4513,7 @@ pzgebdrv.s: pzgebdrv.f.s
 
 # target to generate assembly for a file
 pzgebdrv.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzbrd.dir/build.make TESTING/EIG/CMakeFiles/xzbrd.dir/pzgebdrv.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzbrd.dir/build.make TESTING/EIG/CMakeFiles/xzbrd.dir/pzgebdrv.f.s
 .PHONY : pzgebdrv.f.s
 
 pzgehdrv.o: pzgehdrv.f.o
@@ -4521,7 +4521,7 @@ pzgehdrv.o: pzgehdrv.f.o
 
 # target to build an object file
 pzgehdrv.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzhrd.dir/build.make TESTING/EIG/CMakeFiles/xzhrd.dir/pzgehdrv.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzhrd.dir/build.make TESTING/EIG/CMakeFiles/xzhrd.dir/pzgehdrv.f.o
 .PHONY : pzgehdrv.f.o
 
 pzgehdrv.i: pzgehdrv.f.i
@@ -4529,7 +4529,7 @@ pzgehdrv.i: pzgehdrv.f.i
 
 # target to preprocess a source file
 pzgehdrv.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzhrd.dir/build.make TESTING/EIG/CMakeFiles/xzhrd.dir/pzgehdrv.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzhrd.dir/build.make TESTING/EIG/CMakeFiles/xzhrd.dir/pzgehdrv.f.i
 .PHONY : pzgehdrv.f.i
 
 pzgehdrv.s: pzgehdrv.f.s
@@ -4537,7 +4537,7 @@ pzgehdrv.s: pzgehdrv.f.s
 
 # target to generate assembly for a file
 pzgehdrv.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzhrd.dir/build.make TESTING/EIG/CMakeFiles/xzhrd.dir/pzgehdrv.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzhrd.dir/build.make TESTING/EIG/CMakeFiles/xzhrd.dir/pzgehdrv.f.s
 .PHONY : pzgehdrv.f.s
 
 pzget22.o: pzget22.f.o
@@ -4545,7 +4545,7 @@ pzget22.o: pzget22.f.o
 
 # target to build an object file
 pzget22.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzevc.dir/build.make TESTING/EIG/CMakeFiles/xzevc.dir/pzget22.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzevc.dir/build.make TESTING/EIG/CMakeFiles/xzevc.dir/pzget22.f.o
 .PHONY : pzget22.f.o
 
 pzget22.i: pzget22.f.i
@@ -4553,7 +4553,7 @@ pzget22.i: pzget22.f.i
 
 # target to preprocess a source file
 pzget22.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzevc.dir/build.make TESTING/EIG/CMakeFiles/xzevc.dir/pzget22.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzevc.dir/build.make TESTING/EIG/CMakeFiles/xzevc.dir/pzget22.f.i
 .PHONY : pzget22.f.i
 
 pzget22.s: pzget22.f.s
@@ -4561,7 +4561,7 @@ pzget22.s: pzget22.f.s
 
 # target to generate assembly for a file
 pzget22.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzevc.dir/build.make TESTING/EIG/CMakeFiles/xzevc.dir/pzget22.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzevc.dir/build.make TESTING/EIG/CMakeFiles/xzevc.dir/pzget22.f.s
 .PHONY : pzget22.f.s
 
 pzgsepchk.o: pzgsepchk.f.o
@@ -4569,7 +4569,7 @@ pzgsepchk.o: pzgsepchk.f.o
 
 # target to build an object file
 pzgsepchk.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzgsep.dir/build.make TESTING/EIG/CMakeFiles/xzgsep.dir/pzgsepchk.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzgsep.dir/build.make TESTING/EIG/CMakeFiles/xzgsep.dir/pzgsepchk.f.o
 .PHONY : pzgsepchk.f.o
 
 pzgsepchk.i: pzgsepchk.f.i
@@ -4577,7 +4577,7 @@ pzgsepchk.i: pzgsepchk.f.i
 
 # target to preprocess a source file
 pzgsepchk.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzgsep.dir/build.make TESTING/EIG/CMakeFiles/xzgsep.dir/pzgsepchk.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzgsep.dir/build.make TESTING/EIG/CMakeFiles/xzgsep.dir/pzgsepchk.f.i
 .PHONY : pzgsepchk.f.i
 
 pzgsepchk.s: pzgsepchk.f.s
@@ -4585,7 +4585,7 @@ pzgsepchk.s: pzgsepchk.f.s
 
 # target to generate assembly for a file
 pzgsepchk.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzgsep.dir/build.make TESTING/EIG/CMakeFiles/xzgsep.dir/pzgsepchk.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzgsep.dir/build.make TESTING/EIG/CMakeFiles/xzgsep.dir/pzgsepchk.f.s
 .PHONY : pzgsepchk.f.s
 
 pzgsepdriver.o: pzgsepdriver.f.o
@@ -4593,7 +4593,7 @@ pzgsepdriver.o: pzgsepdriver.f.o
 
 # target to build an object file
 pzgsepdriver.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzgsep.dir/build.make TESTING/EIG/CMakeFiles/xzgsep.dir/pzgsepdriver.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzgsep.dir/build.make TESTING/EIG/CMakeFiles/xzgsep.dir/pzgsepdriver.f.o
 .PHONY : pzgsepdriver.f.o
 
 pzgsepdriver.i: pzgsepdriver.f.i
@@ -4601,7 +4601,7 @@ pzgsepdriver.i: pzgsepdriver.f.i
 
 # target to preprocess a source file
 pzgsepdriver.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzgsep.dir/build.make TESTING/EIG/CMakeFiles/xzgsep.dir/pzgsepdriver.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzgsep.dir/build.make TESTING/EIG/CMakeFiles/xzgsep.dir/pzgsepdriver.f.i
 .PHONY : pzgsepdriver.f.i
 
 pzgsepdriver.s: pzgsepdriver.f.s
@@ -4609,7 +4609,7 @@ pzgsepdriver.s: pzgsepdriver.f.s
 
 # target to generate assembly for a file
 pzgsepdriver.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzgsep.dir/build.make TESTING/EIG/CMakeFiles/xzgsep.dir/pzgsepdriver.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzgsep.dir/build.make TESTING/EIG/CMakeFiles/xzgsep.dir/pzgsepdriver.f.s
 .PHONY : pzgsepdriver.f.s
 
 pzgsepreq.o: pzgsepreq.f.o
@@ -4617,7 +4617,7 @@ pzgsepreq.o: pzgsepreq.f.o
 
 # target to build an object file
 pzgsepreq.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzgsep.dir/build.make TESTING/EIG/CMakeFiles/xzgsep.dir/pzgsepreq.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzgsep.dir/build.make TESTING/EIG/CMakeFiles/xzgsep.dir/pzgsepreq.f.o
 .PHONY : pzgsepreq.f.o
 
 pzgsepreq.i: pzgsepreq.f.i
@@ -4625,7 +4625,7 @@ pzgsepreq.i: pzgsepreq.f.i
 
 # target to preprocess a source file
 pzgsepreq.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzgsep.dir/build.make TESTING/EIG/CMakeFiles/xzgsep.dir/pzgsepreq.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzgsep.dir/build.make TESTING/EIG/CMakeFiles/xzgsep.dir/pzgsepreq.f.i
 .PHONY : pzgsepreq.f.i
 
 pzgsepreq.s: pzgsepreq.f.s
@@ -4633,7 +4633,7 @@ pzgsepreq.s: pzgsepreq.f.s
 
 # target to generate assembly for a file
 pzgsepreq.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzgsep.dir/build.make TESTING/EIG/CMakeFiles/xzgsep.dir/pzgsepreq.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzgsep.dir/build.make TESTING/EIG/CMakeFiles/xzgsep.dir/pzgsepreq.f.s
 .PHONY : pzgsepreq.f.s
 
 pzgsepsubtst.o: pzgsepsubtst.f.o
@@ -4641,7 +4641,7 @@ pzgsepsubtst.o: pzgsepsubtst.f.o
 
 # target to build an object file
 pzgsepsubtst.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzgsep.dir/build.make TESTING/EIG/CMakeFiles/xzgsep.dir/pzgsepsubtst.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzgsep.dir/build.make TESTING/EIG/CMakeFiles/xzgsep.dir/pzgsepsubtst.f.o
 .PHONY : pzgsepsubtst.f.o
 
 pzgsepsubtst.i: pzgsepsubtst.f.i
@@ -4649,7 +4649,7 @@ pzgsepsubtst.i: pzgsepsubtst.f.i
 
 # target to preprocess a source file
 pzgsepsubtst.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzgsep.dir/build.make TESTING/EIG/CMakeFiles/xzgsep.dir/pzgsepsubtst.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzgsep.dir/build.make TESTING/EIG/CMakeFiles/xzgsep.dir/pzgsepsubtst.f.i
 .PHONY : pzgsepsubtst.f.i
 
 pzgsepsubtst.s: pzgsepsubtst.f.s
@@ -4657,7 +4657,7 @@ pzgsepsubtst.s: pzgsepsubtst.f.s
 
 # target to generate assembly for a file
 pzgsepsubtst.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzgsep.dir/build.make TESTING/EIG/CMakeFiles/xzgsep.dir/pzgsepsubtst.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzgsep.dir/build.make TESTING/EIG/CMakeFiles/xzgsep.dir/pzgsepsubtst.f.s
 .PHONY : pzgsepsubtst.f.s
 
 pzgseptst.o: pzgseptst.f.o
@@ -4665,7 +4665,7 @@ pzgseptst.o: pzgseptst.f.o
 
 # target to build an object file
 pzgseptst.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzgsep.dir/build.make TESTING/EIG/CMakeFiles/xzgsep.dir/pzgseptst.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzgsep.dir/build.make TESTING/EIG/CMakeFiles/xzgsep.dir/pzgseptst.f.o
 .PHONY : pzgseptst.f.o
 
 pzgseptst.i: pzgseptst.f.i
@@ -4673,7 +4673,7 @@ pzgseptst.i: pzgseptst.f.i
 
 # target to preprocess a source file
 pzgseptst.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzgsep.dir/build.make TESTING/EIG/CMakeFiles/xzgsep.dir/pzgseptst.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzgsep.dir/build.make TESTING/EIG/CMakeFiles/xzgsep.dir/pzgseptst.f.i
 .PHONY : pzgseptst.f.i
 
 pzgseptst.s: pzgseptst.f.s
@@ -4681,7 +4681,7 @@ pzgseptst.s: pzgseptst.f.s
 
 # target to generate assembly for a file
 pzgseptst.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzgsep.dir/build.make TESTING/EIG/CMakeFiles/xzgsep.dir/pzgseptst.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzgsep.dir/build.make TESTING/EIG/CMakeFiles/xzgsep.dir/pzgseptst.f.s
 .PHONY : pzgseptst.f.s
 
 pzhetdrv.o: pzhetdrv.f.o
@@ -4689,7 +4689,7 @@ pzhetdrv.o: pzhetdrv.f.o
 
 # target to build an object file
 pzhetdrv.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xztrd.dir/build.make TESTING/EIG/CMakeFiles/xztrd.dir/pzhetdrv.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xztrd.dir/build.make TESTING/EIG/CMakeFiles/xztrd.dir/pzhetdrv.f.o
 .PHONY : pzhetdrv.f.o
 
 pzhetdrv.i: pzhetdrv.f.i
@@ -4697,7 +4697,7 @@ pzhetdrv.i: pzhetdrv.f.i
 
 # target to preprocess a source file
 pzhetdrv.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xztrd.dir/build.make TESTING/EIG/CMakeFiles/xztrd.dir/pzhetdrv.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xztrd.dir/build.make TESTING/EIG/CMakeFiles/xztrd.dir/pzhetdrv.f.i
 .PHONY : pzhetdrv.f.i
 
 pzhetdrv.s: pzhetdrv.f.s
@@ -4705,7 +4705,7 @@ pzhetdrv.s: pzhetdrv.f.s
 
 # target to generate assembly for a file
 pzhetdrv.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xztrd.dir/build.make TESTING/EIG/CMakeFiles/xztrd.dir/pzhetdrv.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xztrd.dir/build.make TESTING/EIG/CMakeFiles/xztrd.dir/pzhetdrv.f.s
 .PHONY : pzhetdrv.f.s
 
 pzhrddriver.o: pzhrddriver.f.o
@@ -4713,7 +4713,7 @@ pzhrddriver.o: pzhrddriver.f.o
 
 # target to build an object file
 pzhrddriver.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzhrd.dir/build.make TESTING/EIG/CMakeFiles/xzhrd.dir/pzhrddriver.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzhrd.dir/build.make TESTING/EIG/CMakeFiles/xzhrd.dir/pzhrddriver.f.o
 .PHONY : pzhrddriver.f.o
 
 pzhrddriver.i: pzhrddriver.f.i
@@ -4721,7 +4721,7 @@ pzhrddriver.i: pzhrddriver.f.i
 
 # target to preprocess a source file
 pzhrddriver.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzhrd.dir/build.make TESTING/EIG/CMakeFiles/xzhrd.dir/pzhrddriver.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzhrd.dir/build.make TESTING/EIG/CMakeFiles/xzhrd.dir/pzhrddriver.f.i
 .PHONY : pzhrddriver.f.i
 
 pzhrddriver.s: pzhrddriver.f.s
@@ -4729,7 +4729,7 @@ pzhrddriver.s: pzhrddriver.f.s
 
 # target to generate assembly for a file
 pzhrddriver.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzhrd.dir/build.make TESTING/EIG/CMakeFiles/xzhrd.dir/pzhrddriver.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzhrd.dir/build.make TESTING/EIG/CMakeFiles/xzhrd.dir/pzhrddriver.f.s
 .PHONY : pzhrddriver.f.s
 
 pzhrdinfo.o: pzhrdinfo.f.o
@@ -4737,7 +4737,7 @@ pzhrdinfo.o: pzhrdinfo.f.o
 
 # target to build an object file
 pzhrdinfo.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzhrd.dir/build.make TESTING/EIG/CMakeFiles/xzhrd.dir/pzhrdinfo.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzhrd.dir/build.make TESTING/EIG/CMakeFiles/xzhrd.dir/pzhrdinfo.f.o
 .PHONY : pzhrdinfo.f.o
 
 pzhrdinfo.i: pzhrdinfo.f.i
@@ -4745,7 +4745,7 @@ pzhrdinfo.i: pzhrdinfo.f.i
 
 # target to preprocess a source file
 pzhrdinfo.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzhrd.dir/build.make TESTING/EIG/CMakeFiles/xzhrd.dir/pzhrdinfo.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzhrd.dir/build.make TESTING/EIG/CMakeFiles/xzhrd.dir/pzhrdinfo.f.i
 .PHONY : pzhrdinfo.f.i
 
 pzhrdinfo.s: pzhrdinfo.f.s
@@ -4753,7 +4753,7 @@ pzhrdinfo.s: pzhrdinfo.f.s
 
 # target to generate assembly for a file
 pzhrdinfo.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzhrd.dir/build.make TESTING/EIG/CMakeFiles/xzhrd.dir/pzhrdinfo.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzhrd.dir/build.make TESTING/EIG/CMakeFiles/xzhrd.dir/pzhrdinfo.f.s
 .PHONY : pzhrdinfo.f.s
 
 pzlafchk.o: pzlafchk.f.o
@@ -4761,9 +4761,9 @@ pzlafchk.o: pzlafchk.f.o
 
 # target to build an object file
 pzlafchk.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzbrd.dir/build.make TESTING/EIG/CMakeFiles/xzbrd.dir/pzlafchk.f.o
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzhrd.dir/build.make TESTING/EIG/CMakeFiles/xzhrd.dir/pzlafchk.f.o
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xztrd.dir/build.make TESTING/EIG/CMakeFiles/xztrd.dir/pzlafchk.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzbrd.dir/build.make TESTING/EIG/CMakeFiles/xzbrd.dir/pzlafchk.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzhrd.dir/build.make TESTING/EIG/CMakeFiles/xzhrd.dir/pzlafchk.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xztrd.dir/build.make TESTING/EIG/CMakeFiles/xztrd.dir/pzlafchk.f.o
 .PHONY : pzlafchk.f.o
 
 pzlafchk.i: pzlafchk.f.i
@@ -4771,9 +4771,9 @@ pzlafchk.i: pzlafchk.f.i
 
 # target to preprocess a source file
 pzlafchk.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzbrd.dir/build.make TESTING/EIG/CMakeFiles/xzbrd.dir/pzlafchk.f.i
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzhrd.dir/build.make TESTING/EIG/CMakeFiles/xzhrd.dir/pzlafchk.f.i
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xztrd.dir/build.make TESTING/EIG/CMakeFiles/xztrd.dir/pzlafchk.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzbrd.dir/build.make TESTING/EIG/CMakeFiles/xzbrd.dir/pzlafchk.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzhrd.dir/build.make TESTING/EIG/CMakeFiles/xzhrd.dir/pzlafchk.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xztrd.dir/build.make TESTING/EIG/CMakeFiles/xztrd.dir/pzlafchk.f.i
 .PHONY : pzlafchk.f.i
 
 pzlafchk.s: pzlafchk.f.s
@@ -4781,9 +4781,9 @@ pzlafchk.s: pzlafchk.f.s
 
 # target to generate assembly for a file
 pzlafchk.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzbrd.dir/build.make TESTING/EIG/CMakeFiles/xzbrd.dir/pzlafchk.f.s
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzhrd.dir/build.make TESTING/EIG/CMakeFiles/xzhrd.dir/pzlafchk.f.s
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xztrd.dir/build.make TESTING/EIG/CMakeFiles/xztrd.dir/pzlafchk.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzbrd.dir/build.make TESTING/EIG/CMakeFiles/xzbrd.dir/pzlafchk.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzhrd.dir/build.make TESTING/EIG/CMakeFiles/xzhrd.dir/pzlafchk.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xztrd.dir/build.make TESTING/EIG/CMakeFiles/xztrd.dir/pzlafchk.f.s
 .PHONY : pzlafchk.f.s
 
 pzlagsy.o: pzlagsy.f.o
@@ -4791,9 +4791,9 @@ pzlagsy.o: pzlagsy.f.o
 
 # target to build an object file
 pzlagsy.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzsep.dir/build.make TESTING/EIG/CMakeFiles/xzsep.dir/pzlagsy.f.o
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzgsep.dir/build.make TESTING/EIG/CMakeFiles/xzgsep.dir/pzlagsy.f.o
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzheevr.dir/build.make TESTING/EIG/CMakeFiles/xzheevr.dir/pzlagsy.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzsep.dir/build.make TESTING/EIG/CMakeFiles/xzsep.dir/pzlagsy.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzgsep.dir/build.make TESTING/EIG/CMakeFiles/xzgsep.dir/pzlagsy.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzheevr.dir/build.make TESTING/EIG/CMakeFiles/xzheevr.dir/pzlagsy.f.o
 .PHONY : pzlagsy.f.o
 
 pzlagsy.i: pzlagsy.f.i
@@ -4801,9 +4801,9 @@ pzlagsy.i: pzlagsy.f.i
 
 # target to preprocess a source file
 pzlagsy.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzsep.dir/build.make TESTING/EIG/CMakeFiles/xzsep.dir/pzlagsy.f.i
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzgsep.dir/build.make TESTING/EIG/CMakeFiles/xzgsep.dir/pzlagsy.f.i
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzheevr.dir/build.make TESTING/EIG/CMakeFiles/xzheevr.dir/pzlagsy.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzsep.dir/build.make TESTING/EIG/CMakeFiles/xzsep.dir/pzlagsy.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzgsep.dir/build.make TESTING/EIG/CMakeFiles/xzgsep.dir/pzlagsy.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzheevr.dir/build.make TESTING/EIG/CMakeFiles/xzheevr.dir/pzlagsy.f.i
 .PHONY : pzlagsy.f.i
 
 pzlagsy.s: pzlagsy.f.s
@@ -4811,9 +4811,9 @@ pzlagsy.s: pzlagsy.f.s
 
 # target to generate assembly for a file
 pzlagsy.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzsep.dir/build.make TESTING/EIG/CMakeFiles/xzsep.dir/pzlagsy.f.s
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzgsep.dir/build.make TESTING/EIG/CMakeFiles/xzgsep.dir/pzlagsy.f.s
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzheevr.dir/build.make TESTING/EIG/CMakeFiles/xzheevr.dir/pzlagsy.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzsep.dir/build.make TESTING/EIG/CMakeFiles/xzsep.dir/pzlagsy.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzgsep.dir/build.make TESTING/EIG/CMakeFiles/xzgsep.dir/pzlagsy.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzheevr.dir/build.make TESTING/EIG/CMakeFiles/xzheevr.dir/pzlagsy.f.s
 .PHONY : pzlagsy.f.s
 
 pzlasizegsep.o: pzlasizegsep.f.o
@@ -4821,7 +4821,7 @@ pzlasizegsep.o: pzlasizegsep.f.o
 
 # target to build an object file
 pzlasizegsep.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzgsep.dir/build.make TESTING/EIG/CMakeFiles/xzgsep.dir/pzlasizegsep.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzgsep.dir/build.make TESTING/EIG/CMakeFiles/xzgsep.dir/pzlasizegsep.f.o
 .PHONY : pzlasizegsep.f.o
 
 pzlasizegsep.i: pzlasizegsep.f.i
@@ -4829,7 +4829,7 @@ pzlasizegsep.i: pzlasizegsep.f.i
 
 # target to preprocess a source file
 pzlasizegsep.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzgsep.dir/build.make TESTING/EIG/CMakeFiles/xzgsep.dir/pzlasizegsep.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzgsep.dir/build.make TESTING/EIG/CMakeFiles/xzgsep.dir/pzlasizegsep.f.i
 .PHONY : pzlasizegsep.f.i
 
 pzlasizegsep.s: pzlasizegsep.f.s
@@ -4837,7 +4837,7 @@ pzlasizegsep.s: pzlasizegsep.f.s
 
 # target to generate assembly for a file
 pzlasizegsep.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzgsep.dir/build.make TESTING/EIG/CMakeFiles/xzgsep.dir/pzlasizegsep.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzgsep.dir/build.make TESTING/EIG/CMakeFiles/xzgsep.dir/pzlasizegsep.f.s
 .PHONY : pzlasizegsep.f.s
 
 pzlasizeheevr.o: pzlasizeheevr.f.o
@@ -4845,7 +4845,7 @@ pzlasizeheevr.o: pzlasizeheevr.f.o
 
 # target to build an object file
 pzlasizeheevr.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzheevr.dir/build.make TESTING/EIG/CMakeFiles/xzheevr.dir/pzlasizeheevr.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzheevr.dir/build.make TESTING/EIG/CMakeFiles/xzheevr.dir/pzlasizeheevr.f.o
 .PHONY : pzlasizeheevr.f.o
 
 pzlasizeheevr.i: pzlasizeheevr.f.i
@@ -4853,7 +4853,7 @@ pzlasizeheevr.i: pzlasizeheevr.f.i
 
 # target to preprocess a source file
 pzlasizeheevr.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzheevr.dir/build.make TESTING/EIG/CMakeFiles/xzheevr.dir/pzlasizeheevr.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzheevr.dir/build.make TESTING/EIG/CMakeFiles/xzheevr.dir/pzlasizeheevr.f.i
 .PHONY : pzlasizeheevr.f.i
 
 pzlasizeheevr.s: pzlasizeheevr.f.s
@@ -4861,7 +4861,7 @@ pzlasizeheevr.s: pzlasizeheevr.f.s
 
 # target to generate assembly for a file
 pzlasizeheevr.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzheevr.dir/build.make TESTING/EIG/CMakeFiles/xzheevr.dir/pzlasizeheevr.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzheevr.dir/build.make TESTING/EIG/CMakeFiles/xzheevr.dir/pzlasizeheevr.f.s
 .PHONY : pzlasizeheevr.f.s
 
 pzlasizeheevx.o: pzlasizeheevx.f.o
@@ -4869,8 +4869,8 @@ pzlasizeheevx.o: pzlasizeheevx.f.o
 
 # target to build an object file
 pzlasizeheevx.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzsep.dir/build.make TESTING/EIG/CMakeFiles/xzsep.dir/pzlasizeheevx.f.o
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzgsep.dir/build.make TESTING/EIG/CMakeFiles/xzgsep.dir/pzlasizeheevx.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzsep.dir/build.make TESTING/EIG/CMakeFiles/xzsep.dir/pzlasizeheevx.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzgsep.dir/build.make TESTING/EIG/CMakeFiles/xzgsep.dir/pzlasizeheevx.f.o
 .PHONY : pzlasizeheevx.f.o
 
 pzlasizeheevx.i: pzlasizeheevx.f.i
@@ -4878,8 +4878,8 @@ pzlasizeheevx.i: pzlasizeheevx.f.i
 
 # target to preprocess a source file
 pzlasizeheevx.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzsep.dir/build.make TESTING/EIG/CMakeFiles/xzsep.dir/pzlasizeheevx.f.i
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzgsep.dir/build.make TESTING/EIG/CMakeFiles/xzgsep.dir/pzlasizeheevx.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzsep.dir/build.make TESTING/EIG/CMakeFiles/xzsep.dir/pzlasizeheevx.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzgsep.dir/build.make TESTING/EIG/CMakeFiles/xzgsep.dir/pzlasizeheevx.f.i
 .PHONY : pzlasizeheevx.f.i
 
 pzlasizeheevx.s: pzlasizeheevx.f.s
@@ -4887,8 +4887,8 @@ pzlasizeheevx.s: pzlasizeheevx.f.s
 
 # target to generate assembly for a file
 pzlasizeheevx.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzsep.dir/build.make TESTING/EIG/CMakeFiles/xzsep.dir/pzlasizeheevx.f.s
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzgsep.dir/build.make TESTING/EIG/CMakeFiles/xzgsep.dir/pzlasizeheevx.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzsep.dir/build.make TESTING/EIG/CMakeFiles/xzsep.dir/pzlasizeheevx.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzgsep.dir/build.make TESTING/EIG/CMakeFiles/xzgsep.dir/pzlasizeheevx.f.s
 .PHONY : pzlasizeheevx.f.s
 
 pzlasizesep.o: pzlasizesep.f.o
@@ -4896,9 +4896,9 @@ pzlasizesep.o: pzlasizesep.f.o
 
 # target to build an object file
 pzlasizesep.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzsep.dir/build.make TESTING/EIG/CMakeFiles/xzsep.dir/pzlasizesep.f.o
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzgsep.dir/build.make TESTING/EIG/CMakeFiles/xzgsep.dir/pzlasizesep.f.o
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzheevr.dir/build.make TESTING/EIG/CMakeFiles/xzheevr.dir/pzlasizesep.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzsep.dir/build.make TESTING/EIG/CMakeFiles/xzsep.dir/pzlasizesep.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzgsep.dir/build.make TESTING/EIG/CMakeFiles/xzgsep.dir/pzlasizesep.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzheevr.dir/build.make TESTING/EIG/CMakeFiles/xzheevr.dir/pzlasizesep.f.o
 .PHONY : pzlasizesep.f.o
 
 pzlasizesep.i: pzlasizesep.f.i
@@ -4906,9 +4906,9 @@ pzlasizesep.i: pzlasizesep.f.i
 
 # target to preprocess a source file
 pzlasizesep.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzsep.dir/build.make TESTING/EIG/CMakeFiles/xzsep.dir/pzlasizesep.f.i
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzgsep.dir/build.make TESTING/EIG/CMakeFiles/xzgsep.dir/pzlasizesep.f.i
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzheevr.dir/build.make TESTING/EIG/CMakeFiles/xzheevr.dir/pzlasizesep.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzsep.dir/build.make TESTING/EIG/CMakeFiles/xzsep.dir/pzlasizesep.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzgsep.dir/build.make TESTING/EIG/CMakeFiles/xzgsep.dir/pzlasizesep.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzheevr.dir/build.make TESTING/EIG/CMakeFiles/xzheevr.dir/pzlasizesep.f.i
 .PHONY : pzlasizesep.f.i
 
 pzlasizesep.s: pzlasizesep.f.s
@@ -4916,9 +4916,9 @@ pzlasizesep.s: pzlasizesep.f.s
 
 # target to generate assembly for a file
 pzlasizesep.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzsep.dir/build.make TESTING/EIG/CMakeFiles/xzsep.dir/pzlasizesep.f.s
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzgsep.dir/build.make TESTING/EIG/CMakeFiles/xzgsep.dir/pzlasizesep.f.s
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzheevr.dir/build.make TESTING/EIG/CMakeFiles/xzheevr.dir/pzlasizesep.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzsep.dir/build.make TESTING/EIG/CMakeFiles/xzsep.dir/pzlasizesep.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzgsep.dir/build.make TESTING/EIG/CMakeFiles/xzgsep.dir/pzlasizesep.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzheevr.dir/build.make TESTING/EIG/CMakeFiles/xzheevr.dir/pzlasizesep.f.s
 .PHONY : pzlasizesep.f.s
 
 pzlasizesepr.o: pzlasizesepr.f.o
@@ -4926,7 +4926,7 @@ pzlasizesepr.o: pzlasizesepr.f.o
 
 # target to build an object file
 pzlasizesepr.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzheevr.dir/build.make TESTING/EIG/CMakeFiles/xzheevr.dir/pzlasizesepr.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzheevr.dir/build.make TESTING/EIG/CMakeFiles/xzheevr.dir/pzlasizesepr.f.o
 .PHONY : pzlasizesepr.f.o
 
 pzlasizesepr.i: pzlasizesepr.f.i
@@ -4934,7 +4934,7 @@ pzlasizesepr.i: pzlasizesepr.f.i
 
 # target to preprocess a source file
 pzlasizesepr.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzheevr.dir/build.make TESTING/EIG/CMakeFiles/xzheevr.dir/pzlasizesepr.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzheevr.dir/build.make TESTING/EIG/CMakeFiles/xzheevr.dir/pzlasizesepr.f.i
 .PHONY : pzlasizesepr.f.i
 
 pzlasizesepr.s: pzlasizesepr.f.s
@@ -4942,7 +4942,7 @@ pzlasizesepr.s: pzlasizesepr.f.s
 
 # target to generate assembly for a file
 pzlasizesepr.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzheevr.dir/build.make TESTING/EIG/CMakeFiles/xzheevr.dir/pzlasizesepr.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzheevr.dir/build.make TESTING/EIG/CMakeFiles/xzheevr.dir/pzlasizesepr.f.s
 .PHONY : pzlasizesepr.f.s
 
 pzlatms.o: pzlatms.f.o
@@ -4950,9 +4950,9 @@ pzlatms.o: pzlatms.f.o
 
 # target to build an object file
 pzlatms.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzsep.dir/build.make TESTING/EIG/CMakeFiles/xzsep.dir/pzlatms.f.o
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzgsep.dir/build.make TESTING/EIG/CMakeFiles/xzgsep.dir/pzlatms.f.o
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzheevr.dir/build.make TESTING/EIG/CMakeFiles/xzheevr.dir/pzlatms.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzsep.dir/build.make TESTING/EIG/CMakeFiles/xzsep.dir/pzlatms.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzgsep.dir/build.make TESTING/EIG/CMakeFiles/xzgsep.dir/pzlatms.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzheevr.dir/build.make TESTING/EIG/CMakeFiles/xzheevr.dir/pzlatms.f.o
 .PHONY : pzlatms.f.o
 
 pzlatms.i: pzlatms.f.i
@@ -4960,9 +4960,9 @@ pzlatms.i: pzlatms.f.i
 
 # target to preprocess a source file
 pzlatms.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzsep.dir/build.make TESTING/EIG/CMakeFiles/xzsep.dir/pzlatms.f.i
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzgsep.dir/build.make TESTING/EIG/CMakeFiles/xzgsep.dir/pzlatms.f.i
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzheevr.dir/build.make TESTING/EIG/CMakeFiles/xzheevr.dir/pzlatms.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzsep.dir/build.make TESTING/EIG/CMakeFiles/xzsep.dir/pzlatms.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzgsep.dir/build.make TESTING/EIG/CMakeFiles/xzgsep.dir/pzlatms.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzheevr.dir/build.make TESTING/EIG/CMakeFiles/xzheevr.dir/pzlatms.f.i
 .PHONY : pzlatms.f.i
 
 pzlatms.s: pzlatms.f.s
@@ -4970,9 +4970,9 @@ pzlatms.s: pzlatms.f.s
 
 # target to generate assembly for a file
 pzlatms.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzsep.dir/build.make TESTING/EIG/CMakeFiles/xzsep.dir/pzlatms.f.s
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzgsep.dir/build.make TESTING/EIG/CMakeFiles/xzgsep.dir/pzlatms.f.s
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzheevr.dir/build.make TESTING/EIG/CMakeFiles/xzheevr.dir/pzlatms.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzsep.dir/build.make TESTING/EIG/CMakeFiles/xzsep.dir/pzlatms.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzgsep.dir/build.make TESTING/EIG/CMakeFiles/xzgsep.dir/pzlatms.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzheevr.dir/build.make TESTING/EIG/CMakeFiles/xzheevr.dir/pzlatms.f.s
 .PHONY : pzlatms.f.s
 
 pzlatran.o: pzlatran.f.o
@@ -4980,7 +4980,7 @@ pzlatran.o: pzlatran.f.o
 
 # target to build an object file
 pzlatran.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xztrd.dir/build.make TESTING/EIG/CMakeFiles/xztrd.dir/pzlatran.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xztrd.dir/build.make TESTING/EIG/CMakeFiles/xztrd.dir/pzlatran.f.o
 .PHONY : pzlatran.f.o
 
 pzlatran.i: pzlatran.f.i
@@ -4988,7 +4988,7 @@ pzlatran.i: pzlatran.f.i
 
 # target to preprocess a source file
 pzlatran.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xztrd.dir/build.make TESTING/EIG/CMakeFiles/xztrd.dir/pzlatran.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xztrd.dir/build.make TESTING/EIG/CMakeFiles/xztrd.dir/pzlatran.f.i
 .PHONY : pzlatran.f.i
 
 pzlatran.s: pzlatran.f.s
@@ -4996,7 +4996,7 @@ pzlatran.s: pzlatran.f.s
 
 # target to generate assembly for a file
 pzlatran.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xztrd.dir/build.make TESTING/EIG/CMakeFiles/xztrd.dir/pzlatran.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xztrd.dir/build.make TESTING/EIG/CMakeFiles/xztrd.dir/pzlatran.f.s
 .PHONY : pzlatran.f.s
 
 pzmatgen.o: pzmatgen.f.o
@@ -5004,14 +5004,14 @@ pzmatgen.o: pzmatgen.f.o
 
 # target to build an object file
 pzmatgen.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzbrd.dir/build.make TESTING/EIG/CMakeFiles/xzbrd.dir/pzmatgen.f.o
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzhrd.dir/build.make TESTING/EIG/CMakeFiles/xzhrd.dir/pzmatgen.f.o
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xztrd.dir/build.make TESTING/EIG/CMakeFiles/xztrd.dir/pzmatgen.f.o
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzsep.dir/build.make TESTING/EIG/CMakeFiles/xzsep.dir/pzmatgen.f.o
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzgsep.dir/build.make TESTING/EIG/CMakeFiles/xzgsep.dir/pzmatgen.f.o
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xznep.dir/build.make TESTING/EIG/CMakeFiles/xznep.dir/pzmatgen.f.o
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzevc.dir/build.make TESTING/EIG/CMakeFiles/xzevc.dir/pzmatgen.f.o
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzheevr.dir/build.make TESTING/EIG/CMakeFiles/xzheevr.dir/pzmatgen.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzbrd.dir/build.make TESTING/EIG/CMakeFiles/xzbrd.dir/pzmatgen.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzhrd.dir/build.make TESTING/EIG/CMakeFiles/xzhrd.dir/pzmatgen.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xztrd.dir/build.make TESTING/EIG/CMakeFiles/xztrd.dir/pzmatgen.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzsep.dir/build.make TESTING/EIG/CMakeFiles/xzsep.dir/pzmatgen.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzgsep.dir/build.make TESTING/EIG/CMakeFiles/xzgsep.dir/pzmatgen.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xznep.dir/build.make TESTING/EIG/CMakeFiles/xznep.dir/pzmatgen.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzevc.dir/build.make TESTING/EIG/CMakeFiles/xzevc.dir/pzmatgen.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzheevr.dir/build.make TESTING/EIG/CMakeFiles/xzheevr.dir/pzmatgen.f.o
 .PHONY : pzmatgen.f.o
 
 pzmatgen.i: pzmatgen.f.i
@@ -5019,14 +5019,14 @@ pzmatgen.i: pzmatgen.f.i
 
 # target to preprocess a source file
 pzmatgen.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzbrd.dir/build.make TESTING/EIG/CMakeFiles/xzbrd.dir/pzmatgen.f.i
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzhrd.dir/build.make TESTING/EIG/CMakeFiles/xzhrd.dir/pzmatgen.f.i
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xztrd.dir/build.make TESTING/EIG/CMakeFiles/xztrd.dir/pzmatgen.f.i
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzsep.dir/build.make TESTING/EIG/CMakeFiles/xzsep.dir/pzmatgen.f.i
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzgsep.dir/build.make TESTING/EIG/CMakeFiles/xzgsep.dir/pzmatgen.f.i
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xznep.dir/build.make TESTING/EIG/CMakeFiles/xznep.dir/pzmatgen.f.i
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzevc.dir/build.make TESTING/EIG/CMakeFiles/xzevc.dir/pzmatgen.f.i
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzheevr.dir/build.make TESTING/EIG/CMakeFiles/xzheevr.dir/pzmatgen.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzbrd.dir/build.make TESTING/EIG/CMakeFiles/xzbrd.dir/pzmatgen.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzhrd.dir/build.make TESTING/EIG/CMakeFiles/xzhrd.dir/pzmatgen.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xztrd.dir/build.make TESTING/EIG/CMakeFiles/xztrd.dir/pzmatgen.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzsep.dir/build.make TESTING/EIG/CMakeFiles/xzsep.dir/pzmatgen.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzgsep.dir/build.make TESTING/EIG/CMakeFiles/xzgsep.dir/pzmatgen.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xznep.dir/build.make TESTING/EIG/CMakeFiles/xznep.dir/pzmatgen.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzevc.dir/build.make TESTING/EIG/CMakeFiles/xzevc.dir/pzmatgen.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzheevr.dir/build.make TESTING/EIG/CMakeFiles/xzheevr.dir/pzmatgen.f.i
 .PHONY : pzmatgen.f.i
 
 pzmatgen.s: pzmatgen.f.s
@@ -5034,14 +5034,14 @@ pzmatgen.s: pzmatgen.f.s
 
 # target to generate assembly for a file
 pzmatgen.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzbrd.dir/build.make TESTING/EIG/CMakeFiles/xzbrd.dir/pzmatgen.f.s
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzhrd.dir/build.make TESTING/EIG/CMakeFiles/xzhrd.dir/pzmatgen.f.s
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xztrd.dir/build.make TESTING/EIG/CMakeFiles/xztrd.dir/pzmatgen.f.s
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzsep.dir/build.make TESTING/EIG/CMakeFiles/xzsep.dir/pzmatgen.f.s
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzgsep.dir/build.make TESTING/EIG/CMakeFiles/xzgsep.dir/pzmatgen.f.s
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xznep.dir/build.make TESTING/EIG/CMakeFiles/xznep.dir/pzmatgen.f.s
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzevc.dir/build.make TESTING/EIG/CMakeFiles/xzevc.dir/pzmatgen.f.s
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzheevr.dir/build.make TESTING/EIG/CMakeFiles/xzheevr.dir/pzmatgen.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzbrd.dir/build.make TESTING/EIG/CMakeFiles/xzbrd.dir/pzmatgen.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzhrd.dir/build.make TESTING/EIG/CMakeFiles/xzhrd.dir/pzmatgen.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xztrd.dir/build.make TESTING/EIG/CMakeFiles/xztrd.dir/pzmatgen.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzsep.dir/build.make TESTING/EIG/CMakeFiles/xzsep.dir/pzmatgen.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzgsep.dir/build.make TESTING/EIG/CMakeFiles/xzgsep.dir/pzmatgen.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xznep.dir/build.make TESTING/EIG/CMakeFiles/xznep.dir/pzmatgen.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzevc.dir/build.make TESTING/EIG/CMakeFiles/xzevc.dir/pzmatgen.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzheevr.dir/build.make TESTING/EIG/CMakeFiles/xzheevr.dir/pzmatgen.f.s
 .PHONY : pzmatgen.f.s
 
 pznepdriver.o: pznepdriver.f.o
@@ -5049,7 +5049,7 @@ pznepdriver.o: pznepdriver.f.o
 
 # target to build an object file
 pznepdriver.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xznep.dir/build.make TESTING/EIG/CMakeFiles/xznep.dir/pznepdriver.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xznep.dir/build.make TESTING/EIG/CMakeFiles/xznep.dir/pznepdriver.f.o
 .PHONY : pznepdriver.f.o
 
 pznepdriver.i: pznepdriver.f.i
@@ -5057,7 +5057,7 @@ pznepdriver.i: pznepdriver.f.i
 
 # target to preprocess a source file
 pznepdriver.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xznep.dir/build.make TESTING/EIG/CMakeFiles/xznep.dir/pznepdriver.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xznep.dir/build.make TESTING/EIG/CMakeFiles/xznep.dir/pznepdriver.f.i
 .PHONY : pznepdriver.f.i
 
 pznepdriver.s: pznepdriver.f.s
@@ -5065,7 +5065,7 @@ pznepdriver.s: pznepdriver.f.s
 
 # target to generate assembly for a file
 pznepdriver.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xznep.dir/build.make TESTING/EIG/CMakeFiles/xznep.dir/pznepdriver.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xznep.dir/build.make TESTING/EIG/CMakeFiles/xznep.dir/pznepdriver.f.s
 .PHONY : pznepdriver.f.s
 
 pznepfchk.o: pznepfchk.f.o
@@ -5073,7 +5073,7 @@ pznepfchk.o: pznepfchk.f.o
 
 # target to build an object file
 pznepfchk.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xznep.dir/build.make TESTING/EIG/CMakeFiles/xznep.dir/pznepfchk.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xznep.dir/build.make TESTING/EIG/CMakeFiles/xznep.dir/pznepfchk.f.o
 .PHONY : pznepfchk.f.o
 
 pznepfchk.i: pznepfchk.f.i
@@ -5081,7 +5081,7 @@ pznepfchk.i: pznepfchk.f.i
 
 # target to preprocess a source file
 pznepfchk.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xznep.dir/build.make TESTING/EIG/CMakeFiles/xznep.dir/pznepfchk.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xznep.dir/build.make TESTING/EIG/CMakeFiles/xznep.dir/pznepfchk.f.i
 .PHONY : pznepfchk.f.i
 
 pznepfchk.s: pznepfchk.f.s
@@ -5089,7 +5089,7 @@ pznepfchk.s: pznepfchk.f.s
 
 # target to generate assembly for a file
 pznepfchk.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xznep.dir/build.make TESTING/EIG/CMakeFiles/xznep.dir/pznepfchk.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xznep.dir/build.make TESTING/EIG/CMakeFiles/xznep.dir/pznepfchk.f.s
 .PHONY : pznepfchk.f.s
 
 pznepinfo.o: pznepinfo.f.o
@@ -5097,7 +5097,7 @@ pznepinfo.o: pznepinfo.f.o
 
 # target to build an object file
 pznepinfo.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xznep.dir/build.make TESTING/EIG/CMakeFiles/xznep.dir/pznepinfo.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xznep.dir/build.make TESTING/EIG/CMakeFiles/xznep.dir/pznepinfo.f.o
 .PHONY : pznepinfo.f.o
 
 pznepinfo.i: pznepinfo.f.i
@@ -5105,7 +5105,7 @@ pznepinfo.i: pznepinfo.f.i
 
 # target to preprocess a source file
 pznepinfo.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xznep.dir/build.make TESTING/EIG/CMakeFiles/xznep.dir/pznepinfo.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xznep.dir/build.make TESTING/EIG/CMakeFiles/xznep.dir/pznepinfo.f.i
 .PHONY : pznepinfo.f.i
 
 pznepinfo.s: pznepinfo.f.s
@@ -5113,7 +5113,7 @@ pznepinfo.s: pznepinfo.f.s
 
 # target to generate assembly for a file
 pznepinfo.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xznep.dir/build.make TESTING/EIG/CMakeFiles/xznep.dir/pznepinfo.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xznep.dir/build.make TESTING/EIG/CMakeFiles/xznep.dir/pznepinfo.f.s
 .PHONY : pznepinfo.f.s
 
 pzsdpsubtst.o: pzsdpsubtst.f.o
@@ -5121,7 +5121,7 @@ pzsdpsubtst.o: pzsdpsubtst.f.o
 
 # target to build an object file
 pzsdpsubtst.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzsep.dir/build.make TESTING/EIG/CMakeFiles/xzsep.dir/pzsdpsubtst.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzsep.dir/build.make TESTING/EIG/CMakeFiles/xzsep.dir/pzsdpsubtst.f.o
 .PHONY : pzsdpsubtst.f.o
 
 pzsdpsubtst.i: pzsdpsubtst.f.i
@@ -5129,7 +5129,7 @@ pzsdpsubtst.i: pzsdpsubtst.f.i
 
 # target to preprocess a source file
 pzsdpsubtst.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzsep.dir/build.make TESTING/EIG/CMakeFiles/xzsep.dir/pzsdpsubtst.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzsep.dir/build.make TESTING/EIG/CMakeFiles/xzsep.dir/pzsdpsubtst.f.i
 .PHONY : pzsdpsubtst.f.i
 
 pzsdpsubtst.s: pzsdpsubtst.f.s
@@ -5137,7 +5137,7 @@ pzsdpsubtst.s: pzsdpsubtst.f.s
 
 # target to generate assembly for a file
 pzsdpsubtst.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzsep.dir/build.make TESTING/EIG/CMakeFiles/xzsep.dir/pzsdpsubtst.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzsep.dir/build.make TESTING/EIG/CMakeFiles/xzsep.dir/pzsdpsubtst.f.s
 .PHONY : pzsdpsubtst.f.s
 
 pzsepchk.o: pzsepchk.f.o
@@ -5145,8 +5145,8 @@ pzsepchk.o: pzsepchk.f.o
 
 # target to build an object file
 pzsepchk.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzsep.dir/build.make TESTING/EIG/CMakeFiles/xzsep.dir/pzsepchk.f.o
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzheevr.dir/build.make TESTING/EIG/CMakeFiles/xzheevr.dir/pzsepchk.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzsep.dir/build.make TESTING/EIG/CMakeFiles/xzsep.dir/pzsepchk.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzheevr.dir/build.make TESTING/EIG/CMakeFiles/xzheevr.dir/pzsepchk.f.o
 .PHONY : pzsepchk.f.o
 
 pzsepchk.i: pzsepchk.f.i
@@ -5154,8 +5154,8 @@ pzsepchk.i: pzsepchk.f.i
 
 # target to preprocess a source file
 pzsepchk.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzsep.dir/build.make TESTING/EIG/CMakeFiles/xzsep.dir/pzsepchk.f.i
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzheevr.dir/build.make TESTING/EIG/CMakeFiles/xzheevr.dir/pzsepchk.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzsep.dir/build.make TESTING/EIG/CMakeFiles/xzsep.dir/pzsepchk.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzheevr.dir/build.make TESTING/EIG/CMakeFiles/xzheevr.dir/pzsepchk.f.i
 .PHONY : pzsepchk.f.i
 
 pzsepchk.s: pzsepchk.f.s
@@ -5163,8 +5163,8 @@ pzsepchk.s: pzsepchk.f.s
 
 # target to generate assembly for a file
 pzsepchk.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzsep.dir/build.make TESTING/EIG/CMakeFiles/xzsep.dir/pzsepchk.f.s
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzheevr.dir/build.make TESTING/EIG/CMakeFiles/xzheevr.dir/pzsepchk.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzsep.dir/build.make TESTING/EIG/CMakeFiles/xzsep.dir/pzsepchk.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzheevr.dir/build.make TESTING/EIG/CMakeFiles/xzheevr.dir/pzsepchk.f.s
 .PHONY : pzsepchk.f.s
 
 pzsepdriver.o: pzsepdriver.f.o
@@ -5172,7 +5172,7 @@ pzsepdriver.o: pzsepdriver.f.o
 
 # target to build an object file
 pzsepdriver.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzsep.dir/build.make TESTING/EIG/CMakeFiles/xzsep.dir/pzsepdriver.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzsep.dir/build.make TESTING/EIG/CMakeFiles/xzsep.dir/pzsepdriver.f.o
 .PHONY : pzsepdriver.f.o
 
 pzsepdriver.i: pzsepdriver.f.i
@@ -5180,7 +5180,7 @@ pzsepdriver.i: pzsepdriver.f.i
 
 # target to preprocess a source file
 pzsepdriver.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzsep.dir/build.make TESTING/EIG/CMakeFiles/xzsep.dir/pzsepdriver.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzsep.dir/build.make TESTING/EIG/CMakeFiles/xzsep.dir/pzsepdriver.f.i
 .PHONY : pzsepdriver.f.i
 
 pzsepdriver.s: pzsepdriver.f.s
@@ -5188,7 +5188,7 @@ pzsepdriver.s: pzsepdriver.f.s
 
 # target to generate assembly for a file
 pzsepdriver.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzsep.dir/build.make TESTING/EIG/CMakeFiles/xzsep.dir/pzsepdriver.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzsep.dir/build.make TESTING/EIG/CMakeFiles/xzsep.dir/pzsepdriver.f.s
 .PHONY : pzsepdriver.f.s
 
 pzsepqtq.o: pzsepqtq.f.o
@@ -5196,8 +5196,8 @@ pzsepqtq.o: pzsepqtq.f.o
 
 # target to build an object file
 pzsepqtq.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzsep.dir/build.make TESTING/EIG/CMakeFiles/xzsep.dir/pzsepqtq.f.o
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzheevr.dir/build.make TESTING/EIG/CMakeFiles/xzheevr.dir/pzsepqtq.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzsep.dir/build.make TESTING/EIG/CMakeFiles/xzsep.dir/pzsepqtq.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzheevr.dir/build.make TESTING/EIG/CMakeFiles/xzheevr.dir/pzsepqtq.f.o
 .PHONY : pzsepqtq.f.o
 
 pzsepqtq.i: pzsepqtq.f.i
@@ -5205,8 +5205,8 @@ pzsepqtq.i: pzsepqtq.f.i
 
 # target to preprocess a source file
 pzsepqtq.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzsep.dir/build.make TESTING/EIG/CMakeFiles/xzsep.dir/pzsepqtq.f.i
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzheevr.dir/build.make TESTING/EIG/CMakeFiles/xzheevr.dir/pzsepqtq.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzsep.dir/build.make TESTING/EIG/CMakeFiles/xzsep.dir/pzsepqtq.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzheevr.dir/build.make TESTING/EIG/CMakeFiles/xzheevr.dir/pzsepqtq.f.i
 .PHONY : pzsepqtq.f.i
 
 pzsepqtq.s: pzsepqtq.f.s
@@ -5214,8 +5214,8 @@ pzsepqtq.s: pzsepqtq.f.s
 
 # target to generate assembly for a file
 pzsepqtq.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzsep.dir/build.make TESTING/EIG/CMakeFiles/xzsep.dir/pzsepqtq.f.s
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzheevr.dir/build.make TESTING/EIG/CMakeFiles/xzheevr.dir/pzsepqtq.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzsep.dir/build.make TESTING/EIG/CMakeFiles/xzsep.dir/pzsepqtq.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzheevr.dir/build.make TESTING/EIG/CMakeFiles/xzheevr.dir/pzsepqtq.f.s
 .PHONY : pzsepqtq.f.s
 
 pzseprdriver.o: pzseprdriver.f.o
@@ -5223,7 +5223,7 @@ pzseprdriver.o: pzseprdriver.f.o
 
 # target to build an object file
 pzseprdriver.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzheevr.dir/build.make TESTING/EIG/CMakeFiles/xzheevr.dir/pzseprdriver.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzheevr.dir/build.make TESTING/EIG/CMakeFiles/xzheevr.dir/pzseprdriver.f.o
 .PHONY : pzseprdriver.f.o
 
 pzseprdriver.i: pzseprdriver.f.i
@@ -5231,7 +5231,7 @@ pzseprdriver.i: pzseprdriver.f.i
 
 # target to preprocess a source file
 pzseprdriver.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzheevr.dir/build.make TESTING/EIG/CMakeFiles/xzheevr.dir/pzseprdriver.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzheevr.dir/build.make TESTING/EIG/CMakeFiles/xzheevr.dir/pzseprdriver.f.i
 .PHONY : pzseprdriver.f.i
 
 pzseprdriver.s: pzseprdriver.f.s
@@ -5239,7 +5239,7 @@ pzseprdriver.s: pzseprdriver.f.s
 
 # target to generate assembly for a file
 pzseprdriver.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzheevr.dir/build.make TESTING/EIG/CMakeFiles/xzheevr.dir/pzseprdriver.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzheevr.dir/build.make TESTING/EIG/CMakeFiles/xzheevr.dir/pzseprdriver.f.s
 .PHONY : pzseprdriver.f.s
 
 pzsepreq.o: pzsepreq.f.o
@@ -5247,7 +5247,7 @@ pzsepreq.o: pzsepreq.f.o
 
 # target to build an object file
 pzsepreq.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzsep.dir/build.make TESTING/EIG/CMakeFiles/xzsep.dir/pzsepreq.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzsep.dir/build.make TESTING/EIG/CMakeFiles/xzsep.dir/pzsepreq.f.o
 .PHONY : pzsepreq.f.o
 
 pzsepreq.i: pzsepreq.f.i
@@ -5255,7 +5255,7 @@ pzsepreq.i: pzsepreq.f.i
 
 # target to preprocess a source file
 pzsepreq.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzsep.dir/build.make TESTING/EIG/CMakeFiles/xzsep.dir/pzsepreq.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzsep.dir/build.make TESTING/EIG/CMakeFiles/xzsep.dir/pzsepreq.f.i
 .PHONY : pzsepreq.f.i
 
 pzsepreq.s: pzsepreq.f.s
@@ -5263,7 +5263,7 @@ pzsepreq.s: pzsepreq.f.s
 
 # target to generate assembly for a file
 pzsepreq.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzsep.dir/build.make TESTING/EIG/CMakeFiles/xzsep.dir/pzsepreq.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzsep.dir/build.make TESTING/EIG/CMakeFiles/xzsep.dir/pzsepreq.f.s
 .PHONY : pzsepreq.f.s
 
 pzseprreq.o: pzseprreq.f.o
@@ -5271,7 +5271,7 @@ pzseprreq.o: pzseprreq.f.o
 
 # target to build an object file
 pzseprreq.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzheevr.dir/build.make TESTING/EIG/CMakeFiles/xzheevr.dir/pzseprreq.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzheevr.dir/build.make TESTING/EIG/CMakeFiles/xzheevr.dir/pzseprreq.f.o
 .PHONY : pzseprreq.f.o
 
 pzseprreq.i: pzseprreq.f.i
@@ -5279,7 +5279,7 @@ pzseprreq.i: pzseprreq.f.i
 
 # target to preprocess a source file
 pzseprreq.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzheevr.dir/build.make TESTING/EIG/CMakeFiles/xzheevr.dir/pzseprreq.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzheevr.dir/build.make TESTING/EIG/CMakeFiles/xzheevr.dir/pzseprreq.f.i
 .PHONY : pzseprreq.f.i
 
 pzseprreq.s: pzseprreq.f.s
@@ -5287,7 +5287,7 @@ pzseprreq.s: pzseprreq.f.s
 
 # target to generate assembly for a file
 pzseprreq.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzheevr.dir/build.make TESTING/EIG/CMakeFiles/xzheevr.dir/pzseprreq.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzheevr.dir/build.make TESTING/EIG/CMakeFiles/xzheevr.dir/pzseprreq.f.s
 .PHONY : pzseprreq.f.s
 
 pzseprsubtst.o: pzseprsubtst.f.o
@@ -5295,7 +5295,7 @@ pzseprsubtst.o: pzseprsubtst.f.o
 
 # target to build an object file
 pzseprsubtst.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzheevr.dir/build.make TESTING/EIG/CMakeFiles/xzheevr.dir/pzseprsubtst.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzheevr.dir/build.make TESTING/EIG/CMakeFiles/xzheevr.dir/pzseprsubtst.f.o
 .PHONY : pzseprsubtst.f.o
 
 pzseprsubtst.i: pzseprsubtst.f.i
@@ -5303,7 +5303,7 @@ pzseprsubtst.i: pzseprsubtst.f.i
 
 # target to preprocess a source file
 pzseprsubtst.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzheevr.dir/build.make TESTING/EIG/CMakeFiles/xzheevr.dir/pzseprsubtst.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzheevr.dir/build.make TESTING/EIG/CMakeFiles/xzheevr.dir/pzseprsubtst.f.i
 .PHONY : pzseprsubtst.f.i
 
 pzseprsubtst.s: pzseprsubtst.f.s
@@ -5311,7 +5311,7 @@ pzseprsubtst.s: pzseprsubtst.f.s
 
 # target to generate assembly for a file
 pzseprsubtst.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzheevr.dir/build.make TESTING/EIG/CMakeFiles/xzheevr.dir/pzseprsubtst.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzheevr.dir/build.make TESTING/EIG/CMakeFiles/xzheevr.dir/pzseprsubtst.f.s
 .PHONY : pzseprsubtst.f.s
 
 pzseprtst.o: pzseprtst.f.o
@@ -5319,7 +5319,7 @@ pzseprtst.o: pzseprtst.f.o
 
 # target to build an object file
 pzseprtst.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzheevr.dir/build.make TESTING/EIG/CMakeFiles/xzheevr.dir/pzseprtst.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzheevr.dir/build.make TESTING/EIG/CMakeFiles/xzheevr.dir/pzseprtst.f.o
 .PHONY : pzseprtst.f.o
 
 pzseprtst.i: pzseprtst.f.i
@@ -5327,7 +5327,7 @@ pzseprtst.i: pzseprtst.f.i
 
 # target to preprocess a source file
 pzseprtst.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzheevr.dir/build.make TESTING/EIG/CMakeFiles/xzheevr.dir/pzseprtst.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzheevr.dir/build.make TESTING/EIG/CMakeFiles/xzheevr.dir/pzseprtst.f.i
 .PHONY : pzseprtst.f.i
 
 pzseprtst.s: pzseprtst.f.s
@@ -5335,7 +5335,7 @@ pzseprtst.s: pzseprtst.f.s
 
 # target to generate assembly for a file
 pzseprtst.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzheevr.dir/build.make TESTING/EIG/CMakeFiles/xzheevr.dir/pzseprtst.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzheevr.dir/build.make TESTING/EIG/CMakeFiles/xzheevr.dir/pzseprtst.f.s
 .PHONY : pzseprtst.f.s
 
 pzsepsubtst.o: pzsepsubtst.f.o
@@ -5343,7 +5343,7 @@ pzsepsubtst.o: pzsepsubtst.f.o
 
 # target to build an object file
 pzsepsubtst.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzsep.dir/build.make TESTING/EIG/CMakeFiles/xzsep.dir/pzsepsubtst.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzsep.dir/build.make TESTING/EIG/CMakeFiles/xzsep.dir/pzsepsubtst.f.o
 .PHONY : pzsepsubtst.f.o
 
 pzsepsubtst.i: pzsepsubtst.f.i
@@ -5351,7 +5351,7 @@ pzsepsubtst.i: pzsepsubtst.f.i
 
 # target to preprocess a source file
 pzsepsubtst.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzsep.dir/build.make TESTING/EIG/CMakeFiles/xzsep.dir/pzsepsubtst.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzsep.dir/build.make TESTING/EIG/CMakeFiles/xzsep.dir/pzsepsubtst.f.i
 .PHONY : pzsepsubtst.f.i
 
 pzsepsubtst.s: pzsepsubtst.f.s
@@ -5359,7 +5359,7 @@ pzsepsubtst.s: pzsepsubtst.f.s
 
 # target to generate assembly for a file
 pzsepsubtst.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzsep.dir/build.make TESTING/EIG/CMakeFiles/xzsep.dir/pzsepsubtst.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzsep.dir/build.make TESTING/EIG/CMakeFiles/xzsep.dir/pzsepsubtst.f.s
 .PHONY : pzsepsubtst.f.s
 
 pzseptst.o: pzseptst.f.o
@@ -5367,7 +5367,7 @@ pzseptst.o: pzseptst.f.o
 
 # target to build an object file
 pzseptst.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzsep.dir/build.make TESTING/EIG/CMakeFiles/xzsep.dir/pzseptst.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzsep.dir/build.make TESTING/EIG/CMakeFiles/xzsep.dir/pzseptst.f.o
 .PHONY : pzseptst.f.o
 
 pzseptst.i: pzseptst.f.i
@@ -5375,7 +5375,7 @@ pzseptst.i: pzseptst.f.i
 
 # target to preprocess a source file
 pzseptst.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzsep.dir/build.make TESTING/EIG/CMakeFiles/xzsep.dir/pzseptst.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzsep.dir/build.make TESTING/EIG/CMakeFiles/xzsep.dir/pzseptst.f.i
 .PHONY : pzseptst.f.i
 
 pzseptst.s: pzseptst.f.s
@@ -5383,7 +5383,7 @@ pzseptst.s: pzseptst.f.s
 
 # target to generate assembly for a file
 pzseptst.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzsep.dir/build.make TESTING/EIG/CMakeFiles/xzsep.dir/pzseptst.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xzsep.dir/build.make TESTING/EIG/CMakeFiles/xzsep.dir/pzseptst.f.s
 .PHONY : pzseptst.f.s
 
 pztrddriver.o: pztrddriver.f.o
@@ -5391,7 +5391,7 @@ pztrddriver.o: pztrddriver.f.o
 
 # target to build an object file
 pztrddriver.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xztrd.dir/build.make TESTING/EIG/CMakeFiles/xztrd.dir/pztrddriver.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xztrd.dir/build.make TESTING/EIG/CMakeFiles/xztrd.dir/pztrddriver.f.o
 .PHONY : pztrddriver.f.o
 
 pztrddriver.i: pztrddriver.f.i
@@ -5399,7 +5399,7 @@ pztrddriver.i: pztrddriver.f.i
 
 # target to preprocess a source file
 pztrddriver.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xztrd.dir/build.make TESTING/EIG/CMakeFiles/xztrd.dir/pztrddriver.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xztrd.dir/build.make TESTING/EIG/CMakeFiles/xztrd.dir/pztrddriver.f.i
 .PHONY : pztrddriver.f.i
 
 pztrddriver.s: pztrddriver.f.s
@@ -5407,7 +5407,7 @@ pztrddriver.s: pztrddriver.f.s
 
 # target to generate assembly for a file
 pztrddriver.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xztrd.dir/build.make TESTING/EIG/CMakeFiles/xztrd.dir/pztrddriver.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xztrd.dir/build.make TESTING/EIG/CMakeFiles/xztrd.dir/pztrddriver.f.s
 .PHONY : pztrddriver.f.s
 
 pztrdinfo.o: pztrdinfo.f.o
@@ -5415,7 +5415,7 @@ pztrdinfo.o: pztrdinfo.f.o
 
 # target to build an object file
 pztrdinfo.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xztrd.dir/build.make TESTING/EIG/CMakeFiles/xztrd.dir/pztrdinfo.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xztrd.dir/build.make TESTING/EIG/CMakeFiles/xztrd.dir/pztrdinfo.f.o
 .PHONY : pztrdinfo.f.o
 
 pztrdinfo.i: pztrdinfo.f.i
@@ -5423,7 +5423,7 @@ pztrdinfo.i: pztrdinfo.f.i
 
 # target to preprocess a source file
 pztrdinfo.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xztrd.dir/build.make TESTING/EIG/CMakeFiles/xztrd.dir/pztrdinfo.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xztrd.dir/build.make TESTING/EIG/CMakeFiles/xztrd.dir/pztrdinfo.f.i
 .PHONY : pztrdinfo.f.i
 
 pztrdinfo.s: pztrdinfo.f.s
@@ -5431,7 +5431,7 @@ pztrdinfo.s: pztrdinfo.f.s
 
 # target to generate assembly for a file
 pztrdinfo.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xztrd.dir/build.make TESTING/EIG/CMakeFiles/xztrd.dir/pztrdinfo.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xztrd.dir/build.make TESTING/EIG/CMakeFiles/xztrd.dir/pztrdinfo.f.s
 .PHONY : pztrdinfo.f.s
 
 pzttrdtester.o: pzttrdtester.f.o
@@ -5439,7 +5439,7 @@ pzttrdtester.o: pzttrdtester.f.o
 
 # target to build an object file
 pzttrdtester.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xztrd.dir/build.make TESTING/EIG/CMakeFiles/xztrd.dir/pzttrdtester.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xztrd.dir/build.make TESTING/EIG/CMakeFiles/xztrd.dir/pzttrdtester.f.o
 .PHONY : pzttrdtester.f.o
 
 pzttrdtester.i: pzttrdtester.f.i
@@ -5447,7 +5447,7 @@ pzttrdtester.i: pzttrdtester.f.i
 
 # target to preprocess a source file
 pzttrdtester.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xztrd.dir/build.make TESTING/EIG/CMakeFiles/xztrd.dir/pzttrdtester.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xztrd.dir/build.make TESTING/EIG/CMakeFiles/xztrd.dir/pzttrdtester.f.i
 .PHONY : pzttrdtester.f.i
 
 pzttrdtester.s: pzttrdtester.f.s
@@ -5455,7 +5455,7 @@ pzttrdtester.s: pzttrdtester.f.s
 
 # target to generate assembly for a file
 pzttrdtester.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xztrd.dir/build.make TESTING/EIG/CMakeFiles/xztrd.dir/pzttrdtester.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xztrd.dir/build.make TESTING/EIG/CMakeFiles/xztrd.dir/pzttrdtester.f.s
 .PHONY : pzttrdtester.f.s
 
 xpjlaenv.o: xpjlaenv.f.o
@@ -5463,10 +5463,10 @@ xpjlaenv.o: xpjlaenv.f.o
 
 # target to build an object file
 xpjlaenv.f.o:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xstrd.dir/build.make TESTING/EIG/CMakeFiles/xstrd.dir/xpjlaenv.f.o
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdtrd.dir/build.make TESTING/EIG/CMakeFiles/xdtrd.dir/xpjlaenv.f.o
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xctrd.dir/build.make TESTING/EIG/CMakeFiles/xctrd.dir/xpjlaenv.f.o
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xztrd.dir/build.make TESTING/EIG/CMakeFiles/xztrd.dir/xpjlaenv.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xstrd.dir/build.make TESTING/EIG/CMakeFiles/xstrd.dir/xpjlaenv.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdtrd.dir/build.make TESTING/EIG/CMakeFiles/xdtrd.dir/xpjlaenv.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xctrd.dir/build.make TESTING/EIG/CMakeFiles/xctrd.dir/xpjlaenv.f.o
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xztrd.dir/build.make TESTING/EIG/CMakeFiles/xztrd.dir/xpjlaenv.f.o
 .PHONY : xpjlaenv.f.o
 
 xpjlaenv.i: xpjlaenv.f.i
@@ -5474,10 +5474,10 @@ xpjlaenv.i: xpjlaenv.f.i
 
 # target to preprocess a source file
 xpjlaenv.f.i:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xstrd.dir/build.make TESTING/EIG/CMakeFiles/xstrd.dir/xpjlaenv.f.i
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdtrd.dir/build.make TESTING/EIG/CMakeFiles/xdtrd.dir/xpjlaenv.f.i
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xctrd.dir/build.make TESTING/EIG/CMakeFiles/xctrd.dir/xpjlaenv.f.i
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xztrd.dir/build.make TESTING/EIG/CMakeFiles/xztrd.dir/xpjlaenv.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xstrd.dir/build.make TESTING/EIG/CMakeFiles/xstrd.dir/xpjlaenv.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdtrd.dir/build.make TESTING/EIG/CMakeFiles/xdtrd.dir/xpjlaenv.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xctrd.dir/build.make TESTING/EIG/CMakeFiles/xctrd.dir/xpjlaenv.f.i
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xztrd.dir/build.make TESTING/EIG/CMakeFiles/xztrd.dir/xpjlaenv.f.i
 .PHONY : xpjlaenv.f.i
 
 xpjlaenv.s: xpjlaenv.f.s
@@ -5485,10 +5485,10 @@ xpjlaenv.s: xpjlaenv.f.s
 
 # target to generate assembly for a file
 xpjlaenv.f.s:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xstrd.dir/build.make TESTING/EIG/CMakeFiles/xstrd.dir/xpjlaenv.f.s
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdtrd.dir/build.make TESTING/EIG/CMakeFiles/xdtrd.dir/xpjlaenv.f.s
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xctrd.dir/build.make TESTING/EIG/CMakeFiles/xctrd.dir/xpjlaenv.f.s
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xztrd.dir/build.make TESTING/EIG/CMakeFiles/xztrd.dir/xpjlaenv.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xstrd.dir/build.make TESTING/EIG/CMakeFiles/xstrd.dir/xpjlaenv.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xdtrd.dir/build.make TESTING/EIG/CMakeFiles/xdtrd.dir/xpjlaenv.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xctrd.dir/build.make TESTING/EIG/CMakeFiles/xctrd.dir/xpjlaenv.f.s
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(MAKE) $(MAKESILENT) -f TESTING/EIG/CMakeFiles/xztrd.dir/build.make TESTING/EIG/CMakeFiles/xztrd.dir/xpjlaenv.f.s
 .PHONY : xpjlaenv.f.s
 
 # Help Target
@@ -6109,6 +6109,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	cd /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 

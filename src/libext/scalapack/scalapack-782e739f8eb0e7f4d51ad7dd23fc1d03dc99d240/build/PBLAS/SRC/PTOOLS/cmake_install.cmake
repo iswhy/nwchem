@@ -1,4 +1,4 @@
-# Install script for directory: /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/PBLAS/SRC/PTOOLS
+# Install script for directory: /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/PBLAS/SRC/PTOOLS
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)

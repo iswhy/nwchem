@@ -1,4 +1,4 @@
-# This configuration generated automatically on qbc2 at Sun Jan 26 06:51:22 CST 2025
+# This configuration generated automatically on mike2 at Tue Apr 15 00:44:27 CDT 2025
 # Request modules from user: smallqm nwxc
 The following subdirectories are built:
 NWints atomscf bq cafe cons cphf ddscf dimqm dplot driver esp etrans fft gradients gwmol hessian mcscf moints mp2_grad nwdft nwmd nwxc optim property qhop qmd rimp2 solvation space stepper symmetry vib vscf

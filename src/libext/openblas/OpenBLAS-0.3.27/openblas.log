@@ -1,6 +1,6 @@
-make[3]: Entering directory '/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/openblas/OpenBLAS-0.3.27'
+make[3]: Entering directory '/home/imam77/src/nwchem/NWChem-WFAT/src/libext/openblas/OpenBLAS-0.3.27'
 ./f_check: line 99: [: #: integer expression expected
-make[4]: Entering directory '/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/openblas/OpenBLAS-0.3.27/interface'
+make[4]: Entering directory '/home/imam77/src/nwchem/NWChem-WFAT/src/libext/openblas/OpenBLAS-0.3.27/interface'
 make[4]: warning: -j2 forced in makefile: resetting jobserver mode.
 icc -O2 -DSMALL_MATRIX_OPT -DMAX_STACK_ALLOC=2048 -wd981 -DF_INTERFACE_INTEL  -fPIC -DNO_LAPACKE -DSMP_SERVER -DNO_WARMUP -DMAX_CPU_NUMBER=128 -DMAX_PARALLEL_NUMBER=1 -DBUILD_SINGLE=1 -DBUILD_DOUBLE=1 -DBUILD_COMPLEX=1 -DBUILD_COMPLEX16=1 -DVERSION=\"0.3.27\" -msse3 -mssse3 -msse4.1 -mavx -mavx2 -UASMNAME -UASMFNAME -UNAME -UCNAME -UCHAR_NAME -UCHAR_CNAME -DASMNAME=saxpy -DASMFNAME=saxpy_ -DNAME=saxpy_ -DCNAME=saxpy -DCHAR_NAME=\"saxpy_\" -DCHAR_CNAME=\"saxpy\" -DNO_AFFINITY -I.. -UDOUBLE  -UCOMPLEX -c axpy.c -o saxpy.o
 icc -O2 -DSMALL_MATRIX_OPT -DMAX_STACK_ALLOC=2048 -wd981 -DF_INTERFACE_INTEL  -fPIC -DNO_LAPACKE -DSMP_SERVER -DNO_WARMUP -DMAX_CPU_NUMBER=128 -DMAX_PARALLEL_NUMBER=1 -DBUILD_SINGLE=1 -DBUILD_DOUBLE=1 -DBUILD_COMPLEX=1 -DBUILD_COMPLEX16=1 -DVERSION=\"0.3.27\" -msse3 -mssse3 -msse4.1 -mavx -mavx2 -UASMNAME -UASMFNAME -UNAME -UCNAME -UCHAR_NAME -UCHAR_CNAME -DASMNAME=sswap -DASMFNAME=sswap_ -DNAME=sswap_ -DCNAME=sswap -DCHAR_NAME=\"sswap_\" -DCHAR_CNAME=\"sswap\" -DNO_AFFINITY -I.. -UDOUBLE  -UCOMPLEX -c swap.c -o sswap.o
@@ -516,8 +516,8 @@ a - zspr.o
 a - zspmv.o
 a - zsymv.o
 a - zsyr.o
-make[4]: Leaving directory '/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/openblas/OpenBLAS-0.3.27/interface'
-make[4]: Entering directory '/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/openblas/OpenBLAS-0.3.27/driver/level2'
+make[4]: Leaving directory '/home/imam77/src/nwchem/NWChem-WFAT/src/libext/openblas/OpenBLAS-0.3.27/interface'
+make[4]: Entering directory '/home/imam77/src/nwchem/NWChem-WFAT/src/libext/openblas/OpenBLAS-0.3.27/driver/level2'
 make[4]: warning: -j2 forced in makefile: resetting jobserver mode.
 icc -c -UCOMPLEX -UDOUBLE -UTRANS -O2 -DSMALL_MATRIX_OPT -DMAX_STACK_ALLOC=2048 -wd981 -DF_INTERFACE_INTEL  -fPIC -DNO_LAPACKE -DSMP_SERVER -DNO_WARMUP -DMAX_CPU_NUMBER=128 -DMAX_PARALLEL_NUMBER=1 -DBUILD_SINGLE=1 -DBUILD_DOUBLE=1 -DBUILD_COMPLEX=1 -DBUILD_COMPLEX16=1 -DVERSION=\"0.3.27\" -msse3 -mssse3 -msse4.1 -mavx -mavx2 -UASMNAME -UASMFNAME -UNAME -UCNAME -UCHAR_NAME -UCHAR_CNAME -DASMNAME=sgbmv_n -DASMFNAME=sgbmv_n_ -DNAME=sgbmv_n_ -DCNAME=sgbmv_n -DCHAR_NAME=\"sgbmv_n_\" -DCHAR_CNAME=\"sgbmv_n\" -DNO_AFFINITY -I../.. -UDOUBLE  -UCOMPLEX -o sgbmv_n.o gbmv_k.c
 icc -c -UCOMPLEX -UDOUBLE -DTRANS -O2 -DSMALL_MATRIX_OPT -DMAX_STACK_ALLOC=2048 -wd981 -DF_INTERFACE_INTEL  -fPIC -DNO_LAPACKE -DSMP_SERVER -DNO_WARMUP -DMAX_CPU_NUMBER=128 -DMAX_PARALLEL_NUMBER=1 -DBUILD_SINGLE=1 -DBUILD_DOUBLE=1 -DBUILD_COMPLEX=1 -DBUILD_COMPLEX16=1 -DVERSION=\"0.3.27\" -msse3 -mssse3 -msse4.1 -mavx -mavx2 -UASMNAME -UASMFNAME -UNAME -UCNAME -UCHAR_NAME -UCHAR_CNAME -DASMNAME=sgbmv_t -DASMFNAME=sgbmv_t_ -DNAME=sgbmv_t_ -DCNAME=sgbmv_t -DCHAR_NAME=\"sgbmv_t_\" -DCHAR_CNAME=\"sgbmv_t\" -DNO_AFFINITY -I../.. -UDOUBLE  -UCOMPLEX -o sgbmv_t.o gbmv_k.c
@@ -1940,8 +1940,8 @@ a - ztbmv_thread_CUU.o
 a - ztbmv_thread_CUN.o
 a - ztbmv_thread_CLU.o
 a - ztbmv_thread_CLN.o
-make[4]: Leaving directory '/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/openblas/OpenBLAS-0.3.27/driver/level2'
-make[4]: Entering directory '/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/openblas/OpenBLAS-0.3.27/driver/level3'
+make[4]: Leaving directory '/home/imam77/src/nwchem/NWChem-WFAT/src/libext/openblas/OpenBLAS-0.3.27/driver/level2'
+make[4]: Entering directory '/home/imam77/src/nwchem/NWChem-WFAT/src/libext/openblas/OpenBLAS-0.3.27/driver/level3'
 make[4]: warning: -j2 forced in makefile: resetting jobserver mode.
 icc -O2 -DSMALL_MATRIX_OPT -DMAX_STACK_ALLOC=2048 -wd981 -DF_INTERFACE_INTEL  -fPIC -DNO_LAPACKE -DSMP_SERVER -DNO_WARMUP -DMAX_CPU_NUMBER=128 -DMAX_PARALLEL_NUMBER=1 -DBUILD_SINGLE=1 -DBUILD_DOUBLE=1 -DBUILD_COMPLEX=1 -DBUILD_COMPLEX16=1 -DVERSION=\"0.3.27\" -msse3 -mssse3 -msse4.1 -mavx -mavx2 -UASMNAME -UASMFNAME -UNAME -UCNAME -UCHAR_NAME -UCHAR_CNAME -DASMNAME=sgemm_nn -DASMFNAME=sgemm_nn_ -DNAME=sgemm_nn_ -DCNAME=sgemm_nn -DCHAR_NAME=\"sgemm_nn_\" -DCHAR_CNAME=\"sgemm_nn\" -DNO_AFFINITY -I../.. -UDOUBLE  -UCOMPLEX  -c -UDOUBLE -UCOMPLEX -DNN gemm.c -o sgemm_nn.o
 icc -O2 -DSMALL_MATRIX_OPT -DMAX_STACK_ALLOC=2048 -wd981 -DF_INTERFACE_INTEL  -fPIC -DNO_LAPACKE -DSMP_SERVER -DNO_WARMUP -DMAX_CPU_NUMBER=128 -DMAX_PARALLEL_NUMBER=1 -DBUILD_SINGLE=1 -DBUILD_DOUBLE=1 -DBUILD_COMPLEX=1 -DBUILD_COMPLEX16=1 -DVERSION=\"0.3.27\" -msse3 -mssse3 -msse4.1 -mavx -mavx2 -UASMNAME -UASMFNAME -UNAME -UCNAME -UCHAR_NAME -UCHAR_CNAME -DASMNAME=sgemm_nt -DASMFNAME=sgemm_nt_ -DNAME=sgemm_nt_ -DCNAME=sgemm_nt -DCHAR_NAME=\"sgemm_nt_\" -DCHAR_CNAME=\"sgemm_nt\" -DNO_AFFINITY -I../.. -UDOUBLE  -UCOMPLEX  -c -UDOUBLE -UCOMPLEX -DNT gemm.c -o sgemm_nt.o
@@ -2994,8 +2994,8 @@ a - gemm_thread_n.o
 a - gemm_thread_mn.o
 a - gemm_thread_variable.o
 a - syrk_thread.o
-make[4]: Leaving directory '/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/openblas/OpenBLAS-0.3.27/driver/level3'
-make[4]: Entering directory '/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/openblas/OpenBLAS-0.3.27/driver/others'
+make[4]: Leaving directory '/home/imam77/src/nwchem/NWChem-WFAT/src/libext/openblas/OpenBLAS-0.3.27/driver/level3'
+make[4]: Entering directory '/home/imam77/src/nwchem/NWChem-WFAT/src/libext/openblas/OpenBLAS-0.3.27/driver/others'
 make[4]: warning: -j2 forced in makefile: resetting jobserver mode.
 icc -O2 -DSMALL_MATRIX_OPT -DMAX_STACK_ALLOC=2048 -wd981 -DF_INTERFACE_INTEL  -fPIC -DNO_LAPACKE -DSMP_SERVER -DNO_WARMUP -DMAX_CPU_NUMBER=128 -DMAX_PARALLEL_NUMBER=1 -DBUILD_SINGLE=1 -DBUILD_DOUBLE=1 -DBUILD_COMPLEX=1 -DBUILD_COMPLEX16=1 -DVERSION=\"0.3.27\" -msse3 -mssse3 -msse4.1 -mavx -mavx2 -UASMNAME -UASMFNAME -UNAME -UCNAME -UCHAR_NAME -UCHAR_CNAME -DASMNAME=memory -DASMFNAME=memory_ -DNAME=memory_ -DCNAME=memory -DCHAR_NAME=\"memory_\" -DCHAR_CNAME=\"memory\" -DNO_AFFINITY -I../.. -c memory.c -o memory.o
 icc -O2 -DSMALL_MATRIX_OPT -DMAX_STACK_ALLOC=2048 -wd981 -DF_INTERFACE_INTEL  -fPIC -DNO_LAPACKE -DSMP_SERVER -DNO_WARMUP -DMAX_CPU_NUMBER=128 -DMAX_PARALLEL_NUMBER=1 -DBUILD_SINGLE=1 -DBUILD_DOUBLE=1 -DBUILD_COMPLEX=1 -DBUILD_COMPLEX16=1 -DVERSION=\"0.3.27\" -msse3 -mssse3 -msse4.1 -mavx -mavx2 -UASMNAME -UASMFNAME -UNAME -UCNAME -UCHAR_NAME -UCHAR_CNAME -DASMNAME=xerbla -DASMFNAME=xerbla_ -DNAME=xerbla_ -DCNAME=xerbla -DCHAR_NAME=\"xerbla_\" -DCHAR_CNAME=\"xerbla\" -DNO_AFFINITY -I../.. -c xerbla.c -o xerbla.o
@@ -3032,8 +3032,8 @@ a - blas_server.o
 a - divtable.o
 a - blasL1thread.o
 a - parameter.o
-make[4]: Leaving directory '/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/openblas/OpenBLAS-0.3.27/driver/others'
-make[4]: Entering directory '/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/openblas/OpenBLAS-0.3.27/kernel'
+make[4]: Leaving directory '/home/imam77/src/nwchem/NWChem-WFAT/src/libext/openblas/OpenBLAS-0.3.27/driver/others'
+make[4]: Entering directory '/home/imam77/src/nwchem/NWChem-WFAT/src/libext/openblas/OpenBLAS-0.3.27/kernel'
 make[4]: warning: -j2 forced in makefile: resetting jobserver mode.
 icc -c -O2 -DSMALL_MATRIX_OPT -DMAX_STACK_ALLOC=2048 -wd981 -DF_INTERFACE_INTEL  -fPIC -DNO_LAPACKE -DSMP_SERVER -DNO_WARMUP -DMAX_CPU_NUMBER=128 -DMAX_PARALLEL_NUMBER=1 -DBUILD_SINGLE=1 -DBUILD_DOUBLE=1 -DBUILD_COMPLEX=1 -DBUILD_COMPLEX16=1 -DVERSION=\"0.3.27\" -msse3 -mssse3 -msse4.1 -mavx -mavx2 -UASMNAME -UASMFNAME -UNAME -UCNAME -UCHAR_NAME -UCHAR_CNAME -DASMNAME=samax_k -DASMFNAME=samax_k_ -DNAME=samax_k_ -DCNAME=samax_k -DCHAR_NAME=\"samax_k_\" -DCHAR_CNAME=\"samax_k\" -DNO_AFFINITY -I.. -UDOUBLE  -UCOMPLEX -UCOMPLEX -UDOUBLE  -DUSE_ABS -UUSE_MIN ../kernel/x86_64/amax_sse.S -o samax_k.o
 icc -c -O2 -DSMALL_MATRIX_OPT -DMAX_STACK_ALLOC=2048 -wd981 -DF_INTERFACE_INTEL  -fPIC -DNO_LAPACKE -DSMP_SERVER -DNO_WARMUP -DMAX_CPU_NUMBER=128 -DMAX_PARALLEL_NUMBER=1 -DBUILD_SINGLE=1 -DBUILD_DOUBLE=1 -DBUILD_COMPLEX=1 -DBUILD_COMPLEX16=1 -DVERSION=\"0.3.27\" -msse3 -mssse3 -msse4.1 -mavx -mavx2 -UASMNAME -UASMFNAME -UNAME -UCNAME -UCHAR_NAME -UCHAR_CNAME -DASMNAME=samin_k -DASMFNAME=samin_k_ -DNAME=samin_k_ -DCNAME=samin_k -DCHAR_NAME=\"samin_k_\" -DCHAR_CNAME=\"samin_k\" -DNO_AFFINITY -I.. -UDOUBLE  -UCOMPLEX -UCOMPLEX -UDOUBLE -DUSE_ABS  -DUSE_MIN ../kernel/x86_64/amax_sse.S -o samin_k.o
@@ -3430,11 +3430,11 @@ icc -c -O2 -DSMALL_MATRIX_OPT -DMAX_STACK_ALLOC=2048 -wd981 -DF_INTERFACE_INTEL 
 icc -O2 -DSMALL_MATRIX_OPT -DMAX_STACK_ALLOC=2048 -wd981 -DF_INTERFACE_INTEL  -fPIC -DNO_LAPACKE -DSMP_SERVER -DNO_WARMUP -DMAX_CPU_NUMBER=128 -DMAX_PARALLEL_NUMBER=1 -DBUILD_SINGLE=1 -DBUILD_DOUBLE=1 -DBUILD_COMPLEX=1 -DBUILD_COMPLEX16=1 -DVERSION=\"0.3.27\" -msse3 -mssse3 -msse4.1 -mavx -mavx2 -UASMNAME -UASMFNAME -UNAME -UCNAME -UCHAR_NAME -UCHAR_CNAME -DASMNAME=znrm2_k -DASMFNAME=znrm2_k_ -DNAME=znrm2_k_ -DCNAME=znrm2_k -DCHAR_NAME=\"znrm2_k_\" -DCHAR_CNAME=\"znrm2_k\" -DNO_AFFINITY -I.. -DDOUBLE  -DCOMPLEX -DCOMPLEX -c -DDOUBLE ../kernel/x86_64/znrm2.S -o znrm2_k.o
 icc -c -O2 -DSMALL_MATRIX_OPT -DMAX_STACK_ALLOC=2048 -wd981 -DF_INTERFACE_INTEL  -fPIC -DNO_LAPACKE -DSMP_SERVER -DNO_WARMUP -DMAX_CPU_NUMBER=128 -DMAX_PARALLEL_NUMBER=1 -DBUILD_SINGLE=1 -DBUILD_DOUBLE=1 -DBUILD_COMPLEX=1 -DBUILD_COMPLEX16=1 -DVERSION=\"0.3.27\" -msse3 -mssse3 -msse4.1 -mavx -mavx2 -UASMNAME -UASMFNAME -UNAME -UCNAME -UCHAR_NAME -UCHAR_CNAME -DASMNAME=zdrot_k -DASMFNAME=zdrot_k_ -DNAME=zdrot_k_ -DCNAME=zdrot_k -DCHAR_NAME=\"zdrot_k_\" -DCHAR_CNAME=\"zdrot_k\" -DNO_AFFINITY -I.. -DDOUBLE  -DCOMPLEX -DCOMPLEX -DCOMPLEX -DDOUBLE  ../kernel/x86_64/zrot_sse2.S -o zdrot_k.o
 icc -c -O2 -DSMALL_MATRIX_OPT -DMAX_STACK_ALLOC=2048 -wd981 -DF_INTERFACE_INTEL  -fPIC -DNO_LAPACKE -DSMP_SERVER -DNO_WARMUP -DMAX_CPU_NUMBER=128 -DMAX_PARALLEL_NUMBER=1 -DBUILD_SINGLE=1 -DBUILD_DOUBLE=1 -DBUILD_COMPLEX=1 -DBUILD_COMPLEX16=1 -DVERSION=\"0.3.27\" -msse3 -mssse3 -msse4.1 -mavx -mavx2 -UASMNAME -UASMFNAME -UNAME -UCNAME -UCHAR_NAME -UCHAR_CNAME -DASMNAME=zscal_k -DASMFNAME=zscal_k_ -DNAME=zscal_k_ -DCNAME=zscal_k -DCHAR_NAME=\"zscal_k_\" -DCHAR_CNAME=\"zscal_k\" -DNO_AFFINITY -I.. -DDOUBLE  -DCOMPLEX -DCOMPLEX -DDOUBLE ../kernel/x86_64/zscal.c -o zscal_k.o
-icc -c -O2 -DSMALL_MATRIX_OPT -DMAX_STACK_ALLOC=2048 -wd981 -DF_INTERFACE_INTEL  -fPIC -DNO_LAPACKE -DSMP_SERVER -DNO_WARMUP -DMAX_CPU_NUMBER=128 -DMAX_PARALLEL_NUMBER=1 -DBUILD_SINGLE=1 -DBUILD_DOUBLE=1 -DBUILD_COMPLEX=1 -DBUILD_COMPLEX16=1 -DVERSION=\"0.3.27\" -msse3 -mssse3 -msse4.1 -mavx -mavx2 -UASMNAME -UASMFNAME -UNAME -UCNAME -UCHAR_NAME -UCHAR_CNAME -DASMNAME=zswap_k -DASMFNAME=zswap_k_ -DNAME=zswap_k_ -DCNAME=zswap_k -DCHAR_NAME=\"zswap_k_\" -DCHAR_CNAME=\"zswap_k\" -DNO_AFFINITY -I.. -DDOUBLE  -DCOMPLEX -DCOMPLEX -DDOUBLE ../kernel/x86_64/zswap_sse2.S -o zswap_k.o
 ../kernel/x86_64/zscal.c(34): warning #3438: unsupported option is ignored
   #pragma GCC optimize ("fp-contract=off")
                         ^
 
+icc -c -O2 -DSMALL_MATRIX_OPT -DMAX_STACK_ALLOC=2048 -wd981 -DF_INTERFACE_INTEL  -fPIC -DNO_LAPACKE -DSMP_SERVER -DNO_WARMUP -DMAX_CPU_NUMBER=128 -DMAX_PARALLEL_NUMBER=1 -DBUILD_SINGLE=1 -DBUILD_DOUBLE=1 -DBUILD_COMPLEX=1 -DBUILD_COMPLEX16=1 -DVERSION=\"0.3.27\" -msse3 -mssse3 -msse4.1 -mavx -mavx2 -UASMNAME -UASMFNAME -UNAME -UCNAME -UCHAR_NAME -UCHAR_CNAME -DASMNAME=zswap_k -DASMFNAME=zswap_k_ -DNAME=zswap_k_ -DCNAME=zswap_k -DCHAR_NAME=\"zswap_k_\" -DCHAR_CNAME=\"zswap_k\" -DNO_AFFINITY -I.. -DDOUBLE  -DCOMPLEX -DCOMPLEX -DDOUBLE ../kernel/x86_64/zswap_sse2.S -o zswap_k.o
 icc -c -O2 -DSMALL_MATRIX_OPT -DMAX_STACK_ALLOC=2048 -wd981 -DF_INTERFACE_INTEL  -fPIC -DNO_LAPACKE -DSMP_SERVER -DNO_WARMUP -DMAX_CPU_NUMBER=128 -DMAX_PARALLEL_NUMBER=1 -DBUILD_SINGLE=1 -DBUILD_DOUBLE=1 -DBUILD_COMPLEX=1 -DBUILD_COMPLEX16=1 -DVERSION=\"0.3.27\" -msse3 -mssse3 -msse4.1 -mavx -mavx2 -UASMNAME -UASMFNAME -UNAME -UCNAME -UCHAR_NAME -UCHAR_CNAME -DASMNAME=zaxpby_k -DASMFNAME=zaxpby_k_ -DNAME=zaxpby_k_ -DCNAME=zaxpby_k -DCHAR_NAME=\"zaxpby_k_\" -DCHAR_CNAME=\"zaxpby_k\" -DNO_AFFINITY -I.. -DDOUBLE  -DCOMPLEX -DCOMPLEX -UCONJ -DDOUBLE ../kernel/x86_64/../arm/zaxpby.c -o zaxpby_k.o
 icc -c -O2 -DSMALL_MATRIX_OPT -DMAX_STACK_ALLOC=2048 -wd981 -DF_INTERFACE_INTEL  -fPIC -DNO_LAPACKE -DSMP_SERVER -DNO_WARMUP -DMAX_CPU_NUMBER=128 -DMAX_PARALLEL_NUMBER=1 -DBUILD_SINGLE=1 -DBUILD_DOUBLE=1 -DBUILD_COMPLEX=1 -DBUILD_COMPLEX16=1 -DVERSION=\"0.3.27\" -msse3 -mssse3 -msse4.1 -mavx -mavx2 -UASMNAME -UASMFNAME -UNAME -UCNAME -UCHAR_NAME -UCHAR_CNAME -DASMNAME=zsum_k -DASMFNAME=zsum_k_ -DNAME=zsum_k_ -DCNAME=zsum_k -DCHAR_NAME=\"zsum_k_\" -DCHAR_CNAME=\"zsum_k\" -DNO_AFFINITY -I.. -DDOUBLE  -DCOMPLEX -DCOMPLEX -DDOUBLE ../kernel/x86_64/zsum_sse2.S -o zsum_k.o
 icc -c -O2 -DSMALL_MATRIX_OPT -DMAX_STACK_ALLOC=2048 -wd981 -DF_INTERFACE_INTEL  -fPIC -DNO_LAPACKE -DSMP_SERVER -DNO_WARMUP -DMAX_CPU_NUMBER=128 -DMAX_PARALLEL_NUMBER=1 -DBUILD_SINGLE=1 -DBUILD_DOUBLE=1 -DBUILD_COMPLEX=1 -DBUILD_COMPLEX16=1 -DVERSION=\"0.3.27\" -msse3 -mssse3 -msse4.1 -mavx -mavx2 -UASMNAME -UASMFNAME -UNAME -UCNAME -UCHAR_NAME -UCHAR_CNAME -DASMNAME=zgemv_n -DASMFNAME=zgemv_n_ -DNAME=zgemv_n_ -DCNAME=zgemv_n -DCHAR_NAME=\"zgemv_n_\" -DCHAR_CNAME=\"zgemv_n\" -DNO_AFFINITY -I.. -DDOUBLE  -DCOMPLEX -DDOUBLE -DCOMPLEX -UTRANS -UCONJ -UXCONJ ../kernel/x86_64/zgemv_n_4.c -o zgemv_n.o
@@ -4182,10 +4182,10 @@ a - zlaswp_ncopy.o
 a - lsame.o
 a - scabs1.o
 a - dcabs1.o
-make[4]: Leaving directory '/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/openblas/OpenBLAS-0.3.27/kernel'
-make[4]: Entering directory '/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/openblas/OpenBLAS-0.3.27/lapack'
+make[4]: Leaving directory '/home/imam77/src/nwchem/NWChem-WFAT/src/libext/openblas/OpenBLAS-0.3.27/kernel'
+make[4]: Entering directory '/home/imam77/src/nwchem/NWChem-WFAT/src/libext/openblas/OpenBLAS-0.3.27/lapack'
 make[4]: warning: -j2 forced in makefile: resetting jobserver mode.
-make[5]: Entering directory '/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/openblas/OpenBLAS-0.3.27/lapack/getrf'
+make[5]: Entering directory '/home/imam77/src/nwchem/NWChem-WFAT/src/libext/openblas/OpenBLAS-0.3.27/lapack/getrf'
 make[5]: warning: -j2 forced in makefile: resetting jobserver mode.
 icc -c -O2 -DSMALL_MATRIX_OPT -DMAX_STACK_ALLOC=2048 -wd981 -DF_INTERFACE_INTEL  -fPIC -DNO_LAPACKE -DSMP_SERVER -DNO_WARMUP -DMAX_CPU_NUMBER=128 -DMAX_PARALLEL_NUMBER=1 -DBUILD_SINGLE=1 -DBUILD_DOUBLE=1 -DBUILD_COMPLEX=1 -DBUILD_COMPLEX16=1 -DVERSION=\"0.3.27\" -msse3 -mssse3 -msse4.1 -mavx -mavx2 -UASMNAME -UASMFNAME -UNAME -UCNAME -UCHAR_NAME -UCHAR_CNAME -DASMNAME=sgetrf_single -DASMFNAME=sgetrf_single_ -DNAME=sgetrf_single_ -DCNAME=sgetrf_single -DCHAR_NAME=\"sgetrf_single_\" -DCHAR_CNAME=\"sgetrf_single\" -DNO_AFFINITY -I../.. -UDOUBLE  -UCOMPLEX -UDOUBLE -UCOMPLEX -DUNIT getrf_single.c -o sgetrf_single.o
 icc -c -O2 -DSMALL_MATRIX_OPT -DMAX_STACK_ALLOC=2048 -wd981 -DF_INTERFACE_INTEL  -fPIC -DNO_LAPACKE -DSMP_SERVER -DNO_WARMUP -DMAX_CPU_NUMBER=128 -DMAX_PARALLEL_NUMBER=1 -DBUILD_SINGLE=1 -DBUILD_DOUBLE=1 -DBUILD_COMPLEX=1 -DBUILD_COMPLEX16=1 -DVERSION=\"0.3.27\" -msse3 -mssse3 -msse4.1 -mavx -mavx2 -UASMNAME -UASMFNAME -UNAME -UCNAME -UCHAR_NAME -UCHAR_CNAME -DASMNAME=sgetrf_parallel -DASMFNAME=sgetrf_parallel_ -DNAME=sgetrf_parallel_ -DCNAME=sgetrf_parallel -DCHAR_NAME=\"sgetrf_parallel_\" -DCHAR_CNAME=\"sgetrf_parallel\" -DNO_AFFINITY -I../.. -UDOUBLE  -UCOMPLEX -UDOUBLE -UCOMPLEX -DUNIT getrf_parallel.c -o sgetrf_parallel.o
@@ -4204,8 +4204,8 @@ a - cgetrf_single.o
 a - cgetrf_parallel.o
 a - zgetrf_single.o
 a - zgetrf_parallel.o
-make[5]: Leaving directory '/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/openblas/OpenBLAS-0.3.27/lapack/getrf'
-make[5]: Entering directory '/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/openblas/OpenBLAS-0.3.27/lapack/getf2'
+make[5]: Leaving directory '/home/imam77/src/nwchem/NWChem-WFAT/src/libext/openblas/OpenBLAS-0.3.27/lapack/getrf'
+make[5]: Entering directory '/home/imam77/src/nwchem/NWChem-WFAT/src/libext/openblas/OpenBLAS-0.3.27/lapack/getf2'
 make[5]: warning: -j2 forced in makefile: resetting jobserver mode.
 icc -c -O2 -DSMALL_MATRIX_OPT -DMAX_STACK_ALLOC=2048 -wd981 -DF_INTERFACE_INTEL  -fPIC -DNO_LAPACKE -DSMP_SERVER -DNO_WARMUP -DMAX_CPU_NUMBER=128 -DMAX_PARALLEL_NUMBER=1 -DBUILD_SINGLE=1 -DBUILD_DOUBLE=1 -DBUILD_COMPLEX=1 -DBUILD_COMPLEX16=1 -DVERSION=\"0.3.27\" -msse3 -mssse3 -msse4.1 -mavx -mavx2 -UASMNAME -UASMFNAME -UNAME -UCNAME -UCHAR_NAME -UCHAR_CNAME -DASMNAME=sgetf2_k -DASMFNAME=sgetf2_k_ -DNAME=sgetf2_k_ -DCNAME=sgetf2_k -DCHAR_NAME=\"sgetf2_k_\" -DCHAR_CNAME=\"sgetf2_k\" -DNO_AFFINITY -I../.. -UDOUBLE  -UCOMPLEX -UCOMPLEX -UDOUBLE getf2_k.c -o sgetf2_k.o
 icc -c -O2 -DSMALL_MATRIX_OPT -DMAX_STACK_ALLOC=2048 -wd981 -DF_INTERFACE_INTEL  -fPIC -DNO_LAPACKE -DSMP_SERVER -DNO_WARMUP -DMAX_CPU_NUMBER=128 -DMAX_PARALLEL_NUMBER=1 -DBUILD_SINGLE=1 -DBUILD_DOUBLE=1 -DBUILD_COMPLEX=1 -DBUILD_COMPLEX16=1 -DVERSION=\"0.3.27\" -msse3 -mssse3 -msse4.1 -mavx -mavx2 -UASMNAME -UASMFNAME -UNAME -UCNAME -UCHAR_NAME -UCHAR_CNAME -DASMNAME=dgetf2_k -DASMFNAME=dgetf2_k_ -DNAME=dgetf2_k_ -DCNAME=dgetf2_k -DCHAR_NAME=\"dgetf2_k_\" -DCHAR_CNAME=\"dgetf2_k\" -DNO_AFFINITY -I../.. -DDOUBLE  -UCOMPLEX -UCOMPLEX -DDOUBLE getf2_k.c -o dgetf2_k.o
@@ -4216,49 +4216,49 @@ a - sgetf2_k.o
 a - dgetf2_k.o
 a - cgetf2_k.o
 a - zgetf2_k.o
-make[5]: Leaving directory '/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/openblas/OpenBLAS-0.3.27/lapack/getf2'
-make[5]: Entering directory '/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/openblas/OpenBLAS-0.3.27/lapack/laswp'
+make[5]: Leaving directory '/home/imam77/src/nwchem/NWChem-WFAT/src/libext/openblas/OpenBLAS-0.3.27/lapack/getf2'
+make[5]: Entering directory '/home/imam77/src/nwchem/NWChem-WFAT/src/libext/openblas/OpenBLAS-0.3.27/lapack/laswp'
 make[5]: warning: -j2 forced in makefile: resetting jobserver mode.
 cd x86_64 && make ../slaswp_plus.o
 cd x86_64 && make ../slaswp_minus.o
-make[6]: Entering directory '/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/openblas/OpenBLAS-0.3.27/lapack/laswp/x86_64'
-make[6]: Entering directory '/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/openblas/OpenBLAS-0.3.27/lapack/laswp/x86_64'
+make[6]: Entering directory '/home/imam77/src/nwchem/NWChem-WFAT/src/libext/openblas/OpenBLAS-0.3.27/lapack/laswp/x86_64'
+make[6]: Entering directory '/home/imam77/src/nwchem/NWChem-WFAT/src/libext/openblas/OpenBLAS-0.3.27/lapack/laswp/x86_64'
 make[6]: warning: -j2 forced in makefile: resetting jobserver mode.
 make[6]: warning: -j2 forced in makefile: resetting jobserver mode.
-icc -c -O2 -DSMALL_MATRIX_OPT -DMAX_STACK_ALLOC=2048 -wd981 -DF_INTERFACE_INTEL  -fPIC -DNO_LAPACKE -DSMP_SERVER -DNO_WARMUP -DMAX_CPU_NUMBER=128 -DMAX_PARALLEL_NUMBER=1 -DBUILD_SINGLE=1 -DBUILD_DOUBLE=1 -DBUILD_COMPLEX=1 -DBUILD_COMPLEX16=1 -DVERSION=\"0.3.27\" -msse3 -mssse3 -msse4.1 -mavx -mavx2 -UASMNAME -UASMFNAME -UNAME -UCNAME -UCHAR_NAME -UCHAR_CNAME -DASMNAME=slaswp_minus -DASMFNAME=slaswp_minus_ -DNAME=slaswp_minus_ -DCNAME=slaswp_minus -DCHAR_NAME=\"slaswp_minus_\" -DCHAR_CNAME=\"slaswp_minus\" -DNO_AFFINITY -I../../.. -UDOUBLE -DMINUS ../generic/laswp_k.c -o ../slaswp_minus.o
 icc -c -O2 -DSMALL_MATRIX_OPT -DMAX_STACK_ALLOC=2048 -wd981 -DF_INTERFACE_INTEL  -fPIC -DNO_LAPACKE -DSMP_SERVER -DNO_WARMUP -DMAX_CPU_NUMBER=128 -DMAX_PARALLEL_NUMBER=1 -DBUILD_SINGLE=1 -DBUILD_DOUBLE=1 -DBUILD_COMPLEX=1 -DBUILD_COMPLEX16=1 -DVERSION=\"0.3.27\" -msse3 -mssse3 -msse4.1 -mavx -mavx2 -UASMNAME -UASMFNAME -UNAME -UCNAME -UCHAR_NAME -UCHAR_CNAME -DASMNAME=slaswp_plus -DASMFNAME=slaswp_plus_ -DNAME=slaswp_plus_ -DCNAME=slaswp_plus -DCHAR_NAME=\"slaswp_plus_\" -DCHAR_CNAME=\"slaswp_plus\" -DNO_AFFINITY -I../../.. -UDOUBLE -UMINUS ../generic/laswp_k.c -o ../slaswp_plus.o
-make[6]: Leaving directory '/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/openblas/OpenBLAS-0.3.27/lapack/laswp/x86_64'
+icc -c -O2 -DSMALL_MATRIX_OPT -DMAX_STACK_ALLOC=2048 -wd981 -DF_INTERFACE_INTEL  -fPIC -DNO_LAPACKE -DSMP_SERVER -DNO_WARMUP -DMAX_CPU_NUMBER=128 -DMAX_PARALLEL_NUMBER=1 -DBUILD_SINGLE=1 -DBUILD_DOUBLE=1 -DBUILD_COMPLEX=1 -DBUILD_COMPLEX16=1 -DVERSION=\"0.3.27\" -msse3 -mssse3 -msse4.1 -mavx -mavx2 -UASMNAME -UASMFNAME -UNAME -UCNAME -UCHAR_NAME -UCHAR_CNAME -DASMNAME=slaswp_minus -DASMFNAME=slaswp_minus_ -DNAME=slaswp_minus_ -DCNAME=slaswp_minus -DCHAR_NAME=\"slaswp_minus_\" -DCHAR_CNAME=\"slaswp_minus\" -DNO_AFFINITY -I../../.. -UDOUBLE -DMINUS ../generic/laswp_k.c -o ../slaswp_minus.o
+make[6]: Leaving directory '/home/imam77/src/nwchem/NWChem-WFAT/src/libext/openblas/OpenBLAS-0.3.27/lapack/laswp/x86_64'
+make[6]: Leaving directory '/home/imam77/src/nwchem/NWChem-WFAT/src/libext/openblas/OpenBLAS-0.3.27/lapack/laswp/x86_64'
 cd x86_64 && make ../dlaswp_plus.o
-make[6]: Leaving directory '/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/openblas/OpenBLAS-0.3.27/lapack/laswp/x86_64'
 cd x86_64 && make ../dlaswp_minus.o
-make[6]: Entering directory '/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/openblas/OpenBLAS-0.3.27/lapack/laswp/x86_64'
-make[6]: Entering directory '/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/openblas/OpenBLAS-0.3.27/lapack/laswp/x86_64'
+make[6]: Entering directory '/home/imam77/src/nwchem/NWChem-WFAT/src/libext/openblas/OpenBLAS-0.3.27/lapack/laswp/x86_64'
+make[6]: Entering directory '/home/imam77/src/nwchem/NWChem-WFAT/src/libext/openblas/OpenBLAS-0.3.27/lapack/laswp/x86_64'
 make[6]: warning: -j2 forced in makefile: resetting jobserver mode.
 make[6]: warning: -j2 forced in makefile: resetting jobserver mode.
 icc -c -O2 -DSMALL_MATRIX_OPT -DMAX_STACK_ALLOC=2048 -wd981 -DF_INTERFACE_INTEL  -fPIC -DNO_LAPACKE -DSMP_SERVER -DNO_WARMUP -DMAX_CPU_NUMBER=128 -DMAX_PARALLEL_NUMBER=1 -DBUILD_SINGLE=1 -DBUILD_DOUBLE=1 -DBUILD_COMPLEX=1 -DBUILD_COMPLEX16=1 -DVERSION=\"0.3.27\" -msse3 -mssse3 -msse4.1 -mavx -mavx2 -UASMNAME -UASMFNAME -UNAME -UCNAME -UCHAR_NAME -UCHAR_CNAME -DASMNAME=dlaswp_plus -DASMFNAME=dlaswp_plus_ -DNAME=dlaswp_plus_ -DCNAME=dlaswp_plus -DCHAR_NAME=\"dlaswp_plus_\" -DCHAR_CNAME=\"dlaswp_plus\" -DNO_AFFINITY -I../../.. -DDOUBLE -UMINUS ../generic/laswp_k.c -o ../dlaswp_plus.o
 icc -c -O2 -DSMALL_MATRIX_OPT -DMAX_STACK_ALLOC=2048 -wd981 -DF_INTERFACE_INTEL  -fPIC -DNO_LAPACKE -DSMP_SERVER -DNO_WARMUP -DMAX_CPU_NUMBER=128 -DMAX_PARALLEL_NUMBER=1 -DBUILD_SINGLE=1 -DBUILD_DOUBLE=1 -DBUILD_COMPLEX=1 -DBUILD_COMPLEX16=1 -DVERSION=\"0.3.27\" -msse3 -mssse3 -msse4.1 -mavx -mavx2 -UASMNAME -UASMFNAME -UNAME -UCNAME -UCHAR_NAME -UCHAR_CNAME -DASMNAME=dlaswp_minus -DASMFNAME=dlaswp_minus_ -DNAME=dlaswp_minus_ -DCNAME=dlaswp_minus -DCHAR_NAME=\"dlaswp_minus_\" -DCHAR_CNAME=\"dlaswp_minus\" -DNO_AFFINITY -I../../.. -DDOUBLE -DMINUS ../generic/laswp_k.c -o ../dlaswp_minus.o
-make[6]: Leaving directory '/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/openblas/OpenBLAS-0.3.27/lapack/laswp/x86_64'
+make[6]: Leaving directory '/home/imam77/src/nwchem/NWChem-WFAT/src/libext/openblas/OpenBLAS-0.3.27/lapack/laswp/x86_64'
+make[6]: Leaving directory '/home/imam77/src/nwchem/NWChem-WFAT/src/libext/openblas/OpenBLAS-0.3.27/lapack/laswp/x86_64'
 cd x86_64 && make ../claswp_plus.o
-make[6]: Leaving directory '/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/openblas/OpenBLAS-0.3.27/lapack/laswp/x86_64'
 cd x86_64 && make ../claswp_minus.o
-make[6]: Entering directory '/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/openblas/OpenBLAS-0.3.27/lapack/laswp/x86_64'
-make[6]: Entering directory '/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/openblas/OpenBLAS-0.3.27/lapack/laswp/x86_64'
+make[6]: Entering directory '/home/imam77/src/nwchem/NWChem-WFAT/src/libext/openblas/OpenBLAS-0.3.27/lapack/laswp/x86_64'
+make[6]: Entering directory '/home/imam77/src/nwchem/NWChem-WFAT/src/libext/openblas/OpenBLAS-0.3.27/lapack/laswp/x86_64'
 make[6]: warning: -j2 forced in makefile: resetting jobserver mode.
-icc -c -O2 -DSMALL_MATRIX_OPT -DMAX_STACK_ALLOC=2048 -wd981 -DF_INTERFACE_INTEL  -fPIC -DNO_LAPACKE -DSMP_SERVER -DNO_WARMUP -DMAX_CPU_NUMBER=128 -DMAX_PARALLEL_NUMBER=1 -DBUILD_SINGLE=1 -DBUILD_DOUBLE=1 -DBUILD_COMPLEX=1 -DBUILD_COMPLEX16=1 -DVERSION=\"0.3.27\" -msse3 -mssse3 -msse4.1 -mavx -mavx2 -UASMNAME -UASMFNAME -UNAME -UCNAME -UCHAR_NAME -UCHAR_CNAME -DASMNAME=claswp_plus -DASMFNAME=claswp_plus_ -DNAME=claswp_plus_ -DCNAME=claswp_plus -DCHAR_NAME=\"claswp_plus_\" -DCHAR_CNAME=\"claswp_plus\" -DNO_AFFINITY -I../../.. -UDOUBLE -UMINUS ../generic/zlaswp_k.c -o ../claswp_plus.o
 make[6]: warning: -j2 forced in makefile: resetting jobserver mode.
 icc -c -O2 -DSMALL_MATRIX_OPT -DMAX_STACK_ALLOC=2048 -wd981 -DF_INTERFACE_INTEL  -fPIC -DNO_LAPACKE -DSMP_SERVER -DNO_WARMUP -DMAX_CPU_NUMBER=128 -DMAX_PARALLEL_NUMBER=1 -DBUILD_SINGLE=1 -DBUILD_DOUBLE=1 -DBUILD_COMPLEX=1 -DBUILD_COMPLEX16=1 -DVERSION=\"0.3.27\" -msse3 -mssse3 -msse4.1 -mavx -mavx2 -UASMNAME -UASMFNAME -UNAME -UCNAME -UCHAR_NAME -UCHAR_CNAME -DASMNAME=claswp_minus -DASMFNAME=claswp_minus_ -DNAME=claswp_minus_ -DCNAME=claswp_minus -DCHAR_NAME=\"claswp_minus_\" -DCHAR_CNAME=\"claswp_minus\" -DNO_AFFINITY -I../../.. -UDOUBLE -DMINUS ../generic/zlaswp_k.c -o ../claswp_minus.o
-make[6]: Leaving directory '/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/openblas/OpenBLAS-0.3.27/lapack/laswp/x86_64'
+icc -c -O2 -DSMALL_MATRIX_OPT -DMAX_STACK_ALLOC=2048 -wd981 -DF_INTERFACE_INTEL  -fPIC -DNO_LAPACKE -DSMP_SERVER -DNO_WARMUP -DMAX_CPU_NUMBER=128 -DMAX_PARALLEL_NUMBER=1 -DBUILD_SINGLE=1 -DBUILD_DOUBLE=1 -DBUILD_COMPLEX=1 -DBUILD_COMPLEX16=1 -DVERSION=\"0.3.27\" -msse3 -mssse3 -msse4.1 -mavx -mavx2 -UASMNAME -UASMFNAME -UNAME -UCNAME -UCHAR_NAME -UCHAR_CNAME -DASMNAME=claswp_plus -DASMFNAME=claswp_plus_ -DNAME=claswp_plus_ -DCNAME=claswp_plus -DCHAR_NAME=\"claswp_plus_\" -DCHAR_CNAME=\"claswp_plus\" -DNO_AFFINITY -I../../.. -UDOUBLE -UMINUS ../generic/zlaswp_k.c -o ../claswp_plus.o
+make[6]: Leaving directory '/home/imam77/src/nwchem/NWChem-WFAT/src/libext/openblas/OpenBLAS-0.3.27/lapack/laswp/x86_64'
+make[6]: Leaving directory '/home/imam77/src/nwchem/NWChem-WFAT/src/libext/openblas/OpenBLAS-0.3.27/lapack/laswp/x86_64'
 cd x86_64 && make ../zlaswp_plus.o
-make[6]: Leaving directory '/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/openblas/OpenBLAS-0.3.27/lapack/laswp/x86_64'
 cd x86_64 && make ../zlaswp_minus.o
-make[6]: Entering directory '/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/openblas/OpenBLAS-0.3.27/lapack/laswp/x86_64'
+make[6]: Entering directory '/home/imam77/src/nwchem/NWChem-WFAT/src/libext/openblas/OpenBLAS-0.3.27/lapack/laswp/x86_64'
+make[6]: Entering directory '/home/imam77/src/nwchem/NWChem-WFAT/src/libext/openblas/OpenBLAS-0.3.27/lapack/laswp/x86_64'
 make[6]: warning: -j2 forced in makefile: resetting jobserver mode.
-make[6]: Entering directory '/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/openblas/OpenBLAS-0.3.27/lapack/laswp/x86_64'
+make[6]: warning: -j2 forced in makefile: resetting jobserver mode.
 icc -c -O2 -DSMALL_MATRIX_OPT -DMAX_STACK_ALLOC=2048 -wd981 -DF_INTERFACE_INTEL  -fPIC -DNO_LAPACKE -DSMP_SERVER -DNO_WARMUP -DMAX_CPU_NUMBER=128 -DMAX_PARALLEL_NUMBER=1 -DBUILD_SINGLE=1 -DBUILD_DOUBLE=1 -DBUILD_COMPLEX=1 -DBUILD_COMPLEX16=1 -DVERSION=\"0.3.27\" -msse3 -mssse3 -msse4.1 -mavx -mavx2 -UASMNAME -UASMFNAME -UNAME -UCNAME -UCHAR_NAME -UCHAR_CNAME -DASMNAME=zlaswp_plus -DASMFNAME=zlaswp_plus_ -DNAME=zlaswp_plus_ -DCNAME=zlaswp_plus -DCHAR_NAME=\"zlaswp_plus_\" -DCHAR_CNAME=\"zlaswp_plus\" -DNO_AFFINITY -I../../.. -DDOUBLE -UMINUS ../generic/zlaswp_k.c -o ../zlaswp_plus.o
-make[6]: warning: -j2 forced in makefile: resetting jobserver mode.
 icc -c -O2 -DSMALL_MATRIX_OPT -DMAX_STACK_ALLOC=2048 -wd981 -DF_INTERFACE_INTEL  -fPIC -DNO_LAPACKE -DSMP_SERVER -DNO_WARMUP -DMAX_CPU_NUMBER=128 -DMAX_PARALLEL_NUMBER=1 -DBUILD_SINGLE=1 -DBUILD_DOUBLE=1 -DBUILD_COMPLEX=1 -DBUILD_COMPLEX16=1 -DVERSION=\"0.3.27\" -msse3 -mssse3 -msse4.1 -mavx -mavx2 -UASMNAME -UASMFNAME -UNAME -UCNAME -UCHAR_NAME -UCHAR_CNAME -DASMNAME=zlaswp_minus -DASMFNAME=zlaswp_minus_ -DNAME=zlaswp_minus_ -DCNAME=zlaswp_minus -DCHAR_NAME=\"zlaswp_minus_\" -DCHAR_CNAME=\"zlaswp_minus\" -DNO_AFFINITY -I../../.. -DDOUBLE -DMINUS ../generic/zlaswp_k.c -o ../zlaswp_minus.o
-make[6]: Leaving directory '/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/openblas/OpenBLAS-0.3.27/lapack/laswp/x86_64'
-make[6]: Leaving directory '/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/openblas/OpenBLAS-0.3.27/lapack/laswp/x86_64'
+make[6]: Leaving directory '/home/imam77/src/nwchem/NWChem-WFAT/src/libext/openblas/OpenBLAS-0.3.27/lapack/laswp/x86_64'
+make[6]: Leaving directory '/home/imam77/src/nwchem/NWChem-WFAT/src/libext/openblas/OpenBLAS-0.3.27/lapack/laswp/x86_64'
 ar  -rUv ../../libopenblas_haswellp-r0.3.27.a slaswp_plus.o slaswp_minus.o dlaswp_plus.o dlaswp_minus.o claswp_plus.o claswp_minus.o zlaswp_plus.o zlaswp_minus.o
 a - slaswp_plus.o
 a - slaswp_minus.o
@@ -4268,8 +4268,8 @@ a - claswp_plus.o
 a - claswp_minus.o
 a - zlaswp_plus.o
 a - zlaswp_minus.o
-make[5]: Leaving directory '/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/openblas/OpenBLAS-0.3.27/lapack/laswp'
-make[5]: Entering directory '/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/openblas/OpenBLAS-0.3.27/lapack/getrs'
+make[5]: Leaving directory '/home/imam77/src/nwchem/NWChem-WFAT/src/libext/openblas/OpenBLAS-0.3.27/lapack/laswp'
+make[5]: Entering directory '/home/imam77/src/nwchem/NWChem-WFAT/src/libext/openblas/OpenBLAS-0.3.27/lapack/getrs'
 make[5]: warning: -j2 forced in makefile: resetting jobserver mode.
 icc -c -O2 -DSMALL_MATRIX_OPT -DMAX_STACK_ALLOC=2048 -wd981 -DF_INTERFACE_INTEL  -fPIC -DNO_LAPACKE -DSMP_SERVER -DNO_WARMUP -DMAX_CPU_NUMBER=128 -DMAX_PARALLEL_NUMBER=1 -DBUILD_SINGLE=1 -DBUILD_DOUBLE=1 -DBUILD_COMPLEX=1 -DBUILD_COMPLEX16=1 -DVERSION=\"0.3.27\" -msse3 -mssse3 -msse4.1 -mavx -mavx2 -UASMNAME -UASMFNAME -UNAME -UCNAME -UCHAR_NAME -UCHAR_CNAME -DASMNAME=sgetrs_N_single -DASMFNAME=sgetrs_N_single_ -DNAME=sgetrs_N_single_ -DCNAME=sgetrs_N_single -DCHAR_NAME=\"sgetrs_N_single_\" -DCHAR_CNAME=\"sgetrs_N_single\" -DNO_AFFINITY -I../.. -UDOUBLE  -UCOMPLEX -UCOMPLEX -UDOUBLE -UTRANS getrs_single.c -o sgetrs_N_single.o
 icc -c -O2 -DSMALL_MATRIX_OPT -DMAX_STACK_ALLOC=2048 -wd981 -DF_INTERFACE_INTEL  -fPIC -DNO_LAPACKE -DSMP_SERVER -DNO_WARMUP -DMAX_CPU_NUMBER=128 -DMAX_PARALLEL_NUMBER=1 -DBUILD_SINGLE=1 -DBUILD_DOUBLE=1 -DBUILD_COMPLEX=1 -DBUILD_COMPLEX16=1 -DVERSION=\"0.3.27\" -msse3 -mssse3 -msse4.1 -mavx -mavx2 -UASMNAME -UASMFNAME -UNAME -UCNAME -UCHAR_NAME -UCHAR_CNAME -DASMNAME=sgetrs_T_single -DASMFNAME=sgetrs_T_single_ -DNAME=sgetrs_T_single_ -DCNAME=sgetrs_T_single -DCHAR_NAME=\"sgetrs_T_single_\" -DCHAR_CNAME=\"sgetrs_T_single\" -DNO_AFFINITY -I../.. -UDOUBLE  -UCOMPLEX -UCOMPLEX -UDOUBLE -DTRANS getrs_single.c -o sgetrs_T_single.o
@@ -4320,8 +4320,8 @@ a - zgetrs_N_parallel.o
 a - zgetrs_T_parallel.o
 a - zgetrs_R_parallel.o
 a - zgetrs_C_parallel.o
-make[5]: Leaving directory '/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/openblas/OpenBLAS-0.3.27/lapack/getrs'
-make[5]: Entering directory '/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/openblas/OpenBLAS-0.3.27/lapack/potrf'
+make[5]: Leaving directory '/home/imam77/src/nwchem/NWChem-WFAT/src/libext/openblas/OpenBLAS-0.3.27/lapack/getrs'
+make[5]: Entering directory '/home/imam77/src/nwchem/NWChem-WFAT/src/libext/openblas/OpenBLAS-0.3.27/lapack/potrf'
 make[5]: warning: -j2 forced in makefile: resetting jobserver mode.
 icc -c -O2 -DSMALL_MATRIX_OPT -DMAX_STACK_ALLOC=2048 -wd981 -DF_INTERFACE_INTEL  -fPIC -DNO_LAPACKE -DSMP_SERVER -DNO_WARMUP -DMAX_CPU_NUMBER=128 -DMAX_PARALLEL_NUMBER=1 -DBUILD_SINGLE=1 -DBUILD_DOUBLE=1 -DBUILD_COMPLEX=1 -DBUILD_COMPLEX16=1 -DVERSION=\"0.3.27\" -msse3 -mssse3 -msse4.1 -mavx -mavx2 -UASMNAME -UASMFNAME -UNAME -UCNAME -UCHAR_NAME -UCHAR_CNAME -DASMNAME=spotrf_U_single -DASMFNAME=spotrf_U_single_ -DNAME=spotrf_U_single_ -DCNAME=spotrf_U_single -DCHAR_NAME=\"spotrf_U_single_\" -DCHAR_CNAME=\"spotrf_U_single\" -DNO_AFFINITY -I../.. -UDOUBLE  -UCOMPLEX -UCOMPLEX -UDOUBLE potrf_U_single.c -o spotrf_U_single.o
 icc -c -O2 -DSMALL_MATRIX_OPT -DMAX_STACK_ALLOC=2048 -wd981 -DF_INTERFACE_INTEL  -fPIC -DNO_LAPACKE -DSMP_SERVER -DNO_WARMUP -DMAX_CPU_NUMBER=128 -DMAX_PARALLEL_NUMBER=1 -DBUILD_SINGLE=1 -DBUILD_DOUBLE=1 -DBUILD_COMPLEX=1 -DBUILD_COMPLEX16=1 -DVERSION=\"0.3.27\" -msse3 -mssse3 -msse4.1 -mavx -mavx2 -UASMNAME -UASMFNAME -UNAME -UCNAME -UCHAR_NAME -UCHAR_CNAME -DASMNAME=spotrf_L_single -DASMFNAME=spotrf_L_single_ -DNAME=spotrf_L_single_ -DCNAME=spotrf_L_single -DCHAR_NAME=\"spotrf_L_single_\" -DCHAR_CNAME=\"spotrf_L_single\" -DNO_AFFINITY -I../.. -UDOUBLE  -UCOMPLEX -UCOMPLEX -UDOUBLE potrf_L_single.c -o spotrf_L_single.o
@@ -4356,8 +4356,8 @@ a - zpotrf_U_single.o
 a - zpotrf_L_single.o
 a - zpotrf_U_parallel.o
 a - zpotrf_L_parallel.o
-make[5]: Leaving directory '/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/openblas/OpenBLAS-0.3.27/lapack/potrf'
-make[5]: Entering directory '/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/openblas/OpenBLAS-0.3.27/lapack/potf2'
+make[5]: Leaving directory '/home/imam77/src/nwchem/NWChem-WFAT/src/libext/openblas/OpenBLAS-0.3.27/lapack/potrf'
+make[5]: Entering directory '/home/imam77/src/nwchem/NWChem-WFAT/src/libext/openblas/OpenBLAS-0.3.27/lapack/potf2'
 make[5]: warning: -j2 forced in makefile: resetting jobserver mode.
 icc -c -O2 -DSMALL_MATRIX_OPT -DMAX_STACK_ALLOC=2048 -wd981 -DF_INTERFACE_INTEL  -fPIC -DNO_LAPACKE -DSMP_SERVER -DNO_WARMUP -DMAX_CPU_NUMBER=128 -DMAX_PARALLEL_NUMBER=1 -DBUILD_SINGLE=1 -DBUILD_DOUBLE=1 -DBUILD_COMPLEX=1 -DBUILD_COMPLEX16=1 -DVERSION=\"0.3.27\" -msse3 -mssse3 -msse4.1 -mavx -mavx2 -UASMNAME -UASMFNAME -UNAME -UCNAME -UCHAR_NAME -UCHAR_CNAME -DASMNAME=spotf2_U -DASMFNAME=spotf2_U_ -DNAME=spotf2_U_ -DCNAME=spotf2_U -DCHAR_NAME=\"spotf2_U_\" -DCHAR_CNAME=\"spotf2_U\" -DNO_AFFINITY -I../.. -UDOUBLE  -UCOMPLEX -UCOMPLEX -UDOUBLE potf2_U.c -o spotf2_U.o
 icc -c -O2 -DSMALL_MATRIX_OPT -DMAX_STACK_ALLOC=2048 -wd981 -DF_INTERFACE_INTEL  -fPIC -DNO_LAPACKE -DSMP_SERVER -DNO_WARMUP -DMAX_CPU_NUMBER=128 -DMAX_PARALLEL_NUMBER=1 -DBUILD_SINGLE=1 -DBUILD_DOUBLE=1 -DBUILD_COMPLEX=1 -DBUILD_COMPLEX16=1 -DVERSION=\"0.3.27\" -msse3 -mssse3 -msse4.1 -mavx -mavx2 -UASMNAME -UASMFNAME -UNAME -UCNAME -UCHAR_NAME -UCHAR_CNAME -DASMNAME=spotf2_L -DASMFNAME=spotf2_L_ -DNAME=spotf2_L_ -DCNAME=spotf2_L -DCHAR_NAME=\"spotf2_L_\" -DCHAR_CNAME=\"spotf2_L\" -DNO_AFFINITY -I../.. -UDOUBLE  -UCOMPLEX -UCOMPLEX -UDOUBLE potf2_L.c -o spotf2_L.o
@@ -4376,8 +4376,8 @@ a - cpotf2_U.o
 a - cpotf2_L.o
 a - zpotf2_U.o
 a - zpotf2_L.o
-make[5]: Leaving directory '/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/openblas/OpenBLAS-0.3.27/lapack/potf2'
-make[5]: Entering directory '/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/openblas/OpenBLAS-0.3.27/lapack/lauu2'
+make[5]: Leaving directory '/home/imam77/src/nwchem/NWChem-WFAT/src/libext/openblas/OpenBLAS-0.3.27/lapack/potf2'
+make[5]: Entering directory '/home/imam77/src/nwchem/NWChem-WFAT/src/libext/openblas/OpenBLAS-0.3.27/lapack/lauu2'
 make[5]: warning: -j2 forced in makefile: resetting jobserver mode.
 icc -c -O2 -DSMALL_MATRIX_OPT -DMAX_STACK_ALLOC=2048 -wd981 -DF_INTERFACE_INTEL  -fPIC -DNO_LAPACKE -DSMP_SERVER -DNO_WARMUP -DMAX_CPU_NUMBER=128 -DMAX_PARALLEL_NUMBER=1 -DBUILD_SINGLE=1 -DBUILD_DOUBLE=1 -DBUILD_COMPLEX=1 -DBUILD_COMPLEX16=1 -DVERSION=\"0.3.27\" -msse3 -mssse3 -msse4.1 -mavx -mavx2 -UASMNAME -UASMFNAME -UNAME -UCNAME -UCHAR_NAME -UCHAR_CNAME -DASMNAME=slauu2_U -DASMFNAME=slauu2_U_ -DNAME=slauu2_U_ -DCNAME=slauu2_U -DCHAR_NAME=\"slauu2_U_\" -DCHAR_CNAME=\"slauu2_U\" -DNO_AFFINITY -I../.. -UDOUBLE  -UCOMPLEX -UCOMPLEX -UDOUBLE lauu2_U.c -o slauu2_U.o
 icc -c -O2 -DSMALL_MATRIX_OPT -DMAX_STACK_ALLOC=2048 -wd981 -DF_INTERFACE_INTEL  -fPIC -DNO_LAPACKE -DSMP_SERVER -DNO_WARMUP -DMAX_CPU_NUMBER=128 -DMAX_PARALLEL_NUMBER=1 -DBUILD_SINGLE=1 -DBUILD_DOUBLE=1 -DBUILD_COMPLEX=1 -DBUILD_COMPLEX16=1 -DVERSION=\"0.3.27\" -msse3 -mssse3 -msse4.1 -mavx -mavx2 -UASMNAME -UASMFNAME -UNAME -UCNAME -UCHAR_NAME -UCHAR_CNAME -DASMNAME=slauu2_L -DASMFNAME=slauu2_L_ -DNAME=slauu2_L_ -DCNAME=slauu2_L -DCHAR_NAME=\"slauu2_L_\" -DCHAR_CNAME=\"slauu2_L\" -DNO_AFFINITY -I../.. -UDOUBLE  -UCOMPLEX -UCOMPLEX -UDOUBLE lauu2_L.c -o slauu2_L.o
@@ -4396,8 +4396,8 @@ a - clauu2_U.o
 a - clauu2_L.o
 a - zlauu2_U.o
 a - zlauu2_L.o
-make[5]: Leaving directory '/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/openblas/OpenBLAS-0.3.27/lapack/lauu2'
-make[5]: Entering directory '/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/openblas/OpenBLAS-0.3.27/lapack/lauum'
+make[5]: Leaving directory '/home/imam77/src/nwchem/NWChem-WFAT/src/libext/openblas/OpenBLAS-0.3.27/lapack/lauu2'
+make[5]: Entering directory '/home/imam77/src/nwchem/NWChem-WFAT/src/libext/openblas/OpenBLAS-0.3.27/lapack/lauum'
 make[5]: warning: -j2 forced in makefile: resetting jobserver mode.
 icc -c -O2 -DSMALL_MATRIX_OPT -DMAX_STACK_ALLOC=2048 -wd981 -DF_INTERFACE_INTEL  -fPIC -DNO_LAPACKE -DSMP_SERVER -DNO_WARMUP -DMAX_CPU_NUMBER=128 -DMAX_PARALLEL_NUMBER=1 -DBUILD_SINGLE=1 -DBUILD_DOUBLE=1 -DBUILD_COMPLEX=1 -DBUILD_COMPLEX16=1 -DVERSION=\"0.3.27\" -msse3 -mssse3 -msse4.1 -mavx -mavx2 -UASMNAME -UASMFNAME -UNAME -UCNAME -UCHAR_NAME -UCHAR_CNAME -DASMNAME=slauum_U_single -DASMFNAME=slauum_U_single_ -DNAME=slauum_U_single_ -DCNAME=slauum_U_single -DCHAR_NAME=\"slauum_U_single_\" -DCHAR_CNAME=\"slauum_U_single\" -DNO_AFFINITY -I../.. -UDOUBLE  -UCOMPLEX -UCOMPLEX -UDOUBLE lauum_U_single.c -o slauum_U_single.o
 icc -c -O2 -DSMALL_MATRIX_OPT -DMAX_STACK_ALLOC=2048 -wd981 -DF_INTERFACE_INTEL  -fPIC -DNO_LAPACKE -DSMP_SERVER -DNO_WARMUP -DMAX_CPU_NUMBER=128 -DMAX_PARALLEL_NUMBER=1 -DBUILD_SINGLE=1 -DBUILD_DOUBLE=1 -DBUILD_COMPLEX=1 -DBUILD_COMPLEX16=1 -DVERSION=\"0.3.27\" -msse3 -mssse3 -msse4.1 -mavx -mavx2 -UASMNAME -UASMFNAME -UNAME -UCNAME -UCHAR_NAME -UCHAR_CNAME -DASMNAME=slauum_L_single -DASMFNAME=slauum_L_single_ -DNAME=slauum_L_single_ -DCNAME=slauum_L_single -DCHAR_NAME=\"slauum_L_single_\" -DCHAR_CNAME=\"slauum_L_single\" -DNO_AFFINITY -I../.. -UDOUBLE  -UCOMPLEX -UCOMPLEX -UDOUBLE lauum_L_single.c -o slauum_L_single.o
@@ -4432,8 +4432,8 @@ a - zlauum_U_single.o
 a - zlauum_L_single.o
 a - zlauum_U_parallel.o
 a - zlauum_L_parallel.o
-make[5]: Leaving directory '/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/openblas/OpenBLAS-0.3.27/lapack/lauum'
-make[5]: Entering directory '/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/openblas/OpenBLAS-0.3.27/lapack/trti2'
+make[5]: Leaving directory '/home/imam77/src/nwchem/NWChem-WFAT/src/libext/openblas/OpenBLAS-0.3.27/lapack/lauum'
+make[5]: Entering directory '/home/imam77/src/nwchem/NWChem-WFAT/src/libext/openblas/OpenBLAS-0.3.27/lapack/trti2'
 make[5]: warning: -j2 forced in makefile: resetting jobserver mode.
 icc -c -O2 -DSMALL_MATRIX_OPT -DMAX_STACK_ALLOC=2048 -wd981 -DF_INTERFACE_INTEL  -fPIC -DNO_LAPACKE -DSMP_SERVER -DNO_WARMUP -DMAX_CPU_NUMBER=128 -DMAX_PARALLEL_NUMBER=1 -DBUILD_SINGLE=1 -DBUILD_DOUBLE=1 -DBUILD_COMPLEX=1 -DBUILD_COMPLEX16=1 -DVERSION=\"0.3.27\" -msse3 -mssse3 -msse4.1 -mavx -mavx2 -UASMNAME -UASMFNAME -UNAME -UCNAME -UCHAR_NAME -UCHAR_CNAME -DASMNAME=strti2_UU -DASMFNAME=strti2_UU_ -DNAME=strti2_UU_ -DCNAME=strti2_UU -DCHAR_NAME=\"strti2_UU_\" -DCHAR_CNAME=\"strti2_UU\" -DNO_AFFINITY -I../.. -UDOUBLE  -UCOMPLEX -UCOMPLEX -UDOUBLE -DUNIT trti2_U.c -o strti2_UU.o
 icc -c -O2 -DSMALL_MATRIX_OPT -DMAX_STACK_ALLOC=2048 -wd981 -DF_INTERFACE_INTEL  -fPIC -DNO_LAPACKE -DSMP_SERVER -DNO_WARMUP -DMAX_CPU_NUMBER=128 -DMAX_PARALLEL_NUMBER=1 -DBUILD_SINGLE=1 -DBUILD_DOUBLE=1 -DBUILD_COMPLEX=1 -DBUILD_COMPLEX16=1 -DVERSION=\"0.3.27\" -msse3 -mssse3 -msse4.1 -mavx -mavx2 -UASMNAME -UASMFNAME -UNAME -UCNAME -UCHAR_NAME -UCHAR_CNAME -DASMNAME=strti2_UN -DASMFNAME=strti2_UN_ -DNAME=strti2_UN_ -DCNAME=strti2_UN -DCHAR_NAME=\"strti2_UN_\" -DCHAR_CNAME=\"strti2_UN\" -DNO_AFFINITY -I../.. -UDOUBLE  -UCOMPLEX -UCOMPLEX -UDOUBLE -UUNIT trti2_U.c -o strti2_UN.o
@@ -4468,8 +4468,8 @@ a - ztrti2_UU.o
 a - ztrti2_UN.o
 a - ztrti2_LU.o
 a - ztrti2_LN.o
-make[5]: Leaving directory '/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/openblas/OpenBLAS-0.3.27/lapack/trti2'
-make[5]: Entering directory '/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/openblas/OpenBLAS-0.3.27/lapack/trtri'
+make[5]: Leaving directory '/home/imam77/src/nwchem/NWChem-WFAT/src/libext/openblas/OpenBLAS-0.3.27/lapack/trti2'
+make[5]: Entering directory '/home/imam77/src/nwchem/NWChem-WFAT/src/libext/openblas/OpenBLAS-0.3.27/lapack/trtri'
 make[5]: warning: -j2 forced in makefile: resetting jobserver mode.
 icc -c -O2 -DSMALL_MATRIX_OPT -DMAX_STACK_ALLOC=2048 -wd981 -DF_INTERFACE_INTEL  -fPIC -DNO_LAPACKE -DSMP_SERVER -DNO_WARMUP -DMAX_CPU_NUMBER=128 -DMAX_PARALLEL_NUMBER=1 -DBUILD_SINGLE=1 -DBUILD_DOUBLE=1 -DBUILD_COMPLEX=1 -DBUILD_COMPLEX16=1 -DVERSION=\"0.3.27\" -msse3 -mssse3 -msse4.1 -mavx -mavx2 -UASMNAME -UASMFNAME -UNAME -UCNAME -UCHAR_NAME -UCHAR_CNAME -DASMNAME=strtri_UU_single -DASMFNAME=strtri_UU_single_ -DNAME=strtri_UU_single_ -DCNAME=strtri_UU_single -DCHAR_NAME=\"strtri_UU_single_\" -DCHAR_CNAME=\"strtri_UU_single\" -DNO_AFFINITY -I../.. -UDOUBLE  -UCOMPLEX -UCOMPLEX -UDOUBLE -DUNIT trtri_U_single.c -o strtri_UU_single.o
 icc -c -O2 -DSMALL_MATRIX_OPT -DMAX_STACK_ALLOC=2048 -wd981 -DF_INTERFACE_INTEL  -fPIC -DNO_LAPACKE -DSMP_SERVER -DNO_WARMUP -DMAX_CPU_NUMBER=128 -DMAX_PARALLEL_NUMBER=1 -DBUILD_SINGLE=1 -DBUILD_DOUBLE=1 -DBUILD_COMPLEX=1 -DBUILD_COMPLEX16=1 -DVERSION=\"0.3.27\" -msse3 -mssse3 -msse4.1 -mavx -mavx2 -UASMNAME -UASMFNAME -UNAME -UCNAME -UCHAR_NAME -UCHAR_CNAME -DASMNAME=strtri_UN_single -DASMFNAME=strtri_UN_single_ -DNAME=strtri_UN_single_ -DCNAME=strtri_UN_single -DCHAR_NAME=\"strtri_UN_single_\" -DCHAR_CNAME=\"strtri_UN_single\" -DNO_AFFINITY -I../.. -UDOUBLE  -UCOMPLEX -UCOMPLEX -UDOUBLE -UUNIT trtri_U_single.c -o strtri_UN_single.o
@@ -4536,8 +4536,8 @@ a - ztrtri_UU_parallel.o
 a - ztrtri_UN_parallel.o
 a - ztrtri_LU_parallel.o
 a - ztrtri_LN_parallel.o
-make[5]: Leaving directory '/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/openblas/OpenBLAS-0.3.27/lapack/trtri'
-make[5]: Entering directory '/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/openblas/OpenBLAS-0.3.27/lapack/trtrs'
+make[5]: Leaving directory '/home/imam77/src/nwchem/NWChem-WFAT/src/libext/openblas/OpenBLAS-0.3.27/lapack/trtri'
+make[5]: Entering directory '/home/imam77/src/nwchem/NWChem-WFAT/src/libext/openblas/OpenBLAS-0.3.27/lapack/trtrs'
 make[5]: warning: -j2 forced in makefile: resetting jobserver mode.
 icc -c -O2 -DSMALL_MATRIX_OPT -DMAX_STACK_ALLOC=2048 -wd981 -DF_INTERFACE_INTEL  -fPIC -DNO_LAPACKE -DSMP_SERVER -DNO_WARMUP -DMAX_CPU_NUMBER=128 -DMAX_PARALLEL_NUMBER=1 -DBUILD_SINGLE=1 -DBUILD_DOUBLE=1 -DBUILD_COMPLEX=1 -DBUILD_COMPLEX16=1 -DVERSION=\"0.3.27\" -msse3 -mssse3 -msse4.1 -mavx -mavx2 -UASMNAME -UASMFNAME -UNAME -UCNAME -UCHAR_NAME -UCHAR_CNAME -DASMNAME=strtrs_UNU_single -DASMFNAME=strtrs_UNU_single_ -DNAME=strtrs_UNU_single_ -DCNAME=strtrs_UNU_single -DCHAR_NAME=\"strtrs_UNU_single_\" -DCHAR_CNAME=\"strtrs_UNU_single\" -DNO_AFFINITY -I../.. -UDOUBLE  -UCOMPLEX -UCOMPLEX -UDOUBLE -UUPLO -UTRANS -UDIAG trtrs_single.c -o strtrs_UNU_single.o
 icc -c -O2 -DSMALL_MATRIX_OPT -DMAX_STACK_ALLOC=2048 -wd981 -DF_INTERFACE_INTEL  -fPIC -DNO_LAPACKE -DSMP_SERVER -DNO_WARMUP -DMAX_CPU_NUMBER=128 -DMAX_PARALLEL_NUMBER=1 -DBUILD_SINGLE=1 -DBUILD_DOUBLE=1 -DBUILD_COMPLEX=1 -DBUILD_COMPLEX16=1 -DVERSION=\"0.3.27\" -msse3 -mssse3 -msse4.1 -mavx -mavx2 -UASMNAME -UASMFNAME -UNAME -UCNAME -UCHAR_NAME -UCHAR_CNAME -DASMNAME=strtrs_UNN_single -DASMFNAME=strtrs_UNN_single_ -DNAME=strtrs_UNN_single_ -DCNAME=strtrs_UNN_single -DCHAR_NAME=\"strtrs_UNN_single_\" -DCHAR_CNAME=\"strtrs_UNN_single\" -DNO_AFFINITY -I../.. -UDOUBLE  -UCOMPLEX -UCOMPLEX -UDOUBLE -UUPLO -UTRANS -DDIAG trtrs_single.c -o strtrs_UNN_single.o
@@ -4732,11 +4732,11 @@ a - ztrtrs_LRU_parallel.o
 a - ztrtrs_LRN_parallel.o
 a - ztrtrs_LCU_parallel.o
 a - ztrtrs_LCN_parallel.o
-make[5]: Leaving directory '/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/openblas/OpenBLAS-0.3.27/lapack/trtrs'
-make[4]: Leaving directory '/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/openblas/OpenBLAS-0.3.27/lapack'
-make[4]: Entering directory '/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/openblas/OpenBLAS-0.3.27/lapack-netlib'
+make[5]: Leaving directory '/home/imam77/src/nwchem/NWChem-WFAT/src/libext/openblas/OpenBLAS-0.3.27/lapack/trtrs'
+make[4]: Leaving directory '/home/imam77/src/nwchem/NWChem-WFAT/src/libext/openblas/OpenBLAS-0.3.27/lapack'
+make[4]: Entering directory '/home/imam77/src/nwchem/NWChem-WFAT/src/libext/openblas/OpenBLAS-0.3.27/lapack-netlib'
 make -C SRC
-make[5]: Entering directory '/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/openblas/OpenBLAS-0.3.27/lapack-netlib/SRC'
+make[5]: Entering directory '/home/imam77/src/nwchem/NWChem-WFAT/src/libext/openblas/OpenBLAS-0.3.27/lapack-netlib/SRC'
 ifort -O2 -i8 -recursive -fp-model strict -assume protect-parens -fPIC -msse3 -mssse3 -msse4.1 -mavx -mavx2 -c -o spotrf2.o spotrf2.f
 ifort -O2 -i8 -recursive -fp-model strict -assume protect-parens -fPIC -msse3 -mssse3 -msse4.1 -mavx -mavx2 -c -o sgetrf2.o sgetrf2.f
 ifort -O2 -i8 -recursive -fp-model strict -assume protect-parens -fPIC -msse3 -mssse3 -msse4.1 -mavx -mavx2 -c -o sgbbrd.o sgbbrd.f
@@ -8578,11 +8578,11 @@ a - DEPRECATED/zgelqs.o
 a - DEPRECATED/zgeqrs.o
 ranlib ../../libopenblas_haswellp-r0.3.27.a
 rm la_xisnan.mod
-make[5]: Leaving directory '/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/openblas/OpenBLAS-0.3.27/lapack-netlib/SRC'
-make[4]: Leaving directory '/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/openblas/OpenBLAS-0.3.27/lapack-netlib'
-make[4]: Entering directory '/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/openblas/OpenBLAS-0.3.27/lapack-netlib'
+make[5]: Leaving directory '/home/imam77/src/nwchem/NWChem-WFAT/src/libext/openblas/OpenBLAS-0.3.27/lapack-netlib/SRC'
+make[4]: Leaving directory '/home/imam77/src/nwchem/NWChem-WFAT/src/libext/openblas/OpenBLAS-0.3.27/lapack-netlib'
+make[4]: Entering directory '/home/imam77/src/nwchem/NWChem-WFAT/src/libext/openblas/OpenBLAS-0.3.27/lapack-netlib'
 make -C TESTING/MATGEN
-make[5]: Entering directory '/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/openblas/OpenBLAS-0.3.27/lapack-netlib/TESTING/MATGEN'
+make[5]: Entering directory '/home/imam77/src/nwchem/NWChem-WFAT/src/libext/openblas/OpenBLAS-0.3.27/lapack-netlib/TESTING/MATGEN'
 ifort -O2 -i8 -recursive -fp-model strict -assume protect-parens -fPIC -msse3 -mssse3 -msse4.1 -mavx -mavx2 -c -o slatms.o slatms.f
 ifort -O2 -i8 -recursive -fp-model strict -assume protect-parens -fPIC -msse3 -mssse3 -msse4.1 -mavx -mavx2 -c -o slatme.o slatme.f
 ifort -O2 -i8 -recursive -fp-model strict -assume protect-parens -fPIC -msse3 -mssse3 -msse4.1 -mavx -mavx2 -c -o slatmr.o slatmr.f
@@ -8733,6 +8733,6 @@ a - dlatm7.o
 a - dlaran.o
 a - dlarnd.o
 ranlib ../../../libopenblas_haswellp-r0.3.27.a
-make[5]: Leaving directory '/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/openblas/OpenBLAS-0.3.27/lapack-netlib/TESTING/MATGEN'
-make[4]: Leaving directory '/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/openblas/OpenBLAS-0.3.27/lapack-netlib'
-make[3]: Leaving directory '/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/openblas/OpenBLAS-0.3.27'
+make[5]: Leaving directory '/home/imam77/src/nwchem/NWChem-WFAT/src/libext/openblas/OpenBLAS-0.3.27/lapack-netlib/TESTING/MATGEN'
+make[4]: Leaving directory '/home/imam77/src/nwchem/NWChem-WFAT/src/libext/openblas/OpenBLAS-0.3.27/lapack-netlib'
+make[3]: Leaving directory '/home/imam77/src/nwchem/NWChem-WFAT/src/libext/openblas/OpenBLAS-0.3.27'

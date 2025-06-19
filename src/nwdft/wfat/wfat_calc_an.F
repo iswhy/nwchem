@@ -99,8 +99,8 @@ c           ==== If the above H_int is diagonal ... ====
                   call wfat_construct_polb(pbs(j,j,:,i), pb(:,:,jj))
                enddo
             endif
-cDEBUG            call wfat_print_degdip2(bt, gm, isdiag, nn, 
-cDEBUG     &           dps(1:nn,1:nn,:,i), scr(p_hi))
+cdebug            call wfat_print_degdip2(bt, gm, isdiag, nn, 
+cdebug     &           dps(1:nn,1:nn,:,i), scr(p_hi))
 
 c        ==== If non-degenerate ====
          else

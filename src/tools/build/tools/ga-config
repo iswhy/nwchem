@@ -256,7 +256,7 @@ as_unset=as_fn_unset
 ## -------------------- ##
 
 
-prefix="/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/tools/install"
+prefix="/home/imam77/src/nwchem/NWChem-WFAT/src/tools/install"
 exec_prefix="${prefix}"
 dep_libs="-larmci  -lmpifort -lmpi -lrt -lpthread -ldl "
 if test -f "$prefix/bin/armci-config"; then :
@@ -284,7 +284,7 @@ use_elpa_2015="0"
 use_elpa_2016="0"
 use_sicm="0"
 sicm_dev="no"
-ldflags=" -L/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/lib  -L/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/lib  -L/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/lib  -L/home/packages/compilers/intel/mpi/2021.5.1/lib/release -L/home/packages/compilers/intel/mpi/2021.5.1/lib   -L${exec_prefix}/lib"
+ldflags=" -L/home/imam77/src/nwchem/NWChem-WFAT/src/libext/lib  -L/home/imam77/src/nwchem/NWChem-WFAT/src/libext/lib  -L/home/imam77/src/nwchem/NWChem-WFAT/src/libext/lib  -L/home/packages/compilers/intel/mpi/2021.5.1/lib/release -L/home/packages/compilers/intel/mpi/2021.5.1/lib   -L${exec_prefix}/lib"
 network_ldflags=""
 libs="-lga  -lnwc_scalapack  -lnwc_openblas -lpthread  -lnwc_openblas -lpthread $dep_libs "
 network_libs=""

@@ -1,4 +1,4 @@
-# Install script for directory: /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack
+# Install script for directory: /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -43,7 +43,7 @@ if(NOT DEFINED CMAKE_OBJDUMP)
 endif()
 
 if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib" TYPE STATIC_LIBRARY FILES "/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/lib/libscalapack.a")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib" TYPE STATIC_LIBRARY FILES "/home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/lib/libscalapack.a")
 endif()
 
 if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
@@ -55,13 +55,13 @@ if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT
   if(CMAKE_ERROR_ON_ABSOLUTE_INSTALL_DESTINATION)
     message(FATAL_ERROR "ABSOLUTE path INSTALL DESTINATION forbidden (by caller): ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
   endif()
-  file(INSTALL DESTINATION "/usr/local/lib/pkgconfig" TYPE FILE FILES "/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/scalapack.pc")
+  file(INSTALL DESTINATION "/usr/local/lib/pkgconfig" TYPE FILE FILES "/home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/scalapack.pc")
 endif()
 
 if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/cmake/scalapack-2.2.1" TYPE FILE FILES
-    "/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/CMakeFiles/scalapack-config.cmake"
-    "/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/scalapack-config-version.cmake"
+    "/home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/CMakeFiles/scalapack-config.cmake"
+    "/home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/scalapack-config-version.cmake"
     )
 endif()
 
@@ -69,7 +69,7 @@ if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT
   if(EXISTS "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/cmake/scalapack-2.2.1/scalapack-targets.cmake")
     file(DIFFERENT _cmake_export_file_changed FILES
          "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/cmake/scalapack-2.2.1/scalapack-targets.cmake"
-         "/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/CMakeFiles/Export/51f8d17d98dae6d66dec5275f1680311/scalapack-targets.cmake")
+         "/home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/CMakeFiles/Export/51f8d17d98dae6d66dec5275f1680311/scalapack-targets.cmake")
     if(_cmake_export_file_changed)
       file(GLOB _cmake_old_config_files "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/cmake/scalapack-2.2.1/scalapack-targets-*.cmake")
       if(_cmake_old_config_files)
@@ -82,20 +82,20 @@ if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT
     endif()
     unset(_cmake_export_file_changed)
   endif()
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/cmake/scalapack-2.2.1" TYPE FILE FILES "/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/CMakeFiles/Export/51f8d17d98dae6d66dec5275f1680311/scalapack-targets.cmake")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/cmake/scalapack-2.2.1" TYPE FILE FILES "/home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/CMakeFiles/Export/51f8d17d98dae6d66dec5275f1680311/scalapack-targets.cmake")
   if(CMAKE_INSTALL_CONFIG_NAME MATCHES "^([Mm][Ii][Nn][Ss][Ii][Zz][Ee][Rr][Ee][Ll])$")
-    file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/cmake/scalapack-2.2.1" TYPE FILE FILES "/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/CMakeFiles/Export/51f8d17d98dae6d66dec5275f1680311/scalapack-targets-minsizerel.cmake")
+    file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/cmake/scalapack-2.2.1" TYPE FILE FILES "/home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/CMakeFiles/Export/51f8d17d98dae6d66dec5275f1680311/scalapack-targets-minsizerel.cmake")
   endif()
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
-  include("/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/BLACS/cmake_install.cmake")
-  include("/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/TOOLS/cmake_install.cmake")
-  include("/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/PBLAS/cmake_install.cmake")
-  include("/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/REDIST/cmake_install.cmake")
-  include("/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/SRC/cmake_install.cmake")
-  include("/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/TESTING/cmake_install.cmake")
+  include("/home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/BLACS/cmake_install.cmake")
+  include("/home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/TOOLS/cmake_install.cmake")
+  include("/home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/PBLAS/cmake_install.cmake")
+  include("/home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/REDIST/cmake_install.cmake")
+  include("/home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/SRC/cmake_install.cmake")
+  include("/home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/TESTING/cmake_install.cmake")
 
 endif()
 
@@ -107,5 +107,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

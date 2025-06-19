@@ -76,7 +76,7 @@ static int calc_maplen(int handle);
 /*#define CHECK_MA yes */
 
 /*uncomment line below to verify if MA base address is alligned wrt datatype*/
-#if !(defined(LINUX) || defined(CRAY) || defined(CYGWIN) || defined(MACX))
+#if !(defined(LINUX) || defined(CRAY) || defined(CYGWIN))
 #define CHECK_MA_ALGN 1
 #endif
 

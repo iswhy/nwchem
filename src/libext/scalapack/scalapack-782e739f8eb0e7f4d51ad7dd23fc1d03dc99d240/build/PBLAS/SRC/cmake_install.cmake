@@ -1,4 +1,4 @@
-# Install script for directory: /ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/PBLAS/SRC
+# Install script for directory: /home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/PBLAS/SRC
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -44,9 +44,9 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
-  include("/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/PBLAS/SRC/PBBLAS/cmake_install.cmake")
-  include("/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/PBLAS/SRC/PTZBLAS/cmake_install.cmake")
-  include("/ddnB/work/iswhy/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/PBLAS/SRC/PTOOLS/cmake_install.cmake")
+  include("/home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/PBLAS/SRC/PBBLAS/cmake_install.cmake")
+  include("/home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/PBLAS/SRC/PTZBLAS/cmake_install.cmake")
+  include("/home/imam77/src/nwchem/NWChem-WFAT/src/libext/scalapack/scalapack/build/PBLAS/SRC/PTOOLS/cmake_install.cmake")
 
 endif()
 
