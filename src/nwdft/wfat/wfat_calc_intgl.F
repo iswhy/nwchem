@@ -200,7 +200,7 @@ c     ==== Calculate WFAT(1) Omega ====
 c     ==== BEGIN QUADRATURE SUMMATION ====
 c     ==== Loop over atoms ====
       call ga_sync()
-      call wfat_get_intgl_chkpt(nptp, pr_chk)
+      call wfat_get_intgl_chkpt(nptp, 10, pr_chk)
       call wfat_init_progress(nptp, g_nptx, npt_tot)
       if (ndid == 0) write(luout, '(5x, "The total number of '//
      &     'quadrature grid points is ", i9, ".")') int(npt_tot)
@@ -1184,18 +1184,19 @@ c=======================================================
 
 c=======================================================
 c=======================================================
-      subroutine wfat_get_intgl_chkpt(npt, chk)
+      subroutine wfat_get_intgl_chkpt(npt, nparts, chk)
 
       implicit none
       integer npt
-      integer chk(10)
+      integer nparts
+      integer chk(nparts)
 
       integer i
 
-      do i = 1, 10
-         chk(i) = int( i/10.0d0 * npt )
+      do i = 1, nparts
+         chk(i) = int( i/dble(nparts) * npt )
       enddo
-      chk(10) = npt
+      chk(nparts) = npt
 
       end
 c=======================================================

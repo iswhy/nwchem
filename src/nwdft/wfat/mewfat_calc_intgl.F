@@ -240,7 +240,7 @@ c     ==== Loop over atoms ====
       do ic = 1, natp
          nptp = nptp + ipp(2,ic) - ipp(1,ic) + 1
       enddo
-      call wfat_get_intgl_chkpt(nptp, pr_chk)
+      call wfat_get_intgl_chkpt(nptp, 10, pr_chk)
       call wfat_init_progress(nptp, g_nptx, npt_tot)
       if (ndid == 0) write(luout, '(5x, "The total number of '//
      &     'quadrature grid points is ", i9, ".")') int(npt_tot)

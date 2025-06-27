@@ -7,6 +7,7 @@ c=======================================================
      &     dps, pbs, wfat1_exc)
 
       implicit none
+#include "util.fh"
 #include "global.fh"      
 #include "errquit.fh"
 #include "stdio.fh"
@@ -51,6 +52,7 @@ c=======================================================
       double precision pbs(1:*)       ! [input]. Only used when wfat1=.true..
       logical wfat1_exc(1:*)          ! [input]. Only used when wfat1=.true..
 
+      character*12 dt_str
       character*16 tagt
       logical gap, interm, cgrid(nch)
       integer l_sg, l_fc, l_rt, l_icp, l_ipp, l_pt, l_wt, l_vc, l_cl
@@ -65,10 +67,10 @@ c=======================================================
       integer n_acj, n_ack, n_dum, nsc, nsx, npbd, n_sj, n_sk, n_on
       integer nch1, ndid, nbt, ngm, natp, natop, nptp, nptop, i, k, iqn
       integer i_on, ig, ib, i_tu0, i_tu0o, i_vc, i_vco, i_acj, icpo
-      integer ippo(2), ozn, geomo
+      integer ippo(2), ozn, geomo, pr_chk(20), nang, kk
       double precision bt_start, bt_last, dbt, dbtr, gm_start, gm_last
       double precision dgm, dgmr, dthr, bt, gm, rate, vdum(3)
-      double precision deg2rad
+      double precision deg2rad, t_now, t_last, t_start, dt_all, dt_prog
       parameter(deg2rad=0.01745329251994d0)
 
 
@@ -261,6 +263,14 @@ c     ==== Initializing the printings ====
 
       
 c     ==== Scan over the orientation angles ====
+      call wfat_get_intgl_chkpt(nbt*ngm, 20, pr_chk)
+      if (ndid == 0) write(luout, '(5x, "The total number of '//
+     &     'orientation angles is ", i9, ".")') nbt*ngm
+
+      t_last = util_cpusec()
+      t_start = t_last
+      nang = 0
+      kk = 1
       do ig = 1, ngm
          gm = gm_start + dgm*(ig-1)
 
@@ -371,9 +381,25 @@ c              ==== Print ionization rate ====
      &              call wfat_print_rate(bt, gm, nch, nqn, dbl_mb(k_rt),
      &              rate, gap)
             endif
+
             
+            nang = nang + 1
+            call ga_sync()
+            if (nang == pr_chk(kk)) then
+               t_now = util_cpusec()
+               dt_prog = t_now - t_last
+               t_last = t_now
+               if(ndid == 0) call wfat_intgl_progress_nopw(kk, nang,
+     &              dt_prog, nbt*ngm)
+               kk = kk + 1
+            endif
          enddo
       enddo
+      dt_all = t_now - t_start
+      write(dt_str, '(f12.2)') dt_all
+      if (ndid == 0) write(luout, '(5x, "The computation of '//
+     &     'ionization quantities takes ", a, " s.")')
+     &     trim(adjustl(dt_str))
 
       
 c     ==== Terminating printings ====

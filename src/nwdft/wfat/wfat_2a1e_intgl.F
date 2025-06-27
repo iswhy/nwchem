@@ -176,7 +176,7 @@ c               terms associated to the three cartesian components of the dipole
       
 c     ==== BEGIN QUADRATURE SUMMATION ====
       call ga_sync()
-      call wfat_get_intgl_chkpt(nptp, pr_chk)
+      call wfat_get_intgl_chkpt(nptp, 10, pr_chk)
       call wfat_init_progress(nptp, g_nptx, npt_tot)
       if (ndid == 0) write(luout, '(5x, "The total number of '//
      &     'quadrature grid points is ", i9, ".")') int(npt_tot)

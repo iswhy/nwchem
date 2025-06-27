@@ -81,3 +81,29 @@ c=================================================
 
       end
 c=================================================
+
+
+c=================================================
+c=================================================
+      subroutine wfat_intgl_progress_nopw(k, nang, dt, nang_tot)
+
+      implicit none
+#include "stdio.fh"
+      integer k                 ! [input]
+      integer nang              ! [input]
+      double precision dt       ! [input]
+      integer nang_tot          ! [input]
+
+      character*12 nang_str, nang_tot_str, dt_str
+
+      write(nang_str, '(i12)') int(nang)
+      write(nang_tot_str, '(i12)') int(nang_tot)
+      write(dt_str, '(f12.2)') dt
+      write(luout, '(7x, "Progress : ", i3, "% ", a, 3x, '//
+     &     '"time needed = ", a, " s")')
+     &     k*100/20, '('//trim(adjustl(nang_str))//'/'
+     &     //trim(adjustl(nang_tot_str))//')', trim(adjustl(dt_str))
+
+      end
+c=================================================
+      
