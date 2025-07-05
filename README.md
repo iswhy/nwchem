@@ -48,3 +48,8 @@ https://github.com/nwchemgit/nwchem/blob/master/release.notes.7.2.3.md
 
 ### Documentation
 https://nwchemgit.github.io
+
+
+
+## WFAT Module
+The current branch of the NWChem quantum chemistry program contains the implementation of the weak-field asymptotic theory (WFAT) as a module. WFAT is a method for molecular tunneling ionization due to static fields. There are two types of task in the WFAT module: wfat $`f(x)`$
