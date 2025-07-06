@@ -52,9 +52,9 @@ https://nwchemgit.github.io
 
 
 ## WFAT Module
-The current branch of the NWChem quantum chemistry program contains the implementation of the *weak-field asymptotic theory (WFAT) in the integral representation (IR)* as a module. WFAT is a method for the simulation of molecular tunneling ionization due to static fields. A quick tutorial on how to use this module as well as the definition of the input directives are given in the following.
+The current branch of the NWChem quantum chemistry program contains the implementation of the *weak-field asymptotic theory (WFAT) in the integral representation (IR)* as a module. WFAT is a rigorous method for the simulation of molecular tunneling ionization due to static fields. Our current implementation of WFAT as a NWChem module supports one-electron WFAT in the leading-order approximation (OE-WFAT(0)), one-electron WFAT including the first-order correction (OE-WFAT(1)), and many-electron WFAT in the leading-order approximation (ME-WFAT(0)). Typical applications of WFAT include the calculation of orientation-dependent strong-field ionization rates of a molecule and the associated transverse electron momentum distributions. A quick tutorial on how to use this module as well as the definition of the input directives are given in the following.
 
-***Note:***
+***Note***:
 At the moment, the WFAT module can only be used for states or orbitals obtained from a DFT calculation using the `nwxc` DFT library. Extending the implementation to allow use of the `libxc` library and to be independent of DFT, hence allowing more general wave function types, is still in our plan.
 
 
@@ -132,9 +132,21 @@ wfat
 end
 task wfat oe
 ```
-The directive `wfat1` must be present in order to run the simulation using OE-WFAT with the first-order correction (OE-WFAT(1)). The remaining two additional directives, `wfat1_exclude` and `degenthr`, are optional for running OE-WFAT(1) simulations, nevertheless, they almost always need to be set. `wfat1_exclude` controls which channels (defined as the combination of an ionized orbital and a parabolic quantum number) are to be treated using OE-WFAT(0) (the leading-order approximation). In order to obtain calculation results that follow a systematic progression in the order of the field strength, one needs to choose the approperiate level of approximation for a particular parabolic channel given the order of the field in the field dependence of that parabolic channel. In particular, if the dominant channel $(0,0)$ is treated using OE-WFAT(1) and channels $(0,\pm1)$ are to be included, then the latter channels should be treated using OE-WFAT(0), see [trinh2015](trinh2015) and [wahyutama2025](wahyutama2025). The channels to be treated using OE-WFAT(0) (excluded from OE-WFAT(1)) are specified as a string of four characters, such as `a -1 0 1`. The first two of the four character sequence specify the spin channel and the ID of the ionized orbital, while the last two specify the $n_\xi$ and the $m$ components of the parabolic quantum number. `degenthr` sets a threshold to detect degenerate orbitals. See the [WFAT Input Directives Section below]{wfat-input-directives} for the more detailed definitions of these input directives.
+In addition to the directives present in the first example, three additional directive have been added: `wfat1`, `wfat1_exclude`, and `degenthr`. The directive `wfat1` must be present in order to run the simulation using OE-WFAT with the first-order correction (OE-WFAT(1)). The remaining two additional directives are optional for running OE-WFAT(1) simulations, nevertheless, they almost always need to be set. `wfat1_exclude` controls which channels (defined as the combination of an ionized orbital and a parabolic quantum number) are to be treated using OE-WFAT(0) (the leading-order approximation). In order to obtain calculation results that follow a systematic progression in the order of the field strength, one needs to choose the approperiate level of approximation for a particular parabolic channel given the order of the field in the field dependence of that parabolic channel. In particular, if the dominant channel $(0,0)$ is treated using OE-WFAT(1) and channels $(0,\pm1)$ are to be included, then the latter channels should be treated using OE-WFAT(0), see [trinh2015](trinh2015) and [wahyutama2025](wahyutama2025). The channels to be treated using OE-WFAT(0) (excluded from OE-WFAT(1)) are specified as a string of four characters, such as `a -1 0 1`. The first two of the four-character sequence specify the spin channel and the ID of the ionized orbital, while the last two specify the $n_\xi$ and the $m$ components of the parabolic quantum number. `degenthr` sets a threshold to detect degenerate orbitals. It is sometimes necessary to set `degenthr` to a value different from its default because the energy difference between degenerate states in a molecule can vary by more than one orders of magnitude from the energy difference in another molecule. See the [WFAT Input Directives Section below](wfat-input-directives) for the more detailed definitions of these input directives.
 
 
 
 ### Ionization calculation using many-electron WFAT (ME-WFAT)
+In the previous section, two examples on how to run OE-WFAT(0) and OE-WFAT(1) simulations are presented. Our implementation of WFAT also includes a capability to treat molecular tunneling ionization directly from the exact multi-electron Hamiltonian without approximating the molecule as a single-active-electron system as in OE-WFAT. While ME-WFAT results in more accurate ionization rates from weakly-correlated states than OE-WFAT, it is most suitably used to calculate tunneling ionization rates from highly-correlated states.
 
+***Note***:
+Although theoretically, ME-WFAT can treat a vast range of wave function structures, our current implementation is still limited to single-determinantal wave functions, such as Hartree-Fock or DFT wave functions.
+
+
+
+
+### Input directives for the WFAT module
+
+
+
+## References
