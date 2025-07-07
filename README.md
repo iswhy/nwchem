@@ -55,7 +55,7 @@ https://nwchemgit.github.io
 The current branch of the NWChem quantum chemistry program contains the implementation of the *weak-field asymptotic theory (WFAT) in the integral representation (IR)* as a module. WFAT is a rigorous method for the simulation of molecular tunneling ionization due to static fields. Our current implementation of WFAT as a NWChem module supports one-electron WFAT in the leading-order approximation (OE-WFAT(0)), one-electron WFAT including the first-order correction (OE-WFAT(1)), and many-electron WFAT in the leading-order approximation (ME-WFAT(0)). Typical applications of WFAT include the calculation of orientation-dependent strong-field ionization rates of a molecule and the associated transverse electron momentum distributions. A quick tutorial on how to use this module as well as the definition of the input directives are given in the following.
 
 ***Note***:
-At the moment, the WFAT module can only be used for states or orbitals obtained from a DFT calculation using the `nwxc` DFT library. Extending the implementation to allow use of the `libxc` library and to be independent of DFT, hence allowing more general wave function types, is still in our plan.
+At the moment, the WFAT module can only be used for states or orbitals obtained from a DFT calculation using the `nwxc` DFT library. Extending the implementation to allow use of the `libxc` library and to be independent of DFT, hence allowing more general wave function types, is in our plan.
 
 
 
@@ -107,7 +107,7 @@ task wfat oe
 ```
 The line `set dft:gonwxc .true.` instructs NWChem to activate the `nwxc` library. The spefication `new` for the `XC` input further tells NWChem to choose the B3LYP XC functional from the `nwxc` library. The option `noautosym` is invoked in the directive `geometry`. It is desirable to prevent NWChem to automatically reorient the molecule during the simulation, which can happen while it is trying to determine the molecule's point group. If the the geometry has been reoriented, the zero-orientation reference for the orientation-dependent ionization rates will be associated with the reoriented geometry, not the one the user has defined in the input deck, which may have been arranged according to the user's preference.
 
-The `wfat` block is where WFAT-related parameters should be defined. `beta` and `gamma` specify the $(\beta,\gamma)$ pairs of Euler orientation angles. The number of parabolic quantum channels used for calculating the total rate is specified through `paraqn`. The options specified for the `print` directive instruct the module to print the structure factor (`srfc`) and ionization rate (`rate`). Since the HOMO of methyl bromide is doubly denegerate, one specifies `a 0 -1` for `movec_id`. `a`, `0`, and `-1` stand for spin alpha channel, the first HOMO, and the second HOMO, respectively. Note that the MOs to be ionized are identified so that their ID starts from zero for the HOMO, -1 for the next MO with a lower (or the same) orbital energy, and so on. Our implementation of WFAT in the IR provides both the partial-wave and non-partial-wave formulations. The input above specifies a partial-wave OE-WFAT calculation where the maximum angular momentum is specified as `lmax 10`. The external field can specified through the `field` input block. In the example above, the field is static (DC field) and its magnitude is 0.004 a.u. To specify that the simulation should be run with the OE-WFAT algorithm, one uses `task wfat oe`. The more detailed description of each of these input directives can be found [below](wfat-input-directives).
+The `wfat` block is where WFAT-related parameters should be defined. `beta` and `gamma` specify the $(\beta,\gamma)$ pairs of Euler orientation angles. The number of parabolic quantum channels used for calculating the total rate is specified through `paraqn`. The options specified for the `print` directive instruct the module to print the structure factor (`srfc`) and ionization rate (`rate`). Since the HOMO of methyl bromide is doubly denegerate, one specifies `a 0 -1` for `movec_id`. `a`, `0`, and `-1` stand for spin alpha channel, the first HOMO, and the second HOMO, respectively. Note that the MOs to be ionized are identified so that their ID starts from zero for the HOMO, -1 for the next MO with a lower (or the same) orbital energy, and so on. Our implementation of WFAT in the IR provides both the partial-wave and non-partial-wave formulations. The input above specifies a partial-wave OE-WFAT calculation where the maximum angular momentum is specified as `lmax 10`. The external field can specified through the `field` input block. In the example above, the field is static (DC field) and its magnitude is 0.004 a.u. To specify that the simulation should be run with the OE-WFAT algorithm, use the `oe` option for the `task wfat` directive. The more detailed description of each of these input directives can be found [below](wfat-input-directives).
 
 The first input example above will run a OE-WFAT calculation in the so-called leading-order approximation, which essentially means that the field-dependence in the method is truncated up to the zeroth order. If more accuracy in terms of field-dependence of the ionization rate is desired, one should specify the approximation level to be the first order. A snippet of the `wfat` block below exemplifies how to use the first-order algorithm.
 ```
@@ -142,6 +142,83 @@ In the previous section, two examples on how to run OE-WFAT(0) and OE-WFAT(1) si
 ***Note***:
 Although theoretically, ME-WFAT can treat a vast range of wave function structures, our current implementation is still limited to single-determinantal wave functions, such as Hartree-Fock or DFT wave functions.
 
+The following snippet is an example of input deck to run ME-WFAT(0) calculation on methyl bromide in which the ionization channel starts from the DFT ground state of the neutral to the DFT ground state of the cation.
+```
+start
+title "CH3Br ME-WFAT(0) - the first degenerate rate"
+echo
+
+######################################################
+geometry noautosym
+ Br   0.000   0.000   1.934
+  C   0.000   0.000   0.000
+  H   1.032   0.000  -0.333
+  H  -0.516   0.894  -0.333
+  H  -0.516  -0.894  -0.333
+end
+
+basis spherical
+  * library aug-cc-pvtz
+end
+######################################################
+
+set dft:gonwxc .true.
+
+######################################################
+charge 0
+dft
+  maxiter 500
+  mult 1
+  xc new xcampbe96 1.0 cpbe96 1.0         #HFexch 1.0
+  cam 0.30 cam_alpha 0.70 cam_beta 0.30
+  vectors output "CH3Br.ion0.movecs"
+end
+
+task dft
+######################################################
+
+#####################################################
+charge 1
+dft
+  maxiter 500
+  mult 2
+  xc new xcampbe96 1.0 cpbe96 1.0         #HFexch 1.0
+  cam 0.30 cam_alpha 0.70 cam_beta 0.30
+  vectors input "CH3Br.ion0.movecs" output "CH3Br.ion1.movecs"
+end
+
+task dft
+######################################################
+
+######################################################
+basis "wfat_rsbas" spherical
+  x  s
+     1.00  1.00
+end
+
+wfat
+  print srfc yield
+  beta   0.0 121 180.0
+  gamma  0.0 151 360.0
+  paraqn  "n0" 0 -1 +1
+  field
+    type dc
+    max 0.012
+  end
+  si_type dyson
+end
+task wfat me
+######################################################
+```
+ME-WFAT calculations require two wave functions, that of the neutral and that of the cation. That is why there are two DFT calculations in the input deck above indicated by the charge settings `charge 0` and `charge 1`. The ME-WFAT code reads the single-determinantal wave functions of the neutral and cation through their respective occupied molecular orbitals. It searches for files named `<prefix>.ion0.movecs` and `<prefix>.ion1.movecs` in the current directory for the occupied MOs of the neutral and cation, respectively. The line `vectors output "CH3Br.ion0.movecs"` ensures that the file containing neutral's MOs can be recognized by the WFAT module. The MO saving specification for the cation, namely, `vectors input "CH3Br.ion0.movecs" output "CH3Br.ion1.movecs"` is slightly different due to the presence of the input (initial guess) MOs specification. While this is optional, it helps in cases where the cation's ground state is degenerate, such as for methyl bromide cation by fixing a particular cation ground state resulting from this simulation. Without the input option, different but still degenerate cation ground state may result when this simulation is rerun. In the example above, we see a new directive, `si_type dyson`. This directive is used to control the type of self-interaction correction in the XC potential, see [wahyutama2022](wahyutama2022).
+
+Note that the neutral and cation must have the same geometry, hence the vertical/Franck-Condon ionization is assumed. This example also illustrates one quirk of the `nwxc` XC library, namely, when a range-separated XC functional is used (indicated by the line `cam ... cam_alpha ... cam_beta ...`), the Hartree-Fock exact exchange component (`HFexch`) must not be specified. Furthermore, when the range-separated functional is used, the WFAT module requires that an additional basis be defined (see the `basis` input block in the input deck above). To instruct the module to run the ME-WFAT(0) simulation, use the `me` option for the `task wfat` directive. 
+
+As mentioned above, the ground state of methyl bromide cation is degenerate, doubly degenerate to be more precise. To calculate tunneling ionization rates for the ionization channel that ends up in the second degenerate state, use this line
+```
+vectors input "CH3Br.ion0.movecs" swap beta 21 22 output "CH3Br.ion1.movecs"
+```
+instead of the corresponding line in the previous input deck example. In the previous example, the cation ground state is based on the removal of the 22-nd MO of the neutral. By using the option `swap beta 21 22`, NWChem will remove the 21-st MO to calculate the second degenerate ground state of the cation. The 21-st and 22-nd MOs of the neutral are degenerate.
 
 
 
