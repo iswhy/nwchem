@@ -228,7 +228,7 @@ Under construction.
 ### Input directives for the WFAT module
 Under construction.
 
-## References
+### References
 <a id="trinh2015">[trinh2015]</a>
 V. H. Trinh, V. N. T. Pham, O. I. Tolstikhin, and T. Morishita, Weak-field asymptotic theory of tunneling ionization including the first-order correction terms: Application to molecules, [Phys. Rev. A **91**, 063410 (2015)](https://doi.org/10.1103/PhysRevA.91.063410).
 
