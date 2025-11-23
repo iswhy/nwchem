@@ -48,8 +48,15 @@ c=======================================================
       external wfat_inp_mydip, wfat_inp_myerg
 
       
-      WFAT_PRINT_OPTIONS = (/ 'srfc', 'rate', 'yield', 'avbeta', 
-     &                        'avgamma', 'tmd', 'tmd_atom' /)
+      WFAT_PRINT_OPTIONS = (/
+     &     'srfc      ',
+     &     'rate      ',
+     &     'yield     ',
+     &     'avbeta    ', 
+     &     'avgamma   ',
+     &     'tmd       ',
+     &     'tmd_atom  ' /)
+      
 
 
 c     ==== Initial status of WFAT inputs ====
@@ -511,11 +518,11 @@ c     end
       cp_exist = .false.
 
 
-      TP_OPTS = (/ 'dc', 'gaussian', 'hann', 'external' /)
-      FR_UNIT = (/ 'au', 'ev', 'thz', 'nm', 'bohr' /)
+      TP_OPTS = (/ 'dc      ', 'gaussian', 'hann    ', 'external' /)
+      FR_UNIT = (/ 'au  ', 'ev  ', 'thz ', 'nm  ', 'bohr' /)
       CE_UNIT = (/ 'fs', 'au' /)
       WI_UNIT = (/ 'fs', 'au' /)
-      MX_UNIT = (/ 'au', 'tw/cm2' /)
+      MX_UNIT = (/ 'au    ', 'tw/cm2' /)
       CP_UNIT = (/ 'rad', 'deg' /)
       
 
@@ -713,7 +720,7 @@ c     ...               ...
 
       wfat_inp_externfield = .false.
       TMEXT_UNIT = (/ 'fs', 'au' /)
-      FLEXT_UNIT = (/ 'au', 'tw/cm2' /)
+      FLEXT_UNIT = (/ 'au    ', 'tw/cm2' /)
       fld_t_ext(:) = 0.0d0
       fld_f_ext(:) = 0.0d0
 
