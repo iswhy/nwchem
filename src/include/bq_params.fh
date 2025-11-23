@@ -1,8 +1,0 @@
-*
-* $Id$
-*
-      character*(*) bq_default
-      parameter(bq_default="default")
-
-      double precision bq_smalldist
-      parameter (bq_smalldist = 1.0d-06)

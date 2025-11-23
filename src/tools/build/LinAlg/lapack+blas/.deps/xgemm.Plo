@@ -1,8 +1,0 @@
-LinAlg/lapack+blas/xgemm.lo: ../ga-5.8.2/LinAlg/lapack+blas/xgemm.c \
- /usr/include/stdc-predef.h ./config.h ../ga-5.8.2/LinAlg/lapack+blas/xgemm.h
-
-/usr/include/stdc-predef.h:
-
-./config.h:
-
-../ga-5.8.2/LinAlg/lapack+blas/xgemm.h:

@@ -1,4 +1,0 @@
-#ifdef USE_YFLOP
-       integer flops_ycount
-       common/perfm_ycount/flops_ycount
-#endif
