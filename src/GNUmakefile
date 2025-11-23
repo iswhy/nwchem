@@ -41,7 +41,7 @@ ifdef SUMO
 	$(RANLIB) $(LIBDIR)/libnwchem-sumo.a
 endif
 	/bin/rm -f nwchem.o stubs.o
-	$(INSTALL)
+	$(INSTALL_MSG)
 #
 # This to link only and avoid tedious subdir makes
 #
@@ -62,7 +62,7 @@ ifdef SUMO
 	$(RANLIB) $(LIBDIR)/libnwchem-sumo.a
 endif
 #	/bin/rm -f nwchem.o stubs.o
-	$(INSTALL)
+	$(INSTALL_MSG)
 
 ccalink:
 	@echo "NWCHEM_CORE_LIBS = $(LIBS)" > ./cca/makefile.h
@@ -79,7 +79,7 @@ ifeq ($(TARGET),SOLARIS)
 endif
 	$(LINK.f) -p -o nwchem_prof nwchem.o stubs.o -lnwctask $(LIBS)
 	/bin/rm -f nwchem.o stubs.o
-	$(INSTALL)
+	$(INSTALL_MSG)
 #
 # This for linking test version
 #
@@ -88,7 +88,7 @@ ifeq ($(TARGET),SOLARIS)
 	/bin/rm -f nwchem_test
 endif
 	$(LINK.f) -o nwchem_test nwchem.o stubs.o -lnwctask $(LIBS)
-	$(INSTALL)
+	$(INSTALL_MSG)
 
 configure_ga:
 ifdef OLD_GA
@@ -133,7 +133,7 @@ realclean:
 	-$(RM) $(LIBDIR)/*.a $(BINDIR)/*
 	-$(RM) *.db movecs fort.41 fort.44
 	-$(RM) util/util_version.F
-	-$(RM) mpi_include.txt ga_cppflags.txt  ga_ldflags.txt  ga_use_scalapack.txt oblas_ompcheck_done.txt
+	-$(RM) libmpi.txt mpi_lib.txt mpi_include.txt ga_cppflags.txt  ga_ldflags.txt  ga_use_scalapack.txt oblas_ompcheck_done.txt peigs_check_done.txt
 	@# -$(RM) 64_to_32 32_to_64 deps_stamp # This conversion is such a hassle that realclean should not force it.
 
 .PHONY:	cleanF
@@ -255,7 +255,7 @@ ifdef SUBDIRS
 endif
 
 .PHONY:	install
-install: link
+install: all
 	@test $${INSTALL_PREFIX?Please set the environment variable INSTALL_PREFIX}
 	@echo install_prefix is $(INSTALL_PREFIX)
 	@mkdir -p $(INSTALL_PREFIX)/bin  $(INSTALL_PREFIX)/share

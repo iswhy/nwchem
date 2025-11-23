@@ -119,6 +119,26 @@ endif
 INCDIR := $(TOPDIR)/src/include
 CNFDIR := $(TOPDIR)/src/config
 
+ifdef USE_SUBGROUPS
+      DONTUSE_PARALLEL_LA :=y
+endif
+ifeq ($(GOTMINGW64),1)
+      DONTUSE_PARALLEL_LA :=y
+endif
+ifdef DONTUSE_PARALLEL_LA
+    DEFINES += -DGANXTVAL -DUSE_SUBGROUPS
+    #turn off any parallel linear algebra
+    override undefine SCALAPACK
+    override undefine USE_SCALAPACK
+    override undefine _USE_SCALAPACK
+    override undefine BUILD_SCALAPACK
+    override undefine SCALAPACK_LIB
+    override undefine BUILD_ELPA
+    override undefine USE_ELPA
+    override undefine ELPA
+    override undefine PEIGS
+    override USE_SERIALEIGENSOLVERS := Y
+endif
 
 ifdef EXTERNAL_GA_PATH
    #check if ga-config is there
@@ -151,6 +171,20 @@ ifdef EXTERNAL_GA_PATH
       GA_BLAS_SIZE := $(shell ${EXTERNAL_GA_PATH}/bin/ga-config --blas_size)
     ifndef BLAS_SIZE
         BLAS_SIZE=8
+    endif
+    ifeq ($(GA_HAS_SCALAPACK),Y)
+    #check scalapack size
+      GA_SCALAPACK_SIZE := $(shell ${EXTERNAL_GA_PATH}/bin/ga-config --scalapack_size)
+    #check if scalapack and blas sizes are the same
+    ifneq ($(GA_SCALAPACK_SIZE),$(GA_BLAS_SIZE))
+         $(info )
+         $(info NWChem requires BLAS and ScaLapack with the same size )
+         $(info Global Arrays was built with BLAS size=$(GA_BLAS_SIZE))
+         $(info Global Arrays was built with ScaLapack size=$(GA_SCALAPACK_SIZE))
+         $(info )
+         $(error )
+    endif
+
     endif
 
     ifneq ($(BLAS_SIZE),$(GA_BLAS_SIZE))
@@ -194,13 +228,13 @@ else
         endif
 
         ifeq ($(GA_LDFLAGS),)
- 	  GA_LDFLAGS :=  $(shell ${GA_PATH}/bin/ga-config --ldflags  )
+          GA_LDFLAGS :=  $(shell ${GA_PATH}/bin/ga-config --ldflags  )
         endif
 
       #extract GA libs location from last word in GA_LDLFLAGS
         LIBPATH :=  $(word $(words ${GA_LDFLAGS}),${GA_LDFLAGS}) 
         ifdef EXTERNAL_GA_PATH
-	  LIBPATH ::= -L$(shell $(NWCHEM_TOP)/src/tools/guess-mpidefs --mpi_lib)
+	  LIBPATH ::= -L$(shell $(NWCHEM_TOP)/src/tools/check_mpi_lib.sh $(NWCHEM_TOP))
         endif
     endif
 endif
@@ -230,7 +264,7 @@ else
 	INCPATH :=  $(word $(words $(GA_CPPFLAGS)),$(GA_CPPFLAGS))
 
         ifdef EXTERNAL_GA_PATH
-	  INCPATH += -I$(shell $(NWCHEM_TOP)/src/tools/guess-mpidefs --mpi_include)
+	  INCPATH ::= $(INCPATH) -I$(shell $(NWCHEM_TOP)/src/tools/check_mpi_inc.sh $(NWCHEM_TOP))
         endif
     endif
 endif
@@ -289,7 +323,17 @@ ifdef USE_INTERNALBLAS
     LAPACK_LIB=-L$(NWCHEM_TOP)/lib/$(NWCHEM_TARGET)/ -lnwclapack
 endif
 
+ifdef SCALAPACK
+    SCALAPACK_SUPPLIED=y
+endif
+ifdef SCALAPACK_LIB
+    SCALAPACK_SUPPLIED=y
+endif
+ifdef BUILD_MPICH
+    NW_CORE_SUBDIRS += libext
+endif
 ifdef BUILD_SCALAPACK
+    SCALAPACK_SUPPLIED=y
     NW_CORE_SUBDIRS += libext
     ifneq ($(or $(SCALAPACK),$(SCALAPACK_LIB)),)
         $(info     )
@@ -301,6 +345,22 @@ ifdef BUILD_SCALAPACK
     endif
 
     SCALAPACK=-L$(NWCHEM_TOP)/src/libext/lib -lnwc_scalapack
+endif
+
+ifndef SCALAPACK_SUPPLIED
+    ifndef USE_SERIALEIGENSOLVERS
+    ifndef USE_PEIGS
+        errorsdiag:
+	    $(info     )
+	    $(info NWChem's Performance is degraded by not using ScaLAPACK)
+	    $(info Please consider using a prebuilt ScaLAPACK library)
+	    $(info by setting the SCALAPACK envirornment variable or)
+	    $(info set BUILD_SCALAPACK=y to have NWChem build the ScaLAPACK library.)
+	    $(info If you decide to not use a ScaLAPACK,)
+	    $(info please define USE_SERIALEIGENSOLVERS=y and the slower serial eigensolvers will be used.)
+	    exit 1
+    endif
+    endif
 endif
 
 
@@ -328,7 +388,7 @@ ifndef EXTERNAL_GA_PATH
 endif
 
 NW_CORE_SUBDIRS += include basis geom inp input  \
-                  pstat rtdb task symmetry util peigs perfm bq cons $(CORE_SUBDIRS_EXTRA)
+	  pstat rtdb task symmetry util perfm bq cons peigs_comm $(PEIGS) $(CORE_SUBDIRS_EXTRA)
 
 
 
@@ -367,7 +427,7 @@ BUILDING_PYTHON = $(filter $(NWSUBDIRS),python)
 #  MAKEFLAGS = options to GNU make ... -j controls no. of threads used
 #              for parallel builds. --no-print-directory says be quiet about
 #              changing directory.
-#    INSTALL = command to install an executable when it is built
+#    INSTALL_MSG = command to install an executable when it is built
 #    
 # C/FOPTIONS = essential compiler options independent of optimization level
 #              C/FOPTIONS should not usually be overridden on the command line
@@ -436,9 +496,11 @@ FCONVERT = $(CPP) $(CPPFLAGS) $< > $*.f
 
 
 ifdef OLD_GA
-    CORE_LIBS = -lnwcutil -lpario -lglobal -lma -lpeigs -lperfm -lcons -lbq -lnwcutil
+#    CORE_LIBS = -lnwcutil -lpario -lglobal -lma -lpeigs -lperfm -lcons -lbq -lnwcutil
+	  CORE_LIBS = -lnwcutil -lpario -lglobal -lma $(LPEIGS) -lpeigs_comm -lperfm -lcons -lbq -lnwcutil
 else
-    CORE_LIBS = -lnwcutil -lga -larmci -lpeigs -lperfm -lcons -lbq -lnwcutil
+#    CORE_LIBS = -lnwcutil -lga -larmci -lpeigs -lperfm -lcons -lbq -lnwcutil
+  CORE_LIBS = -lnwcutil -lga -larmci  -lperfm $(LPEIGS) -lpeigs_comm -lcons -lbq -lnwcutil
 endif
 
 
@@ -480,7 +542,7 @@ ifeq ($(TARGET),SOLARIS)
     SHELL := $(NICE) /bin/sh
     RANLIB = echo
     MAKEFLAGS = -j 2 --no-print-directory
-    INSTALL = echo $@ is built
+    INSTALL_MSG = echo $@ is built
     #
     # You can use either the f77 or f90 compiler BUT if using f90
     # you\'ll need to specify -DINTEGER_1='integer*1' in the selci
@@ -568,7 +630,7 @@ ifeq ($(TARGET),SOLARIS64)
     COPTIMIZE = -O
     RANLIB = echo
     MAKEFLAGS = -j 2 --no-print-directory
-    INSTALL = echo $@ is built
+    INSTALL_MSG = echo $@ is built
 
     ifeq ($(CC),fcc)
         # Fujitsu SPARC systems (thanks to Herbert Fruchtl)
@@ -726,7 +788,7 @@ ifeq ($(TARGET),IBM)
     ARFLAGS = urs
     RANLIB = echo
     MAKEFLAGS = -j 5 --no-print-directory
-    INSTALL = @echo $@ is built
+    INSTALL_MSG = @echo $@ is built
     CPP = /usr/lib/cpp -P
 
     FOPTIONS = -qEXTNAME -qnosave -qalign=4k -qxlf77=leadzero
@@ -843,7 +905,7 @@ ifeq ($(TARGET),IBM64)
     AR = ar -X 64
     RANLIB = echo
     MAKEFLAGS = -j 11 --no-print-directory
-    INSTALL = @echo $@ is built
+    INSTALL_MSG = @echo $@ is built
     CPP = /usr/lib/cpp -P
 
     FOPTIONS = -qEXTNAME -qnosave -qalign=4k -q64 -qxlf77=leadzero
@@ -913,7 +975,7 @@ ifeq ($(TARGET),LAPI)
     ARFLAGS = urs
     RANLIB = echo
     MAKEFLAGS = -j 1 --no-print-directory
-    INSTALL = @echo $@ is built
+    INSTALL_MSG = @echo $@ is built
     CPP = /usr/lib/cpp -P
     MPILIB = 
     LARGE_FILES = YES
@@ -972,7 +1034,7 @@ ifeq ($(TARGET),LAPI64)
     ARFLAGS = urs
     RANLIB = echo
     MAKEFLAGS = -j 3 --no-print-directory
-    INSTALL = @echo $@ is built
+    INSTALL_MSG = @echo $@ is built
     CPP = /usr/lib/cpp -P
     MPILIB = 
     LARGE_FILES = YES
@@ -1032,7 +1094,7 @@ ifeq ($(TARGET),MACX)
 
     _CPU := $(shell machine  )
     FC = gfortran
-    INSTALL = @echo nwchem is built
+    INSTALL_MSG = @echo nwchem is built
     RANLIB = ranlib
     MAKEFLAGS = -j 1 --no-print-directory
     DEFINES =-DMACX
@@ -1261,7 +1323,7 @@ ifeq ($(TARGET),MACX64)
         endif
     endif
 
-    INSTALL = @echo nwchem is built
+    INSTALL_MSG = @echo nwchem is built
     RANLIB = ranlib
 #   MAKEFLAGS = -j 1 --no-print-directory
     DEFINES   = -DMACX
@@ -1332,6 +1394,7 @@ ifeq ($(TARGET),MACX64)
 	    GNU_GE_4_8 := $(shell [ $(GNUMAJOR) -gt 4 -o \( $(GNUMAJOR) -eq 4 -a $(GNUMINOR) -ge 8 \) ] && echo true)
 	    GNU_GE_6 := $(shell [ $(GNUMAJOR) -ge 6  ] && echo true)
 	    GNU_GE_8 := $(shell [ $(GNUMAJOR) -ge 8  ] && echo true)
+	    GNU_GE_14 := $(shell [ $(GNUMAJOR) -ge 14  ] && echo true)
 
             ifeq ($(GNU_GE_4_6),true)
                 DEFINES  += -DGCC46
@@ -1488,7 +1551,7 @@ ifeq ($(TARGET),$(findstring $(TARGET),LINUX CYGNUS CYGWIN))
     CC = gcc
     RANLIB = ranlib
     MAKEFLAGS = -j 1 --no-print-directory
-    INSTALL = @echo $@ is built
+    INSTALL_MSG = @echo $@ is built
     CPP = gcc -E -nostdinc -undef -P
     FCONVERT = (/bin/cp $< /tmp/$$$$.c; \
                $(CPP) $(CPPFLAGS) /tmp/$$$$.c | sed '/^$$/d' > $*.f; \
@@ -1552,6 +1615,12 @@ ifeq ($(TARGET),$(findstring $(TARGET),LINUX CYGNUS CYGWIN))
         endif
 
         DEFINES  += -DGFORTRAN
+	GCCMAJOR := $(shell $(CC) -dM -E - < /dev/null 2> /dev/null | grep __GNUC__ |cut -c18-)
+        ifdef GCCMAJOR
+	    GCCMINOR := $(shell $(CC) -dM -E - < /dev/null 2> /dev/null | grep __VERS | cut -c24)
+	    GCC_GE_14 := $(shell [ $(GCCMAJOR) -ge 14  ] && echo true)
+	endif
+
 	GNUMAJOR := $(shell $(FC) -dM -E - < /dev/null 2> /dev/null | grep __GNUC__ |cut -c18-)
 
         ifdef GNUMAJOR
@@ -2042,6 +2111,16 @@ ifneq ($(TARGET),LINUX)
         ifeq ($(USE_FLANG),1)
 		FLANG_NEW := $(shell [ $(shell $(FC) --help |head -1| cut -d " " -f 2 )  == flang ] && echo true || echo false)
 	endif
+	FC_HAS_MINUSW=true
+	ifeq ($(FLANG_NEW),true)
+	    FLANGMAJORIN := $(shell $(FC) -dM -E - </dev/null 2> /dev/null|grep flang_maj|| echo null)
+	    ifneq ($(FLANGMAJORIN),null)
+	        FLANGMAJOR := $(shell $(FC) -dM -E - </dev/null 2> /dev/null|grep flang_maj |cut -d " " -f 3 )
+	        FC_HAS_MINUSW := $(shell [ $(FLANGMAJOR) -le 19 ] && echo false || echo true)
+	    else
+	        FC_HAS_MINUSW = false
+	    endif
+	endif
 
 #@info 
 #@info FLANG_NEW $(FLANG_NEW)
@@ -2125,7 +2204,7 @@ ifneq ($(TARGET),LINUX)
             DEFINES  +=-DMPICH_NO_ATTR_TYPE_TAGS
 	    DEFINES  += -DNOIO -DEAFHACK
 #	    LDOPTIONS +=-Wl,-rpath=/usr/local/lib/gcc7
-            LDOPTIONS += $(shell mpif90  -show 2>&1 |cut -d " " -f 2) 
+            LDOPTIONS := $(LDOPTIONS) $(shell mpif90  -show 2>&1 |cut -d " " -f 2) 
             ARFLAGS = rU
         endif
 
@@ -2147,7 +2226,7 @@ ifneq ($(TARGET),LINUX)
                 FOPTIONS   += -ffast-math #-Wunused  
             endif
             ifeq ($(V),-1)
-                ifeq ($(FLANG_NEW),false)
+                ifeq ($(FC_HAS_MINUSW),true)
                   FOPTIONS += -w
 		endif
                 COPTIONS += -w
@@ -2180,6 +2259,11 @@ ifneq ($(TARGET),LINUX)
                     FFLAGS_FORGA = -mcmodel=medium
 		endif
             else
+                GCCMAJOR := $(shell $(CC) -dM -E - < /dev/null 2> /dev/null | grep __GNUC__ |cut -c18-)
+                ifdef GCCMAJOR
+                    GCCMINOR := $(shell $(CC) -dM -E - < /dev/null 2> /dev/null | grep __GNUC_MINOR | cut -c24-)
+                    GCC_GE_14 := $(shell [ $(GCCMAJOR) -ge 14  ] && echo true)
+                endif
 	        GNUMAJOR := $(shell $(FC) -dM -E - < /dev/null 2> /dev/null | grep __GNUC__ |cut -c18-)
                 ifdef GNUMAJOR
 		    GNUMINOR := $(shell $(FC) -dM -E - < /dev/null 2> /dev/null | grep __GNUC_MINOR | cut -c24)
@@ -3082,7 +3166,7 @@ endif
 ifeq ($(TARGET),$(findstring $(TARGET),BGL BGP BGQ))
 #
     ARFLAGS = urs
-    INSTALL = @echo $@ is built
+    INSTALL_MSG = @echo $@ is built
     CPP=/usr/bin/cpp  -P -C -traditional
     LDOPTIONS =  -Wl,--relax
 
@@ -3298,12 +3382,14 @@ ifeq ($(BUILDING_PYTHON),python)
     PYMINOR:=$(word 2, $(subst ., ,$(PYTHONVERSION)))
     PYGE38:=$(shell [ $(PYMAJOR) -ge 3 -a $(PYMINOR) -ge 8 ] && echo true)
     ifeq ($(PYGE38),true)
-	PYCFG := $(shell python$(PYTHONVERSION)-config --ldflags --embed)
+	PYCFG := -L$(shell python$(PYTHONVERSION)-config --configdir)
+	PYCFG := $(PYCFG) $(shell python$(PYTHONVERSION)-config --libs --embed)
         ifeq ($(shell uname -s),Darwin)
 	  PYCFG := $(shell echo $(PYCFG) | sed -e "s/-lintl //")
         endif
     else
-        PYCFG := $(shell python$(PYTHONVERSION)-config --ldflags)
+        PYCFG := -L$(shell python$(PYTHONVERSION)-config --configdir)
+        PYCFG := $(PYCFG) $(shell python$(PYTHONVERSION)-config --libs)
     endif
 	EXTRA_LIBS += -lnwcutil $(PYCFG)
 else
@@ -3373,6 +3459,22 @@ else
     ifeq ($(_USE_SCALAPACK),)
         _USE_SCALAPACK := $(shell ${GA_PATH}/bin/ga-config  --use_scalapack| awk ' /1/ {print "Y"}')
     endif
+    ifneq ("$(wildcard ${NWCHEM_TOP}/src/ga_use_peigs.txt)","")
+        _USE_PEIGS := $(shell cat $(NWCHEM_TOP)/src/ga_use_peigs.txt)
+    endif
+    ifeq ($(_USE_PEIGS),)
+        _USE_PEIGS := $(shell ${GA_PATH}/bin/ga-config  --use_peigs| awk ' /1/ {print "Y"}')
+    endif
+# check if USE_PEIGS and _USE_PEIGS are consistent
+    ifeq ($(shell $(NWCHEM_TOP)/src/config/peigs_check.sh $(NWCHEM_TOP)),1)
+        errorpeigs:
+	    $(info  Peigs interface not working.)
+	    $(info  environment USE_PEIGS is set to $(USE_PEIGS))
+	    $(info  GA _USE_PEIGS is set to $(_USE_PEIGS))
+	    $(info )
+	    $(shell  rm $(NWCHEM_TOP)/src/peigs_check_done.txt)
+	    exit 1
+    endif
 endif
 
 ifeq ($(_USE_SCALAPACK),Y)
@@ -3398,6 +3500,11 @@ ifeq ($(_USE_SCALAPACK),Y)
                     -brename:.pdgetrf_,.pdgetrf \
                     -brename:.pdgetrs_,.pdgetrs 
     endif
+endif
+ifdef USE_PEIGS
+    DEFINES += -DPEIGS
+    LPEIGS = -lpeigs
+    PEIGS = peigs
 endif
 CORE_LIBS += $(ELPA) $(SCALAPACK) $(SCALAPACK_LIB)
 
@@ -3466,14 +3573,6 @@ ifdef USE_NOIO
 endif
 
 
-ifdef USE_SUBGROUPS
-    DEFINES += -DGANXTVAL -DUSE_SUBGROUPS
-    #turn off peigs for now
-else
-    ifneq ($(GOTMINGW64),1)
-        DEFINES += -DPARALLEL_DIAG
-    endif
-endif
 
 
 ###################################################################
@@ -3674,27 +3773,21 @@ ifdef GWDEBUG
 endif
 
 # lower level libs used by communication libraries 
-#case guard against case when tools have not been compiled yet
-#  ifeq ("$(wildcard ${GA_PATH}/bin/ga-config)","")
-#  else
-COMM_LIBS=  $(shell ${GA_PATH}/bin/ga-config --network_ldflags)
-COMM_LIBS +=  $(shell ${GA_PATH}/bin/ga-config --network_libs)
-#comex bit
-#COMM_LIBS +=  $(shell [ -e ${NWCHEM_TOP}/src/tools/build/comex/config.h ] && grep LIBS\ = ${NWCHEM_TOP}/src/tools/build/comex/Makefile|grep -v _LIBS| cut -b 8-) -lpthread
-COMM_LIBS += $(shell [ -e ${GA_PATH}/bin/comex-config ] && ${GA_PATH}/bin/comex-config --libs) -lpthread
-ifdef COMM_LIBS 
-    CORE_LIBS += $(COMM_LIBS) 
-endif 
-#endif
+ifneq ($(ARMCI_NETWORK),$(findstring $(ARMCI_NETWORK), MPI-PR MPI-TS MPI-PT MPI-MT MPI3))
+  COMM_LIBS =  $(shell $(GA_PATH)/bin/ga-config --network_ldflags)
+  COMM_LIBS +=  $(shell $(GA_PATH)/bin/ga-config --network_libs)
+endif
+COMM_LIBS +=  $(shell [ -e $(GA_PATH)/bin/comex-config ] && ${GA_PATH}/bin/comex-config --libs) -lpthread
+ifdef COMM_LIBS
+    CORE_LIBS += $(COMM_LIBS)
+endif
+
 ifdef USE_CRAYSHASTA
     CORE_LIBS += -lpmi2
 endif
 ifdef USE_LINUXAIO
     CORE_LIBS += -lrt
 endif
-
-# g++ GNU compatibility (might go away)
-#CORE_LIBS += -lstdc++
 
 EXTRA_LIBS += $(CONFIG_LIBS)
 CORE_LIBS += $(EXTRA_LIBS)
@@ -3824,8 +3917,6 @@ else
         else
             CORE_LIBS += -larmci
         endif
-    else
-        CORE_LIBS +=
     endif
 endif
 
@@ -3840,14 +3931,14 @@ ifdef USE_MPI
     else ifdef BUILD_MPICH
         NW_CORE_SUBDIRS += libext
         PATH := $(NWCHEM_TOP)/src/libext/bin:$(PATH)
-        NWMPI_INCLUDE = $(shell PATH=$(NWCHEM_TOP)/src/libext/bin:$(PATH) $(NWCHEM_TOP)/src/tools/guess-mpidefs --mpi_include)
-        NWMPI_LIB     = $(shell PATH=$(NWCHEM_TOP)/src/libext/bin:$(PATH)  $(NWCHEM_TOP)/src/tools/guess-mpidefs --mpi_lib)
-        NWLIBMPI      = $(shell PATH=$(NWCHEM_TOP)/src/libext/bin:$(PATH) $(NWCHEM_TOP)/src/tools/guess-mpidefs --libmpi)
+        NWMPI_INCLUDE := $(NWCHEM_TOP)/src/libext/include
+        NWMPI_LIB     := $(NWCHEM_TOP)/src/libext/lib
+        NWLIBMPI      = $(shell $(NWCHEM_TOP)/src/tools/check_libmpi.sh $(NWCHEM_TOP))
 	NWLIBMPI      += $(shell pkg-config --libs-only-L hwloc 2> /dev/null)
         ifeq ($(NWCHEM_TARGET),MACX64)
            GOT_BREW := $(shell command -v brew 2> /dev/null)
            ifdef GOT_BREW
-	       NWLIBMPI	+= -L$(shell brew --prefix)/lib
+	       NWLIBMPI	:= $(NWLIBMPI) -L$(shell brew --prefix)/lib
            endif
 	endif
     else ifdef FORCE_MPI_ENV
@@ -3904,8 +3995,8 @@ ifdef USE_MPI
         endif
 
 	NWMPI_INCLUDE := $(shell $(NWCHEM_TOP)/src/tools/check_mpi_inc.sh $(NWCHEM_TOP))
-	NWMPI_LIB     := $(shell $(NWCHEM_TOP)/src/tools/guess-mpidefs --mpi_lib)
-	NWLIBMPI      := $(shell $(NWCHEM_TOP)/src/tools/guess-mpidefs --libmpi)
+	NWMPI_LIB     := $(shell $(NWCHEM_TOP)/src/tools/check_mpi_lib.sh $(NWCHEM_TOP))
+	NWLIBMPI      := $(shell $(NWCHEM_TOP)/src/tools/check_libmpi.sh $(NWCHEM_TOP))
     endif
 
     ifdef NWMPI_INCLUDE
@@ -3930,8 +4021,6 @@ else
         $(error )
     ifdef OLD_GA
       CORE_LIBS += -ltcgmsg 
-    else
-      CORE_LIBS += 
     endif
     endif
 endif 

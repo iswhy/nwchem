@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 #set -v
 arch=`uname -m`
-VERSION=0.3.27
+VERSION=0.3.29
 #COMMIT=974acb39ff86121a5a94be4853f58bd728b56b81
 BRANCH=develop
 if [ -f  OpenBLAS-${VERSION}.tar.gz ]; then
@@ -28,7 +28,7 @@ cd OpenBLAS
 patch -p0 -s -N < ../arm64_fopt.patch
 #patch -p1 -s -N < ../9402df5604e69f86f58953e3883f33f98c930baf.patch
 patch -p0 -s -N < ../crayftn.patch
-patch -p0 -s -N < ../f_check.patch
+#patch -p0 -s -N < ../f_check.patch
 USE_ARUR=$(rm -f aru.tmp;ar --help  > aru.tmp 2>&1; grep U aru.tmp| awk ' /ctual timest/ {print "Y";exit};'; rm -f aru.tmp)
 if [[ ${USE_ARUR} == "Y" ]]; then
 patch -p0 -s -N < ../arflags.patch
@@ -217,7 +217,7 @@ fi
 
 #disable threading for ppc64le since it uses OPENMP
 echo arch is "$arch"
-if [[ "$arch" == "ppc64le" ||  "$arch" == "riscv64" ]]; then
+if [[ "$arch" == "ppc64le" ||  "$arch" == "riscv64" || $FORCETARGET == *"POWER"* || $FORCETARGET == *"RISCV64"*  ]]; then
 if [[ ${GCCVERSIONGT5} != 1 ]]; then
        echo
        echo gcc version 6 and later needed for ppc64le
