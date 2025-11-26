@@ -186,8 +186,14 @@ c        ==== Calculate channel functions ====
                omega(ish, iq) = dbl_mb(k_rf - lmin_ + l) *
      &                          dcpl_mb(i_af)
 
-               if ( isnan(abs( omega(ish,iq) )) )
-     &              omega(ish,iq) = czero
+ccode               if ( isnan(abs( omega(ish,iq) )) )
+ccode     &              omega(ish,iq) = czero
+               
+               if ( isnan(abs( omega(ish,iq) )) ) then
+                  omega(ish,iq) = czero
+                  write(luout, '("isnanb", 2es14.6)') omega(ish,iq)
+               endif
+               
             enddo
          enddo
          

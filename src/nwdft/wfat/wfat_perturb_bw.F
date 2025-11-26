@@ -44,7 +44,7 @@ c===============================================================
       ndid = ga_nodeid()
 
 
-      movname = (/ 'mov_alpha', 'mov_beta' /)
+      movname = (/ 'mov_alpha', 'mov_beta ' /)
       hiname = (/ 'h_int_a', 'h_int_b' /)
       
       if (ord > maxord)

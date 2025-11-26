@@ -264,7 +264,7 @@ c=================================================
       integer rtdb                  ! [input],
       integer nch                   ! [input],
       integer nqn                   ! [input],
-      integer wfat1                 ! [output],
+      logical wfat1                 ! [output],
       integer nlgl                  ! [output],
       integer nw1x, l_w1x, k_w1x    ! [output],
 

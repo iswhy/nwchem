@@ -92,7 +92,7 @@ c=======================================================
 
 
       ndid = ga_nodeid()
-      vxcname = (/ 'vxc_alpha', 'vxc_beta' /)
+      vxcname = (/ 'vxc_alpha', 'vxc_beta ' /)
 
 
 cUSELESS      if (.not. rtdb_put(rtdb, 'charge', mt_dbl, 1, chg))

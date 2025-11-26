@@ -489,6 +489,7 @@ c============================================================
       double precision pb(3,3,n)
 
       integer l_dp, k_dp, is, i, j, i_dp1, i_dp2, k, io
+      double precision dummy1, dummy2
 
       
       if (.not. MA_alloc_get(MT_DBL, nb*n*3, 'dpo_', l_dp, k_dp))
@@ -518,12 +519,14 @@ c     ==== Deliberately set the elements of dpmo between the ====
 c     ====  new degenerate channels (i.e. when both the bra  ====
 c     ====    and ket are the new degenerate channels) to    ====
 c     ====                 Infinity or NaN                   ====           ! 1)
+      dummy1 = 1.0d0
+      dummy2 = 0.0d0
       do i = 1, 3
          do j = 1, n
             do k = 1, n
                io = orbid0(k)
                i_dp1 = k_dp + nb*n*(i-1) + nb*(j-1) + (io-1)
-               dbl_mb(i_dp1) = 1/0.0d0
+               dbl_mb(i_dp1) = dummy1 / dummy2
             enddo
          enddo
       enddo

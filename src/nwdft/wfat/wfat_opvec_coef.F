@@ -193,7 +193,7 @@ c=======================================================
       parameter (zero=0.0d0, one=1.0d0, mone=-1.0d0)
 
 
-      hfx_name = (/ 'hfx_alpha', 'hfx_beta' /)
+      hfx_name = (/ 'hfx_alpha', 'hfx_beta ' /)
       
 
 
@@ -346,8 +346,8 @@ c=======================================================
       external ga_create_atom_blocked
 
       
-      rdmname = (/ 'rdm_alpha', 'rdm_beta' /)
-      vxcname = (/ 'vxc_alpha', 'vxc_beta' /)
+      rdmname = (/ 'rdm_alpha', 'rdm_beta ' /)
+      vxcname = (/ 'vxc_alpha', 'vxc_beta ' /)
       
 
 c     ==== Determine which spin channels are in sid ====

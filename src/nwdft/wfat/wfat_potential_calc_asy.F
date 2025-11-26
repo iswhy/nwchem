@@ -148,11 +148,14 @@ c     ==== Initial checks ====
       if (gamma < 0.0d0 .and. rs)
      &     call errquit('WFAT: The argument gamma of '//
      &     'wfat_vhfpsi_1ptbas must be positive or zero', 1, UERR)      
-      if (alpha+beta > 1.0d0 .and. rs)
+      if (alpha+beta > 1.0d0+1.0d-12 .and. rs)     ! 1)
      &     call errquit('WFAT: The sum of argument alpha and beta '//
      &     'of wfat_vhfpsi_1ptbas must be between 0 and 1', 1, UERR)
-      
 
+c     Note:
+c     1) the 1.0d-12 bit was introduced to avoid error in aleleon, which
+c     seemed to be caused by the value of alpha+beta being very slightly
+c     larger than 1.
 
 
 c     clmat : nbas x nbas

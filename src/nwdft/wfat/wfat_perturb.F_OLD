@@ -148,7 +148,7 @@ c===============================================================
 
       call ga_sync()
 
-      movname = (/ 'mov_alpha', 'mov_beta' /)
+      movname = (/ 'mov_alpha', 'mov_beta ' /)
 
 
 c     ==== Mix MO's based on degeneracy ====

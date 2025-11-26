@@ -148,4 +148,7 @@ LIB_INCLUDES = -I../include
    USES_BLAS = wfat_tools.F
 
 include ../../config/makefile.h
+ifndef OPTIMIZE
+  FFLAGS := $(filter-out -ffast-math,$(FFLAGS))
+endif
 include ../../config/makelib.h

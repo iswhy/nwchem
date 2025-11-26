@@ -1706,4 +1706,18 @@ c     ==== Lower right ====
       
       end
 c============================================================
+
+
+c============================================================
+c============================================================
+      logical function wfat_isnan(x)
+c WARNING: This function contains non-standard code.
+      implicit none
+      double precision x
+
+c      wfat_isnan = (x /= x)
+      wfat_isnan = isnan(x)
+      end
+c============================================================
+      
       

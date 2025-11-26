@@ -290,7 +290,7 @@ cforcheck      call wfat_test_fock(rtdb, geom, bas, nb, ns, nel, g_mov,
 cforcheck     &     charge, multip, tol2e, oskel, ixcfit, iolgc)
       
 
-      rdm_name = (/ 'rdm_alpha', 'rdm_beta' /)
+      rdm_name = (/ 'rdm_alpha', 'rdm_beta ' /)
       ndid = ga_nodeid()
       
 

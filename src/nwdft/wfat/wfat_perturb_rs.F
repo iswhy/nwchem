@@ -35,7 +35,7 @@ cOLD      parameter (dgnthr=1.0d-6, offthr=1.0d-10)
 
       call ga_sync()
       ndid = ga_nodeid()
-      movname = (/ 'mov_alpha', 'mov_beta' /)      
+      movname = (/ 'mov_alpha', 'mov_beta ' /)      
       hiname = (/ 'h_int_a', 'h_int_b' /)
       
 

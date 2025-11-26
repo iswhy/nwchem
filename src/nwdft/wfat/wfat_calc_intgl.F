@@ -280,7 +280,7 @@ c           ====            on the current grid              ====
             call wfat_integrand(icent, nch, nqn, nsh, cgrid, 
      &           dcpl_mb(k_om), dbl_mb(k_vc), dcpl_mb(k_i0))
             if (isnan( abs(dcpl_mb(k_i0)) ))
-     &           write(luout, '("isnan", i8, 3es14.6, 6x, 3es21.12E3)')
+     &           write(luout, '("isnana", i8, 3es14.6, 6x, 3es21.12E3)')
      &           ic, v_m(:,1), dcpl_mb(k_om), dbl_mb(k_vc)
             
 c           ==== Calculate the integrand of J^{(n,m)x_i}_{l,m'} ====
@@ -583,6 +583,7 @@ c=======================================================
       subroutine wfat_integrand_acc(nsh, nqn, nch, wt, intl0, intl_)
 
       implicit none
+#include "stdio.fh"      
       integer nsh
       integer nqn
       integer nch
@@ -591,7 +592,12 @@ c=======================================================
       double complex intl_(nsh, nqn, nch)
 
       integer i
+      logical wfat_isnan
+      external wfat_isnan
 
+cdebug      if (wfat_isnan(abs(intl0(1,1,1))))
+cdebug     &     write(luout, '(" ---ch: ", 3es14.6)') intl0(1,1,1), wt(1)
+      
       do i = 1, nch
          intl_(:,:,i) = intl_(:,:,i) + intl0(:,:,i) * wt(i)
       enddo

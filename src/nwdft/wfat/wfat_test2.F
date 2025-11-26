@@ -54,7 +54,7 @@ c     ==== Calc. determinant by eigenvalues ====
       
 
 c     ==== Calc. determinant explicitly ====
-      hfx_name = (/ 'hfx_alpha', 'hfx_beta' /)
+      hfx_name = (/ 'hfx_alpha', 'hfx_beta ' /)
       do is = 1, ns
          g_fk(is) = ga_create_atom_blocked(geom, bas, hfx_name(is))
          call ga_zero(g_fk(is))

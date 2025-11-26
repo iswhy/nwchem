@@ -37,7 +37,7 @@ c===============================================================
 
       
       
-      movname = (/ 'mov_alpha', 'mov_beta' /)      
+      movname = (/ 'mov_alpha', 'mov_beta ' /)      
       dipname = (/ 'dipole_x', 'dipole_y', 'dipole_z' /)
       hiname = (/ 'h_int_a', 'h_int_b' /)
       zunit = (/ 0.0d0, 0.0d0, 1.0d0 /)

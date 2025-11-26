@@ -323,7 +323,7 @@ c=======================================================
       
       ndid = ga_nodeid()
       if (ndid==0) write(luout, '("Testing Fock building...")')
-      hfx_name = (/ 'hfx_alpha', 'hfx_beta' /)
+      hfx_name = (/ 'hfx_alpha', 'hfx_beta ' /)
 
       do is = 1, ns
          g_fk(is) = ga_create_atom_blocked(geom, bas, hfx_name(is))

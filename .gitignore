@@ -220,10 +220,14 @@ dependencies
 /src/libext/openblas/OpenBLAS
 /src/libext/openblas/OpenBLAS-0.3.27.tar.gz
 /src/libext/openblas/OpenBLAS-0.3.27/
+/src/libext/openblas/OpenBLAS-0.3.29/
+/src/libext/openblas/OpenBLAS-0.3.29.tar.gz
 
 /src/libext/scalapack/scalapack
 /src/libext/scalapack/scalapack-782e739f8eb0e7f4d51ad7dd23fc1d03dc99d240.tar.gz
 /src/libext/scalapack/scalapack-782e739f8eb0e7f4d51ad7dd23fc1d03dc99d240/
+/src/libext/scalapack/scalapack-a23c2cdc6586c427686f6097ae66bb54ef693571/
+/src/libext/scalapack/scalapack-a23c2cdc6586c427686f6097ae66bb54ef693571.tar.gz
 
 /src/mpi_include.txt
 /src/oblas_ompcheck_done.txt
@@ -236,6 +240,38 @@ dependencies
 /src/tools/ifort.FC.stamp
 
 /src/tools/install/
+
+/src/ga_use_peigs.txt
+/src/peigs_check_done.txt
+
+/src/tools/ga-5.9.2/
+/src/tools/ga-5.9.2.tar.gz
+/src/tools/ga-5.9.2-.MPI-TS-.DIR.stamp
+
+/src/libmpi.txt
+/src/mpi_lib.txt
+
+/src/nwxc/maxima/f77/nwxcm_c_dldf.F.finished
+/src/nwxc/maxima/f77/nwxcm_c_dldf.F.start
+/src/nwxc/maxima/f77/nwxcm_c_m05.F.finished
+/src/nwxc/maxima/f77/nwxcm_c_m05.F.start
+/src/nwxc/maxima/f77/nwxcm_c_m06.F.finished
+/src/nwxc/maxima/f77/nwxcm_c_m06.F.start
+/src/nwxc/maxima/f77/nwxcm_c_mpbe.F.finished
+/src/nwxc/maxima/f77/nwxcm_c_mpbe.F.start
+/src/nwxc/maxima/f77/nwxcm_c_pbe.F.finished
+/src/nwxc/maxima/f77/nwxcm_c_pbe.F.start
+/src/nwxc/maxima/f77/nwxcm_c_pkzb99.F.finished
+/src/nwxc/maxima/f77/nwxcm_c_pkzb99.F.start
+/src/nwxc/maxima/f77/nwxcm_c_tpss03.F.finished
+/src/nwxc/maxima/f77/nwxcm_c_tpss03.F.start
+/src/nwxc/maxima/f77/nwxcm_c_vs98.F.finished
+/src/nwxc/maxima/f77/nwxcm_c_vs98.F.start
+/src/nwxc/maxima/f77/nwxcm_x_tpss03.F.finished
+/src/nwxc/maxima/f77/nwxcm_x_tpss03.F.start
+
+/src/tools/gcc-.CC.stamp
+/src/tools/gfortran-.FC.stamp
 
 /src/util/util_version.F
 # End of debris  created in nwchem compilations
