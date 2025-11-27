@@ -176,6 +176,8 @@ c============================================================
      &     intl_j, intl_k1, intl_k2, nopw, jn, kn)
 c     DESCRIPTION:
 c     Performs the summation of the partial wave expansion of the WFAT(1) integrals.
+c     The most important ouputs are jn and kn. If you sum them, you will get h_\nu
+c     defined in eq. (29) in https://doi.org/10.1103/4xqd-yhdt.
       implicit none
 #include "stdio.fh"
 #include "errquit.fh"

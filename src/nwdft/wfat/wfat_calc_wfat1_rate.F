@@ -80,8 +80,8 @@ c============================================================
 c     DESCRIPTION:
 c     gn :
 c       $\exp(-\kappa\mu_z) g_\nu$ where $g_\nu$ are structure factors for all
-c       hannels and quantum numbers resolved into c atomic contributions based
-c       on Becke partition, exponential prefactor c with the z component of
+c       channels and quantum numbers resolved into atomic contributions based
+c       on Becke partition. The exponential prefactor with the z component of
 c       dipole vector in the argument is
 c     jn and kn :
 c       First-order WFAT equivalents of gn.
