@@ -121,7 +121,8 @@ c     ==== Get the passive rotation matrix ===
 
       do i = 1, nch
          mu = matmul(transpose(protmat), -chmmt(:,i))
-         call wfat_represent_sym(3, 3, protmat, pb, pbl)   ! pbl = polarizability tensor in lab frame.
+c         call wfat_represent_sym(3, 3, protmat, pb, pbl) ! pbl = polarizability tensor in lab frame.
+         call wfat_represent_sym(3, 3, protmat, pb(:,:,i), pbl)   ! pbl = polarizability tensor in lab frame.
 cOLD         call wfat_calc_lfpolb(protmat, pb(:,:,i), lpbz)
          kp = sqrt( 2 * abs(erg(i)) )
          
