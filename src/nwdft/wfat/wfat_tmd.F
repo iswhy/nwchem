@@ -1,7 +1,7 @@
 c=======================================================
 c=======================================================
       subroutine wfat_calc_tmd0(rtdb, beta, gamma, nat, nch, nqn, nid,
-     &     mid, erg, zi, ef, gn)
+     &     mid, orbid0, spinid, erg, zi, ef, gn)
 
       implicit none
 #include "mafdecls.fh"
@@ -14,15 +14,18 @@ c=======================================================
       integer nqn
       integer nid(nqn)
       integer mid(nqn)
+      integer orbid0(nch)
+      integer spinid(nch)
       double precision erg(nch)
       double precision zi
       double precision ef
       double complex gn(nat, nqn, nch)
 
+      logical gap
       integer l_fn, k_fn, i_fn, n, m, i, iqn, nkx, nky, ix, iy
       double precision kx0, kxn, kx, dkx, ky0, kyn, ky, dky, pk, ph
-      double precision pi_const, phi0, pk_part(nch)
-      double complex ak, czero, imnum
+      double precision pi_const, phi0
+      double complex ak(nch), czero, imnum
 
       parameter ( pi_const = 3.14159265359d0 )
       parameter ( czero = cmplx(0.0d0, 0.0d0, kind=kind(1.0d0)),
@@ -45,6 +48,7 @@ c=======================================================
          enddo
       enddo
 
+      call wfat_initprint_tmd(nch, orbid0, spinid)
       
       dkx = (kxn-kx0) / (nkx-1)
       kx = kx0 - dkx
@@ -55,9 +59,11 @@ c=======================================================
          do iy = 1, nky
             ky = ky + dky
 
+            gap = (iy == nky)
+            
             pk = 0.0d0
             do i = 1, nch
-               ak = czero
+               ak(i) = czero
                do iqn = 1, nqn
                   n = nid(iqn)
                   m = mid(iqn)
@@ -66,18 +72,18 @@ c=======================================================
                   call wfat_calc_phi0xi((kx**2+ky**2)/ef, n, m, erg(i),
      &                 phi0)
                   i_fn = k_fn + (i-1)*nqn + (iqn-1)
-                  ak = ak + dcpl_mb(i_fn) * phi0 * exp(imnum*m*ph)
+                  ak(i) = ak(i) + dcpl_mb(i_fn) * phi0 * exp(imnum*m*ph)
      &                 / sqrt(2*pi_const)
                enddo
-               ak = sqrt(8/ef) * pi_const * imnum * ak
-               pk_part(i) = (abs(ak))**2
-               pk = pk + pk_part(i)
+               ak(i) = sqrt(8/ef) * pi_const * imnum * ak(i)
+               pk = pk + (abs(ak(i)))**2
             enddo
 
-c            call wfat_print_tmd(nch, pk_part, pk)
+            call wfat_print_tmd(kx, ky, nch, ak, gap)
          enddo
       enddo
 
+      call wfat_endprint_tmd()
 
       if (.not. MA_free_heap(l_fn))
      &     call errquit('WFAT: fn deallocation failed', 89, MA_ERR)
@@ -89,7 +95,8 @@ c=======================================================
 c=======================================================
 c=======================================================
       subroutine wfat_calc_tmd1(rtdb, beta, gamma, nat, nch, nqn, nid,
-     &     mid, erg, chmmt, pb, zi, ef, wfat0, on, gn, jn, kn)
+     &     mid, orbid0, spinid, erg, chmmt, pb, zi, ef, wfat0, on, gn,
+     &     jn, kn)
 
       implicit none
 #include "mafdecls.fh"
@@ -102,6 +109,8 @@ c=======================================================
       integer nqn
       integer nid(nqn)
       integer mid(nqn)
+      integer orbid0(nch)
+      integer spinid(nch)
       double precision erg(nch)
       double precision chmmt(3, nch)
       double precision pb(3, 3, nch)
@@ -113,11 +122,12 @@ c=======================================================
       double complex jn(nat, nqn, nch)
       double complex kn(nat, nqn, nch)
 
+      logical gap
       integer l_fn0, k_fn0, i_fn0, l_fn1, k_fn1, i_fn1, n, m, i, iqn
       integer nkx, nky, ix, iy
       double precision kx0, kxn, kx, dkx, ky0, kyn, ky, dky, pk, ph
-      double precision pi_const, phi0, phi1, pk_part(nch)
-      double complex ak, czero, imnum, fn
+      double precision pi_const, phi0, phi1
+      double complex ak(nch), czero, imnum, fn
 
       parameter ( pi_const = 3.14159265359d0 )
       parameter ( czero = cmplx(0.0d0, 0.0d0, kind=kind(1.0d0)),
@@ -147,6 +157,7 @@ c=======================================================
          enddo
       enddo
 
+      call wfat_initprint_tmd(nch, orbid0, spinid)
       
       dkx = (kxn-kx0) / (nkx-1)
       kx = kx0 - dkx
@@ -159,7 +170,7 @@ c=======================================================
 
             pk = 0.0d0
             do i = 1, nch
-               ak = czero
+               ak(i) = czero
                do iqn = 1, nqn
                   n = nid(iqn)
                   m = mid(iqn)
@@ -179,18 +190,18 @@ c=======================================================
      &                    erg(i), beta, gamma, chmmt(:,i), phi1)
                   endif
                   
-                  ak = ak + fn * (phi0+ef*phi1) * exp(imnum*m*ph)
+                  ak(i) = ak(i) + fn * (phi0+ef*phi1) * exp(imnum*m*ph)
      &                 / sqrt(2*pi_const)
                enddo
-               ak = sqrt(8/ef) * pi_const * imnum * ak
-               pk_part(i) = (abs(ak))**2
-               pk = pk + pk_part(i)
+               ak(i) = sqrt(8/ef) * pi_const * imnum * ak(i)
+               pk = pk + (abs(ak(i)))**2
             enddo
 
-c            call wfat_print_tmd(nch, pk_part, pk)
+            call wfat_print_tmd(kx, ky, nch, ak, gap)
          enddo
       enddo
 
+      call wfat_endprint_tmd()
 
       if (.not. MA_free_heap(l_fn0))
      &     call errquit('WFAT: fn0 deallocation failed', 89, MA_ERR)

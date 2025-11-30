@@ -193,7 +193,22 @@ c              ==== Print ionization rate ====
      &              call wfat_print_rate(bt, gm, nch, nqn, 
      &              dbl_mb(k_rt), rate, gap)
             endif
-            
+
+c              ==== Print TMD ====
+            if (pr_tmd) then
+               if (wfat1) then
+                  call wfat_calc_tmd1(rtdb, bt, gm, nat, nch, nqn,
+     &                 nid, mid, orbid0, spinid, erg, chmmt, 
+     &                 dbl_mb(k_pbd), zi, fieldm, wfat1_exc,
+     &                 dbl_mb(k_on), dcpl_mb(k_gn), dcpl_mb(k_jn), 
+     &                 dcpl_mb(k_kn))
+               else
+                  call wfat_calc_tmd0(rtdb, bt, gm, nat, nch, nqn,
+     &                 nid, mid, orbid0, spinid, erg, zi, fieldm,
+     &                 dcpl_mb(k_gn))
+               endif
+            endif
+               
          enddo
       enddo
       

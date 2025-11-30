@@ -367,12 +367,12 @@ c        =============================================
      &           dbl_mb(k_dps), dbl_mb(k_pbs), log_mb(k_w1x), 
      &           dcpl_mb(k_inj), dcpl_mb(k_ink1), dcpl_mb(k_ink2))
 
-            if (pr_tmd .or. pr_tmd_atom) 
-     &           call wfat_calcprint_tmd(rtdb, geom_hd, pr_tmd, 
-     &           pr_tmd_atom, fieldmag, nch, int_mb(k_or0), 
-     &           int_mb(k_sp), dbl_mb(k_eg), dbl_mb(k_cmm), nqn, 
-     &           int_mb(k_npa), int_mb(k_mpa), lmax, dcpl_mb(k_in),
-     &           res_mode)
+cOLD            if (pr_tmd .or. pr_tmd_atom) 
+cOLD     &           call wfat_calcprint_tmd(rtdb, geom_hd, pr_tmd, 
+cOLD     &           pr_tmd_atom, fieldmag, nch, int_mb(k_or0), 
+cOLD     &           int_mb(k_sp), dbl_mb(k_eg), dbl_mb(k_cmm), nqn, 
+cOLD     &           int_mb(k_npa), int_mb(k_mpa), lmax, dcpl_mb(k_in),
+cOLD     &           res_mode)
          endif
          
          
@@ -432,149 +432,149 @@ cforCHECK     &     call errquit('WFAT: Cannot print RTDB.', 1, RTDB_ERR)
 c===============================================================
 
       
-c===============================================================
-c===============================================================
-      subroutine wfat_calcprint_tmd(rtdb, geom, pr_tmd, pr_tmd_atom, ef,
-     &           nch, orbid0, spinid, erg, chmmt, nqn, nid, mid, lmax,
-     &           intgl, rmode)
-      
-      implicit none
-#include "global.fh"      
-#include "errquit.fh"
-#include "stdio.fh"
-#include "mafdecls.fh"
-#include "rtdb.fh"
-#include "geom.fh"
-ccOLD #include "wfat_qm_param.fh"            
-      integer rtdb
-      integer geom
-      logical pr_tmd
-      logical pr_tmd_atom
-      double precision ef
-      integer nch
-      integer orbid0(nch)
-      integer spinid(nch)
-      double precision erg(nch)
-      double precision chmmt(3, nch)
-      integer nqn
-      integer nid(nqn)
-      integer mid(nqn)
-      integer lmax
-      double complex intgl(1:*)
-      logical rmode
-
-      logical gap
-      integer ix, iy, ndid, nat
-      integer nsf, ntmd, nktmd, ntms
-      integer l_sf, l_tm, l_tms
-      integer k_sf, k_tm, k_tms
-      double precision kx, ky, kmax, dk, bt_tmd, gm_tmd
-
-
-      ndid = ga_nodeid()
-      if (ndid /= 0) return
-
-      
-c     ==== Obtaining beta and gamma ====
-      if (.not. rtdb_get(rtdb, 'wfat:beta_tmd', mt_dbl, 1, bt_tmd))
-     &     call errquit('WFAT: Failed reading bt_tmd from rtdb',
-     &     1, INPUT_ERR)
-      if (.not. rtdb_get(rtdb, 'wfat:gamma_tmd', mt_dbl, 1, gm_tmd))
-     &     call errquit('WFAT: Failed reading gm_tmd from rtdb',
-     &     1, INPUT_ERR)
-
-      
-c     ==== Allocation of structure factors and TMD ====
-      if (.not. geom_ncent(geom, nat))
-     &     call errquit('WFAT: Getting natom failed', 77, GEOM_ERR)
-      nsf = nat * nqn * nch
-      if (.not. MA_alloc_get(MT_DCPL, nsf, 'srfc', l_sf, k_sf))
-     &     call errquit('WFAT: srfc allocation failed', 2, MA_ERR)
-      call wfat_get_srfc0(geom, bt_tmd, gm_tmd, nch, erg,
-     &                    nqn, mid, lmax, chmmt, intgl, .false.,
-     &                    dcpl_mb(k_sf))
-      ntmd = nat * nch
-      if (.not. MA_alloc_get(MT_DCPL, ntmd, 'tmd', l_tm, k_tm))
-     &     call errquit('WFAT: tmd allocation failed', 2, MA_ERR)
-      ntms = nat * nch
-      if (.not. MA_alloc_get(MT_DBL, ntmd, 'tmd_ksum', l_tms, k_tms))
-     &     call errquit('WFAT: tmd_ksum allocation failed', 2, MA_ERR)
-
-      
-c     ==== Calculating max. momentum to calculate the TMD at ====
-      call wfat_get_kmax(ef, nch, erg, nqn, nid, mid, kmax)
-      if (.not. rtdb_get(rtdb, 'wfat:nktmd', mt_int, 1, nktmd))
-     &     call errquit('WFAT: Failed reading nktmd from rtdb',
-     &     1, RTDB_ERR)
-      dk = 2 * kmax / (nktmd - 1)
-      write(luout, '(/, 3x, "*** INFO ***")')
-      write(luout, '(5x, "Max. transverse momentum = ", e14.6, '//
-     &      '" rad/Bohr")') kmax
-
-
-c     ==== Initializing the printings ====      
-      if (ndid==0 .and. pr_tmd) call wfat_initprint_tmd(nch, orbid0,
-     &                                  spinid)
-      if (ndid==0 .and. pr_tmd_atom) call wfat_initprint_tmdar(nch, 
-     &                                       nat, orbid0, spinid)
-
-
-c     ==== Calculate the TMDs ====
-      dbl_mb(k_tms:k_tms+ntms-1) = 0.0d0
-      ky = -kmax
-      do iy = 1, nktmd
-         kx = -kmax
-         do ix = 1, nktmd
-
-            if (ix /= nktmd) then
-               gap = .false.
-            else
-               gap = .true.
-            endif
-            call wfat_calc_tmd(kx, ky, nch, erg, nqn, nid, mid,
-     &                         ef, dcpl_mb(k_sf), dcpl_mb(k_tm))
-            
-            if (ndid == 0) then
-               if (pr_tmd) call wfat_print_tmd(kx, ky, nch,
-     &                          dcpl_mb(k_tm), gap)
-               if (pr_tmd_atom) call wfat_print_tmdar(kx, ky, nch,
-     &                               nat, dcpl_mb(k_tm), gap)
-            endif
-
-            if (pr_tmd_atom .and. rmode)
-     &           dbl_mb(k_tms:k_tms+ntms-1) = dbl_mb(k_tms:k_tms+ntms-1)
-     &                              + abs(dcpl_mb(k_tm:k_tm+ntmd-1))
-
-            kx = kx + dk
-         enddo
-         ky = ky + dk
-      enddo
-
-
-      if (pr_tmd_atom .and. rmode .and. ndid==0) then
-         dbl_mb(k_tms:k_tms+ntms-1) = dbl_mb(k_tms:k_tms+ntms-1)*dk**2
-         call wfat_print_tms(geom, nch, nat, dbl_mb(k_tms))
-      endif
-
-      
-c     ==== Terminating printings ====
-      if (ndid==0 .and. pr_tmd) call wfat_endprint_tmd()
-      if (ndid==0 .and. pr_tmd_atom) call wfat_endprint_tmdar()
-      
-
-c     ==== Deallocations ====
-      if (.not. MA_free_heap(l_sf))
-     &     call errquit('WFAT: srfc deallocation failed',
-     &     3, MA_ERR)
-      if (.not. MA_free_heap(l_tm))
-     &     call errquit('WFAT: tmd deallocation failed',
-     &     3, MA_ERR)
-      if (.not. MA_free_heap(l_tms))
-     &     call errquit('WFAT: tmd_ksum deallocation failed',
-     &     3, MA_ERR)
-
-
-
-      
-      end
-c===============================================================
+cOLDc===============================================================
+cOLDc===============================================================
+cOLD      subroutine wfat_calcprint_tmd(rtdb, geom, pr_tmd, pr_tmd_atom, ef,
+cOLD     &           nch, orbid0, spinid, erg, chmmt, nqn, nid, mid, lmax,
+cOLD     &           intgl, rmode)
+cOLD      
+cOLD      implicit none
+cOLD#include "global.fh"      
+cOLD#include "errquit.fh"
+cOLD#include "stdio.fh"
+cOLD#include "mafdecls.fh"
+cOLD#include "rtdb.fh"
+cOLD#include "geom.fh"
+cOLDccOLD #include "wfat_qm_param.fh"            
+cOLD      integer rtdb
+cOLD      integer geom
+cOLD      logical pr_tmd
+cOLD      logical pr_tmd_atom
+cOLD      double precision ef
+cOLD      integer nch
+cOLD      integer orbid0(nch)
+cOLD      integer spinid(nch)
+cOLD      double precision erg(nch)
+cOLD      double precision chmmt(3, nch)
+cOLD      integer nqn
+cOLD      integer nid(nqn)
+cOLD      integer mid(nqn)
+cOLD      integer lmax
+cOLD      double complex intgl(1:*)
+cOLD      logical rmode
+cOLD
+cOLD      logical gap
+cOLD      integer ix, iy, ndid, nat
+cOLD      integer nsf, ntmd, nktmd, ntms
+cOLD      integer l_sf, l_tm, l_tms
+cOLD      integer k_sf, k_tm, k_tms
+cOLD      double precision kx, ky, kmax, dk, bt_tmd, gm_tmd
+cOLD
+cOLD
+cOLD      ndid = ga_nodeid()
+cOLD      if (ndid /= 0) return
+cOLD
+cOLD      
+cOLDc     ==== Obtaining beta and gamma ====
+cOLD      if (.not. rtdb_get(rtdb, 'wfat:beta_tmd', mt_dbl, 1, bt_tmd))
+cOLD     &     call errquit('WFAT: Failed reading bt_tmd from rtdb',
+cOLD     &     1, INPUT_ERR)
+cOLD      if (.not. rtdb_get(rtdb, 'wfat:gamma_tmd', mt_dbl, 1, gm_tmd))
+cOLD     &     call errquit('WFAT: Failed reading gm_tmd from rtdb',
+cOLD     &     1, INPUT_ERR)
+cOLD
+cOLD      
+cOLDc     ==== Allocation of structure factors and TMD ====
+cOLD      if (.not. geom_ncent(geom, nat))
+cOLD     &     call errquit('WFAT: Getting natom failed', 77, GEOM_ERR)
+cOLD      nsf = nat * nqn * nch
+cOLD      if (.not. MA_alloc_get(MT_DCPL, nsf, 'srfc', l_sf, k_sf))
+cOLD     &     call errquit('WFAT: srfc allocation failed', 2, MA_ERR)
+cOLD      call wfat_get_srfc0(geom, bt_tmd, gm_tmd, nch, erg,
+cOLD     &                    nqn, mid, lmax, chmmt, intgl, .false.,
+cOLD     &                    dcpl_mb(k_sf))
+cOLD      ntmd = nat * nch
+cOLD      if (.not. MA_alloc_get(MT_DCPL, ntmd, 'tmd', l_tm, k_tm))
+cOLD     &     call errquit('WFAT: tmd allocation failed', 2, MA_ERR)
+cOLD      ntms = nat * nch
+cOLD      if (.not. MA_alloc_get(MT_DBL, ntmd, 'tmd_ksum', l_tms, k_tms))
+cOLD     &     call errquit('WFAT: tmd_ksum allocation failed', 2, MA_ERR)
+cOLD
+cOLD      
+cOLDc     ==== Calculating max. momentum to calculate the TMD at ====
+cOLD      call wfat_get_kmax(ef, nch, erg, nqn, nid, mid, kmax)
+cOLD      if (.not. rtdb_get(rtdb, 'wfat:nktmd', mt_int, 1, nktmd))
+cOLD     &     call errquit('WFAT: Failed reading nktmd from rtdb',
+cOLD     &     1, RTDB_ERR)
+cOLD      dk = 2 * kmax / (nktmd - 1)
+cOLD      write(luout, '(/, 3x, "*** INFO ***")')
+cOLD      write(luout, '(5x, "Max. transverse momentum = ", e14.6, '//
+cOLD     &      '" rad/Bohr")') kmax
+cOLD
+cOLD
+cOLDc     ==== Initializing the printings ====      
+cOLD      if (ndid==0 .and. pr_tmd) call wfat_initprint_tmd(nch, orbid0,
+cOLD     &                                  spinid)    resolve
+cOLD      if (ndid==0 .and. pr_tmd_atom) call wfat_initprint_tmdar(nch, 
+cOLD     &                                       nat, orbid0, spinid)   resolve
+cOLD
+cOLD
+cOLDc     ==== Calculate the TMDs ====
+cOLD      dbl_mb(k_tms:k_tms+ntms-1) = 0.0d0
+cOLD      ky = -kmax
+cOLD      do iy = 1, nktmd
+cOLD         kx = -kmax
+cOLD         do ix = 1, nktmd
+cOLD
+cOLD            if (ix /= nktmd) then
+cOLD               gap = .false.
+cOLD            else
+cOLD               gap = .true.
+cOLD            endif
+cOLD            call wfat_calc_tmd(kx, ky, nch, erg, nqn, nid, mid,
+cOLD     &                         ef, dcpl_mb(k_sf), dcpl_mb(k_tm))
+cOLD            
+cOLD            if (ndid == 0) then
+cOLD               if (pr_tmd) call wfat_print_tmd(kx, ky, nch,
+cOLD     &                          dcpl_mb(k_tm), gap)
+cOLD               if (pr_tmd_atom) call wfat_print_tmdar(kx, ky, nch,
+cOLD     &                               nat, dcpl_mb(k_tm), gap)
+cOLD            endif
+cOLD
+cOLD            if (pr_tmd_atom .and. rmode)
+cOLD     &           dbl_mb(k_tms:k_tms+ntms-1) = dbl_mb(k_tms:k_tms+ntms-1)
+cOLD     &                              + abs(dcpl_mb(k_tm:k_tm+ntmd-1))
+cOLD
+cOLD            kx = kx + dk
+cOLD         enddo
+cOLD         ky = ky + dk
+cOLD      enddo
+cOLD
+cOLD
+cOLD      if (pr_tmd_atom .and. rmode .and. ndid==0) then
+cOLD         dbl_mb(k_tms:k_tms+ntms-1) = dbl_mb(k_tms:k_tms+ntms-1)*dk**2
+cOLD         call wfat_print_tms(geom, nch, nat, dbl_mb(k_tms))
+cOLD      endif
+cOLD
+cOLD      
+cOLDc     ==== Terminating printings ====
+cOLD      if (ndid==0 .and. pr_tmd) call wfat_endprint_tmd()
+cOLD      if (ndid==0 .and. pr_tmd_atom) call wfat_endprint_tmdar()
+cOLD      
+cOLD
+cOLDc     ==== Deallocations ====
+cOLD      if (.not. MA_free_heap(l_sf))
+cOLD     &     call errquit('WFAT: srfc deallocation failed',
+cOLD     &     3, MA_ERR)
+cOLD      if (.not. MA_free_heap(l_tm))
+cOLD     &     call errquit('WFAT: tmd deallocation failed',
+cOLD     &     3, MA_ERR)
+cOLD      if (.not. MA_free_heap(l_tms))
+cOLD     &     call errquit('WFAT: tmd_ksum deallocation failed',
+cOLD     &     3, MA_ERR)
+cOLD
+cOLD
+cOLD
+cOLD      
+cOLD      end
+cOLDc===============================================================

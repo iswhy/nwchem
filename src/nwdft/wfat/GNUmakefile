@@ -63,6 +63,7 @@
 	wfat_print_iy.o \
 	wfat_print_tm.o \
 	wfat_print_tmar.o \
+	wfat_print_tmd.o \
 	wfat_print_info.o \
 	wfat_print_dens.o \
 	wfat_print_integrals.o \
@@ -89,6 +90,8 @@
 	wfat_calc_tau.o \
 	wfat_calc_phixi.o \
 	wfat_sumyield_lebedev.o \
+	wfat_tmd.o \
+	wfat_asym_coef.o \
 	wfat_2a1e_task.o \
 	wfat_2a1e.o \
 	wfat_2a1e_init.o \
