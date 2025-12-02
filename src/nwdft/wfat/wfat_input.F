@@ -89,11 +89,11 @@ c     ==== Initial status of WFAT inputs ====
       nktmd_exist = .false.
       nktmd_stat = .false.
 
-      beta_tmd_exist = .false.
-      beta_tmd_stat = .false.
+cOLD      beta_tmd_exist = .false.
+cOLD      beta_tmd_stat = .false.
 
-      gamma_tmd_exist = .false.
-      gamma_tmd_stat = .false.
+cOLD      gamma_tmd_exist = .false.
+cOLD      gamma_tmd_stat = .false.
 
       lmax_exist = .false.
       lmax_stat = .false.
@@ -287,12 +287,17 @@ cOLD               fieldmag_stat = inp_f(fieldmag)
                   gamma_last_stat = inp_f(wfat_gamma_last)
                endif
                gamma_stat = gamma_start_stat
-            else if (inp_compare(.false., 'beta_tmd', field)) then
-               beta_tmd_exist = .true.
-               beta_tmd_stat = inp_f(beta_tmd)
-            else if (inp_compare(.false., 'gamma_tmd', field)) then
-               gamma_tmd_exist = .true.
-               gamma_tmd_stat = inp_f(gamma_tmd)
+cOLD            else if (inp_compare(.false., 'beta_tmd', field)) then
+cOLD               beta_tmd_exist = .true.
+cOLD               beta_tmd_stat = inp_f(beta_tmd)
+cOLD            else if (inp_compare(.false., 'gamma_tmd', field)) then
+cOLD               gamma_tmd_exist = .true.
+cOLD               gamma_tmd_stat = inp_f(gamma_tmd)
+            else if (inp_compare(.false., 'kx', field)) then
+               call wfat_parse_momentum(rtdb, 'x')
+            else if (inp_compare(.false., 'ky', field)) then
+               call wfat_parse_momentum(rtdb, 'y')
+               
                
 c           ==== CONDITIONALLY OPTIONAL INPUTS ====
             else if (inp_compare(.false., 'nktmd', field)) then
@@ -2177,6 +2182,81 @@ c           ==== cgridthr ====
 
       end
 c=======================================================
+
+
+c=======================================================
+c=======================================================
+      subroutine wfat_parse_momentum(rtdb, c)
+c     Type 1:
+c       kx <kx_start> <nkx> <kx_last>
+c     kx_start, nkx, and kx_last are supplied by the user.
+c     Type 2:
+c       kx <kx_start>
+c     This type is equivalent to kx <kx_start> 1 <kx_start>.
+cOLD     Type 3:
+cOLD       kx <nkx>
+cOLD     This type is equivalent to kx -<kmax> <nkx> +<kmax>, where kmax is computed
+cOLD     by NWChem according to the span of the broadest channel function.
+      implicit none
+#include "errquit.fh"
+#include "inp.fh"
+#include "mafdecls.fh"
+#include "rtdb.fh"      
+      integer rtdb
+      character*1 c
+
+      integer nk
+      double precision k0, kn
+
+
+      if (c /= 'x' .and. c /= 'y') 
+     &     call errquit('WFAT: Argument c of wfat_parse_momentum '//
+     &     'must be either x or y.', 15, INPUT_ERR)
+
+      
+cOLD      if (inp_i(nk)) then    ! type 3
+cOLD         ll = .true.
+cOLD         k0 = 0.0d0
+cOLD         kn = 0.0d0
+
+      if (inp_f(k0)) then
+cOLD         ll = .false.
+         if (inp_i(nk)) then      ! type 1
+            if (.not. inp_f(kn))
+     &           call errquit('WFAT: A valid last momentum point is '//
+     &           'expected.', 49, INPUT_ERR)
+         else     ! type 2
+            nk = 1
+            kn = k0
+         endif
+      else
+         call errquit('WFAT: Valid inputs for k'//c//' directive is '//
+     &        'expected.', 24, INPUT_ERR)
+      endif
+      
+            
+cOLD      if (.not. rtdb_put(rtdb, 'wfat:inp:def_k'//c//'lims',
+cOLD     &     mt_log, 1, ll))
+cOLD     &     call errquit('WFAT: Cannot write inp:def_klims to rtdb',
+cOLD     &     53, INPUT_ERR)
+      
+      if (.not. rtdb_put(rtdb, 'wfat:inp:k'//c//'_start',
+     &     mt_dbl, 1, k0))
+     &     call errquit('WFAT: Cannot write inp:k'//c//'_start to rtdb',
+     &     53, INPUT_ERR)
+
+      if (.not. rtdb_put(rtdb, 'wfat:inp:k'//c//'_last',
+     &     mt_dbl, 1, kn))
+     &     call errquit('WFAT: Cannot write inp:k'//c//'_last to rtdb',
+     &     53, INPUT_ERR)
+
+      if (.not. rtdb_put(rtdb, 'wfat:inp:nk'//c, mt_int, 1, nk)) 
+     &     call errquit('WFAT: Cannot write inp:nk'//c//' to rtdb',
+     &     53, INPUT_ERR)
+
+      end
+c=======================================================
+      
       
       
 cc=======================================================

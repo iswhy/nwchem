@@ -8,6 +8,8 @@ c=======================================================
       call wfat_process_quadgrid(rtdb)
 
       call wfat_process_mypos(rtdb)
+
+      call wfat_process_momentum(rtdb)
       
       end
 c=======================================================
@@ -226,3 +228,64 @@ c=======================================================
       
       end
 c=======================================================
+
+
+c=======================================================
+c=======================================================
+      subroutine wfat_process_momentum(rtdb)
+
+      implicit none
+#include "errquit.fh"
+#include "rtdb.fh"
+#include "mafdecls.fh" 
+      integer rtdb
+
+      character*1 cc(2)
+      character*1 c
+      logical pr_tmd, r, ll
+      integer i, nk
+      double precision k0, kn
+
+
+      cc = (/ 'x', 'y' /)
+      
+      if (.not. rtdb_get(rtdb, 'wfat:print_tmd', mt_log, 1, pr_tmd))
+     &     call errquit('WFAT: Failed reading print_tmd from rtdb',
+     &     1, RTDB_ERR)
+
+      if (pr_tmd) then
+
+         do i = 1, 2
+            c = cc(i)
+            
+            call wfat_rtdb_fduplicate(rtdb, 'wfat:inp:k'//c//'_start',
+     &           'wfat:k'//c//'_start')
+
+            call wfat_rtdb_fduplicate(rtdb, 'wfat:inp:k'//c//'_last',
+     &           'wfat:k'//c//'_last')
+            
+            if (.not. rtdb_get(rtdb, 'wfat:inp:nk'//c, mt_int, 1, nk))
+     &           call errquit('WFAT: Cannot read nk'//c//' from rtdb', 
+     &           35, INPUT_ERR)
+            call wfat_ival_atleast(nk, 1, 'WFAT', '''nk'//c//'''', 'i',
+     &           r)
+            if (.not. rtdb_put(rtdb, 'wfat:nk'//c, mt_int, 1, nk))
+     &           call errquit('WFAT: Cannot write nk'//c//' to rtdb', 
+     &           35, INPUT_ERR)
+         enddo
+         
+      else
+
+         ll = rtdb_delete(rtdb, 'wfat:inp:kx_start')
+         ll = rtdb_delete(rtdb, 'wfat:inp:kx_last')
+         ll = rtdb_delete(rtdb, 'wfat:inp:nkx')
+         ll = rtdb_delete(rtdb, 'wfat:inp:ky_start')
+         ll = rtdb_delete(rtdb, 'wfat:inp:ky_last')
+         ll = rtdb_delete(rtdb, 'wfat:inp:nky')
+         
+      endif
+      
+      
+      end
+c=======================================================
+      

@@ -328,10 +328,10 @@ c        ==================================================
      &           dps, pbs, log_mb(k_w1x), dcpl_mb(k_inj), 
      &           dcpl_mb(k_ink1), dcpl_mb(k_ink2))
          else
-            if (pr_srfc .or. pr_rate)
+            if (pr_srfc .or. pr_rate .or. pr_tmd)
      &           call wfat_calc_ti(rtdb, geom_hd, pr_srfc, pr_rate,
-     &           fieldmag, nch, orbid, spinid, dbl_mb(i_eg), chmmt, 
-     &           nqn, int_mb(k_npa), int_mb(k_mpa), lmax, zion, 
+     &           pr_tmd, fieldmag, nch, orbid, spinid, dbl_mb(i_eg), 
+     &           chmmt, nqn, int_mb(k_npa), int_mb(k_mpa), lmax, zion, 
      &           dcpl_mb(k_in), wfat1, ndgsub, max_ndgsub, dgs, ndgs,
      &           dps, pbs, log_mb(k_w1x), dcpl_mb(k_inj), 
      &           dcpl_mb(k_ink1), dcpl_mb(k_ink2))

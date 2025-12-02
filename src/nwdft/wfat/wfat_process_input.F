@@ -147,32 +147,32 @@ c     == gamma ==
      &        '* print_avgamma   ',
      &        '* print_srfc      ', ' ', ' '
       endif
-c     == beta_tmd ==
-      if (.not. beta_tmd_exist .and.
-     &     (print_tmd .or. print_tmd_atom)) then
-         write(luout, 205) 'beta_tmd', '* print_tmd',
-     &        '* print_tmd_atom', ' ', ' ', ' ', ' ', ' '
-         call errquit('INPUT ERROR: Cannot find input directive '//
-     &        '''beta_tmd''. ', 0, INPUT_ERR)
-      else if (beta_tmd_exist .and. .not.
-     &        (print_tmd .or. print_tmd_atom)) then
-         write(luout, 201) 'beta_tmd',
-     &        '* print_tmd       ',
-     &        '* print_tmd_atom  ', ' ', ' ', ' ', ' ', ' '
-      endif
-c     == gamma_tmd ==
-      if (.not. gamma_tmd_exist .and.
-     &     (print_tmd .or. print_tmd_atom)) then
-         write(luout, 205) 'gamma_tmd', '* print_tmd',
-     &        '* print_tmd_atom', ' ', ' ', ' ', ' ', ' '
-         call errquit('INPUT ERROR: Cannot find input directive '//
-     &        '''gamma_tmd''. ', 0, INPUT_ERR)
-      else if (gamma_tmd_exist .and. .not.
-     &        (print_tmd .or. print_tmd_atom)) then
-         write(luout, 201) 'gamma_tmd',
-     &        '* print_tmd       ',
-     &        '* print_tmd_atom  ', ' ', ' ', ' ', ' ', ' '
-      endif
+cOLDc     == beta_tmd ==
+cOLD      if (.not. beta_tmd_exist .and.
+cOLD     &     (print_tmd .or. print_tmd_atom)) then
+cOLD         write(luout, 205) 'beta_tmd', '* print_tmd',
+cOLD     &        '* print_tmd_atom', ' ', ' ', ' ', ' ', ' '
+cOLD         call errquit('INPUT ERROR: Cannot find input directive '//
+cOLD     &        '''beta_tmd''. ', 0, INPUT_ERR)
+cOLD      else if (beta_tmd_exist .and. .not.
+cOLD     &        (print_tmd .or. print_tmd_atom)) then
+cOLD         write(luout, 201) 'beta_tmd',
+cOLD     &        '* print_tmd       ',
+cOLD     &        '* print_tmd_atom  ', ' ', ' ', ' ', ' ', ' '
+cOLD      endif
+cOLDc     == gamma_tmd ==
+cOLD      if (.not. gamma_tmd_exist .and.
+cOLD     &     (print_tmd .or. print_tmd_atom)) then
+cOLD         write(luout, 205) 'gamma_tmd', '* print_tmd',
+cOLD     &        '* print_tmd_atom', ' ', ' ', ' ', ' ', ' '
+cOLD         call errquit('INPUT ERROR: Cannot find input directive '//
+cOLD     &        '''gamma_tmd''. ', 0, INPUT_ERR)
+cOLD      else if (gamma_tmd_exist .and. .not.
+cOLD     &        (print_tmd .or. print_tmd_atom)) then
+cOLD         write(luout, 201) 'gamma_tmd',
+cOLD     &        '* print_tmd       ',
+cOLD     &        '* print_tmd_atom  ', ' ', ' ', ' ', ' ', ' '
+cOLD      endif
       
 c     ==== Checking existence of CONDITIONALLY OPTIONAL INPUTS ====
 c     == nktmd ==
@@ -435,22 +435,22 @@ c     == gamma ==
      &        'given or when ''npoints=1'', ''gamma'' is assumed to '//
      &        'be equal to ''start_angle''.', 0, INPUT_ERR)
       endif
-c     == beta_tmd ==
-      if (.not. beta_tmd_stat .and.
-     &     (print_tmd .or. print_tmd_atom)) then
-         call errquit('WFAT: The format of input directive '//
-     &        '''beta_tmd'' is incorrect. The correct format '//
-     &        'should be ''beta_tmd <float value>''.',
-     &        0, INPUT_ERR)
-      endif
-c     == gamma_tmd ==
-      if (.not. gamma_tmd_stat .and.
-     &     (print_tmd .or. print_tmd_atom)) then
-         call errquit('WFAT: The format of input directive '//
-     &        '''gamma_tmd'' is incorrect. The correct format '//
-     &        'should be ''gamma_tmd <float value>''.',
-     &        0, INPUT_ERR)
-      endif
+cOLDc     == beta_tmd ==
+cOLD      if (.not. beta_tmd_stat .and.
+cOLD     &     (print_tmd .or. print_tmd_atom)) then
+cOLD         call errquit('WFAT: The format of input directive '//
+cOLD     &        '''beta_tmd'' is incorrect. The correct format '//
+cOLD     &        'should be ''beta_tmd <float value>''.',
+cOLD     &        0, INPUT_ERR)
+cOLD      endif
+cOLDc     == gamma_tmd ==
+cOLD      if (.not. gamma_tmd_stat .and.
+cOLD     &     (print_tmd .or. print_tmd_atom)) then
+cOLD         call errquit('WFAT: The format of input directive '//
+cOLD     &        '''gamma_tmd'' is incorrect. The correct format '//
+cOLD     &        'should be ''gamma_tmd <float value>''.',
+cOLD     &        0, INPUT_ERR)
+cOLD      endif
 
 c     ==== Checking format of CONDITIONALLY OPTIONAL INPUTS ====
       if (.not. nktmd_stat .and. (print_tmd .or. print_tmd_atom)) then
@@ -804,8 +804,8 @@ c=======================================================
       field_need = .false.          ! needed when OE or ME
       beta_need = .false.           ! needed when OE or ME
       gamma_need = .false.          ! needed when OE or ME
-      beta_tmd_need = .false.       ! needed when OE or ME
-      gamma_tmd_need = .false.      ! needed when OE or ME
+cOLD      beta_tmd_need = .false.       ! needed when OE or ME
+cOLD      gamma_tmd_need = .false.      ! needed when OE or ME
       nktmd_need = .false.          ! needed when OE or ME
       orbid_need = .false.          ! needed when OE
       paraqn_need = .false.         ! needed when OE or ME
@@ -857,12 +857,12 @@ cOLD      gqual_need = .false.          ! needed when OE or ME
      &     beta_need)
       call wfat_need_input0(sr, rt, tmd, tmda, yi, avb, avg,
      &     gamma_need)
-c TMD notyet      call wfat_need_input0(tmd, tmda, .false., .false., .false., 
-c TMD notyet     &     .false., .false., beta_tmd_need)
-c TMD notyet      call wfat_need_input0(tmd, tmda, .false., .false., .false., 
-c TMD notyet     &     .false., .false., gamma_tmd_need)
-c TMD notyet      call wfat_need_input0(tmd, tmda, .false., .false., .false., 
-c TMD notyet     &     .false., .false., nktmd_need)
+cOLD      call wfat_need_input0(tmd, tmda, .false., .false., .false., 
+cOLD     &     .false., .false., beta_tmd_need)
+cOLD      call wfat_need_input0(tmd, tmda, .false., .false., .false., 
+cOLD     &     .false., .false., gamma_tmd_need)
+      call wfat_need_input0(tmd, tmda, .false., .false., .false., 
+     &     .false., .false., nktmd_need)
 
       call wfat_need_input0(sr, rt, tmd, tmda, yi, avb, avg,
      &     paraqn_need)
@@ -917,8 +917,8 @@ c=======================================================
       field_need = .false.              ! needed when oe or me
       beta_need = .false.               ! needed when oe or me
       gamma_need = .false.              ! needed when oe or me
-      beta_tmd_need = .false.           ! needed when oe or me
-      gamma_tmd_need = .false.          ! needed when oe or me
+cOLD      beta_tmd_need = .false.           ! needed when oe or me
+cOLD      gamma_tmd_need = .false.          ! needed when oe or me
       nktmd_need = .false.              ! needed when oe or me
       orbid_need = .false.              ! needed when oe
       paraqn_need = .false.             ! needed when oe or me
@@ -969,10 +969,10 @@ cOLD      gqual_need = .false.              ! needed when oe or me
      &     beta_need)
       call wfat_need_input0(sr, rt, tmd, tmda, yi, avb, avg,
      &     gamma_need)
-      call wfat_need_input0(tmd, tmda, .false., .false., .false., 
-     &     .false., .false., beta_tmd_need)
-      call wfat_need_input0(tmd, tmda, .false., .false., .false., 
-     &     .false., .false., gamma_tmd_need)
+cOLD      call wfat_need_input0(tmd, tmda, .false., .false., .false., 
+cOLD     &     .false., .false., beta_tmd_need)
+cOLD      call wfat_need_input0(tmd, tmda, .false., .false., .false., 
+cOLD     &     .false., .false., gamma_tmd_need)
       call wfat_need_input0(tmd, tmda, .false., .false., .false., 
      &     .false., .false., nktmd_need)
       call wfat_need_input0(sr, rt, tmd, tmda, yi, avb, avg,
@@ -1218,15 +1218,15 @@ c     ==== Check parabolic quantum numbers ====
          call wfat_ival_atleast(nktmd, 1, 'WFAT', '''nktmd''', w, r)
       endif
 
-      if (beta_tmd_need) then
-         call wfat_dval_inrange(beta_tmd, 0.0d0, 'q', 180.0d0, 'q',
-     &        'WFAT', '''beta_tmd''', 'f', w, r)
-      endif
-
-      if (gamma_tmd_need) then
-         call wfat_dval_inrange(gamma_tmd, 0.0d0, 'q', 360.0d0, 'q',
-     &        'WFAT', '''gamma_tmd''', 'f', w, r)
-      endif
+cOLD      if (beta_tmd_need) then
+cOLD         call wfat_dval_inrange(beta_tmd, 0.0d0, 'q', 180.0d0, 'q',
+cOLD     &        'WFAT', '''beta_tmd''', 'f', w, r)
+cOLD      endif
+cOLD
+cOLD      if (gamma_tmd_need) then
+cOLD         call wfat_dval_inrange(gamma_tmd, 0.0d0, 'q', 360.0d0, 'q',
+cOLD     &        'WFAT', '''gamma_tmd''', 'f', w, r)
+cOLD      endif
 
 cOLD      if (gqual_need) then
 cOLD         call wfat_ival_inrange(wfat_gqual, 1, 4, 'WFAT', 
@@ -1591,18 +1591,18 @@ c forcheck     &     call errquit('WFAT: Printing rtdb failed', 1, RTDB_ERR)
      &        1, INPUT_ERR)
       endif
 
-      if (beta_tmd_need) then
-         if (.not. rtdb_put(rtdb, 'wfat:beta_tmd', mt_dbl, 1, beta_tmd))
-     &        call errquit('WFAT: Failed writing beta_tmd to rtdb',
-     &        1, INPUT_ERR)
-      endif
-
-      if (gamma_tmd_need) then
-         if (.not. rtdb_put(rtdb, 'wfat:gamma_tmd', mt_dbl, 1,
-     &        gamma_tmd))
-     &        call errquit('WFAT: Failed writing gamma_tmd to rtdb',
-     &        1, INPUT_ERR)
-      endif
+cOLD      if (beta_tmd_need) then
+cOLD         if (.not. rtdb_put(rtdb, 'wfat:beta_tmd', mt_dbl, 1, beta_tmd))
+cOLD     &        call errquit('WFAT: Failed writing beta_tmd to rtdb',
+cOLD     &        1, INPUT_ERR)
+cOLD      endif
+cOLD
+cOLD      if (gamma_tmd_need) then
+cOLD         if (.not. rtdb_put(rtdb, 'wfat:gamma_tmd', mt_dbl, 1,
+cOLD     &        gamma_tmd))
+cOLD     &        call errquit('WFAT: Failed writing gamma_tmd to rtdb',
+cOLD     &        1, INPUT_ERR)
+cOLD      endif
 
       if (lmax_need .and. os) then
          if (.not. rtdb_put(rtdb, 'wfat:lmax', mt_int, 1, wfat_lmax))

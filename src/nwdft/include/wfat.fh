@@ -26,7 +26,8 @@ c     ==== IO ====
      &     WF_QTEST_UNIT, WF_TAUTEST_UNIT, WF_PHI1TEST_UNIT,
      &     WF_UTEST_UNIT, WF_TAUTEST2_UNIT, WF_OTEST_UNIT,
      &     WF_SF1_UNIT(2), WF_JN_UNIT, WF_KN_UNIT, WF_ERFCTEST_UNIT,
-     &     WF_CORB_UNIT, WF_D2LAGFUNTEST_UNIT, WF_MEDIPDIAG_UNIT
+     &     WF_CORB_UNIT, WF_D2LAGFUNTEST_UNIT, WF_MEDIPDIAG_UNIT,
+     &     tmdfile, tmdlim
 
       parameter
      &     (WF_ORBGAP='("      ")', WF_QNTGAP='("   ")',
@@ -47,7 +48,7 @@ c     ==== IO ====
      &     WF_UTEST_UNIT=214, WF_TAUTEST2_UNIT=215, WF_OTEST_UNIT=216,
      &     WF_JN_UNIT=217, WF_KN_UNIT=218, WF_ERFCTEST_UNIT=219,
      &     WF_CORB_UNIT=220, WF_D2LAGFUNTEST_UNIT=221,
-     &     WF_MEDIPDIAG_UNIT=222)
+     &     WF_MEDIPDIAG_UNIT=222, tmdlim=5)
       
 
 c     ==== Calculations ====
@@ -66,7 +67,7 @@ c     ==== Calculations ====
      &     WF_TM_PRINT_READY, WF_TMAR_PRINT_READY, WF_SF1_PRINT_READY, 
      &     WF_SF_FNAME, WF_RT_FNAME, WF_IY_FNAME, WF_ABTIY_FNAME, 
      &     WF_AGMIY_FNAME, WF_TM_FNAME, WF_TMAR_FNAME, WF_SF1_FNAME,
-     &     WF_SF1_UNIT
+     &     WF_SF1_UNIT, tmdfile
       
       
      

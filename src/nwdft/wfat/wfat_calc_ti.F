@@ -1,9 +1,9 @@
 c===============================================================
 c===============================================================
-      subroutine wfat_calc_ti(rtdb, geom, pr_srfc, pr_rate, fieldm,
-     &           nch, orbid0, spinid, erg, chmmt, nqn, nid, mid, lmax, 
-     &           zi, intgl, wfat1, nsub, maxn, dgs, ndgs, dps, pbs,
-     &           wfat1_exc, intgl_j, intgl_k1, intgl_k2)
+      subroutine wfat_calc_ti(rtdb, geom, pr_srfc, pr_rate, pr_tmd, 
+     &           fieldm, nch, orbid0, spinid, erg, chmmt, nqn, nid, mid,
+     &           lmax, zi, intgl, wfat1, nsub, maxn, dgs, ndgs, dps, 
+     &           pbs, wfat1_exc, intgl_j, intgl_k1, intgl_k2)
 
 c     DESCRIPTION:
 c     nsub = It is only used when wfat1=.true.. The number of degenerate subspaces,
@@ -38,6 +38,7 @@ c           maxn*maxn*6*nsub.
       integer geom                    ! [input]
       logical pr_srfc                 ! [input], if .true. then print structure factor.
       logical pr_rate                 ! [input], if .true. then print ion yield.
+      logical pr_tmd                  ! [input], if .true. then print TMD.
       double precision fieldm
       integer nch                     ! [input], number of ionized channels.
       integer orbid0(nch)             ! [input], orbital ID of ionized channels.
@@ -137,7 +138,7 @@ c     ==== Initializing the printings ====
       endif
       if (ndid == 0 .and. pr_rate)
      &     call wfat_initprint_rate(nch, orbid0, spinid, nqn, nid, mid)
-      
+
       
 c     ==== Calculate and print structure factor and ion yield ====
       do ig = 1, ngm
@@ -152,7 +153,7 @@ c     ==== Calculate and print structure factor and ion yield ====
                gap = .true.
             endif
             
-            if (pr_srfc .or. pr_rate) then
+            if (pr_srfc .or. pr_rate .or. pr_tmd) then
 c              ==== Calculate structure factors ====
                if (wfat1) then
                   call wfat_get_srfc1(bt, gm, nat, nch, nqn, lmax, mid, 
@@ -194,7 +195,7 @@ c              ==== Print ionization rate ====
      &              dbl_mb(k_rt), rate, gap)
             endif
 
-c              ==== Print TMD ====
+c           ==== Print TMD ====
             if (pr_tmd) then
                if (wfat1) then
                   call wfat_calc_tmd1(rtdb, bt, gm, nat, nch, nqn,

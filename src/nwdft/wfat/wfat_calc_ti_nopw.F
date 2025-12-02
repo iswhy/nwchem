@@ -1,10 +1,10 @@
 c=======================================================
 c=======================================================
       subroutine wfat_calc_ti_nopw(rtdb, geom, bas, pr_srfc, pr_rate,
-     &     fieldm, nb, ns, rdm, nch, orbid0, vch, spinid, erg, chmmt, 
-     &     chpos, nqn, nid, mid, zi, gq, celm, smh, ismask_e, ergmask,
-     &     amsk, bmsk, ismask, mask_param, wfat1, nsub, maxn, dgs, ndgs,
-     &     dps, pbs, wfat1_exc)
+     &     pr_tmd, fieldm, nb, ns, rdm, nch, orbid0, vch, spinid, erg, 
+     &     chmmt, chpos, nqn, nid, mid, zi, gq, celm, smh, ismask_e, 
+     &     ergmask, amsk, bmsk, ismask, mask_param, wfat1, nsub, maxn, 
+     &     dgs, ndgs, dps, pbs, wfat1_exc)
 
       implicit none
 #include "util.fh"
@@ -19,6 +19,7 @@ c=======================================================
       integer bas
       logical pr_srfc                 ! [input], if .true. then print structure factor.
       logical pr_rate                 ! [input], if .true. then print ion yield.
+      logical pr_tmd                  ! [input], if .true. then print TMD.
       double precision fieldm
       integer nb
       integer ns
@@ -54,7 +55,7 @@ c=======================================================
 
       character*12 dt_str
       character*16 tagt
-      logical gap, interm, cgrid(nch)
+      logical gap, interm, cgrid(nch), rtdb_stat
       integer l_sg, l_fc, l_rt, l_icp, l_ipp, l_pt, l_wt, l_vc, l_cl
       integer l_ma, l_tu0, l_tu1, l_acg, l_acj, l_ack, l_dum, l_sc, l_sx
       integer l_pbd, l_sj, l_sk, l_on, l_si, l_pos, l_pto, l_wto, l_vco
@@ -132,6 +133,7 @@ c     channel center.
 
 c     ==== Construct new spinid and chpos that can ====
 c     ====  take care of wfat1 when it is .true.   ====
+      if (ndid==0) write(luout, '("herel0")')
       nch1 = 0
       if (wfat1) nch1 = 3 * nch
       if (.not. MA_alloc_get(MT_INT, nch+nch1, 'spinid1', l_si, k_si))
@@ -142,6 +144,7 @@ c     ====  take care of wfat1 when it is .true.   ====
       call wfat_get_wfat1_sppos(wfat1, nch, spinid, chpos, int_mb(k_si),
      &     dbl_mb(k_pos))
 
+      if (ndid==0) write(luout, '("herel1")')
 c     ==== Calculate and gather V_c|psi> at all grid points ====
       if (.not. MA_alloc_get(MT_DBL, nptp*(nch+nch1), 'vc_psi',
      &     l_vc, k_vc))
@@ -155,6 +158,7 @@ c     ==== Calculate and gather V_c|psi> at all grid points ====
      &     bmsk, dbl_mb(k_vc), dbl_mb(k_vco))
       
 
+      if (ndid==0) write(luout, '("herel2")')
 c     ==== Calculate and gather the mask ====
 c     ====  function at all grid points  ====
       if (ismask) then
@@ -168,6 +172,8 @@ c     ====  function at all grid points  ====
      &        dbl_mb(k_ma), dbl_mb(k_mao))
       endif
 
+
+      if (ndid==0) write(luout, '("herel3")')
 c     ==== Allocate tau at all grid points and as. coeff. ====
       if (.not. MA_alloc_get(MT_DCPL, nptp*nqn*nch, 'tau0',
      &     l_tu0, k_tu0))
@@ -191,6 +197,7 @@ c     k_acj is a 3D array with the size of natom*nqn*3*nch.
 c     k_ack is a 3D array with the size of natom*nqn*nch.
 
 
+      if (ndid==0) write(luout, '("herel4")')
 c     ==== Calculate and gather the cell ====
 c     ====  function at all grid points  ====
       if (.not. MA_alloc_get(MT_DBL, nptp*nch, 'celf', l_cl, k_cl))
@@ -202,12 +209,14 @@ c     ====  function at all grid points  ====
      &     int_mb(k_ipp), nptp, nptop, ozn, cgrid, chpos, dbl_mb(k_pt),
      &     dbl_mb(k_pto), celm, dbl_mb(k_cl), dbl_mb(k_clo))
 
-      
+
+      if (ndid==0) write(luout, '("herel5")')
 c     ==== Obtain field factor ====
       call wfat_get_field_factor(rtdb, nch, nqn, nid, mid, zi, fieldm,
      &     erg, dbl_mb(k_fc))
       
 
+      if (ndid==0) write(luout, '("herel6")')
 c     ==== When WFAT1 is active ====
       if (wfat1) then
          call wfat_prepare_an(maxn, natom, nch, nqn, nsc, l_sc, k_sc, 
@@ -229,22 +238,28 @@ c     ==== When WFAT1 is active ====
      &        interm)) interm = .false.
       endif
 
-      
+
+      if (ndid==0) write(luout, '("herel7")')
 c     ==== Initializing the printings ====
+      rtdb_stat = rtdb_parallel(.false.)
       if (ndid == 0)
-     &     call wfat_print_field_factor(rtdb, fieldm, nch, nqn, erg, 
+     &     call wfat_print_field_factor(rtdb, fieldm, nch, nqn, erg,
      &     nid, mid, zi, dbl_mb(k_fc))
+      rtdb_stat = rtdb_parallel(.true.)
+      if (ndid==0) write(luout, '("herel7.1")')
       if (ndid == 0 .and. pr_srfc) then
          call wfat_initprint_structuref(nch, orbid0, spinid, nqn, nid,
      &        mid)
          if (wfat1) call wfat_initprint_srfc1(nch, orbid0, spinid, nqn,
      &        nid, mid)
       endif
+      if (ndid==0) write(luout, '("herel7.2")')
       if (ndid == 0 .and. pr_rate)
      &     call wfat_initprint_rate(nch, orbid0, spinid, nqn, nid, mid)
       call ga_sync()
 
-      
+
+      if (ndid==0) write(luout, '("herel8")')
       if (ndid == 0) then
          write(luout, '(2/)')
          call util_print_centered(luout, 'WFAT computation without '//
@@ -284,7 +299,7 @@ c     ==== Scan over the orientation angles ====
             endif
             
 c           ==== Calculate tau ====
-            if (pr_srfc .or. pr_rate) then
+            if (pr_srfc .or. pr_rate .or. pr_tmd) then
                call wfat_collect_tau0(geom, nch, nqn, cgrid, chpos, erg,
      &              nid, mid, bt, gm, nptp, nptop, zi, dbl_mb(k_pt),
      &              dbl_mb(k_pto), dcpl_mb(k_tu0), dcpl_mb(k_tu0o))
@@ -381,6 +396,23 @@ c              ==== Print ionization rate ====
      &              call wfat_print_rate(bt, gm, nch, nqn, dbl_mb(k_rt),
      &              rate, gap)
             endif
+
+c     ==== Print TMD ====
+            rtdb_stat = rtdb_parallel(.false.)
+            if (ndid == 0 .and. pr_tmd) then
+               if (wfat1) then
+                  call wfat_calc_tmd1(rtdb, bt, gm, natom, nch, nqn,
+     &                 nid, mid, orbid0, spinid, erg, chmmt, 
+     &                 dbl_mb(k_pbd), zi, fieldm, wfat1_exc,
+     &                 dbl_mb(k_on), dcpl_mb(k_sg), dcpl_mb(k_sj), 
+     &                 dcpl_mb(k_sk))
+               else
+                  call wfat_calc_tmd0(rtdb, bt, gm, natom, nch, nqn,
+     &                 nid, mid, orbid0, spinid, erg, zi, fieldm,
+     &                 dcpl_mb(k_sg))
+               endif
+            endif
+            rtdb_stat = rtdb_parallel(.true.)
 
             
             nang = nang + 1

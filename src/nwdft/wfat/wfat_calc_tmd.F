@@ -169,10 +169,10 @@ c================================================
             kmax_ = sqrt(2 * ef / kp * -log(KMAX00))
          else
             kmax_ = sqrt(ef * maxval(abs(mid) + 2*nid) / kp)
-         end if
+         endif
       
          if (kmax_ > kmax) kmax = kmax_
-      end do
+      enddo
       kmax = KMAX_FACTOR * kmax
         
       end

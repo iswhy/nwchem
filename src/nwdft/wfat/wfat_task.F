@@ -357,10 +357,13 @@ c        =============================================
      &           ndgsub, max_ndgsub, int_mb(k_dgs), int_mb(k_ndgs),
      &           dbl_mb(k_dps), dbl_mb(k_pbs), log_mb(k_w1x), 
      &           dcpl_mb(k_inj), dcpl_mb(k_ink1), dcpl_mb(k_ink2))
+
+            if (pr_tmd) call errquit('WFAT: TMDs produced by TD field'//
+     &           'need more robust theoretical foundation.', 55, UERR)
          else
-            if (pr_srfc .or. pr_rate)
-     &           call wfat_calc_ti(rtdb, geom_hd, pr_srfc, pr_rate, 
-     &           fieldmag, nch, int_mb(k_or0), int_mb(k_sp), 
+            if (pr_srfc .or. pr_rate .or. pr_tmd)
+     &           call wfat_calc_ti(rtdb, geom_hd, pr_srfc, pr_rate,
+     &           pr_tmd, fieldmag, nch, int_mb(k_or0), int_mb(k_sp), 
      &           dbl_mb(k_eg), dbl_mb(k_cmm), nqn, int_mb(k_npa),
      &           int_mb(k_mpa), lmax, zion, dcpl_mb(k_in), wfat1, 
      &           ndgsub, max_ndgsub, int_mb(k_dgs), int_mb(k_ndgs),
@@ -383,12 +386,12 @@ cOLD     &           res_mode)
 
       else if (lmax < 0) then
          call wfat_calc_ti_nopw(rtdb, geom_hd, bas_hd, pr_srfc, pr_rate,
-     &        fieldmag, nbas0, nspin0, dbl_mb(k_rd), nch, int_mb(k_or0),
-     &        dbl_mb(k_cf), int_mb(k_sp), dbl_mb(k_eg), dbl_mb(k_cmm),
-     &        dbl_mb(k_ps), nqn, int_mb(k_npa), int_mb(k_mpa), zion,
-     &        gqual, wf_msm, smh, ismask_e, ergmask, amsk, bmsk,
-     &        ismask_i, mask_param, wfat1, ndgsub, max_ndgsub,
-     &        int_mb(k_dgs), int_mb(k_ndgs), dbl_mb(k_dps),
+     &        pr_tmd, fieldmag, nbas0, nspin0, dbl_mb(k_rd), nch, 
+     &        int_mb(k_or0), dbl_mb(k_cf), int_mb(k_sp), dbl_mb(k_eg), 
+     &        dbl_mb(k_cmm), dbl_mb(k_ps), nqn, int_mb(k_npa), 
+     &        int_mb(k_mpa), zion, gqual, wf_msm, smh, ismask_e, 
+     &        ergmask, amsk, bmsk, ismask_i, mask_param, wfat1, ndgsub,
+     &        max_ndgsub, int_mb(k_dgs), int_mb(k_ndgs), dbl_mb(k_dps),
      &        dbl_mb(k_pbs), log_mb(k_w1x))
       endif
       if (wfat1)

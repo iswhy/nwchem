@@ -82,8 +82,8 @@ c     ==== Obtaining print switches ====
       call wfat_prep_printsw(rtdb, pr_srfc, pr_rate, pr_yild, pr_avbeta,
      &     pr_avgamma, pr_tmd, pr_tmd_atom)
       if (pr_tmd .or. pr_tmd_atom)
-     &     call errquit('MEWFAT: At the moment, TMD calculation is '//
-     &     'not yet implemented within MEWFAT', 1, UERR)
+     &     call errquit('MEWFAT: At the moment, TMD calculation with '//
+     &     'MEWFAT need to be reviewed.', 1, UERR)
 
 
 c     ==== When TD field is true ====
@@ -247,9 +247,9 @@ c        ============================================
      &           int_mb(k_npa), int_mb(k_mpa), lmax, zion,
      &           dcpl_mb(k_in))
          else
-            if (pr_srfc .or. pr_rate)
+            if (pr_srfc .or. pr_rate .or. pr_tmd)
      &           call mewfat_calc_ti(rtdb, geom_hd, nel0, natm, pr_srfc,
-     &           pr_rate, fieldmag, 1, spinx, dbl_mb(k_ieg), 
+     &           pr_rate, pr_tmd, fieldmag, 1, spinx, dbl_mb(k_ieg), 
      &           dbl_mb(k_cmm), nqn, int_mb(k_npa), int_mb(k_mpa),
      &           lmax, zion, dcpl_mb(k_in))
          endif
@@ -410,7 +410,7 @@ c=================================================
 c===============================================================
 c===============================================================
       subroutine mewfat_calc_ti(rtdb, geom, n0, nat, pr_srfc, pr_rate, 
-     &           fieldm, nch, spinid, erg, chmmt, nqn, nid, mid,
+     &           pr_tmd, fieldm, nch, spinid, erg, chmmt, nqn, nid, mid,
      &           lmax, zi, intgl)
 
 c     DESCRIPTION:
@@ -425,6 +425,7 @@ c     DESCRIPTION:
       integer nat
       logical pr_srfc                 ! [input], if .true. then print structure factor.
       logical pr_rate                 ! [input], if .true. then print ion yield.
+      logical pr_tmd                  ! [input], if .true. then print TMD.
       double precision fieldm
       integer nch                     ! [input], number of ionized channels.
       integer spinid(nch)             ! [input], spin value (1 or 2) of ionized channels.
@@ -486,7 +487,7 @@ cOLD      call wfat_calc_ti(rtdb, geom, pr_srfc, pr_rate, fieldm,
 cOLD     &     1, dummy_int, spinid, erg, chmmt, nqn, nid, mid, lmax,
 cOLD     &     zi, dcpl_mb(k_in), wfat1, nb, ns, orbid, dpmo, pb, chpos, 
 cOLD     &     intgl_j, intgl_k1, intgl_k2)
-      call wfat_calc_ti(rtdb, geom, pr_srfc, pr_rate, fieldm, 
+      call wfat_calc_ti(rtdb, geom, pr_srfc, pr_rate, pr_tmd, fieldm, 
      &     1, dummy_int, spinid, erg, chmmt, nqn, nid, mid, lmax,
      &     zi, dcpl_mb(k_in), wfat1, ndgsub, max_ndgsub, dgs, ndgs, dps,
      &     pbs, wfat1_exc, intgl_j, intgl_k1, intgl_k2)

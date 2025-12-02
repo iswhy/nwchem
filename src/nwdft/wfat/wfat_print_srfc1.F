@@ -53,8 +53,8 @@ c        ==== Column number and title ====
          
          WF_SF1_PRINT_READY(i) = .true.
       enddo
-      
-      
+
+
       end
 c=======================================================
 
@@ -77,7 +77,7 @@ c=======================================================
 
       integer j, ich, iqn
       double complex jn_tot, kn_tot
-      
+
 
       if ( .not. (WF_SF1_PRINT_READY(1) .and. WF_SF1_PRINT_READY(2)) )
      &     call errquit('WFAT: wfat_initprint_srfc1 must first '//

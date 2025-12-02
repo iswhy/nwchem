@@ -1710,6 +1710,47 @@ c============================================================
 
 c============================================================
 c============================================================
+      subroutine wfat_rtdb_fduplicate(rtdb, name1, name2)
+
+      implicit none
+#include "errquit.fh"
+#include "rtdb.fh"
+#include "mafdecls.fh"
+      integer rtdb
+      character*(*) name1, name2
+
+      integer ma, n, l, k
+
+c     ==== Read from RTDB and allocate its MA array ====
+      if (.not. rtdb_ma_get(rtdb, name1, ma, n, l))
+     &     call errquit('WFAT: Cannot read '//trim(adjustl(name1))//
+     &     ' from RTDB.', 41, RTDB_ERR)
+
+c     ==== Ensure the entry is a double precision ====
+      if (ma .ne. mt_dbl)
+     &     call errquit('WFAT: RTDB entry is not a double precision',
+     &     31, RTDB_ERR)
+
+c     ==== Get the MA index ====
+      if (.not. ma_get_index(l, k)) 
+     $     call errquit('WFAT: Cannot get index', 22 , MA_ERR)
+
+c     ==== Write to RTDB under a different name ====
+      if (.not. rtdb_put(rtdb, name2, ma, n, dbl_mb(k)))
+     &     call errquit('WFAT: Cannot write '//trim(adjustl(name2))//
+     &     ' to RTDB.', 41, RTDB_ERR)
+
+c     ==== Deallocate ====
+      if (.not. ma_free_heap(l)) 
+     &     call errquit('WFAT: Cannot deallocate '//trim(adjustl(name1))
+     &     , 22, MA_ERR)
+      
+      end
+c============================================================
+
+
+c============================================================
+c============================================================
       logical function wfat_isnan(x)
 c WARNING: This function contains non-standard code.
       implicit none

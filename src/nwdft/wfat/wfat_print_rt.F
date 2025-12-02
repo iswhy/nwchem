@@ -8,8 +8,8 @@ c=======================================================
       integer nch, orbid0(nch), spinid(nch), nqn, nid(nqn), mid(nqn)
       
 
-      call wfat_initprint_rate0(WF_RT_UNIT, nch, orbid0, spinid,
-     &                          nqn, nid, mid)
+      call wfat_initprint_rate0(WF_RT_UNIT, 'wfatr', nch, orbid0, 
+     &                          spinid, nqn, nid, mid)
 
       end
 c=======================================================
@@ -17,7 +17,7 @@ c=======================================================
       
 c=======================================================
 c=======================================================
-      subroutine wfat_initprint_rate0(iunit, nch, orbid0, spinid,
+      subroutine wfat_initprint_rate0(iunit, extn, nch, orbid0, spinid,
      &           nqn, nid, mid)
 
       implicit none
@@ -25,6 +25,7 @@ c=======================================================
 #include "errquit.fh"
 #include "stdio.fh"
       integer iunit
+      character*(*) extn
       integer nch, orbid0(nch), spinid(nch), nqn, nid(nqn), mid(nqn)
 
       character*6 wd_str
@@ -40,11 +41,12 @@ c=======================================================
      &     1, UERR)
       
 
-      call util_file_name('wfatr', .false., .false., fname)
+cOLD      call util_file_name('wfatr', .false., .false., fname)
+      call util_file_name(extn, .false., .false., fname)
       WF_RT_FNAME = fname
       h = ' '
       ang_wd = 2
-      open(iunit, file=fname, action='write')
+      open(iunit, file=WF_RT_FNAME, action='write')
       
          
       write(luout, '(/, 3x, "*** INFO ***")')
@@ -68,7 +70,7 @@ c     ==== Column number and title ====
       write(iunit, '(1x)')
 
 
-      WF_RT_PRINT_READY = .true.      
+      WF_RT_PRINT_READY = .true.
       
       end
 c=======================================================
@@ -264,7 +266,7 @@ c=======================================================
 
       write(iunit, WF_ORBGAP, advance='no')
       write(iunit, WF_RT_VALFMT) ionyd
-      if (gap) write(iunit, '(" ")') 
+      if (gap) write(iunit, '(" ")')
 
       end
 c=======================================================

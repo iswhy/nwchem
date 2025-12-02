@@ -6,6 +6,7 @@ c=======================================================
       implicit none
 #include "mafdecls.fh"
 #include "errquit.fh"
+#include "stdio.fh"
       integer rtdb
       double precision beta
       double precision gamma
@@ -30,11 +31,10 @@ c=======================================================
       parameter ( pi_const = 3.14159265359d0 )
       parameter ( czero = cmplx(0.0d0, 0.0d0, kind=kind(1.0d0)),
      &            imnum = cmplx(0.0d0, 1.0d0, kind=kind(1.0d0)))      
-      
+
 
       call wfat_get_momenta(rtdb, nkx, kx0, kxn, nky, ky0, kyn)
       
-
       if (.not. MA_alloc_get(MT_DCPL, nqn*nch, 'fn', l_fn, k_fn))
      &     call errquit('WFAT: fn allocation failed', 93, MA_ERR)
 
@@ -48,14 +48,16 @@ c=======================================================
          enddo
       enddo
 
-      call wfat_initprint_tmd(nch, orbid0, spinid)
-      
+      call wfat_initprint_tmd(beta, gamma, nch, orbid0, spinid)
+
       dkx = (kxn-kx0) / (nkx-1)
-      kx = kx0 - dkx
       dky = (kyn-ky0) / (nky-1)
-      ky = ky0 - dky
+
+      kx = kx0 - dkx
       do ix = 1, nkx
          kx = kx + dkx
+
+         ky = ky0 - dky
          do iy = 1, nky
             ky = ky + dky
 
@@ -157,17 +159,21 @@ c=======================================================
          enddo
       enddo
 
-      call wfat_initprint_tmd(nch, orbid0, spinid)
+      call wfat_initprint_tmd(beta, gamma, nch, orbid0, spinid)
       
-      dkx = (kxn-kx0) / (nkx-1)
-      kx = kx0 - dkx
+      dkx = (kxn-kx0) / (nkx-1)      
       dky = (kyn-ky0) / (nky-1)
-      ky = ky0 - dky
+      
+      kx = kx0 - dkx
       do ix = 1, nkx
          kx = kx + dkx
+
+         ky = ky0 - dky
          do iy = 1, nky
             ky = ky + dky
 
+            gap = (iy == nky)
+            
             pk = 0.0d0
             do i = 1, nch
                ak(i) = czero
@@ -219,6 +225,7 @@ c=======================================================
       implicit none
 #include "mafdecls.fh"
 #include "rtdb.fh"
+#include "stdio.fh"
 #include "errquit.fh"
       integer rtdb           ! [input]
       integer nkx            ! [input]
@@ -228,26 +235,35 @@ c=======================================================
       double precision ky0   ! [output]
       double precision kyn   ! [output]
 
+      logical h
+      double precision cb
+
+c      h = rtdb_print(rtdb, .true.)
+
+c      if (.not. rtdb_get(rtdb, 'dft:cam_beta', mt_dbl, 1, cb))
+c     &     call errquit('WFAT: Failed reading cam_beta from rtdb',
+c     &     25, INPUT_ERR)
+c      write(luout, '("cam beta = ", es15.8)') cb
 
       if (.not. rtdb_get(rtdb, 'wfat:kx_start', mt_dbl, 1, kx0))
      &     call errquit('WFAT: Failed reading kx_start from rtdb',
-     &     1, INPUT_ERR)
+     &     25, INPUT_ERR)
       if (.not. rtdb_get(rtdb, 'wfat:kx_last', mt_dbl, 1, kxn))
      &     call errquit('WFAT: Failed reading kx_last from rtdb',
-     &     1, INPUT_ERR)
+     &     16, INPUT_ERR)
       if (.not. rtdb_get(rtdb, 'wfat:nkx', mt_int, 1, nkx))
      &     call errquit('WFAT: Failed reading nkx from rtdb',
-     &     1, INPUT_ERR)
+     &     16, INPUT_ERR)
 
       if (.not. rtdb_get(rtdb, 'wfat:ky_start', mt_dbl, 1, ky0))
      &     call errquit('WFAT: Failed reading ky_start from rtdb',
-     &     1, INPUT_ERR)
+     &     17, INPUT_ERR)
       if (.not. rtdb_get(rtdb, 'wfat:ky_last', mt_dbl, 1, kyn))
      &     call errquit('WFAT: Failed reading ky_last from rtdb',
-     &     1, INPUT_ERR)
+     &     17, INPUT_ERR)
       if (.not. rtdb_get(rtdb, 'wfat:nky', mt_int, 1, nky))
      &     call errquit('WFAT: Failed reading nky from rtdb',
-     &     1, INPUT_ERR)
+     &     17, INPUT_ERR)
       
       end
 c=======================================================

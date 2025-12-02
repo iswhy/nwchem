@@ -186,7 +186,7 @@ c=======================================================
 
       integer i, ich, iqn
       double complex srfc_tot
-      
+
 
       if (.not. WF_SF_PRINT_READY)
      &     call errquit('WFAT: wfat_initprint_structuref must first '//
@@ -211,7 +211,7 @@ c=======================================================
       enddo
 
       write(WF_SF_UNIT, '(" ")') 
-      if (gap) write(WF_SF_UNIT, '(" ")') 
+      if (gap) write(WF_SF_UNIT, '(" ")')
 
       end
 c=======================================================

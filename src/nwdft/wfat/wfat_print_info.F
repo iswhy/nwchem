@@ -356,16 +356,16 @@ c        ==== Gamma ====
       endif
       
       if (pr_tmd .or. pr_tmd_atom) then         
-         if (.not. rtdb_get(rtdb, 'wfat:beta_tmd', mt_dbl, 1, bt_tmd))
-     &        call errquit('WFAT: Failed reading bt_tmd from rtdb',
-     &        1, INPUT_ERR)
-         write(luout, '(5x, a23, " = ", f10.6)')
-     &        "Beta (deg) for TMD ", bt_tmd
-         if (.not. rtdb_get(rtdb, 'wfat:gamma_tmd', mt_dbl, 1, gm_tmd))
-     &        call errquit('WFAT: Failed reading gm_tmd from rtdb',
-     &        1, INPUT_ERR)
-         write(luout, '(5x, a23, " = ", f10.6)')
-     &        "gamma (deg) for TMD ", gm_tmd
+cOLD         if (.not. rtdb_get(rtdb, 'wfat:beta_tmd', mt_dbl, 1, bt_tmd))
+cOLD     &        call errquit('WFAT: Failed reading bt_tmd from rtdb',
+cOLD     &        1, INPUT_ERR)
+cOLD         write(luout, '(5x, a23, " = ", f10.6)')
+cOLD     &        "Beta (deg) for TMD ", bt_tmd
+cOLD         if (.not. rtdb_get(rtdb, 'wfat:gamma_tmd', mt_dbl, 1, gm_tmd))
+cOLD     &        call errquit('WFAT: Failed reading gm_tmd from rtdb',
+cOLD     &        1, INPUT_ERR)
+cOLD         write(luout, '(5x, a23, " = ", f10.6)')
+cOLD     &        "gamma (deg) for TMD ", gm_tmd
       endif
 
       write(luout, '(/, 5x, "Note :")')

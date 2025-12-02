@@ -59,11 +59,13 @@ c        ==== WFAT level info ====
       endif
 
       
-c     ==== Printing units ====
+c     ==== Variable initiations ====
       WF_SF_PRINT_READY = .false.
       WF_IY_PRINT_READY = .false.
       WF_SF1_PRINT_READY(1:2) = .false.
       WF_SF1_UNIT = (/ WF_JN_UNIT, WF_KN_UNIT /)
+      WF_TM_PRINT_READY = .false.
+      tmdfile = 0
 
       
 c     ==== Geometry ====
@@ -511,8 +513,8 @@ c     ==== RTDB ====
       ll = rtdb_delete(rtdb, 'wfat:gamma_last')
       ll = rtdb_delete(rtdb, 'wfat:ngamma')
       ll = rtdb_delete(rtdb, 'wfat:nktmd')
-      ll = rtdb_delete(rtdb, 'wfat:beta_tmd')
-      ll = rtdb_delete(rtdb, 'wfat:gamma_tmd')
+cOLD      ll = rtdb_delete(rtdb, 'wfat:beta_tmd')
+cOLD      ll = rtdb_delete(rtdb, 'wfat:gamma_tmd')
       ll = rtdb_delete(rtdb, 'wfat:intgl_name')
       ll = rtdb_delete(rtdb, 'wfat:intgl_nosave')
       ll = rtdb_delete(rtdb, 'wfat:movec_name')

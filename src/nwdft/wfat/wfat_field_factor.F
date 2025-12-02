@@ -160,8 +160,6 @@ c=======================================================
       integer i, j, n, m, ftp(nch)
       double precision ergf(nch)
 
-
-      rtdb_stat = rtdb_parallel(.false.)
       
       if (.not. rtdb_get(rtdb, 'wfat:ffc_type', mt_int, nch, ftp))
      &     call errquit('WFAT: Cannot read ffc_type from RTDB.',
@@ -171,8 +169,7 @@ c=======================================================
      &     29, UERR)
 
       write(luout, '(2/)')
-      call util_print_centered(luout, 'Field factors', 20,
-     &     .true.)
+      call util_print_centered(luout, 'Field factors', 20, .true.)
       write(luout, '("")')
 
       write(luout, '(3x, "Field strength = ", f10.6, " a.u.")') ef
@@ -207,8 +204,6 @@ c=======================================================
          write(luout, '("")')
       enddo
 
-
-      rtdb_stat = rtdb_parallel(.true.)
       end
 c=======================================================
       
