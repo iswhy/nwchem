@@ -89,7 +89,7 @@ c       $\exp(-\kappa\mu_z) k_\nu$ where $k_\nu$ is one of the two WFAT(1) struc
       call wfat_field_factor(ef, erg, zi, n, m, fifc)
             
       fn = sqrt(fifc) * exp(a) * (gn*(1 + aa/2*ef*log(ef/4/kp**2)
-     &     + ef/2*(bb_+2*on_-imnum*pi_const*aa)) + 2*an_)
+     &     + ef/2*(bb_+2*on_-imnum*pi_const*aa)) + 2*an_*ef/2)
 
       end
 c=======================================================
