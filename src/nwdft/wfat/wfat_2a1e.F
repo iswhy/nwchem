@@ -122,7 +122,13 @@ c     ==== Hamiltonian construction ====
      &        ke, geom, pottype, nel, potparam, g_h)
       
 c        ==== Hamiltonian diagonalization ====
+#ifdef SCALAPACK
+         call ga_pdsyev(g_h, g_cf, erg, 0)
+#elif defined(PEIGS)
          call ga_diag_std(g_h, g_cf, erg)
+#else
+         call ga_diag_std_seq(g_h, g_cf, erg)
+#endif      
          call ga_sync()
 
          if (adapt_ke) then
