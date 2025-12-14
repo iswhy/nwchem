@@ -145,36 +145,3 @@ c=======================================================
 
       end
 c=======================================================
-
-
-c================================================
-c================================================
-      subroutine wfat_get_kmax(ef, nch, erg, nqn, nid, mid, kmax)
-      
-      implicit none
-#include "wfat.fh"      
-      integer nch, nqn, nid(nqn), mid(nqn)
-      double precision ef, erg(nch)
-      double precision kmax
-      
-      integer ich
-      double precision kmax_, kp
-      
-      
-      kmax = 0.0d0
-      do ich = 1, nch
-         kp = sqrt(2*abs(erg(ich)))
-      
-         if (maxval(nid) == 0 .and. maxval(abs(mid)) == 0) then
-            kmax_ = sqrt(2 * ef / kp * -log(KMAX00))
-         else
-            kmax_ = sqrt(ef * maxval(abs(mid) + 2*nid) / kp)
-         endif
-      
-         if (kmax_ > kmax) kmax = kmax_
-      enddo
-      kmax = KMAX_FACTOR * kmax
-        
-      end
-c================================================
-      

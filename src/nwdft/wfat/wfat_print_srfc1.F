@@ -109,6 +109,7 @@ c=======================================================
       do j = 1, 2
          write(WF_SF1_UNIT(j), '(" ")') 
          if (gap) write(WF_SF1_UNIT(j), '(" ")')
+         call flush(WF_SF1_UNIT(j))
       enddo
 
       end

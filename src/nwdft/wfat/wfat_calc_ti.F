@@ -138,6 +138,8 @@ c     ==== Initializing the printings ====
       endif
       if (ndid == 0 .and. pr_rate)
      &     call wfat_initprint_rate(nch, orbid0, spinid, nqn, nid, mid)
+      if (ndid == 0 .and. pr_tmd)
+     &     call wfat_print_kmax(fieldm, nch, erg, nqn, nid, mid)
 
       
 c     ==== Calculate and print structure factor and ion yield ====

@@ -724,6 +724,7 @@ c     ...               ...
 
 
       wfat_inp_externfield = .false.
+      h = 1000
       TMEXT_UNIT = (/ 'fs', 'au' /)
       FLEXT_UNIT = (/ 'au    ', 'tw/cm2' /)
       fld_t_ext(:) = 0.0d0

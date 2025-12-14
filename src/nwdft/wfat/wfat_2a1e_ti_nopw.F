@@ -2,11 +2,13 @@ c=======================================================
 c=======================================================
       subroutine wfat_2a1e_ti_nopw(rtdb, geom, nqn, nid, mid, gq, zi,
      &     celm, sphi, mch, nr, nt, ke, vcf, erg, chmmt, chpos, orbid0,
-     &     spinid, pottype, nel, potparam, pr_srfc, pr_rate, fieldm, 
-     &     wfat1, nr_m, nt_m, nr_p, nt_p, cfx, cfy, cfz, pbs, wfat1_exc,
-     &     fedvr, nfe, ndvr, maxn, xq, wq, ismask, mask_param)
+     &     spinid, pottype, nel, potparam, pr_srfc, pr_rate, pr_tmd, 
+     &     fieldm, wfat1, nr_m, nt_m, nr_p, nt_p, cfx, cfy, cfz, pbs, 
+     &     wfat1_exc, fedvr, nfe, ndvr, maxn, xq, wq, ismask,
+     &     mask_param)
 
       implicit none
+#include "util.fh"
 #include "global.fh"      
 #include "errquit.fh"
 #include "stdio.fh"
@@ -37,6 +39,7 @@ c=======================================================
       double precision potparam(2)    ! [input], 1)
       logical pr_srfc                 ! [input], if .true. then print structure factor.
       logical pr_rate                 ! [input], if .true. then print ionization rate.
+      logical pr_tmd                  ! [input], if .true. then print TMD.
       double precision fieldm         ! [input],
       logical wfat1                   ! [input],
       integer nr_m                    ! [input], only used when wfat1=.true.
@@ -57,8 +60,9 @@ c=======================================================
       logical ismask                  ! [input],
       double precision mask_param(2)  ! [input]. Only used when ismask=.true.. Must always be supplied regardless.
 
+      character*12 dt_str
       character*16 tagt
-      logical gap, interm, cgrid
+      logical gap, interm, cgrid, rtdb_stat
       integer l_sg, l_fc, l_rt, l_icp, l_ipp, l_pt, l_wt, l_vc, l_cl
       integer l_ma, l_tu0, l_tu1, l_acg, l_acj, l_ack, l_dum, l_sc, l_sx
       integer l_pbd, l_sj, l_sk, l_on, l_pto, l_wto, l_vco, l_clo, l_mao
@@ -72,10 +76,10 @@ c=======================================================
       integer ndid, nbt, ngm, natp, natop, nptp, nptop, i, k, iqn, i_on
       integer ig, ib, i_tu0, i_vc, i_vcc, i_acj, nsub, maxnsub, dgs
       integer ndgs, ozn, geomo, i_tu0o, i_tu1o, i_vco, i_vcco, icpo
-      integer ippo(2)
+      integer ippo(2), pr_chk(20), nang, kk
       double precision bt_start, bt_last, dbt, dbtr, gm_start, gm_last
-      double precision dgm, dgmr, dthr, bt, gm, rate, vdum(3)
-      double precision deg2rad
+      double precision dgm, dgmr, dthr, bt, gm, rate, vdum(3), t_start
+      double precision t_last, t_now, dt_prog, deg2rad, dt_all
       parameter(deg2rad=0.01745329251994d0)
 
       integer nch, nch1
@@ -222,7 +226,7 @@ c     ==== Allocate tau at all grid points and as. coeff. ====
 c     ==== Obtain field factor ====
       call wfat_get_field_factor(rtdb, nch, nqn, nid, mid, zi, fieldm,
      &     erg, dbl_mb(k_fc))
-      
+
 c     ==== When WFAT1 is active ====
       if (wfat1) then
          call wfat_prepare_an(maxnsub, natom, nch, nqn, nsc, l_sc, k_sc,
@@ -243,9 +247,11 @@ c     ==== When WFAT1 is active ====
       endif
 
 c     ==== Initializing the printings ====
+      rtdb_stat = rtdb_parallel(.false.)
       if (ndid == 0)
      &     call wfat_print_field_factor(rtdb, fieldm, nch, nqn, erg, 
      &     nid, mid, zi, dbl_mb(k_fc))
+      rtdb_stat = rtdb_parallel(.true.)
       if (ndid == 0 .and. pr_srfc) then
          call wfat_initprint_structuref(nch, orbid0, spinid, nqn, nid,
      &        mid)
@@ -254,7 +260,8 @@ c     ==== Initializing the printings ====
       endif
       if (ndid == 0 .and. pr_rate)
      &     call wfat_initprint_rate(nch, orbid0, spinid, nqn, nid, mid)
-      call ga_sync()
+      if (ndid == 0 .and. pr_tmd)
+     &     call wfat_print_kmax(fieldm, nch, erg, nqn, nid, mid)
 
 
       if (ndid == 0) then
@@ -266,15 +273,30 @@ c     ==== Initializing the printings ====
          write(luout, '("")')
       endif
  901  format(
-     &     5x, 'Calculation of some WFAT quantities using explicit ',
-     &     'integral formula (without partial wave expansion) has ', /,
-     &     5x, 'started. Beware that this is often a slow computation,',
-     &     ' so be patient. Use a partial wave expansion algorithm ', /,
-     &     5x, 'if you want fast results by specifying a positive ',
-     &     'value for the input keyword lmax.')
+     &     5x,
+     &     'WFAT simulation using explicit integral formula (without ',
+     &     'partial wave expansion) has started. Beware that this is ',
+     &     /,
+     &     5x,
+     &     'often a slow computation (so be patient) and may require ',
+     &     'large amount of memory. Use the partial wave expansion ',
+     &     /,
+     &     5x,
+     &     'algorithm by setting a nonnegative integer for lmax if ',
+     &     'you want fast and equally accurate results.')
 
+      call ga_sync()
+      
       
 c     ==== Scan over the orientation angles ====
+      call wfat_get_intgl_chkpt(nbt*ngm, 20, pr_chk)
+      if (ndid == 0) write(luout, '(5x, "The total number of '//
+     &     'orientation angles is ", i9, ".")') nbt*ngm
+
+      t_last = util_cpusec()
+      t_start = t_last
+      nang = 0
+      kk = 1
       do ig = 1, ngm
          gm = gm_start + dgm*(ig-1)
 
@@ -288,7 +310,7 @@ c     ==== Scan over the orientation angles ====
             endif
             
 c           ==== Calculate tau ====
-            if (pr_srfc .or. pr_rate) then
+            if (pr_srfc .or. pr_rate .or. pr_tmd) then
                call wfat_collect_tau0(geom, 1, nqn, cgrid, chpos, erg,
      &              nid, mid, bt, gm, nptp, nptop, zi, dbl_mb(k_pt),
      &              dbl_mb(k_pto), dcpl_mb(k_tu0), dcpl_mb(k_tu0o))
@@ -307,7 +329,6 @@ c              ==== Calculate the structure factors ====
      &              dbl_mb(k_wt), dbl_mb(k_wto), ismask, dbl_mb(k_ma),
      &              dbl_mb(k_mao), dcpl_mb(k_acg))
                if (wfat1) then
-c                  do i = 1, nch
                   i_tu0 = k_tu0 ! + nptp*nqn*(i-1)
                   i_tu0o = k_tu0o
                   do k = 1, 3
@@ -322,7 +343,6 @@ c                  do i = 1, nch
      &                    ismask, dbl_mb(k_ma), dbl_mb(k_mao), 
      &                    dcpl_mb(i_acj))
                   enddo
-c                  enddo
                   call wfat_calc_acf_nopw(bt, gm, 1, nqn, natp, nptp, 
      &                 nptop, natom, int_mb(k_icp), int_mb(k_ipp), ippo,
      &                 dbl_mb(k_vc), dbl_mb(k_vco), dcpl_mb(k_tu1),
@@ -371,10 +391,45 @@ c              ==== Print ionization rate ====
      &              call wfat_print_rate(bt, gm, nch, nqn, dbl_mb(k_rt),
      &              rate, gap)
             endif
-            
+
+
+c     ==== Print TMD ====
+            rtdb_stat = rtdb_parallel(.false.)
+            if (ndid == 0 .and. pr_tmd) then
+               if (wfat1) then
+                  call wfat_calc_tmd1(rtdb, bt, gm, natom, nch, nqn,
+     &                 nid, mid, orbid0, spinid, erg, chmmt, 
+     &                 dbl_mb(k_pbd), zi, fieldm, wfat1_exc,
+     &                 dbl_mb(k_on), dcpl_mb(k_sg), dcpl_mb(k_sj), 
+     &                 dcpl_mb(k_sk))
+               else
+                  call wfat_calc_tmd0(rtdb, bt, gm, natom, nch, nqn,
+     &                 nid, mid, orbid0, spinid, erg, zi, fieldm,
+     &                 dcpl_mb(k_sg))
+               endif
+            endif
+            rtdb_stat = rtdb_parallel(.true.)            
+
+
+            nang = nang + 1
+            call ga_sync()
+            if (nang == pr_chk(kk)) then
+               t_now = util_cpusec()
+               dt_prog = t_now - t_last
+               t_last = t_now
+               if(ndid == 0) call wfat_intgl_progress_nopw(kk, nang,
+     &              dt_prog, nbt*ngm)
+               kk = kk + 1
+            endif
          enddo
       enddo
-      
+
+      dt_all = t_now - t_start
+      write(dt_str, '(f12.2)') dt_all
+      if (ndid == 0) write(luout, '(5x, "The computation of '//
+     &     'ionization quantities takes ", a, " s.")')
+     &     trim(adjustl(dt_str))
+
 c     ==== Terminating printings ====
       if (ndid==0 .and. pr_srfc) then
          call wfat_endprint_structuref()

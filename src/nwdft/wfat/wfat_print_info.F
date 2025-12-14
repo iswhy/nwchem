@@ -31,10 +31,11 @@ c=======================================================
 #include "errquit.fh"
 #include "wfat_qm_param.fh"
 #include "geom.fh"
+#include "mafdecls.fh"
 #include "bas.fh"      
       integer rtdb
 
-      logical rtdb_stat
+      logical rtdb_stat, pr_tmd
       integer ndid
 
       
@@ -54,8 +55,15 @@ c     ==== Printing info ====
 
 c     ==== Orientation angles ====
       call wfat_print_angles(rtdb)
+
+
+c     ==== Transverse momenta ====
+      if (.not. rtdb_get(rtdb, 'wfat:print_tmd', mt_log, 1, pr_tmd))
+     &     call errquit('WFAT: Failed reading print_tmd from rtdb',
+     &     1, RTDB_ERR)
+      if (pr_tmd) call wfat_print_momenta(rtdb)
+
       
-            
 c     ==== Remaining WFAT info ====
       call wfat_print_others(rtdb)
 
@@ -315,7 +323,7 @@ c=======================================================
       call util_print_centered(luout, 'Orientation angle '//
      &     'information', 20, .true.)
       write(luout, '(1x)')
-      if (pr_srfc .or. pr_rate) then
+      if (pr_srfc .or. pr_rate .or. pr_tmd) then
 c        ==== Beta ====
          if (.not. rtdb_get(rtdb, 'wfat:beta_start', mt_dbl, 1,
      &        bt_start))
@@ -401,6 +409,75 @@ c=======================================================
 
 c=======================================================
 c=======================================================
+      subroutine wfat_print_momenta(rtdb)
+
+      implicit none
+#include "stdio.fh"
+#include "rtdb.fh"
+#include "errquit.fh"
+#include "mafdecls.fh"
+      integer rtdb
+
+      character*1 c, cc(2)
+      integer nk, i
+      double precision k0, kn
+      
+
+      write(luout, '(2/)')
+      call util_print_centered(luout, 'Transverse momenta '//
+     &     'information', 20, .true.)
+      write(luout, '(1x)')
+
+      cc = (/ 'x', 'y' /)
+
+      do i = 1, 2
+         c = cc(i)
+         if (.not. rtdb_get(rtdb, 'wfat:k'//c//'_start', mt_dbl, 1, k0))
+     &        call errquit('WFAT: Failed reading k'//c//
+     &        '_start from rtdb', 1, RTDB_ERR)
+         write(luout, '(5x, a23, f10.6)') 'First k'//c//' (a.u.) = ', k0
+         if (.not. rtdb_get(rtdb, 'wfat:k'//c//'_last', mt_dbl, 1, kn))
+     &        call errquit('WFAT: Failed reading k'//c//
+     &        '_last from rtdb', 1, RTDB_ERR)
+         write(luout, '(5x, a23, f10.6)') 'Last k'//c//' (a.u.) = ', kn
+         if (.not. rtdb_get(rtdb, 'wfat:nk'//c, mt_int, 1, nk))
+     &        call errquit('WFAT: Failed reading nk'//c//' from rtdb',
+     &        1, RTDB_ERR)
+         write(luout, '(5x, a23, i7)')
+     &        'Number of k'//c//' points = ', nk
+      enddo      
+
+      end
+c=======================================================
+
+
+c=======================================================
+c=======================================================
+      subroutine wfat_print_kmax(ef, nch, erg, nqn, nid, mid)
+
+      implicit none
+#include "stdio.fh"
+#include "wfat.fh"
+      double precision ef
+      integer nch
+      double precision erg(nch)
+      integer nqn
+      integer nid(nqn)
+      integer mid(nqn)
+      
+      double precision kmax
+
+      call wfat_get_kmax(ef, nch, erg, nqn, nid, mid, kmax)
+      write(luout, '(/, 3x, "*** INFO ***")')
+      write(luout, '(5x, "Suggested maximum transverse momenta = ", '//
+     &     'f6.3, " a.u.")') kmax
+
+      end
+c=======================================================
+
+
+c=======================================================
+c=======================================================
       subroutine wfat_print_others(rtdb)
 
       implicit none
@@ -436,15 +513,15 @@ cOLD      endif
 
 
 c     ==== No. of points for TMD ====
-      if (pr_tmd .or. pr_tmd_atom) then
-         if (.not. rtdb_get(rtdb, 'wfat:nktmd', mt_int, 1, nktmd))
-     &        call errquit('WFAT: Failed reading nktmd from rtdb',
-     &        1, RTDB_ERR)
-         write(luout, '(5x, a28, " = ", i7)')
-     &        "No. of x momentum points ", nktmd
-         write(luout, '(5x, a28, " = ", i7)')
-     &        "No. of y momentum points ", nktmd
-      endif
+cOLD      if (pr_tmd .or. pr_tmd_atom) then
+cOLD         if (.not. rtdb_get(rtdb, 'wfat:nktmd', mt_int, 1, nktmd))
+cOLD     &        call errquit('WFAT: Failed reading nktmd from rtdb',
+cOLD     &        1, RTDB_ERR)
+cOLD         write(luout, '(5x, a28, " = ", i7)')
+cOLD     &        "No. of x momentum points ", nktmd
+cOLD         write(luout, '(5x, a28, " = ", i7)')
+cOLD     &        "No. of y momentum points ", nktmd
+cOLD      endif
 
 c     ==== Max. angular momentum ====
       if (.not. rtdb_get(rtdb, 'wfat:lmax', mt_int, 1, lmax))

@@ -267,6 +267,7 @@ c=======================================================
       write(iunit, WF_ORBGAP, advance='no')
       write(iunit, WF_RT_VALFMT) ionyd
       if (gap) write(iunit, '(" ")')
+      call flush(iunit)
 
       end
 c=======================================================
@@ -308,7 +309,7 @@ c=======================================================
       fname = WF_RT_FNAME
 
       
-      write(luout, '(/, 3x, "*** INFO ***")')      
+      write(luout, '(/, 3x, "*** INFO ***")')
       write(luout, '(5x, "Ionization rate has been printed in ", a)')
      &     ''''//trim(adjustl(fname))//'''.' 
       

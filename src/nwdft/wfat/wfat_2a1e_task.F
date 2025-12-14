@@ -353,10 +353,10 @@ clater     &           res_mode)
      &        int_mb(k_mpa), gqual, zion, wf_msm, sphi, mch, nr, nt, 
      &        out_ke, dbl_mb(k_cf), dbl_mb(i_eg), chmmt, chpos, orbid,
      &        spinid, pottype, nel_2a, potparam, pr_srfc, pr_rate, 
-     &        fieldmag, wfat1, nr_m, nt_m, nr_p, nt_p, dbl_mb(k_cfx), 
-     &        dbl_mb(k_cfy), dbl_mb(k_cfz), pbs, log_mb(k_w1x), fedvr, 
-     &        nfe, int_mb(k_ndvr), maxn, dbl_mb(k_xquad), 
-     &        dbl_mb(k_wquad), ismask_i, mask_param)
+     &        pr_tmd, fieldmag, wfat1, nr_m, nt_m, nr_p, nt_p, 
+     &        dbl_mb(k_cfx), dbl_mb(k_cfy), dbl_mb(k_cfz), pbs, 
+     &        log_mb(k_w1x), fedvr, nfe, int_mb(k_ndvr), maxn, 
+     &        dbl_mb(k_xquad), dbl_mb(k_wquad), ismask_i, mask_param)
       endif
       call ga_sync()
       

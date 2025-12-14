@@ -7,6 +7,7 @@ c========================================================
      &     wphase)
 
       implicit none
+#include "util.fh"
 #include "global.fh"      
 #include "errquit.fh"
 #include "stdio.fh"
@@ -49,10 +50,11 @@ c========================================================
       logical ismask                  ! [input], 
       double precision mask_param(2)  ! [input]. Only used when ismask=.true.. Must always be supplied regardless.
       double complex wphase
-      
+
+      character*12 dt_str
       character*16 tagt
       character*5 si_type
-      logical gap, isdft, rs, cgrid(nch)
+      logical gap, isdft, rs, cgrid(nch), rtdb_stat
       integer l_sg, l_fc, l_rt, l_icp, l_ipp, l_pt, l_wt, l_vc, l_cl
       integer l_ma, l_tu0, l_acg, l_pto, l_wto, l_vco, l_clo, l_mao
       integer l_tu0o
@@ -61,10 +63,10 @@ c========================================================
       integer k_tu0o
       integer natom, n_sg, nfc, nrt, n_pt, n_wt, n_pto, n_wto
       integer ndid, nbt, ngm, natp, natop, nptp, nptop, i, k, iqn, ig
-      integer ib, icpo, ippo(3), ozn, geomo
+      integer ib, icpo, ippo(3), ozn, geomo, pr_chk(20), nang, kk
       double precision bt_start, bt_last, dbt, dbtr, gm_start, gm_last
       double precision nall, dgm, dgmr, dthr, bt, gm, rate, vdum(3)
-      double precision deg2rad
+      double precision t_start, t_last, t_now, dt_prog, dt_all, deg2rad
       parameter(deg2rad=0.01745329251994d0)
 
       logical nwxc_has_cam, nwxc_has_xc
@@ -136,6 +138,9 @@ c     channel center.
 c     ==== Calculate and gather V_c|psi> at all grid points ====
       if (.not. MA_alloc_get(MT_DBL, nptp*nch, 'vc_psi', l_vc, k_vc))
      &     call errquit('WFAT: vc_psi allocation failed', 81, MA_ERR)
+      if (.not. MA_alloc_get(MT_DBL, nptop*nch, 'vc_psi_o',
+     &     l_vco, k_vco))
+     &     call errquit('WFAT: vc_psi_o allocation failed', 85, MA_ERR)
       rs = nwxc_has_cam()
       isdft = nwxc_has_xc()
       if (isdft) then
@@ -190,16 +195,17 @@ c     ==== Obtain field factor ====
      &     ionerg, dbl_mb(k_fc))
       
 c     ==== Initializing the printings ====
+      rtdb_stat = rtdb_parallel(.false.)
       if (ndid == 0)
      &     call wfat_print_field_factor(rtdb, fieldm, nch, nqn, ionerg, 
      &     nid, mid, zi, dbl_mb(k_fc))
+      rtdb_stat = rtdb_parallel(.true.)
       if (ndid == 0 .and. pr_srfc) then
          call wfat_initprint_structuref(nch, chnid0, sx, nqn, nid,
      &        mid)
       endif
       if (ndid == 0 .and. pr_rate)
      &     call wfat_initprint_rate(nch, chnid0, sx, nqn, nid, mid)
-      call ga_sync()
 
 
       if (ndid == 0) then
@@ -211,18 +217,34 @@ c     ==== Initializing the printings ====
          write(luout, '("")')
       endif
  901  format(
-     &     5x, 'Calculation of some WFAT quantities using explicit ',
-     &     'integral formula (without partial wave expansion) has ', /,
-     &     5x, 'started. Beware that this is often a slow computation,',
-     &     ' so be patient. Use a partial wave expansion algorithm ', /,
-     &     5x, 'if you want fast results by specifying a positive ',
-     &     'value for the input keyword lmax.')
+     &     5x,
+     &     'WFAT simulation using explicit integral formula (without ',
+     &     'partial wave expansion) has started. Beware that this is ',
+     &     /,
+     &     5x,
+     &     'often a slow computation (so be patient) and may require ',
+     &     'large amount of memory. Use the partial wave expansion ',
+     &     /,
+     &     5x,
+     &     'algorithm by setting a nonnegative integer for lmax if ',
+     &     'you want fast and equally accurate results.')
 
+
+      call ga_sync()
       
 c     ==== Scan over the orientation angles ====
       if (.not. MA_alloc_get(MT_DCPL, natom*nqn*nch, 'acg',
      &     l_acg, k_acg))
      &     call errquit('WFAT: acg allocation failed', 81, MA_ERR)
+
+      call wfat_get_intgl_chkpt(nbt*ngm, 20, pr_chk)
+      if (ndid == 0) write(luout, '(5x, "The total number of '//
+     &     'orientation angles is ", i9, ".")') nbt*ngm
+
+      t_last = util_cpusec()
+      t_start = t_last
+      nang = 0
+      kk = 1
       do ig = 1, ngm
          gm = gm_start + dgm*(ig-1)
 
@@ -272,9 +294,26 @@ c              ==== Print ionization rate ====
      &              rate, gap)               
             endif
 
+
+            nang = nang + 1
+            call ga_sync()
+            if (nang == pr_chk(kk)) then
+               t_now = util_cpusec()
+               dt_prog = t_now - t_last
+               t_last = t_now
+               if(ndid == 0) call wfat_intgl_progress_nopw(kk, nang,
+     &              dt_prog, nbt*ngm)
+               kk = kk + 1
+            endif
          enddo
       enddo
 
+      dt_all = t_now - t_start
+      write(dt_str, '(f12.2)') dt_all
+      if (ndid == 0) write(luout, '(5x, "The computation of '//
+     &     'ionization quantities takes ", a, " s.")')
+     &     trim(adjustl(dt_str))
+      
       
 c     ==== Terminating printings ====
       if (ndid==0 .and. pr_srfc) then
