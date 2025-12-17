@@ -222,16 +222,16 @@ c           ==== Compute the OEWFAT integrals ====
      &           ismask_i, mask_param, g_il, g_j, g_k)
 
 c           ==== Store the OE-WFAT integrals freshly calculated ====
-            if (.not. rtdb_get(rtdb, 'wfat:intgl_nosave', mt_log, 1,
-     &           int_nosave)) call errquit('WFAT: Cannot read '//
-     &           'intgl_nosave from RTDB', 1, RTDB_ERR)
-            if (ndid == 0 .and. .not. int_nosave) then
+cOLD            if (.not. rtdb_get(rtdb, 'wfat:intgl_nosave', mt_log, 1,
+cOLD     &           int_nosave)) call errquit('WFAT: Cannot read '//
+cOLD     &           'intgl_nosave from RTDB', 1, RTDB_ERR)
+cOLD            if (ndid == 0 .and. .not. int_nosave) then
                call wfat_store_intgl(rtdb, nsh, natm, nqn, nch,
      &              dbl_mb(i_eg), chpos, chmmt, iondip, g_il)
-            else if (ndid == 0 .and. int_nosave) then
-               write(luout, '("ATTENTION: WFAT integrals are not '//
-     &              'saved.")')
-            endif
+cOLD            else if (ndid == 0 .and. int_nosave) then
+cOLD               write(luout, '("ATTENTION: WFAT integrals are not '//
+cOLD     &              'saved.")')
+cOLD            endif
             call ga_sync()
          else if (.not. os .and. or) then
 c           ==== Binary-load WFAT integrals on 'restart' startup mode ====

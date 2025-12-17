@@ -3,18 +3,149 @@ c=======================================================
       subroutine wfat_process_input0(rtdb)
 
       implicit none
+#include "wfat_const.fh"
       integer rtdb
 
+      character*1 w
+      logical r
+      integer ival
+      double precision dval
+      parameter (w='i')
+      
+
+c     ==== quadgrid ====
       call wfat_process_quadgrid(rtdb)
 
+c     ==== mychpos ====
       call wfat_process_mypos(rtdb)
 
+c     ==== kx and ky ====
       call wfat_process_momentum(rtdb)
+
+c     ==== intgl ====
+      call wfat_process_intgl(rtdb)
+
+c     ==== lmax ====
+      call wfat_process_idata(rtdb, 'lmax', .false., def_wfat_lmax,
+     &     ival)
+            
+c     ==== nlgl ====
+      call wfat_process_idata(rtdb, 'nlgl', .false., def_nlgl, ival)
+      call wfat_ival_atleast(ival, 0, 'WFAT', '''nlgl''', w, r)
+      
+c     ==== degenthr ====
+      call wfat_process_ddata(rtdb, 'dgnthr', .false., def_dgnthr,
+     &     dval)
+      call wfat_dval_atleast(dval, 0.0d0, 'g', 'WFAT', '''degenthr''',
+     &     'e', w, r)
+
+c     ==== diagthr ====
+      call wfat_process_ddata(rtdb, 'dthr', .false., def_wfat_dthr,
+     &     dval)
+      call wfat_dval_atleast(dval, 0.0d0, 'g', 'WFAT', '''diagthr''', 
+     &     'e', w, r)
+      
       
       end
 c=======================================================
 
 
+c=======================================================
+c=======================================================
+      subroutine wfat_process_idata(rtdb, key, md, defval, ival)
+c     DESCRIPTION:
+c     Checked for input availability, its mandatory status, and write that
+c     input to the RTDB.
+c       rtdb: RTDB handle
+c       key: name of input
+c       md: if .true., the input is mandatory, otherwise, optional
+c       defval: default value that will be used if input is missing and md=.false.
+c               Regardless of md, a value for md must be supplied.
+c       ival: the value of the input
+      implicit none
+#include "errquit.fh"
+#include "rtdb.fh"      
+#include "mafdecls.fh"
+#include "stdio.fh"
+      integer rtdb       ![input]
+      character*(*) key  ![input]
+      logical md         ![input]
+      integer defval     ![input]
+      integer ival       ![output]
+
+      if (.not. rtdb_get(rtdb, 'wfat:inp:'//key, mt_int, 1, ival)) then
+         if (md) then
+            call errquit('Mandatory WFAT input directive '//key//' '//
+     &           'cannot be found. Either supply it in the input '//
+     &           'file or, if it is a restart job, make sure that it '//
+     &           'was defined in the previous job the present one is '//
+     &           'restarting from.', 30, INPUT_ERR)
+         else
+            write(luout, 100) key, defval
+            ival = defval
+         endif
+      endif
+      if (.not. rtdb_put(rtdb, 'wfat:'//key, mt_int, 1, ival))
+     &     call errquit('WFAT: Failed writing '//key//' to rtdb',
+     &     1, RTDB_ERR)
+
+ 100  format(
+     &     /, 3x, '*** INFO ***',
+     &     /, 5x, 'Input directive ', a, ' is not found. The default ',
+     &     'value of ', i4, ' will be assumed.')
+
+      end
+c=======================================================
+
+
+c=======================================================
+c=======================================================
+      subroutine wfat_process_ddata(rtdb, key, md, defval, dval)
+c     DESCRIPTION:
+c     Checked for input availability, its mandatory status, and write that
+c     input to the RTDB.
+c       rtdb: RTDB handle
+c       key: name of input
+c       md: if .true., the input is mandatory, otherwise, optional
+c       defval: default value that will be used if input is missing and md=.false.
+c               Regardless of md, a value for md must be supplied.
+c       dval: the value of the input
+      implicit none
+#include "errquit.fh"
+#include "rtdb.fh"      
+#include "mafdecls.fh"
+#include "stdio.fh"
+      integer rtdb       ![input]
+      character*(*) key  ![input]
+      logical md         ![input]
+      double precision defval     ![input]
+      double precision dval       ![output]
+
+      if (.not. rtdb_get(rtdb, 'wfat:inp:'//key, mt_dbl, 1, dval)) then
+         if (md) then
+            call errquit('Mandatory WFAT input directive '//key//' '//
+     &           'cannot be found. Either supply it in the input '//
+     &           'file or, if it is a restart job, make sure that it '//
+     &           'was defined in the previous job the present one is '//
+     &           'restarting from.', 30, INPUT_ERR)
+         else
+            write(luout, 100) key, defval
+            dval = defval
+         endif
+      endif
+      if (.not. rtdb_put(rtdb, 'wfat:'//key, mt_dbl, 1, dval))
+     &     call errquit('WFAT: Failed writing '//key//' to rtdb',
+     &     1, RTDB_ERR)
+
+ 100  format(
+     &     /, 3x, '*** INFO ***',
+     &     /, 5x, 'Input directive ', a, ' is not found. The default ',
+     &     'value of ', es13.6, ' will be assumed.')
+
+      end
+c=======================================================
+
+      
 c=======================================================
 c=======================================================
       subroutine wfat_process_quadgrid(rtdb)
@@ -288,4 +419,54 @@ c=======================================================
       
       end
 c=======================================================
+
+
+c=======================================================
+c=======================================================
+      subroutine wfat_process_intgl(rtdb)
+
+      implicit none
+#include "rtdb.fh"
+#include "errquit.fh"
+#include "mafdecls.fh"
+#include "stdio.fh"
+      integer rtdb
+      
+      character*4096 fname
+      logical loadint
+
+c     ==== Save file ====
+      if (rtdb_cget(rtdb, 'wfat:inp:intgl_sname', 1, fname)) then
+         call wfat_rtdb_aduplicate(rtdb, 'wfat:inp:intgl_sname',
+     &        'wfat:intgl_sname')
+      else
+         call wfat_def_intglsname(rtdb, fname)
+         if (.not. rtdb_cput(rtdb, 'wfat:intgl_sname', 1,
+     &        trim(adjustl(fname))))
+     &        call errquit('WFAT: Failed writing intgl_sname to RTDB.',
+     &        31, RTDB_ERR)
+      endif
+c     Note that in the above conditional, the default filename for the saved
+c     integral file will be used if wfat:inp:intgl_sname cannot be found in
+c     the RTDB. However, in a restart job, even though the saved integral
+c     file is not specified in the input, wfat:inp:intgl_sname may still be
+c     found in the RTDB if the previous job specifies a saved file name.
+
+
+c     ==== Load file ====
+      if (rtdb_cget(rtdb, 'wfat:inp:intgl_lname', 1, fname)) then
+         call wfat_rtdb_aduplicate(rtdb, 'wfat:inp:intgl_lname',
+     &        'wfat:intgl_lname')
+         loadint = .true.
+      else
+         loadint = .false.
+      endif
+
+      if (.not. rtdb_put(rtdb, 'wfat:load_intgl', mt_log, 1, loadint)) 
+     &     call errquit('WFAT: Cannot write load_intgl from RTDB',
+     &     1, RTDB_ERR)
+
+      end
+c=======================================================
+      
       

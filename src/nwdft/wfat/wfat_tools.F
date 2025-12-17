@@ -997,6 +997,31 @@ c=======================================================
 
 c=======================================================
 c=======================================================
+      subroutine wfat_def_intglsname(rtdb, fname)
+
+      implicit none
+#include "errquit.fh"
+#include "rtdb.fh"
+      integer rtdb
+      character*(*) fname
+
+      character*2 lvl
+
+      if (.not. rtdb_cget(rtdb,'task:theory', 1, lvl)) 
+     &     call errquit('WFAT: Failed reading theory', 0, RTDB_ERR)
+      
+      if (lvl == 'oe') then
+         call util_file_prefix('owigl', fname)
+      else if (lvl == 'me') then
+         call util_file_prefix('mwigl', fname)
+      endif
+      
+      end
+c=======================================================
+
+
+c=======================================================
+c=======================================================
       subroutine wfat_def_movecname(lvl, rtdb, fname)
 
       implicit none
@@ -1017,6 +1042,9 @@ c=======================================================
          call errquit('WFAT: Argument ''lvl'' of wfat_def_movecname '//
      &        'is unknown.', 1, UERR)
       endif
+
+c     The default vector files are those located in the same directory as
+c     the rtdb file.
       call wfat_prepend_rtdbpath(rtdb, fname)
 
       end
@@ -1026,7 +1054,8 @@ c=======================================================
 c=======================================================
 c=======================================================
       subroutine wfat_prepend_rtdbpath(rtdb, fname)
-
+c     DESCRIPTION:
+c     Prepends the path of the parent directory of the rtdb file to fname.
       implicit none
 #include "rtdb.fh"
 #include "errquit.fh"
@@ -1748,6 +1777,36 @@ c     ==== Deallocate ====
       end
 c============================================================
 
+
+
+c============================================================
+c============================================================
+      subroutine wfat_rtdb_aduplicate(rtdb, name1, name2)
+
+      implicit none
+#include "errquit.fh"
+#include "rtdb.fh"
+#include "mafdecls.fh"
+#include "stdio.fh"
+      integer rtdb
+      character*(*) name1, name2
+
+      logical t
+      integer ma, n1
+      character*26 date
+      character*4096 s
+
+      t = rtdb_get_info(rtdb, name1, ma, n1, date)
+      if (.not. rtdb_cget(rtdb, name1, n1, s(1:n1)))
+     &     call errquit('WFAT: Cannot read '//name1//' from RTDB',
+     &     1, RTDB_ERR)
+      if (.not. rtdb_cput(rtdb, name2, n1, s(1:n1)))
+     &     call errquit('WFAT: Cannot write '//name2//' to RTDB',
+     &     1, RTDB_ERR)
+      
+      end
+c============================================================
+      
 
 c============================================================
 c============================================================

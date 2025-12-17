@@ -48,7 +48,7 @@ c===============================================================
       character*7 jobtype
       logical pr_srfc, pr_yild, pr_rate, pr_avbeta, pr_avgamma
       logical pr_tmd, pr_tmd_atom
-      logical rtdb_stat, wfat1, res_mode, os, oc, or, int_nosave
+      logical rtdb_stat, wfat1, res_mode, loadint
       logical dd, extf, corb_print, perturb, ismask_i, ismask_e
       character*32 theory
       character*2 prtb_type
@@ -227,10 +227,22 @@ c      call wfat_print_grid()
       
 c     ==== Calculate or store OEWFAT integrals ====
       smh = 0.0d0
-      call util_get_rtdb_state(rtdb, os, oc, or)
+cOLD      call util_get_rtdb_state(rtdb, os, oc, or)
       if (lmax >= 0) then
-         if (os .and. .not. or) then
-c           ==== Calculate OE-WFAT integrals on 'start' startup mode ====
+         if (.not. rtdb_get(rtdb, 'wfat:load_intgl', mt_log, 1,
+     &        loadint)) call errquit('WFAT: Cannot read '//
+     &        'load_intgl from RTDB', 1, RTDB_ERR)
+         
+         if (loadint) then
+            if (ndid == 0) call wfat_load_intgl(rtdb, nsh, natm, nqn, 
+     &           nch, wfat1, g_il, g_j, g_k)
+            
+            call ga_brdcst(msg_wfat_eg, dbl_mb(k_eg),
+     &           ma_sizeof(MT_DBL, nch, MT_BYTE), 0)
+            call ga_brdcst(msg_wfat_cmm, dbl_mb(k_cmm),
+     &           ma_sizeof(MT_DBL, 3*nch, MT_BYTE), 0)
+         else
+c     ==== Calculate OE-WFAT integrals on 'start' startup mode ====
             call wfat_calc_intgl(rtdb, geom_hd, bas_hd, nch, 
      &           int_mb(k_sp), nqn, int_mb(k_npa), int_mb(k_mpa), lmax, 
      &           gqual, zion, wf_msm, smh, res_mode, wfat1, nlgl, 
@@ -238,47 +250,18 @@ c           ==== Calculate OE-WFAT integrals on 'start' startup mode ====
      &           dbl_mb(k_cf), dbl_mb(k_eg), dbl_mb(k_ps), 
      &           dbl_mb(k_cmm), dbl_mb(k_idp), ismask_i, mask_param,
      &           g_il, g_j, g_k)
-            
-c           ==== Store the OE-WFAT integrals freshly calculated ====
-            if (.not. rtdb_get(rtdb, 'wfat:intgl_nosave', mt_log, 1,
-     &           int_nosave)) call errquit('WFAT: Cannot read '//
-     &           'intgl_nosave from RTDB', 1, RTDB_ERR)
-            if (ndid == 0 .and. .not. int_nosave) then
-               call wfat_store_intgl(rtdb, nsh, natm, nqn, nch,
-     &              dbl_mb(k_eg), dbl_mb(k_ps), dbl_mb(k_cmm),
-     &              dbl_mb(k_idp), g_il)
-            else if (ndid == 0 .and. int_nosave) then
-               write(luout, '("ATTENTION: WFAT integrals are not '//
-     &              'saved.")')
-            endif
-            call ga_sync()
-            
-         else if (.not. os .and. or) then
-c           ==== Binary-load WFAT integrals on 'restart' startup mode ====
-            if (ndid == 0) then
-               call wfat_load_intgl(rtdb, nsh, natm, nqn, nch,
-     &              dbl_mb(k_eg), dbl_mb(k_ps), dbl_mb(k_cmm),
-     &              dbl_mb(k_idp), g_il)
-               call wfat_print_orb_property(nch, int_mb(k_or), 
-     &              int_mb(k_sp), dbl_mb(k_eg), dbl_mb(k_ps),
-     &              dbl_mb(k_cmm), dbl_mb(k_idp))
-            endif
-            call ga_sync()
-            
-            call ga_brdcst(msg_wfat_eg, dbl_mb(k_eg),
-     &                     ma_sizeof(MT_DBL, nch, MT_BYTE), 0)
-            call ga_brdcst(msg_wfat_cmm, dbl_mb(k_cmm),
-     &                     ma_sizeof(MT_DBL, 3*nch, MT_BYTE), 0)
-         else
-            call errquit('WFAT: WFAT module requires the startup '//
-     &           'directive to be either ''start'' or ''restart''.',
-     &           1, UERR)
          endif
-      else
-         if (.not. os .and. or) 
-     &        call errquit('WFAT: When performing WFAT calculation '//
-     &        'without partial wave expansion, the job must be a '//
-     &        'start type. Restart is not allowed', 38, UERR)
+         
+c        ==== Store the OE-WFAT integrals freshly calculated ====
+         if (ndid == 0) call wfat_store_intgl(rtdb, nsh, natm, nqn, nch,
+     &           wfat1, g_il, g_j, g_k)
+         call ga_sync()
+         
+cOLD      else
+cOLD         if (.not. os .and. or) 
+cOLD     &        call errquit('WFAT: When performing WFAT calculation '//
+cOLD     &        'without partial wave expansion, the job must be a '//
+cOLD     &        'start type. Restart is not allowed', 38, UERR)
       endif
 
 

@@ -487,7 +487,7 @@ c=======================================================
 #include "mafdecls.fh"
       integer rtdb
       
-      character*255 fname
+      character*4096 fname
       logical pr_srfc, pr_rate, pr_yild, pr_avbeta, pr_avgamma
       logical pr_tmd, pr_tmd_atom, autopos
       integer nktmd, lmax, gqual
@@ -537,11 +537,15 @@ c     ==== Grid quality ====
       write(luout, '(5x, a28, " = ", i3)') "Grid set ", gqual
 
 c     ==== Integral file ====
-      if (.not. rtdb_cget(rtdb, 'wfat:intgl_name', 1, fname))
-     &     call errquit('WFAT: Cannot read wfat:intgl_name from RTDB',
+      if (rtdb_cget(rtdb, 'wfat:intgl_lname', 1, fname))
+     &     write(luout, '(5x, a28, " = ", a)')
+     &     "Integral file loaded from ", trim(adjustl(fname))
+
+      if (.not. rtdb_cget(rtdb, 'wfat:intgl_sname', 1, fname))
+     &     call errquit('WFAT: Cannot read wfat:intgl_sname from RTDB',
      &     1, RTDB_ERR)
       write(luout, '(5x, a28, " = ", a)')
-     &     "Integral file ", trim(adjustl(fname))
+     &     "Integral file saved to ", trim(adjustl(fname))
 
 c     ==== Auto/manual positioning of origin ====
       if (.not. rtdb_get(rtdb, 'wfat:autopos', mt_log, 1, autopos))

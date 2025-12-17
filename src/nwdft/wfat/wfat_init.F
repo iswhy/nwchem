@@ -515,8 +515,8 @@ c     ==== RTDB ====
       ll = rtdb_delete(rtdb, 'wfat:nktmd')
 cOLD      ll = rtdb_delete(rtdb, 'wfat:beta_tmd')
 cOLD      ll = rtdb_delete(rtdb, 'wfat:gamma_tmd')
-      ll = rtdb_delete(rtdb, 'wfat:intgl_name')
-      ll = rtdb_delete(rtdb, 'wfat:intgl_nosave')
+cOLD      ll = rtdb_delete(rtdb, 'wfat:intgl_name')
+cOLD      ll = rtdb_delete(rtdb, 'wfat:intgl_nosave')
       ll = rtdb_delete(rtdb, 'wfat:movec_name')
 
       

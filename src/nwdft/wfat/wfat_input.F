@@ -11,7 +11,7 @@ c=======================================================
       
 c     ==== Read WFAT inputs from input file ====
       call wfat_info_banner(luout, .true.)
-      write(luout, '(5x, "Reading the WFAT inputs ...")')
+      write(luout, '(5x, "Reading WFAT inputs ...")')
       call wfat_read_input(rtdb)
       
       end
@@ -95,8 +95,8 @@ cOLD      beta_tmd_stat = .false.
 cOLD      gamma_tmd_exist = .false.
 cOLD      gamma_tmd_stat = .false.
 
-      lmax_exist = .false.
-      lmax_stat = .false.
+cOLD      lmax_exist = .false.
+cOLD      lmax_stat = .false.
 
 cOLD      gqual_exist = .false.
 cOLD      gqual_stat = .false.
@@ -107,11 +107,8 @@ cOLD      gqual_stat = .false.
       sitype_exist = .false.
       sitype_stat = .false.
 
-      dgnthr_exist = .false.
-      dgnthr_stat =  .false.
-      
-      intgl_exist = .false.
-      intgl_stat = .false.
+cOLD      intgl_exist = .false.
+cOLD      intgl_stat = .false.
 
       movec_exist = .false.
       movec_stat = .false.
@@ -130,11 +127,8 @@ cOLD      gqual_stat = .false.
       merg_exist = .false.
       merg_stat = .false.
       
-      nlgl_exist = .false.
-      nlgl_stat = .false.
-
-      dthr_exist = .false.
-      dthr_stat = .false.
+cOLD      nlgl_exist = .false.
+cOLD      nlgl_stat = .false.
 
       ffc_exist = .false.
       ffc_stat = .false.
@@ -300,9 +294,9 @@ cOLD               gamma_tmd_stat = inp_f(gamma_tmd)
                
                
 c           ==== CONDITIONALLY OPTIONAL INPUTS ====
-            else if (inp_compare(.false., 'nktmd', field)) then
-               nktmd_exist = .true.
-               nktmd_stat = inp_i(nktmd)
+cOLD            else if (inp_compare(.false., 'nktmd', field)) then
+cOLD               nktmd_exist = .true.
+cOLD               nktmd_stat = inp_i(nktmd)
                
 c           ==== OPTIONAL INPUTS ====
             else if (inp_compare(.false., 'movec_id', field)) then
@@ -314,13 +308,9 @@ c           ==== OPTIONAL INPUTS ====
                paraqn_stat = wfat_inp_paraqn(MAX_N_NPARA, npara, mpara,
      &                       n_npara)
             else if (inp_compare(.false., 'lmax', field)) then
-               lmax_exist = .true.
-               lmax_stat = inp_i(wfat_lmax)
+               call wfat_parse_inpi(rtdb, 'lmax')
             else if (inp_compare(.false., 'quadgrid', field)) then
                call wfat_parse_quadgrid(rtdb)
-cOLD            else if (inp_compare(.false., 'gridqual', field)) then
-cOLD               gqual_exist = .true.
-cOLD               gqual_stat = inp_i(wfat_gqual)
             else if (inp_compare(.false., 'omgpos', field)) then
                omgpos_exist = .true.
                omgpos_stat = wfat_inp_omgpos(autopos, omgpos)
@@ -328,11 +318,9 @@ cOLD               gqual_stat = inp_i(wfat_gqual)
                sitype_exist = .true.
                sitype_stat = inp_a(si_type)
             else if (inp_compare(.false., 'degenthr', field)) then
-               dgnthr_exist = .true.
-               dgnthr_stat = inp_f(dgnthr)
+               call wfat_parse_inpf(rtdb, 'dgnthr')
             else if (inp_compare(.false., 'intgl', field)) then
-               intgl_exist = .true.
-               intgl_stat = inp_a(wfat_intgl_name)
+               call wfat_parse_intgl(rtdb)
             else if (inp_compare(.false., 'vectors', field)) then   ! Needed for restarting MEWFAT task.
                movec_exist = .true.
                movec_stat = inp_a(wfat_movec_name)
@@ -360,11 +348,9 @@ cOLD               gqual_stat = inp_i(wfat_gqual)
             else if (inp_compare(.false., 'mychpos', field)) then
                call wfat_inp_mypos(rtdb, MAX_N_ORBID)
             else if (inp_compare(.false., 'nlgl', field)) then
-               nlgl_exist = .true.
-               nlgl_stat = inp_i(wfat_nlgl)
+               call wfat_parse_inpi(rtdb, 'nlgl')
             else if (inp_compare(.false., 'diagthr', field)) then
-               dthr_exist = .true.
-               dthr_stat = inp_f(wfat_dthr)
+               call wfat_parse_inpf(rtdb, 'dthr')
             else if (inp_compare(.false., 'tailmask', field)) then
                wfat_mask_exist = .true.
                ll1 = inp_f(wfat_mask_param(1))
@@ -2215,13 +2201,7 @@ cOLD     by NWChem according to the span of the broadest channel function.
      &     'must be either x or y.', 15, INPUT_ERR)
 
       
-cOLD      if (inp_i(nk)) then    ! type 3
-cOLD         ll = .true.
-cOLD         k0 = 0.0d0
-cOLD         kn = 0.0d0
-
       if (inp_f(k0)) then
-cOLD         ll = .false.
          if (inp_i(nk)) then      ! type 1
             if (.not. inp_f(kn))
      &           call errquit('WFAT: A valid last momentum point is '//
@@ -2234,12 +2214,7 @@ cOLD         ll = .false.
          call errquit('WFAT: Valid inputs for k'//c//' directive is '//
      &        'expected.', 24, INPUT_ERR)
       endif
-      
-            
-cOLD      if (.not. rtdb_put(rtdb, 'wfat:inp:def_k'//c//'lims',
-cOLD     &     mt_log, 1, ll))
-cOLD     &     call errquit('WFAT: Cannot write inp:def_klims to rtdb',
-cOLD     &     53, INPUT_ERR)
+
       
       if (.not. rtdb_put(rtdb, 'wfat:inp:k'//c//'_start',
      &     mt_dbl, 1, k0))
@@ -2257,6 +2232,121 @@ cOLD     &     53, INPUT_ERR)
 
       end
 c=======================================================
+
+
+c=======================================================
+c=======================================================
+      subroutine wfat_parse_intgl(rtdb)
+c     DESCRIPTION:
+c     Syntax:
+c       intgl load <file name to load> save <file name to save>
+c     The "load  <file name to load>" and "save <file name to save>" are optional,
+c     but one of them must exist when the "intgl" directive is given. When the
+c     load file is not given, it will be ignored and the integrals will be calculated
+c     by the program. If the save file is not given, an integral file with a default
+c     name will be created in the same directory.
+      implicit none
+#include "errquit.fh"
+#include "inp.fh"
+#include "rtdb.fh"
+      integer rtdb
+
+      character*20 ss
+      character*200 mode, fname
+      logical lfound, sfound, l
+      integer i
+
+      lfound = .false.
+      sfound = .false.
+      
+      do i = 1, 2
+         l = inp_a(mode)
+         l = inp_a(fname)
+         if (inp_compare(.false., 'load', mode)) then
+            if (lfound) then
+               call errquit('WFAT: the load keywoard of the intgl '//
+     &              'directive can only appear once.', 66, INPUT_ERR)
+            else
+               ss = 'wfat:inp:intgl_lname'
+               lfound= .true.
+               if (.not. rtdb_cput(rtdb, ss, 1, trim(adjustl(fname))))
+     &              call errquit('WFAT: Failed writing '//ss//
+     &              'to RTDB.', 1, INPUT_ERR)
+            endif
+         else if (inp_compare(.false., 'save', mode)) then
+            if (sfound) then
+               call errquit('WFAT: the save keywoard of the intgl '//
+     &              'directive can only appear once.', 77, INPUT_ERR)
+            else
+               ss = 'wfat:inp:intgl_sname'
+               sfound = .true.
+               if (.not. rtdb_cput(rtdb, ss, 1, trim(adjustl(fname))))
+     &              call errquit('WFAT: Failed writing '//ss//
+     &              'to RTDB.', 1, INPUT_ERR)
+            endif
+         endif
+      enddo
+
+      call inp_prev_field()
+      call inp_prev_field()
+
+      if (.not. lfound .and. .not. sfound)
+     &     call errquit('WFAT: When the intgl keyword is given, at '//
+     &     'least one of the save or load files must be specified.',
+     &     45, INPUT_ERR)
+
+      end
+c=======================================================
+
+
+c=======================================================
+c=======================================================
+      subroutine wfat_parse_inpi(rtdb, key)
+
+      implicit none
+#include "errquit.fh"
+#include "inp.fh"
+#include "rtdb.fh"      
+#include "mafdecls.fh"
+      integer rtdb
+      character*(*) key
+
+      integer val
+
+      if (.not. inp_i(val)) call errquit ("WFAT: "//key//
+     &     "takes an integer.", 20, INPUT_ERR)     
+      if (.not.rtdb_put(rtdb, 'wfat:inp:'//key, mt_int, 1, val))
+     $     call errquit('WFAT: Cannot write wfat:inp:'//key//
+     &     ' to RTDB.', 21, RTDB_ERR)
+
+      end
+c=======================================================
+
+
+c=======================================================
+c=======================================================
+      subroutine wfat_parse_inpf(rtdb, key)
+
+      implicit none
+#include "errquit.fh"
+#include "inp.fh"
+#include "rtdb.fh"      
+#include "mafdecls.fh"
+      integer rtdb
+      character*(*) key
+
+      double precision val
+
+      if (.not. inp_f(val)) call errquit ("WFAT: "//key//
+     &     "takes an integer.", 20, INPUT_ERR)     
+      if (.not.rtdb_put(rtdb, 'wfat:inp:'//key, mt_dbl, 1, val))
+     $     call errquit('WFAT: Cannot write wfat:inp:'//key//
+     &     ' to RTDB.', 21, RTDB_ERR)
+
+      end
+c=======================================================
+      
+      
       
       
       
