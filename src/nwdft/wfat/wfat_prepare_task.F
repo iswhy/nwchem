@@ -961,6 +961,7 @@ c     ==== Get time window length ====
      &     call errquit('WFAT: Cannot read field:tmax', 1, RTDB_ERR)
 
 c     ==== Get external field switch ====
+      wfat:is_extfield is no longer defined.
       if (.not. rtdb_get(rtdb, 'wfat:is_extfield', mt_log, 1, extf))
      &     call errquit('WFAT: Failed reading is_extfield from rtdb',
      &     1, INPUT_ERR)

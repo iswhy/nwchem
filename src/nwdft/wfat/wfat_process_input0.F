@@ -19,6 +19,10 @@ c     ==== quadgrid ====
 c     ==== mychpos ====
       call wfat_process_mypos(rtdb)
 
+c     ==== angles ====
+      call wfat_process_angle(rtdb, 'beta')
+      call wfat_process_angle(rtdb, 'gamma')
+      
 c     ==== kx and ky ====
       call wfat_process_momentum(rtdb)
 
@@ -363,6 +367,77 @@ c=======================================================
 
 c=======================================================
 c=======================================================
+      subroutine wfat_process_angle(rtdb, c)
+
+      implicit none
+#include "errquit.fh"
+#include "rtdb.fh"
+#include "mafdecls.fh" 
+      integer rtdb
+      character*(*) c
+
+      character*1 w
+      logical r
+      integer i, na
+      double precision a0, an, ulim
+      parameter( w='i' )
+
+
+      if (c == 'beta') then
+         ulim = 180.0d0
+      else if (c== 'gamma') then
+         ulim = 360.0d0
+      else
+         call errquit('WFAT: Bad value for the argument c of '//
+     &        'wfat_process_angle', 50, UERR)
+      endif      
+         
+
+c     ==== Start angle ====
+      if (.not. rtdb_get(rtdb, 'wfat:inp:'//c//'_start', mt_dbl, 1, a0))
+     &     call errquit('WFAT: Cannot read inp:'//c//'_start from rtdb',
+     &     35, INPUT_ERR)
+      call wfat_dval_inrange(a0, 0.0d0, 'q', ulim, 'q', 'WFAT', 
+     &     'first '//c, 'f', w, r)
+      if (.not. rtdb_put(rtdb, 'wfat:'//c//'_start', mt_dbl, 1, a0))
+     &     call errquit('WFAT: Cannot write '//c//'_start to rtdb', 
+     &     35, INPUT_ERR)
+
+c     ==== No. of angles ====
+      if (.not. rtdb_get(rtdb, 'wfat:inp:n'//c, mt_int, 1, na))
+     &     call errquit('WFAT: Cannot read n'//c//' from rtdb', 
+     &     35, INPUT_ERR)
+      call wfat_ival_atleast(na, 1, 'WFAT', '''n'//c//'''', 'i', r)
+      if (.not. rtdb_put(rtdb, 'wfat:n'//c, mt_int, 1, na))
+     &     call errquit('WFAT: Cannot write n'//c//' to rtdb', 
+     &     35, INPUT_ERR)
+
+c     ==== Last angle ====
+      if (.not. rtdb_get(rtdb, 'wfat:inp:'//c//'_last', mt_dbl, 1, an))
+     &     call errquit('WFAT: Cannot read inp:'//c//'_last from rtdb',
+     &     35, INPUT_ERR)
+      if (na == 1) then
+         call wfat_dval_inrange(an, a0, 'q', ulim, 'q', 'WFAT', 
+     &        'last '//c, 'f', w, r)
+      else  ! na > 1
+         call wfat_dval_inrange(an, a0+1.0d-12, 'q', ulim, 'q', 
+     &        'WFAT', 'last '//c, 'f', 'o', r)
+         if (.not. r) call errquit('WFAT: If there are more than one '//
+     &        'angles, the start and last angles should not be too '//
+     &        'close.', 92, INPUT_ERR)
+      endif
+      if (.not. rtdb_put(rtdb, 'wfat:'//c//'_last', mt_dbl, 1, an))
+     &     call errquit('WFAT: Cannot write '//c//'_last to rtdb', 
+     &     35, INPUT_ERR)
+      
+      
+
+      end
+c=======================================================
+      
+
+c=======================================================
+c=======================================================
       subroutine wfat_process_momentum(rtdb)
 
       implicit none
@@ -373,50 +448,30 @@ c=======================================================
 
       character*1 cc(2)
       character*1 c
-      logical pr_tmd, r, ll
+      logical r
       integer i, nk
-      double precision k0, kn
 
 
       cc = (/ 'x', 'y' /)
       
-      if (.not. rtdb_get(rtdb, 'wfat:print_tmd', mt_log, 1, pr_tmd))
-     &     call errquit('WFAT: Failed reading print_tmd from rtdb',
-     &     1, RTDB_ERR)
-
-      if (pr_tmd) then
-
-         do i = 1, 2
-            c = cc(i)
-            
-            call wfat_rtdb_fduplicate(rtdb, 'wfat:inp:k'//c//'_start',
-     &           'wfat:k'//c//'_start')
-
-            call wfat_rtdb_fduplicate(rtdb, 'wfat:inp:k'//c//'_last',
-     &           'wfat:k'//c//'_last')
-            
-            if (.not. rtdb_get(rtdb, 'wfat:inp:nk'//c, mt_int, 1, nk))
-     &           call errquit('WFAT: Cannot read nk'//c//' from rtdb', 
-     &           35, INPUT_ERR)
-            call wfat_ival_atleast(nk, 1, 'WFAT', '''nk'//c//'''', 'i',
-     &           r)
-            if (.not. rtdb_put(rtdb, 'wfat:nk'//c, mt_int, 1, nk))
-     &           call errquit('WFAT: Cannot write nk'//c//' to rtdb', 
-     &           35, INPUT_ERR)
-         enddo
+      do i = 1, 2
+         c = cc(i)
          
-      else
+         call wfat_rtdb_fduplicate(rtdb, 'wfat:inp:k'//c//'_start',
+     &        'wfat:k'//c//'_start')
 
-         ll = rtdb_delete(rtdb, 'wfat:inp:kx_start')
-         ll = rtdb_delete(rtdb, 'wfat:inp:kx_last')
-         ll = rtdb_delete(rtdb, 'wfat:inp:nkx')
-         ll = rtdb_delete(rtdb, 'wfat:inp:ky_start')
-         ll = rtdb_delete(rtdb, 'wfat:inp:ky_last')
-         ll = rtdb_delete(rtdb, 'wfat:inp:nky')
+         call wfat_rtdb_fduplicate(rtdb, 'wfat:inp:k'//c//'_last',
+     &        'wfat:k'//c//'_last')
          
-      endif
-      
-      
+         if (.not. rtdb_get(rtdb, 'wfat:inp:nk'//c, mt_int, 1, nk))
+     &        call errquit('WFAT: Cannot read nk'//c//' from rtdb', 
+     &        35, INPUT_ERR)
+         call wfat_ival_atleast(nk, 1, 'WFAT', '''nk'//c//'''', 'i', r)
+         if (.not. rtdb_put(rtdb, 'wfat:nk'//c, mt_int, 1, nk))
+     &        call errquit('WFAT: Cannot write nk'//c//' to rtdb', 
+     &        35, INPUT_ERR)
+      enddo
+
       end
 c=======================================================
 

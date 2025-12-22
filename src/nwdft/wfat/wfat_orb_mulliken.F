@@ -126,7 +126,7 @@ cOLD      call wfat_vhfvec_coef(geom, bas, nb, ns, g_rd(1:ns), nv, vin,
 cOLD     &                      sid, chfx, tol2e, oskel, vhfvin)
 cOLD      call wfat_expval_mulliken(nv, bas, vhfvin, geom, dbl_mb(k_hfpop))
 
-      
+
 c     ==== Vxc|vin> Mulliken populations ====
       nxcpop = nat * nv
       if (.not. ma_alloc_get(mt_dbl, nxcpop, 'vxcvin_pop',
@@ -164,7 +164,7 @@ c     ==== Destroy RDM GA ====
      &        1, GA_ERR)
       enddo
 
-      
+
 c     ==== Veff|vin> Mulliken populations ====
 cOLD      nef = nb * nv
 cOLD      if (.not. ma_alloc_get(mt_dbl, nef, 'veffvin', l_ef, k_ef))
@@ -185,7 +185,7 @@ cOLD     &                       dbl_mb(k_efpop))
      &     dbl_mb(k_hfpop : k_hfpop+nhfpop-1) +
      &     dbl_mb(k_xcpop : k_xcpop+nxcpop-1)
       
-      
+
 c     ==== V_s|vin> ====
       nvspop = nat * nv
       if (.not. ma_alloc_get(mt_dbl, nvspop, 'vsvin_pop',
@@ -227,7 +227,7 @@ cOLD     &     dbl_mb(k_vcpop))
      &     dbl_mb(k_efpop : k_efpop+nefpop-1) -
      &     dbl_mb(k_vspop : k_vspop+nvspop-1)
       
-      
+
 c     ==== Print Mulliken populations of ionized channels (orbitals) ====      
       if (ndid==0) then
          write(luout, '(2/)')

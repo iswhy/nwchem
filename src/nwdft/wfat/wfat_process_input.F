@@ -45,7 +45,7 @@ c=======================================================
       integer rtdb
 
       character*2 tdfield
-      logical calc_td, calc_dc, pp, gg
+      logical calc_td, calc_dc, pp
 
       
 cOLD      call util_get_rtdb_state(rtdb, os, oc, or)
@@ -115,38 +115,8 @@ c     == tmax ==
          write(luout, 206) 'tmax' 
       endif
       
-c     == beta ==
-      gg = (print_srfc .or. print_rate .or. print_yild .or.
-     &      print_avbeta .or. print_avgamma)
-      if (.not. beta_exist .and. gg) then
-         write(luout, 205) 'beta', '* print_srfc', '* print_rate', 
-     &        '* print_yild', '* print_avbeta', '* print_avgamma', ' ',
-     &        ' '
-         call errquit('INPUT ERROR: Cannot find input directive '//
-     &        '''beta''. ', 0, INPUT_ERR)
-      else if (beta_exist .and. .not. gg) then
-         write(luout, 201) 'beta',
-     &        '* print_rate      ',
-     &        '* print_yild      ',
-     &        '* print_avbeta    ',
-     &        '* print_avgamma   ',         
-     &        '* print_srfc      ', ' ', ' '
-      endif
-c     == gamma ==
-      if (.not. gamma_exist .and. gg) then
-         write(luout, 205) 'gamma', '* print_srfc', '* print_rate',
-     &        '* print_yild', '* print_avbeta', '* print_avgamma', ' ',
-     &        ' '
-         call errquit('INPUT ERROR: Cannot find input directive '//
-     &        '''gamma''. ', 0, INPUT_ERR)
-      else if (gamma_exist .and. .not. gg) then
-         write(luout, 201) 'gamma',
-     &        '* print_rate      ',
-     &        '* print_yild      ',
-     &        '* print_avbeta    ',
-     &        '* print_avgamma   ',
-     &        '* print_srfc      ', ' ', ' '
-      endif
+cOLD      gg = (print_srfc .or. print_rate .or. print_yild .or.
+cOLD     &      print_avbeta .or. print_avgamma)
 cOLDc     == beta_tmd ==
 cOLD      if (.not. beta_tmd_exist .and.
 cOLD     &     (print_tmd .or. print_tmd_atom)) then
@@ -368,28 +338,9 @@ c     == tmax ==
       if (.not. tmax_stat .and. tdfield=='td')
      &     call errquit('WFAT: The format of input directive '//
      &     '''tmax'' is incorrect', 0, INPUT_ERR)      
-c     == beta ==
-      gg = (print_srfc .or. print_rate .or. print_yild .or.
-     &     print_avbeta .or. print_avgamma)
-      if (.not. beta_stat .and. gg) then
-         call errquit('WFAT: The format of input directive '//
-     &        '''beta'' is incorrect. The correct format '//
-     &        'should be '//
-     &        '''beta <double start_angle> [<integer npoints> '//
-     &        '<double last_angle>]''. If only ''start_angle'' is '//
-     &        'given or when ''npoints=1'', ''beta'' is assumed to '//
-     &        'be equal to ''start_angle''.', 0, INPUT_ERR)
-      endif
-c     == gamma ==
-      if (.not. gamma_stat .and. gg) then
-         call errquit('WFAT: The format of input directive '//
-     &        '''gamma'' is incorrect. The correct format '//
-     &        'should be '//
-     &        '''gamma <double start_angle> [<integer npoints> '//
-     &        '<double last_angle>]''. If only ''start_angle'' is '//
-     &        'given or when ''npoints=1'', ''gamma'' is assumed to '//
-     &        'be equal to ''start_angle''.', 0, INPUT_ERR)
-      endif
+
+cOLD      gg = (print_srfc .or. print_rate .or. print_yild .or.
+cOLD     &     print_avbeta .or. print_avgamma)
 cOLDc     == beta_tmd ==
 cOLD      if (.not. beta_tmd_stat .and.
 cOLD     &     (print_tmd .or. print_tmd_atom)) then
@@ -738,8 +689,6 @@ c=======================================================
 
 
       field_need = .false.          ! needed when OE or ME
-      beta_need = .false.           ! needed when OE or ME
-      gamma_need = .false.          ! needed when OE or ME
 cOLD      beta_tmd_need = .false.       ! needed when OE or ME
 cOLD      gamma_tmd_need = .false.      ! needed when OE or ME
       nktmd_need = .false.          ! needed when OE or ME
@@ -787,10 +736,6 @@ cOLD      nlgl_need = .false.           ! needed when oe or me
      &     .false., dt_need)
       call wfat_need_input0(yi, avb, avg, .false., .false., .false.,
      &     .false., tmax_need)
-      call wfat_need_input0(sr, rt, tmd, tmda, yi, avb, avg,
-     &     beta_need)
-      call wfat_need_input0(sr, rt, tmd, tmda, yi, avb, avg,
-     &     gamma_need)
 cOLD      call wfat_need_input0(tmd, tmda, .false., .false., .false., 
 cOLD     &     .false., .false., beta_tmd_need)
 cOLD      call wfat_need_input0(tmd, tmda, .false., .false., .false., 
@@ -845,8 +790,6 @@ c=======================================================
 
       
       field_need = .false.              ! needed when oe or me
-      beta_need = .false.               ! needed when oe or me
-      gamma_need = .false.              ! needed when oe or me
 cOLD      beta_tmd_need = .false.           ! needed when oe or me
 cOLD      gamma_tmd_need = .false.          ! needed when oe or me
       nktmd_need = .false.              ! needed when oe or me
@@ -893,10 +836,6 @@ cOLD      nlgl_need = .false.               ! needed when oe or me
      &     .false., dt_need)
       call wfat_need_input0(yi, avb, avg, .false., .false., .false.,
      &     .false., tmax_need)
-      call wfat_need_input0(sr, rt, tmd, tmda, yi, avb, avg,
-     &     beta_need)
-      call wfat_need_input0(sr, rt, tmd, tmda, yi, avb, avg,
-     &     gamma_need)
 cOLD      call wfat_need_input0(tmd, tmda, .false., .false., .false., 
 cOLD     &     .false., .false., beta_tmd_need)
 cOLD      call wfat_need_input0(tmd, tmda, .false., .false., .false., 
@@ -1029,25 +968,7 @@ c=======================================================
          call wfat_dval_atleast(tmax_00, 0.0d0, 'g', 'WFAT',
      &        '''tmax''', 'e', w, r)
       endif
-      
-      if (beta_need) then
-         call wfat_dval_inrange(wfat_beta_start, 0.0d0, 'q', 180.0d0, 
-     &        'q', 'WFAT', '''start_angle'' of ''beta''', 'f', w, r)
-         call wfat_dval_inrange(wfat_beta_last, 0.0d0, 'q', 180.0d0,
-     &        'q', 'WFAT', '''last_angle'' of ''beta''', 'f', w, r)
-         call wfat_ival_atleast(wfat_nbeta, 1, 'WFAT',
-     &        '''npoints'' of ''beta''', w, r)
-      endif
-
-      if (gamma_need) then
-         call wfat_dval_inrange(wfat_gamma_start, 0.0d0, 'q', 360.0d0, 
-     &       'q', 'WFAT', '''start_angle'' of ''gamma''', 'f', w, r)
-         call wfat_dval_inrange(wfat_gamma_last, 0.0d0, 'q', 360.0d0, 
-     &        'q', 'WFAT', '''last_angle'' of ''gamma''', 'f', w, r)
-         call wfat_ival_atleast(wfat_ngamma, 1, 'WFAT',
-     &        '''npoints'' of ''gamma''', w, r)
-      endif
-      
+            
       if (orbid_need) then
          write(n_orbid_c, '(i5)') n_orbid
          write(MAX_N_ORBID_c, '(i5)') MAX_N_ORBID
@@ -1439,36 +1360,7 @@ c forcheck     &     call errquit('WFAT: Printing rtdb failed', 1, RTDB_ERR)
      &        call errquit('WFAT: Failed writing tmax to rtdb',
      &        1, INPUT_ERR)
       endif
-      
-      if (beta_need) then
-         if (.not. rtdb_put(rtdb, 'wfat:beta_start', mt_dbl, 1,
-     &        wfat_beta_start))
-     &        call errquit('WFAT: Failed writing beta_start to rtdb',
-     &        1, INPUT_ERR)
-         if (.not. rtdb_put(rtdb, 'wfat:beta_last', mt_dbl, 1,
-     &        wfat_beta_last))
-     &        call errquit('WFAT: Failed writing beta_last to rtdb',
-     &        1, INPUT_ERR)
-         if (.not. rtdb_put(rtdb, 'wfat:nbeta', mt_int, 1, wfat_nbeta))
-     &        call errquit('WFAT: Failed writing nbeta to rtdb',
-     &        1, INPUT_ERR)
-      endif
-      
-      if (gamma_need) then
-         if (.not. rtdb_put(rtdb, 'wfat:gamma_start', mt_dbl, 1,
-     &        wfat_gamma_start))
-     &        call errquit('WFAT: Failed writing gamma_start to rtdb',
-     &        1, INPUT_ERR)
-         if (.not. rtdb_put(rtdb, 'wfat:gamma_last', mt_dbl, 1,
-     &        wfat_gamma_last))
-     &        call errquit('WFAT: Failed writing gamma_last to rtdb',
-     &        1, INPUT_ERR)
-         if (.not. rtdb_put(rtdb, 'wfat:ngamma', mt_int, 1,
-     &        wfat_ngamma))
-     &        call errquit('WFAT: Failed writing ngamma to rtdb',
-     &        1, INPUT_ERR)
-      endif
-
+            
       if (orbid_need) then
          if (.not. rtdb_put(rtdb, 'wfat:n_orbid', mt_int, 1, n_orbid))
      &        call errquit('WFAT: Failed writing n_orbid to rtdb',

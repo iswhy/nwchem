@@ -54,6 +54,7 @@ c       orb1_x orb1_y orb1_z orb2_x orb2_y orb2_z ... orb<nch>_x orb<nch>_y orb<
 
       character*12 dt_str
       character*16 tag
+      character*255 cdum
       logical t1, cgrid(nch)
       integer natom, nrd, max_npt, nvc, nsh, nom, ni0, ni_, ozn
       integer nch1, npt, natomp, nptp, ncpos, nscr, nil, ninc, nmo
@@ -129,9 +130,17 @@ c     second column.
       
 c     ==== Some analyses and tests (optional) ====
       call wfat_sometests(rtdb, zi, nch, erg, lmax_, chmmt)
-      if (res_mode)
-     &     call wfat_mulliken(rtdb, geom, bas, nb, ns, rdm, nch, vch, 
-     &                   spinid, chpos)
+      if (res_mode) then
+         if (rtdb_cget(rtdb, 'wfat:movec_name', 1, cdum)) then
+            if (ndid == 0) write(luout, '(a)') 'WARNING: Mulliken '//
+     &           'analysis requires previous SCF calculation in the '//
+     &           'same run. So, defining the vectors directive in '//
+     &           'the input, which allows one to skip the SCF '//
+     &           'calculation, may lead to error.'
+         endif
+         call wfat_mulliken(rtdb, geom, bas, nb, ns, rdm, nch, vch,
+     &        spinid, chpos)
+      endif
 
 
 c     ==== Allocate grid-related arrays ====

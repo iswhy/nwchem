@@ -170,7 +170,7 @@ c     ==== Deallocations ====
          if (.not. ga_destroy(g_vxc(is)))
      &        call errquit('WFAT: Cannot destroy Vxc.', 1, GA_ERR)
          if (.not. ga_destroy(g_rd0(is)))
-     &        call errquit('WFAT: Cannot destroy rdm0.', 1, GA_ERR)         
+     &        call errquit('WFAT: Cannot destroy rdm0.', 1, GA_ERR)
       enddo
       
       end

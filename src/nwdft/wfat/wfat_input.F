@@ -39,11 +39,11 @@ c=======================================================
       parameter(ang2bohr=1.8897261255d0)
       
       logical wfat_inp_paraqn, wfat_inp_movec, wfat_inp_omgpos
-      logical wfat_inp_field, wfat_inp_perturb, wfat_inp_dt
+      logical wfat_inp_perturb, wfat_inp_dt
       logical wfat_inp_tmax, wfat_inp_ffc, wfat_inp_w1x, wfat_inp_s2a1e
       logical wfat_inp_mydip, wfat_inp_myerg
       external wfat_inp_paraqn, wfat_inp_movec, wfat_inp_omgpos
-      external wfat_inp_field, wfat_inp_perturb, wfat_inp_dt
+      external wfat_inp_perturb, wfat_inp_dt
       external wfat_inp_tmax, wfat_inp_ffc, wfat_inp_w1x, wfat_inp_s2a1e
       external wfat_inp_mydip, wfat_inp_myerg
 
@@ -73,12 +73,6 @@ c     ==== Initial status of WFAT inputs ====
       
       tmax_exist = .false.
       tmax_stat = .false.
-      
-      beta_exist = .false.
-      beta_stat = .false.
-
-      gamma_exist = .false.
-      gamma_stat = .false.
       
       orbid_exist = .false.
       orbid_stat = .false.
@@ -235,19 +229,20 @@ cOLD               fieldmag_stat = inp_f(fieldmag)
 
             else if (inp_compare(.false., 'field', field)) then
                nfield = nfield + 1
-               field_exist = .true.
-               field_stat = wfat_inp_field(nfield, fld_tp, 
-     &              fld_fr, fld_fr0, fld_fr_un, 
-     &              fld_ce, fld_ce0, fld_ce_un, 
-     &              fld_wi, fld_wi0, fld_wi_un,
-     &              fld_mx, fld_mx0, fld_mx_un,
-     &              fld_cp, fld_cp0, fld_cp_un)
-               if (is_extfield) then
-                  dt_exist = .true.
-                  dt_stat = .true.
-                  tmax_exist = .true.
-                  tmax_stat = .true.
-               endif
+               call wfat_inp_field(rtdb, nfield)
+cOLD               field_exist = .true.
+cOLD               field_stat = wfat_inp_field(nfield, fld_tp, 
+cOLD     &              fld_fr, fld_fr0, fld_fr_un, 
+cOLD     &              fld_ce, fld_ce0, fld_ce_un, 
+cOLD     &              fld_wi, fld_wi0, fld_wi_un,
+cOLD     &              fld_mx, fld_mx0, fld_mx_un,
+cOLD     &              fld_cp, fld_cp0, fld_cp_un)
+cOLD               if (is_extfield) then
+cOLD                  dt_exist = .true.
+cOLD                  dt_stat = .true.
+cOLD                  tmax_exist = .true.
+cOLD                  tmax_stat = .true.
+cOLD               endif
 
             else if (inp_compare(.false., 'dt', field)) then
                dt_exist = .true.
@@ -258,29 +253,32 @@ cOLD               fieldmag_stat = inp_f(fieldmag)
                tmax_stat = wfat_inp_tmax(wfat_tmax, wfat_tmax0, tmax_un)
                
             else if (inp_compare(.false., 'beta', field)) then
-               beta_exist = .true.
-               beta_start_stat = inp_f(wfat_beta_start)
-               beta_n_stat = inp_i(wfat_nbeta)
-               if (.not. beta_n_stat .or. wfat_nbeta==1) then
-                  wfat_nbeta = 1
-                  wfat_beta_last = wfat_beta_start
-                  beta_last_stat = .true.
-               else
-                  beta_last_stat = inp_f(wfat_beta_last)
-               endif
-               beta_stat = beta_start_stat 
+               call wfat_parse_angle(rtdb, 'beta')
+cOLD               beta_exist = .true.
+cOLD               beta_start_stat = inp_f(wfat_beta_start)
+cOLD               beta_n_stat = inp_i(wfat_nbeta)
+cOLD               if (.not. beta_n_stat .or. wfat_nbeta==1) then
+cOLD                  wfat_nbeta = 1
+cOLD                  wfat_beta_last = wfat_beta_start
+cOLD                  beta_last_stat = .true.
+cOLD               else
+cOLD                  beta_last_stat = inp_f(wfat_beta_last)
+cOLD               endif
+cOLD               beta_stat = beta_start_stat 
             else if (inp_compare(.false., 'gamma', field)) then
-               gamma_exist = .true.
-               gamma_start_stat = inp_f(wfat_gamma_start)
-               gamma_n_stat = inp_i(wfat_ngamma)
-               if (.not. gamma_n_stat .or. wfat_ngamma==1) then
-                  wfat_ngamma = 1
-                  wfat_gamma_last = wfat_gamma_start
-                  gamma_last_stat = .true.
-               else
-                  gamma_last_stat = inp_f(wfat_gamma_last)
-               endif
-               gamma_stat = gamma_start_stat
+               call wfat_parse_angle(rtdb, 'gamma')
+cOLD               gamma_exist = .true.
+cOLD               gamma_start_stat = inp_f(wfat_gamma_start)
+cOLD               gamma_n_stat = inp_i(wfat_ngamma)
+cOLD               if (.not. gamma_n_stat .or. wfat_ngamma==1) then
+cOLD                  wfat_ngamma = 1
+cOLD                  wfat_gamma_last = wfat_gamma_start
+cOLD                  gamma_last_stat = .true.
+cOLD               else
+cOLD                  gamma_last_stat = inp_f(wfat_gamma_last)
+cOLD               endif
+cOLD               gamma_stat = gamma_start_stat
+
 cOLD            else if (inp_compare(.false., 'beta_tmd', field)) then
 cOLD               beta_tmd_exist = .true.
 cOLD               beta_tmd_stat = inp_f(beta_tmd)
@@ -322,6 +320,9 @@ c           ==== OPTIONAL INPUTS ====
             else if (inp_compare(.false., 'intgl', field)) then
                call wfat_parse_intgl(rtdb)
             else if (inp_compare(.false., 'vectors', field)) then   ! Needed for restarting MEWFAT task.
+c              Loads MO coefficients from a file. Along with the restart directive, it can be
+c              used to skip the SCF calculation that yield the orbitals.
+c                Syntax:  vectors <movec file1> [movec file2]
                movec_exist = .true.
                movec_stat = inp_a(wfat_movec_name)
                if (inp_a(wfat_movec1_name)) then
@@ -451,9 +452,7 @@ c=======================================================
 
 c=======================================================
 c=======================================================
-      logical function wfat_inp_field(i, tp, fr, fr0, fr_un,
-     &     ce, ce0, ce_un, wi, wi0, wi_un, mx, mx0, mx_un,
-     &     cp, cp0, cp_un)
+      subroutine wfat_inp_field(rtdb, i)
 
 c     field
 c        type < dc | gaussian | hann | external <"laser_file".laser> >
@@ -464,57 +463,61 @@ c        max <double> [ au | tw/cm2 ]
 c        cep <double> [ rad | deg ]
 c     end
       implicit none
-#include "wfat_input.fh"
+c#include "wfat_input.fh"
 #include "errquit.fh"
 #include "inp.fh"
 #include "stdio.fh"
-      integer i                                        ! [input],
-      character(len=FLD_TP_LEN) tp(max_nfield)         ! [output],
-      double precision fr(max_nfield)                  ! [output],
-      double precision fr0(max_nfield)                 ! [output],
-      character(len=FLD_FR_UN_LEN) fr_un(max_nfield)   ! [output],
-      double precision ce(max_nfield)                  ! [output],
-      double precision ce0(max_nfield)                 ! [output],
-      character(len=FLD_CE_UN_LEN) ce_un(max_nfield)   ! [output],
-      double precision wi(max_nfield)                  ! [output],
-      double precision wi0(max_nfield)                 ! [output],
-      character(len=FLD_WI_UN_LEN) wi_un(max_nfield)   ! [output],
-      double precision mx(max_nfield)                  ! [output],
-      double precision mx0(max_nfield)                 ! [output],
-      character(len=FLD_MX_UN_LEN) mx_un(max_nfield)   ! [output],
-      double precision cp(max_nfield)                  ! [output],
-      double precision cp0(max_nfield)                 ! [output],
-      character(len=FLD_CP_UN_LEN) cp_un(max_nfield)   ! [output],
+#include "rtdb.fh"
+#include "mafdecls.fh"
+      integer rtdb
+      integer i                 ! [input],
+c      character(len=FLD_TP_LEN) tp(max_nfield)         ! [output],
+c      double precision fr(max_nfield)                  ! [output],
+c      double precision fr0(max_nfield)                 ! [output],
+c      character(len=FLD_FR_UN_LEN) fr_un(max_nfield)   ! [output],
+c      double precision ce(max_nfield)                  ! [output],
+c      double precision ce0(max_nfield)                 ! [output],
+c      character(len=FLD_CE_UN_LEN) ce_un(max_nfield)   ! [output],
+c      double precision wi(max_nfield)                  ! [output],
+c      double precision wi0(max_nfield)                 ! [output],
+c      character(len=FLD_WI_UN_LEN) wi_un(max_nfield)   ! [output],
+c      double precision mx(max_nfield)                  ! [output],
+c      double precision mx0(max_nfield)                 ! [output],
+c      character(len=FLD_MX_UN_LEN) mx_un(max_nfield)   ! [output],
+c      double precision cp(max_nfield)                  ! [output],
+c      double precision cp0(max_nfield)                 ! [output],
+c      character(len=FLD_CP_UN_LEN) cp_un(max_nfield)   ! [output],
 
-      character*50 field
+      character*50 key, tp, fru, ceu, wiu, mxu, cpu
       character*2 max_str
-      logical tp_stat, fr_stat, ce_stat, wi_stat, mx_stat, cp_stat
-      logical tp_exist, fr_exist, ce_exist, wi_exist, mx_exist, cp_exist
-      integer k
+      character*1 is
+      character*4 notype
+      integer k, typeg, tg
+      double precision mx, mx0, fr, fr0, ce, ce0, wi, wi0, cp, cp0
 
-      logical wfat_inp_externfield
       double precision wfat_convert_freq, wfat_convert_time,
      &     wfat_convert_efield, wfat_convert_angle
       external wfat_convert_freq, wfat_convert_time,
-     &     wfat_convert_efield, wfat_convert_angle, wfat_inp_externfield
+     &     wfat_convert_efield, wfat_convert_angle
 
+      parameter (notype='none')
 
-      wfat_inp_field = .false.
-      is_extfield = .false.
-      tp_exist = .false.
-      fr_exist = .false.
-      ce_exist = .false.
-      wi_exist = .false.
-      mx_exist = .false.
-      cp_exist = .false.
+c      wfat_inp_field = .false.
+c      is_extfield = .false.
+c      tp_exist = .false.
+c      fr_exist = .false.
+c      ce_exist = .false.
+c      wi_exist = .false.
+c      mx_exist = .false.
+c      cp_exist = .false.
 
 
       TP_OPTS = (/ 'dc      ', 'gaussian', 'hann    ', 'external' /)
-      FR_UNIT = (/ 'au  ', 'ev  ', 'thz ', 'nm  ', 'bohr' /)
-      CE_UNIT = (/ 'fs', 'au' /)
-      WI_UNIT = (/ 'fs', 'au' /)
-      MX_UNIT = (/ 'au    ', 'tw/cm2' /)
-      CP_UNIT = (/ 'rad', 'deg' /)
+c      FR_UNIT = (/ 'au  ', 'ev  ', 'thz ', 'nm  ', 'bohr' /)
+c      CE_UNIT = (/ 'fs', 'au' /)
+c      WI_UNIT = (/ 'fs', 'au' /)
+c      MX_UNIT = (/ 'au    ', 'tw/cm2' /)
+c      CP_UNIT = (/ 'rad', 'deg' /)
       
 
       write(max_str, '(i2)') max_nfield
@@ -523,162 +526,125 @@ c     end
      &     'which is '//trim(adjustl(max_str)), 1, INPUT_ERR)
      
 
+      tp = notype
       do while (inp_read())
-         if (inp_a(field)) then
+         if (inp_a(key)) then
 
-            if (inp_compare(.false., 'type', field)) then
-               tp_exist = .true.
-               tp_stat = inp_a(tp(i))
-               if (.not. inp_match(TP_NOPTS, .false., tp(i), TP_OPTS,
-     &              k)) call errquit('WFAT: The choice of field type '//
-     &              'is unknown', 1, INPUT_ERR)
-               if (tp(i) == 'external') then
-                  if (i > 1) call errquit('WFAT: When there is a '//
-     &                 'field with the type of ''external'', that '//
-     &                 'field is the only field that can be specified'//
-     &                 ' in the input file.', 1, INPUT_ERR)
-                  is_extfield = wfat_inp_externfield()
-               endif
-               
-            else if (inp_compare(.false., 'frequency', field)) then
-               fr_exist = .true.
-               fr_stat = inp_f(fr0(i))
-               fr_un(i) = 'au'
-               if (inp_a(field)) fr_un(i) = field
-               fr(i) = wfat_convert_freq(fr_un(i), fr0(i), 'au')
-               
-            else if (inp_compare(.false., 'center', field)) then
-               ce_exist = .true.
-               ce_stat = inp_f(ce0(i))
-               ce_un(i) = 'au'
-               if (inp_a(field)) ce_un(i) = field
-               ce(i) = wfat_convert_time(ce_un(i), ce0(i), 'au')
-               
-            else if (inp_compare(.false., 'width', field)) then
-               wi_exist = .true.
-               wi_stat = inp_f(wi0(i))
-               wi_un(i) = 'au'
-               if (inp_a(field)) wi_un(i) = field
-               wi(i) = wfat_convert_time(wi_un(i), wi0(i), 'au')
-               
-            else if (inp_compare(.false., 'max', field)) then
-               mx_exist = .true.
-               mx_stat = inp_f(mx0(i))
-               mx_un(i) = 'au'
-               if (inp_a(field)) mx_un(i) = field
-               mx(i) = wfat_convert_efield(mx_un(i), mx0(i), 'au')
-               
-            else if (inp_compare(.false., 'cep', field)) then
-               cp_exist = .true.
-               cp_stat = inp_f(cp0(i))
-               cp_un(i) = 'rad'
-               if (inp_a(field)) cp_un(i) = field
-               cp(i) = wfat_convert_angle(cp_un(i), cp0(i), 'rad')
+c           >>>> Field type (dc, external, gaussian, etc) <<<<
+            if (inp_compare(.false., 'type', key)) then
+               l = inp_a(tp)
 
-            else if (inp_compare(.false., 'end', field)) then
+c           >>>> Frequency <<<<
+            else if (inp_compare(.false., 'frequency', key)) then
+               l = inp_f(fr0)
+               if (.not. inp_a(key)) fru = 'au'
+               
+c           >>>> Center <<<<
+            else if (inp_compare(.false., 'center', key)) then
+               l = inp_f(ce0)
+               if (.not. inp_a(key)) ceu = 'au'
+
+c           >>>> Width <<<<
+            else if (inp_compare(.false., 'width', key)) then
+               l = inp_f(wi0)
+               if (.not. inp_a(key)) wiu = 'au'
+               
+c           >>>> Amplitude <<<<
+            else if (inp_compare(.false., 'max', key)) then
+               l = inp_f(mx0)
+               if (.not. inp_a(key)) mxu = 'au'
+               
+c           >>>> CEP <<<<
+            else if (inp_compare(.false., 'cep', key)) then
+               l = inp_f(cp0)
+               if (.not. inp_a(key)) cpu = 'rad'
+
+            else if (inp_compare(.false., 'end', key)) then
                exit
             else
                call errquit('WFAT: Unknown input directive '''//
-     &              trim(adjustl(field))//''' is found under the '//
+     &              trim(adjustl(key))//''' is found under the '//
      &              '''field'' subdirective', 1, INPUT_ERR)
             endif
 
          endif
       enddo
+
+
+      write(is, '(i1)') i
+
       
-
-c     ==== Checking unit choice availability ====
-      if (.not. tp_exist) then
-         call errquit('WFAT: The ''field'' subdirective '//
-     &        '''type'' is missing', 1, INPUT_ERR)
-      endif
-      
-      if (tp(i) /= 'external') then
-         if (mx_exist) then
-            if (.not. inp_match(MX_NUNIT, .false., mx_un(i),
-     &           MX_UNIT, k))
-     &           call errquit('WFAT: The unit choice for ''field'' '//
-     &           'subdirective ''max'' is unavailable', 1, INPUT_ERR)
+c     >>>> Field type <<<<
+      if (inp_match(TP_NOPTS, .false., tp, TP_OPTS, k)) then
+         if (.not. rtdb_cput(rtdb, 'wfat:inp:field:type:'//is, 1, tp))
+     &        call errquit('WFAT: Failed writing inp:field:type:'//
+     &        is//'to rtdb', 1, RTDB_ERR)
+         
+c        ==== Identify type group ====
+c        typeg = 1 ==> dc
+c        typeg = 2 ==> external
+c        typeg = 3 ==> everything else
+         if (inp_compare(.false., 'dc', tp)) then
+            typeg = 1
+         else if (inp_compare(.false., 'external', tp)) then
+            typeg = 2
+            call wfat_inp_externfield(rtdb)   fix wfat_inp_externfield
          else
-            call errquit('WFAT: The ''field'' subdirective '//
-     &           '''max'' is missing', 1, INPUT_ERR)
+            typeg = 3
          endif
-      endif
+         if (rtdb_put(rtdb, 'wfat:field:typeg', mt_int, 1, typeg)) 
+     &        call errquit('WFAT: Failed writing field:typeg to rtdb',
+     &        1, RTDB_ERR)
 
-      if (tp(i) /= 'dc' .and. tp(i) /= 'external') then
-         if (fr_exist) then
-            if (.not. inp_match(FR_NUNIT, .false., fr_un(i), FR_UNIT,
-     &           k)) call errquit('WFAT: The unit choice for ''field'' '
-     &           //'subdirective ''frequency'' is unavailable',
+c        ==== Check for the number of field blocks ====
+c        ====  when dc or external field is used   ====
+         if (i > 1) then
+            if (.not. rtdb_get(rtdb, 'wfat:field:typeg', mt_int, 1, tg))
+     &           call errquit('WFAT: Failed reading is_extfield from '//
+     &           'rtdb', 1, RTDB_ERR)
+            if (tg==1 .or. tg==2 .or. typeg==1 .or. typeg==2) 
+     &           call errquit('WFAT: Only one field block is allowed '//
+     &           'when dc or external field is specified.',
      &           1, INPUT_ERR)
-         else
-            call errquit('WFAT: The ''field'' subdirective '//
-     &           '''frequency'' is missing when it is necessary',
-     &           1, INPUT_ERR)
-         endif
-
-         if (ce_exist) then
-            if (.not. inp_match(CE_NUNIT, .false., ce_un(i), CE_UNIT, 
-     &           k)) call errquit('WFAT: The unit choice for ''field'' '
-     &           //'subdirective ''center'' is unavailable',
-     &           1, INPUT_ERR)
-         else
-            call errquit('WFAT: The ''field'' subdirective '//
-     &           '''center'' is missing when it is necessary',
-     &           1, INPUT_ERR)
-         endif
-
-         if (wi_exist) then
-            if (.not. inp_match(WI_NUNIT, .false., wi_un(i), WI_UNIT, 
-     &           k)) call errquit('WFAT: The unit choice for ''field'' '
-     &           //'subdirective ''width'' is unavailable',
-     &           1, INPUT_ERR)
-         else
-            call errquit('WFAT: The ''field'' subdirective '//
-     &           '''width'' is missing when it is necessary',
-     &           1, INPUT_ERR)
-         endif
-
-         if (cp_exist) then
-            if (.not. inp_match(CP_NUNIT, .false., cp_un(i), CP_UNIT, 
-     &           k)) call errquit('WFAT: The unit choice for ''field'' '
-     &           //'subdirective ''cep'' is unavailable', 1, INPUT_ERR)
-         else
-            call errquit('WFAT: The ''field'' subdirective '//
-     &           '''cep'' is missing when it is necessary',
-     &           1, INPUT_ERR)
-         endif
-      endif
-      
-
-c     ==== When field type is 'dc' ====
-      if (tp(i) == 'dc' .or. tp(i) == 'external') then
-         fr0(i) = 0.0d0
-         ce0(i) = 0.0d0
-         wi0(i) = 0.0d0
-         cp0(i) = 0.0d0
-         fr(i) = 0.0d0
-         ce(i) = 0.0d0
-         wi(i) = 0.0d0
-         cp(i) = 0.0d0
-      endif
-      if (tp(i) == 'external') then
-         mx(i) = 0.0d0
-         mx0(i) = 0.0d0
-      endif
-      
-
-      if (tp(i) == 'dc') then
-         wfat_inp_field = tp_stat .and. mx_stat
-      else if (tp(i)=='gaussian' .or. tp(i)=='hann') then
-         wfat_inp_field = tp_stat .and. fr_stat .and. ce_stat .and.
-     &                    wi_stat .and. mx_stat .and. cp_stat
-      else if (tp(i) == 'external') then
-         wfat_inp_field = is_extfield
+         endif      
       else
-         wfat_inp_field = .false.
+         call errquit('WFAT: The type directive with a proper value'//
+     &        ' is missing in a field block.', 40, INPUT_ERR)
       endif
       
+
+      if (typeg==1 .or. type==3) then
+c        >>>> Amplitude <<<<
+         mx = wfat_convert_efield(trim(adjustl(mxu)), mx0, 'au')
+         if (.not. rtdb_put(rtdb, 'wfat:inp:field:max'//is, mt_dbl, 1,
+     &        mx)) call errquit('WFAT: Failed writing inp:field:max'//
+     &        is//' to rtdb', 1, RTDB_ERR)
+      endif
+
+      if (typeg==3) then
+c        >>>> Frequency <<<<
+         fr = wfat_convert_freq(trim(adjustl(fru)), fr0, 'au')
+         if (.not. rtdb_put(rtdb, 'wfat:inp:field:freq'//is, mt_dbl, 1,
+     &        fr)) call errquit('WFAT: Failed writing inp:field:freq'//
+     &        is//' to rtdb', 1, RTDB_ERR)
+c        >>>> Center <<<<
+         ce = wfat_convert_time(trim(adjustl(ceu)), ce0, 'au')
+         if (.not. rtdb_put(rtdb, 'wfat:inp:field:center'//is, mt_dbl, 
+     &        1, ce)) call errquit('WFAT: Failed writing '//
+     &        'inp:field:center'//is//' to rtdb', 1, RTDB_ERR)
+c        >>>> Width <<<<
+         wi = wfat_convert_time(trim(adjustl(wiu)), wi0, 'au')
+         if (.not. rtdb_put(rtdb, 'wfat:inp:field:width'//is, mt_dbl, 1,
+     &        wi)) call errquit('WFAT: Failed writing '//
+     &        'inp:field:width'//is//' to rtdb', 1, RTDB_ERR)
+c        >>>> CEP <<<<
+         cp = wfat_convert_angle(trim(adjustl(cpu)), cp0, 'rad')
+         if (.not. rtdb_put(rtdb, 'wfat:inp:field:cep'//is, mt_dbl, 1, 
+     &        cp)) call errquit('WFAT: Failed writing inp:field:cep'//
+     &        is//' to rtdb', 1, RTDB_ERR)
+      endif
+      
+         
       end
 c=======================================================
 
@@ -2173,6 +2139,65 @@ c=======================================================
 
 c=======================================================
 c=======================================================
+      subroutine wfat_parse_angle(rtdb, c)
+c     Type 1:
+c       beta <bt_start> <nbt> <bt_last>
+c     bt_start, nbt, and bt_last are supplied by the user.
+c     Type 2:
+c       beta <bt_start>
+c     This type is equivalent to bt <bt_start> 1 <bt_start>.
+      implicit none
+#include "errquit.fh"
+#include "inp.fh"
+#include "mafdecls.fh"
+#include "rtdb.fh"      
+      integer rtdb
+      character*(*) c
+
+      integer nag
+      double precision ag0, agn
+
+
+      if (c /= 'beta' .and. c /= 'gamma') 
+     &     call errquit('WFAT: Argument c of wfat_parse_angle '//
+     &     'must be either beta or gamma.', 15, INPUT_ERR)
+
+      
+      if (inp_f(ag0)) then
+         if (inp_i(nag)) then      ! type 1
+            if (.not. inp_f(agn))
+     &           call errquit('WFAT: A valid last angle is '//
+     &           'expected.', 49, INPUT_ERR)
+         else     ! type 2
+            nag = 1
+            agn = ag0
+         endif
+      else
+         call errquit('WFAT: Valid inputs for '//c//' directive is '//
+     &        'expected.', 24, INPUT_ERR)
+      endif
+
+      
+      if (.not. rtdb_put(rtdb, 'wfat:inp:'//c//'_start',
+     &     mt_dbl, 1, ag0))
+     &     call errquit('WFAT: Cannot write inp:'//c//'_start to rtdb',
+     &     53, INPUT_ERR)
+
+      if (.not. rtdb_put(rtdb, 'wfat:inp:'//c//'_last',
+     &     mt_dbl, 1, agn))
+     &     call errquit('WFAT: Cannot write inp:'//c//'_last to rtdb',
+     &     53, INPUT_ERR)
+
+      if (.not. rtdb_put(rtdb, 'wfat:inp:n'//c, mt_int, 1, nag)) 
+     &     call errquit('WFAT: Cannot write inp:n'//c//' to rtdb',
+     &     53, INPUT_ERR)
+
+      end
+c=======================================================
+      
+
+c=======================================================
+c=======================================================
       subroutine wfat_parse_momentum(rtdb, c)
 c     Type 1:
 c       kx <kx_start> <nkx> <kx_last>
@@ -2238,6 +2263,8 @@ c=======================================================
 c=======================================================
       subroutine wfat_parse_intgl(rtdb)
 c     DESCRIPTION:
+c     Loads WFAT integrals from a file. Along with the restart directive, it can be
+c     used to skip the calculation of WFAT integrals.
 c     Syntax:
 c       intgl load <file name to load> save <file name to save>
 c     The "load  <file name to load>" and "save <file name to save>" are optional,
