@@ -39,12 +39,12 @@ c=======================================================
       parameter(ang2bohr=1.8897261255d0)
       
       logical wfat_inp_paraqn, wfat_inp_movec, wfat_inp_omgpos
-      logical wfat_inp_perturb, wfat_inp_dt
-      logical wfat_inp_tmax, wfat_inp_ffc, wfat_inp_w1x, wfat_inp_s2a1e
+      logical wfat_inp_perturb
+      logical wfat_inp_ffc, wfat_inp_w1x, wfat_inp_s2a1e
       logical wfat_inp_mydip, wfat_inp_myerg
       external wfat_inp_paraqn, wfat_inp_movec, wfat_inp_omgpos
-      external wfat_inp_perturb, wfat_inp_dt
-      external wfat_inp_tmax, wfat_inp_ffc, wfat_inp_w1x, wfat_inp_s2a1e
+      external wfat_inp_perturb
+      external wfat_inp_ffc, wfat_inp_w1x, wfat_inp_s2a1e
       external wfat_inp_mydip, wfat_inp_myerg
 
       
@@ -68,11 +68,11 @@ c     ==== Initial status of WFAT inputs ====
       field_exist = .false.
       field_stat = .false.
 
-      dt_exist = .false.
-      dt_stat = .false.
+cOLD      dt_exist = .false.
+cOLD      dt_stat = .false.
       
-      tmax_exist = .false.
-      tmax_stat = .false.
+cOLD      tmax_exist = .false.
+cOLD      tmax_stat = .false.
       
       orbid_exist = .false.
       orbid_stat = .false.
@@ -223,79 +223,22 @@ c           ==== ABSOLUTELY MANDATORY INPUTS ====
                enddo
 
 c           ==== CONDITIONALLY MANDATORY INPUTS ====    
-cOLD            else if (inp_compare(.false., 'fieldmag', field)) then
-cOLD               fieldmag_exist = .true.
-cOLD               fieldmag_stat = inp_f(fieldmag)
-
             else if (inp_compare(.false., 'field', field)) then
                nfield = nfield + 1
-               call wfat_inp_field(rtdb, nfield)
-cOLD               field_exist = .true.
-cOLD               field_stat = wfat_inp_field(nfield, fld_tp, 
-cOLD     &              fld_fr, fld_fr0, fld_fr_un, 
-cOLD     &              fld_ce, fld_ce0, fld_ce_un, 
-cOLD     &              fld_wi, fld_wi0, fld_wi_un,
-cOLD     &              fld_mx, fld_mx0, fld_mx_un,
-cOLD     &              fld_cp, fld_cp0, fld_cp_un)
-cOLD               if (is_extfield) then
-cOLD                  dt_exist = .true.
-cOLD                  dt_stat = .true.
-cOLD                  tmax_exist = .true.
-cOLD                  tmax_stat = .true.
-cOLD               endif
-
+               call wfat_parse_field(rtdb, nfield)
             else if (inp_compare(.false., 'dt', field)) then
-               dt_exist = .true.
-               dt_stat = wfat_inp_dt(wfat_dt, wfat_dt0, dt_un)
-
+               call wfat_parse_dt(rtdb)
             else if (inp_compare(.false., 'tmax', field)) then
-               tmax_exist = .true.
-               tmax_stat = wfat_inp_tmax(wfat_tmax, wfat_tmax0, tmax_un)
-               
+               call wfat_parse_tmax(rtdb)               
             else if (inp_compare(.false., 'beta', field)) then
                call wfat_parse_angle(rtdb, 'beta')
-cOLD               beta_exist = .true.
-cOLD               beta_start_stat = inp_f(wfat_beta_start)
-cOLD               beta_n_stat = inp_i(wfat_nbeta)
-cOLD               if (.not. beta_n_stat .or. wfat_nbeta==1) then
-cOLD                  wfat_nbeta = 1
-cOLD                  wfat_beta_last = wfat_beta_start
-cOLD                  beta_last_stat = .true.
-cOLD               else
-cOLD                  beta_last_stat = inp_f(wfat_beta_last)
-cOLD               endif
-cOLD               beta_stat = beta_start_stat 
             else if (inp_compare(.false., 'gamma', field)) then
                call wfat_parse_angle(rtdb, 'gamma')
-cOLD               gamma_exist = .true.
-cOLD               gamma_start_stat = inp_f(wfat_gamma_start)
-cOLD               gamma_n_stat = inp_i(wfat_ngamma)
-cOLD               if (.not. gamma_n_stat .or. wfat_ngamma==1) then
-cOLD                  wfat_ngamma = 1
-cOLD                  wfat_gamma_last = wfat_gamma_start
-cOLD                  gamma_last_stat = .true.
-cOLD               else
-cOLD                  gamma_last_stat = inp_f(wfat_gamma_last)
-cOLD               endif
-cOLD               gamma_stat = gamma_start_stat
-
-cOLD            else if (inp_compare(.false., 'beta_tmd', field)) then
-cOLD               beta_tmd_exist = .true.
-cOLD               beta_tmd_stat = inp_f(beta_tmd)
-cOLD            else if (inp_compare(.false., 'gamma_tmd', field)) then
-cOLD               gamma_tmd_exist = .true.
-cOLD               gamma_tmd_stat = inp_f(gamma_tmd)
             else if (inp_compare(.false., 'kx', field)) then
                call wfat_parse_momentum(rtdb, 'x')
             else if (inp_compare(.false., 'ky', field)) then
                call wfat_parse_momentum(rtdb, 'y')
-               
-               
-c           ==== CONDITIONALLY OPTIONAL INPUTS ====
-cOLD            else if (inp_compare(.false., 'nktmd', field)) then
-cOLD               nktmd_exist = .true.
-cOLD               nktmd_stat = inp_i(nktmd)
-               
+                              
 c           ==== OPTIONAL INPUTS ====
             else if (inp_compare(.false., 'movec_id', field)) then
                orbid_exist = .true.
@@ -452,7 +395,7 @@ c=======================================================
 
 c=======================================================
 c=======================================================
-      subroutine wfat_inp_field(rtdb, i)
+      subroutine wfat_parse_field(rtdb, i)
 
 c     field
 c        type < dc | gaussian | hann | external <"laser_file".laser> >
@@ -471,27 +414,12 @@ c#include "wfat_input.fh"
 #include "mafdecls.fh"
       integer rtdb
       integer i                 ! [input],
-c      character(len=FLD_TP_LEN) tp(max_nfield)         ! [output],
-c      double precision fr(max_nfield)                  ! [output],
-c      double precision fr0(max_nfield)                 ! [output],
-c      character(len=FLD_FR_UN_LEN) fr_un(max_nfield)   ! [output],
-c      double precision ce(max_nfield)                  ! [output],
-c      double precision ce0(max_nfield)                 ! [output],
-c      character(len=FLD_CE_UN_LEN) ce_un(max_nfield)   ! [output],
-c      double precision wi(max_nfield)                  ! [output],
-c      double precision wi0(max_nfield)                 ! [output],
-c      character(len=FLD_WI_UN_LEN) wi_un(max_nfield)   ! [output],
-c      double precision mx(max_nfield)                  ! [output],
-c      double precision mx0(max_nfield)                 ! [output],
-c      character(len=FLD_MX_UN_LEN) mx_un(max_nfield)   ! [output],
-c      double precision cp(max_nfield)                  ! [output],
-c      double precision cp0(max_nfield)                 ! [output],
-c      character(len=FLD_CP_UN_LEN) cp_un(max_nfield)   ! [output],
 
       character*50 key, tp, fru, ceu, wiu, mxu, cpu
       character*2 max_str
       character*1 is
       character*4 notype
+      character*8 TP_OPTS(4)
       integer k, typeg, tg
       double precision mx, mx0, fr, fr0, ce, ce0, wi, wi0, cp, cp0
 
@@ -502,30 +430,20 @@ c      character(len=FLD_CP_UN_LEN) cp_un(max_nfield)   ! [output],
 
       parameter (notype='none')
 
-c      wfat_inp_field = .false.
-c      is_extfield = .false.
-c      tp_exist = .false.
-c      fr_exist = .false.
-c      ce_exist = .false.
-c      wi_exist = .false.
-c      mx_exist = .false.
-c      cp_exist = .false.
-
 
       TP_OPTS = (/ 'dc      ', 'gaussian', 'hann    ', 'external' /)
-c      FR_UNIT = (/ 'au  ', 'ev  ', 'thz ', 'nm  ', 'bohr' /)
-c      CE_UNIT = (/ 'fs', 'au' /)
-c      WI_UNIT = (/ 'fs', 'au' /)
-c      MX_UNIT = (/ 'au    ', 'tw/cm2' /)
-c      CP_UNIT = (/ 'rad', 'deg' /)
       
-
       write(max_str, '(i2)') max_nfield
-      if (i > max_nfield)
-     &     call errquit('WFAT: No. of fields exceeds the maximum, '//
-     &     'which is '//trim(adjustl(max_str)), 1, INPUT_ERR)
-     
+      if (i <= max_nfield) then
+         if (.not. rtdb_put(rtdb, 'wfat:field:n', mt_int, 1, i)) 
+     &        call errquit('WFAT: Failed writing field:n to rtdb',
+     &        1, RTDB_ERR)
+      else
+         call errquit('WFAT: No. of fields exceeds the maximum, '//
+     &        'which is '//trim(adjustl(max_str)), 1, INPUT_ERR)
+      endif
 
+       
       tp = notype
       do while (inp_read())
          if (inp_a(key)) then
@@ -571,14 +489,15 @@ c           >>>> CEP <<<<
       enddo
 
 
-      write(is, '(i1)') i
+      write(is, '(i2)') i
+      is = adjustl(is)
 
       
 c     >>>> Field type <<<<
-      if (inp_match(TP_NOPTS, .false., tp, TP_OPTS, k)) then
+      if (inp_match(4, .false., tp, TP_OPTS, k)) then
          if (.not. rtdb_cput(rtdb, 'wfat:inp:field:type:'//is, 1, tp))
      &        call errquit('WFAT: Failed writing inp:field:type:'//
-     &        is//'to rtdb', 1, RTDB_ERR)
+     &        is//' to rtdb', 1, RTDB_ERR)
          
 c        ==== Identify type group ====
 c        typeg = 1 ==> dc
@@ -588,11 +507,11 @@ c        typeg = 3 ==> everything else
             typeg = 1
          else if (inp_compare(.false., 'external', tp)) then
             typeg = 2
-            call wfat_inp_externfield(rtdb)   fix wfat_inp_externfield
+            call wfat_inp_externfield(rtdb)
          else
             typeg = 3
          endif
-         if (rtdb_put(rtdb, 'wfat:field:typeg', mt_int, 1, typeg)) 
+         if (.not. rtdb_put(rtdb, 'wfat:field:typeg', mt_int, 1, typeg))
      &        call errquit('WFAT: Failed writing field:typeg to rtdb',
      &        1, RTDB_ERR)
 
@@ -600,7 +519,7 @@ c        ==== Check for the number of field blocks ====
 c        ====  when dc or external field is used   ====
          if (i > 1) then
             if (.not. rtdb_get(rtdb, 'wfat:field:typeg', mt_int, 1, tg))
-     &           call errquit('WFAT: Failed reading is_extfield from '//
+     &           call errquit('WFAT: Failed reading field:typeg from '//
      &           'rtdb', 1, RTDB_ERR)
             if (tg==1 .or. tg==2 .or. typeg==1 .or. typeg==2) 
      &           call errquit('WFAT: Only one field block is allowed '//
@@ -648,97 +567,97 @@ c        >>>> CEP <<<<
       end
 c=======================================================
 
-      
+
 c=======================================================
 c=======================================================
-      logical function wfat_inp_externfield()
-c     <string t_unit>
+      subroutine wfat_inp_externfield(rtdb)
+c     <float dt>  <string t_unit>
 c     <string f_unit>
-c     <integer data_start>  <integer data_end>
 c     data:
-c     <double t(1)>     <double f(1)>
-c     <double t(2)>     <double f(2)>
-c     ...               ...          
-     
+c     <float f(1)>
+c     <float f(2)>
+c     ...
       implicit none
 #include "stdio.fh"
 #include "errquit.fh"
 #include "inp.fh"
-#include "wfat_input.fh"
-      character(len=EXT_TM_UN_LEN) t_unit
-      character(len=EXT_FL_UN_LEN) f_unit
+#include "mafdecls.fh"
+      integer rtdb
+      
+      character*2 t_unit
+      character*6 f_unit
+      character*2 TM_UNIT(2)
+      character*6 FL_UNIT(2)
       character*5 ss
-      integer k, h, i, j, ios
-      double precision time, field
-
-      double precision wfat_convert_time, wfat_convert_efield
-      external wfat_convert_time, wfat_convert_efield
-
-
-      wfat_inp_externfield = .false.
-      h = 1000
-      TMEXT_UNIT = (/ 'fs', 'au' /)
-      FLEXT_UNIT = (/ 'au    ', 'tw/cm2' /)
-      fld_t_ext(:) = 0.0d0
-      fld_f_ext(:) = 0.0d0
+      character*1000 ext_fn, dts, line
+      integer k, h, io, ntime
 
       
-      if (inp_a(extfield_name)) then
-         open(h, file=extfield_name, action='read')
-
-c        ==== Time data unit ====
-         read(h, '(a)') t_unit
-         if (.not. inp_match(TMEXT_NUNIT, .false., t_unit, TMEXT_UNIT, 
-     &        k)) call errquit('WFAT: The unit choice for time data of '
-     &        //'the external field is unavailable', 1, INPUT_ERR)
-
-c        ==== Field data unit ====
-         read(h, '(a)') f_unit
-         if (.not. inp_match(FLEXT_NUNIT, .false., f_unit, FLEXT_UNIT,
-     &        k))
-     &        call errquit('WFAT: The unit choice for field data of '//
-     &        'the external field is unavailable', 1, INPUT_ERR)
-
-c        ==== Data range ====
-         read(h, *) ext_start, ext_end
-         ntime_ext = ext_end - ext_start + 1
-         if (ntime_ext > MAX_EXTERNFIELD) then
-            write(luout, 100) ntime_ext, MAX_EXTERNFIELD
-            call errquit('WFAT: Error inside the external field file.',
-     &           1, INPUT_ERR)
+      h = 1000
+      TM_UNIT = (/ 'fs', 'au' /)
+      FL_UNIT = (/ 'au    ', 'tw/cm2' /)
+      
+      if (inp_a(ext_fn)) then
+c        ==== Open external field file ====
+         open(h, file=ext_fn, action='read', status='old',
+     &        iostat=io)
+         if (io) then
+            if (.not. rtdb_cput(rtdb, 'wfat:field:ext_fn', 1,
+     &        trim(adjustl(ext_fn)))) call errquit('WFAT: Failed '//
+     &           'writing field:ext_fn to rtdb', 1, RTDB_ERR)
          endif
 
-c        ==== Field and time data ====
+c        ==== Read dt and its unit ====
+         read(h, '(a, a)') dts, t_unit
+         if (inp_match(2, .false., t_unit, TM_UNIT, k)) then
+            if (.not. rtdb_cput(rtdb, 'wfat:field:ext_tu', 1,
+     &        trim(adjustl(t_unit)))) call errquit('WFAT: Failed '//
+     &        'writing field:ext_tu to rtdb', 1, RTDB_ERR)
+         else
+            call errquit('WFAT: The unit choice for time data of '//
+     &           'the external field is unavailable', 1, INPUT_ERR)
+         endif
+
+         read(dts, *) dt
+         if (.not. rtdb_put(rtdb, 'wfat:inp:field:dt', mt_dbl, 1, dt))
+     &        call errquit('WFAT: Failed writing inp:field:dt to rtdb',
+     &        1, RTDB_ERR)
+
+c        ==== Read field data unit ====
+         read(h, '(a)') f_unit
+         if (inp_match(2, .false., f_unit, FL_UNIT, k)) then
+            if (.not. rtdb_cput(rtdb, 'wfat:field:ext_fu', 1,
+     &        trim(adjustl(f_unit)))) call errquit('WFAT: Failed '//
+     &        'writing field:ext_fu to rtdb', 1, RTDB_ERR)
+         else
+            call errquit('WFAT: The unit choice for field data of '//
+     &           'the external field is unavailable', 1, INPUT_ERR)
+         endif
+         
+c        ==== Calculate ntime and tmax ====
          read(h, '(a)') ss
          if (ss == 'data:') then
-            j = 0
-            do i = 1, MAX_EXTERNFIELD
-               if (i >= ext_start .and. i <= ext_end) then
-                  read(h, *, iostat=ios) time, field
-                  if (ios /= 0) call errquit('WFAT: Bad data within '//
-     &                 'the ''data:'' scope in the file containing'//
-     &                 'the external field.', 1, INPUT_ERR)
-                  j = j + 1
-                  fld_t_ext(j) = wfat_convert_time(t_unit, time, 'au')
-                  fld_f_ext(j) = wfat_convert_efield(f_unit, field,
-     &                 'au')
-               else if (i < ext_start) then
-                  read(h, *)
-               else if (i > ext_end) then
-                  exit
-               endif
-            enddo
+            ntime = 0
+            do
+               read(h, '(a)', iostat=io) line
+               if (io /= 0) exit  ! Exit the loop on error or end-of-file
+            
+               if (len( trim(adjustl(line)) ) > 0) then
+                   ntime = ntime + 1
+               end if
+            end do
+            if (.not. rtdb_put(rtdb, 'wfat:inp:field:ntime', mt_int, 1,
+     &           ntime)) call errquit('WFAT: Failed writing '//
+     &           'inp:field:ntime to rtdb', 1, RTDB_ERR)
+            if (.not. rtdb_put(rtdb, 'wfat:inp:field:tmax', mt_dbl, 1,
+     &           (ntime-1)*dt)) call errquit('WFAT: Failed writing '//
+     &           'inp:field:tmax to rtdb', 1, RTDB_ERR)
          else
             call errquit('WFAT: The keyword ''data:'' is not found '//
      &           'in the external field file.', 1, INPUT_ERR)
          endif
          
          close(h)
-
-c        ==== dt and tmax ====
-         dt_ext = fld_t_ext(2) - fld_t_ext(1)
-         write(luout, '("dt_ext = ", es14.6)') dt_ext
-         tmax_ext = fld_t_ext(ntime_ext) - fld_t_ext(1)
       else
          call errquit('WFAT: Filename of the file containing the '//
      &        'external field is incorrectly or not specified.',
@@ -749,47 +668,161 @@ c        ==== dt and tmax ====
       write(luout, '(/, 3x, "*** ATTENTION ***")')
       write(luout, 101)
 
-      wfat_inp_externfield = .true.
-
-      
- 100  format('ERROR: The no. of data points specified for the ',
-     &     'external field, which is ', i6, /,
-     &     7x, ', exceeds the maximum, which is ', i6, '.')
-
  101  format(
      &     5x, 'The field has been taken from an external file.',
      &     'In this case, the user is ', /,
      &     5x, 'responsible in ensuring that the time data values ',
      &     'are equally spaced.')
       
+
       end
 c=======================================================
+      
+      
+cOLDc=======================================================
+cOLDc=======================================================
+cOLD      logical function wfat_inp_externfield_old()
+cOLDc     <string t_unit>
+cOLDc     <string f_unit>
+cOLDc     <integer data_start>  <integer data_end>
+cOLDc     data:
+cOLDc     <double t(1)>     <double f(1)>
+cOLDc     <double t(2)>     <double f(2)>
+cOLDc     ...               ...          
+cOLD     
+cOLD      implicit none
+cOLD#include "stdio.fh"
+cOLD#include "errquit.fh"
+cOLD#include "inp.fh"
+cOLD#include "wfat_input.fh"
+cOLD      character(len=EXT_TM_UN_LEN) t_unit
+cOLD      character(len=EXT_FL_UN_LEN) f_unit
+cOLD      character*5 ss
+cOLD      integer k, h, i, j, ios
+cOLD      double precision time, field
+cOLD
+cOLD      double precision wfat_convert_time, wfat_convert_efield
+cOLD      external wfat_convert_time, wfat_convert_efield
+cOLD
+cOLD
+cOLD      wfat_inp_externfield_old = .false.
+cOLD      h = 1000
+cOLD      TMEXT_UNIT = (/ 'fs', 'au' /)
+cOLD      FLEXT_UNIT = (/ 'au    ', 'tw/cm2' /)
+cOLD      fld_t_ext(:) = 0.0d0
+cOLD      fld_f_ext(:) = 0.0d0
+cOLD
+cOLD      
+cOLD      if (inp_a(extfield_name)) then
+cOLD         open(h, file=extfield_name, action='read')
+cOLD
+cOLDc        ==== Time data unit ====
+cOLD         read(h, '(a)') t_unit
+cOLD         if (.not. inp_match(TMEXT_NUNIT, .false., t_unit, TMEXT_UNIT, 
+cOLD     &        k)) call errquit('WFAT: The unit choice for time data of '
+cOLD     &        //'the external field is unavailable', 1, INPUT_ERR)
+cOLD
+cOLDc        ==== Field data unit ====
+cOLD         read(h, '(a)') f_unit
+cOLD         if (.not. inp_match(FLEXT_NUNIT, .false., f_unit, FLEXT_UNIT,
+cOLD     &        k))
+cOLD     &        call errquit('WFAT: The unit choice for field data of '//
+cOLD     &        'the external field is unavailable', 1, INPUT_ERR)
+cOLD
+cOLDc        ==== Data range ====
+cOLD         read(h, *) ext_start, ext_end
+cOLD         ntime_ext = ext_end - ext_start + 1
+cOLD         if (ntime_ext > MAX_EXTERNFIELD) then
+cOLD            write(luout, 100) ntime_ext, MAX_EXTERNFIELD
+cOLD            call errquit('WFAT: Error inside the external field file.',
+cOLD     &           1, INPUT_ERR)
+cOLD         endif
+cOLD
+cOLDc        ==== Field and time data ====
+cOLD         read(h, '(a)') ss
+cOLD         if (ss == 'data:') then
+cOLD            j = 0
+cOLD            do i = 1, MAX_EXTERNFIELD
+cOLD               if (i >= ext_start .and. i <= ext_end) then
+cOLD                  read(h, *, iostat=ios) time, field
+cOLD                  if (ios /= 0) call errquit('WFAT: Bad data within '//
+cOLD     &                 'the ''data:'' scope in the file containing'//
+cOLD     &                 'the external field.', 1, INPUT_ERR)
+cOLD                  j = j + 1
+cOLD                  fld_t_ext(j) = wfat_convert_time(t_unit, time, 'au')
+cOLD                  fld_f_ext(j) = wfat_convert_efield(f_unit, field,
+cOLD     &                 'au')
+cOLD               else if (i < ext_start) then
+cOLD                  read(h, *)
+cOLD               else if (i > ext_end) then
+cOLD                  exit
+cOLD               endif
+cOLD            enddo
+cOLD         else
+cOLD            call errquit('WFAT: The keyword ''data:'' is not found '//
+cOLD     &           'in the external field file.', 1, INPUT_ERR)
+cOLD         endif
+cOLD         
+cOLD         close(h)
+cOLD
+cOLDc        ==== dt and tmax ====
+cOLD         dt_ext = fld_t_ext(2) - fld_t_ext(1)
+cOLD         write(luout, '("dt_ext = ", es14.6)') dt_ext
+cOLD         tmax_ext = fld_t_ext(ntime_ext) - fld_t_ext(1)
+cOLD      else
+cOLD         call errquit('WFAT: Filename of the file containing the '//
+cOLD     &        'external field is incorrectly or not specified.',
+cOLD     &        1, INPUT_ERR)
+cOLD      endif
+cOLD
+cOLD
+cOLD      write(luout, '(/, 3x, "*** ATTENTION ***")')
+cOLD      write(luout, 101)
+cOLD
+cOLD      wfat_inp_externfield_old = .true.
+cOLD
+cOLD      
+cOLD 100  format('ERROR: The no. of data points specified for the ',
+cOLD     &     'external field, which is ', i6, /,
+cOLD     &     7x, ', exceeds the maximum, which is ', i6, '.')
+cOLD
+cOLD 101  format(
+cOLD     &     5x, 'The field has been taken from an external file.',
+cOLD     &     'In this case, the user is ', /,
+cOLD     &     5x, 'responsible in ensuring that the time data values ',
+cOLD     &     'are equally spaced.')
+cOLD      
+cOLD      end
+cOLDc=======================================================
 
 
 c=======================================================
 c=======================================================
-      logical function wfat_inp_dt(dt, dt0, un)
+      subroutine wfat_parse_dt(rtdb)
 
       implicit none
 #include "errquit.fh"
 #include "inp.fh"
-#include "wfat_input.fh"
-      double precision dt, dt0
-      character(len=DT_UN_LEN) un
-
+      integer rtdb
+      
+      character*2 un
+      character*2 DT_UNIT(2)
       integer k
+      double precision dt, dt0
       double precision wfat_convert_time
       external wfat_convert_time
 
       
       DT_UNIT = (/ 'au', 'fs' /)
 
-      wfat_inp_dt = inp_f(dt0)
+      if (.not. inp_f(dt0))
+     &     call errquit('WFAT: Cannot parse dt', 88, INPUT_ERR)
+      
       if (inp_a(un)) then
-         dt = wfat_convert_time(un, dt0, 'au')
-         if (.not. inp_match(DT_NUNIT, .false., un, DT_UNIT, k)) 
+         if (.not. inp_match(2, .false., un, DT_UNIT, k)) 
      &        call errquit('WFAT: The unit choice for the directive '//
      &        '''dt'' is unavailable', 1, INPUT_ERR)
+         dt = wfat_convert_time(un, dt0, 'au')
       else
          dt = dt0
       endif
@@ -800,28 +833,31 @@ c=======================================================
 
 c=======================================================
 c=======================================================
-      logical function wfat_inp_tmax(tmax, tmax0, un)
+      subroutine wfat_parse_tmax(rtdb)
 
       implicit none
 #include "errquit.fh"
 #include "inp.fh"
-#include "wfat_input.fh"
-      double precision tmax, tmax0
-      character(len=TMAX_UN_LEN) un
+      integer rtdb
 
+      character*2 un
+      character*2 TMAX_UNIT(2)
       integer k
+      double precision tmax, tmax0
       double precision wfat_convert_time
       external wfat_convert_time
 
       
       TMAX_UNIT = (/ 'au', 'fs' /)
 
-      wfat_inp_tmax = inp_f(tmax0)
+      if (.not. inp_f(tmax0))
+     &     call errquit('WFAT: Cannot parse tmax', 88, INPUT_ERR)
+      
       if (inp_a(un)) then
-         tmax = wfat_convert_time(un, tmax0, 'au')
-         if (.not. inp_match(TMAX_NUNIT, .false., un, TMAX_UNIT, k)) 
+         if (.not. inp_match(2, .false., un, TMAX_UNIT, k)) 
      &        call errquit('WFAT: The unit choice for the directive '//
      &        '''tmax'' is unavailable', 1, INPUT_ERR)
+         tmax = wfat_convert_time(un, tmax0, 'au')
       else
          tmax = tmax0
       endif

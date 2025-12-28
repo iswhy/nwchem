@@ -525,3 +525,59 @@ c     ==== Load file ====
 c=======================================================
       
       
+c=======================================================
+c=======================================================
+      subroutine wfat_process_field()
+
+      implicit none
+
+
+      call wfat_prep_printsw(rtdb, 'inp:', p_srfc, p_rate, p_yild,
+     &     p_avbeta, p_avgamma, p_tmd, p_tmd_atom)
+      need_dc = (p_rate .or. p_tmd .or. p_tmd_atom)
+      need_td = (p_yild .or. p_avbeta .or. p_avgamma)
+
+      if (.not. rtdb_get(rtdb, 'wfat:field:n', mt_int, 1, nf)) nf = 0
+      if ((need_dc .or. need_td) .and. nf == 0)
+     &     call errquit('WFAT: A field block is needed.', 30, UERR)
+
+      if (.not. rtdb_get(rtdb, 'wfat:field:typeg', mt_int, 1, tg))
+     &     call errquit('WFAT: Failed reading field:typeg from rtdb',
+     &     1, RTDB_ERR)
+      if (need_dc .and. tg /= 1)
+     &     call errquit('WFAT: When rate or tmd is requested, the '//
+     &     'field must be DC.', 30, UERR)
+      if (need_td .and. tg == 1)
+     &     call errquit('WFAT: When yield, averaged or not, is '//
+     &     'requested, the field must not be DC.', 30, UERR)
+      if (.not. need_dc .and. .not. need_td .and. nf > 0)
+     &     write(luout, 201)
+
+ 201  format(/,
+     &      3x, '*** ATTENTION ***', /, 
+     &      3x, 'One or more field blocks are found but ', 
+     &      'will be ignored because the input directive', /, 
+     &      3x, '''print'' does not specify rate, yield, or', 
+     &      'TMD.')      
+
+
+      do i = 1, nf
+         write(is, '(i3)') i
+         call wfat_ordinal_suffix(i, s)
+         if (tg /= 1 .and. tg /= 2) then
+            call wfat_dval_atleast(fr(i), 0.0d0, 'q', 'WFAT', ''''//
+     &           trim(adjustl(is))//s//' field frequency''', 'e', w, r)
+            call wfat_dval_atleast(ce(i), 0.0d0, 'q', 'WFAT', ''''//
+     &           trim(adjustl(is))//s//' field center''', 'e', w, r)
+            call wfat_dval_atleast(wi(i), 0.0d0, 'g', 'WFAT', ''''//
+     &           trim(adjustl(is))//s//' field width''', 'e', w, r)
+         endif
+         if (tg /= 2)
+     &        call wfat_dval_atleast(mx(i), 0.0d0, 'q', 'WFAT', ''''//
+     &        trim(adjustl(is))//s//' field max''', 'e', w, r)
+      enddo
+
+
+      end
+c=======================================================
+      

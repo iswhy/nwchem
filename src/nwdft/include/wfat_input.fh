@@ -64,13 +64,9 @@ cOLD     &     DEF_WFAT_MASK=.false., DEF_FFC_TYPE=2, MAX_FEN=1000)
       logical
      &     print_exist, print_stat, 
      &     field_exist, field_stat,
-     &     dt_exist, dt_stat,
-     &     tmax_exist, tmax_stat,
      &     orbid_exist, orbid_stat,
      &     paraqn_exist, paraqn_stat,
      &     nktmd_exist, nktmd_stat,
-     &     beta_tmd_exist, beta_tmd_stat, 
-     &     gamma_tmd_exist, gamma_tmd_stat,
 cOLD     &     gqual_exist, gqual_stat,
      &     omgpos_exist, omgpos_stat,
      &     movec_exist, movec_stat,
@@ -99,8 +95,8 @@ cOLD     &     gqual_exist, gqual_stat,
       logical
      &     print_srfc, print_rate, print_yild, print_avbeta, 
      &     print_avgamma, print_tmd, print_tmd_atom, 
-     &     field_need, dt_need, tmax_need, 
-     &     beta_tmd_need, gamma_tmd_need, nktmd_need, orbid_need, 
+     &     field_need, 
+     &     nktmd_need, orbid_need, 
      &     paraqn_need, lmax_need, omgpos_need, dgnthr_need,
      &     movec_need, movec1_need, sitype_need, wfat1_need,
      &     w1x_need, mdip_need, merg_need, nlgl_need, dthr_need, 
@@ -124,7 +120,7 @@ cOLD     &     DEF_NFENODES, DEF_LAGDVR_NR,
 cOLD     &     DEF_2A1E_MAXIT, DEF_LEGDVR_NT,
 
       double precision
-     &     beta_tmd, gamma_tmd, ergffc(MAX_N_ORBID), omgpos(3), 
+     &     ergffc(MAX_N_ORBID), omgpos(3), 
      &     wfat_mask_param(2), prtb_bt, prtb_gm, prtb_dgnthr,
      &     prtb_offthr, prtb_e1thr, prtb_itrthr, prtb_ordthr, 
      &     wfat2a_q(2), wfat2a_inter, wfat2a_potparam(2),
@@ -148,13 +144,9 @@ cOLD     &     DEF_2A1E_MAXIT=20, DEF_LEGDVR_NT=40, DEF_SOFT_COULOMB=0.0d0)
 c     == Logicals ==
      &     print_exist, print_stat,
      &     field_exist, field_stat,
-     &     dt_exist, dt_stat,
-     &     tmax_exist, tmax_stat,
      &     orbid_exist, orbid_stat,
      &     paraqn_exist, paraqn_stat,
      &     nktmd_exist, nktmd_stat,
-     &     beta_tmd_exist, beta_tmd_stat, 
-     &     gamma_tmd_exist, gamma_tmd_stat,
 cOLD     &     gqual_exist, gqual_stat,
      &     omgpos_exist, omgpos_stat,
      &     movec_exist, movec_stat,
@@ -181,8 +173,6 @@ cOLD     &     gqual_exist, gqual_stat,
      &     s2a1e_exist, s2a1e_stat,
      &     print_srfc, print_rate, print_yild, print_avbeta,
      &     print_avgamma, print_tmd, print_tmd_atom, field_need,
-     &     dt_need, tmax_need,
-     &     beta_tmd_need, gamma_tmd_need, 
      &     nktmd_need, orbid_need, paraqn_need, lmax_need, 
      &     omgpos_need, dgnthr_need, movec_need, 
      &     movec1_need, sitype_need, wfat1_need, w1x_need, mdip_need,
@@ -201,7 +191,7 @@ c     == Integers ==
      &     wfat2a_xzr, wfat2a_nel, wfat2a_nfe, wfat2a_ndvr, wfat2a_nr, 
      &     wfat2a_maxit, wfat2a_nt, w1x_len, mdip_len, merg_len,
 c     == Doubles ==
-     &     beta_tmd, gamma_tmd, ergffc, omgpos, 
+     &     ergffc, omgpos, 
      &     prtb_bt, prtb_gm, prtb_dgnthr, prtb_offthr, prtb_e1thr, 
      &     prtb_itrthr, prtb_ordthr, wfat_mask_param,
      &     wfat2a_q, wfat2a_inter, wfat2a_potparam, wfat2a_fenodes, 
@@ -213,12 +203,9 @@ c     == Characters ==
 
       
       
-c     ==== Input fields ====
-      logical
-     &     is_extfield
-      
-      integer
-     &     nfield, ext_start, ext_end, ntime_ext
+cOLDc     ==== Input fields ====
+cOLD      integer
+cOLD     &     nfield, ext_start, ext_end, ntime_ext
 
       
 cOLD      parameter
@@ -230,51 +217,49 @@ cOLD     &     DT_UN_LEN=2, TMAX_UN_LEN=2, DT_NUNIT=2, TMAX_NUNIT=2,
 cOLD     &     EXT_TM_UN_LEN=2, EXT_FL_UN_LEN=6, TMEXT_NUNIT=2,
 cOLD     &     FLEXT_NUNIT=2, MAX_EXTERNFIELD=100000)
       
-      character(len=FLD_TP_LEN)
-     &     fld_tp(max_nfield), TP_OPTS(TP_NOPTS)
-      character(len=FLD_FR_UN_LEN)
-     &     fld_fr_un(max_nfield), FR_UNIT(FR_NUNIT)
-      character(len=FLD_CE_UN_LEN)
-     &     fld_ce_un(max_nfield), CE_UNIT(CE_NUNIT)
-      character(len=FLD_WI_UN_LEN)
-     &     fld_wi_un(max_nfield), WI_UNIT(WI_NUNIT)
-      character(len=FLD_MX_UN_LEN)
-     &     fld_mx_un(max_nfield), MX_UNIT(MX_NUNIT)
-      character(len=FLD_CP_UN_LEN)
-     &     fld_cp_un(max_nfield), CP_UNIT(CP_NUNIT)
-      character(len=DT_UN_LEN)
-     &     dt_un, DT_UNIT(DT_NUNIT)
-      character(len=TMAX_UN_LEN)
-     &     tmax_un, TMAX_UNIT(TMAX_NUNIT)
-      character(len=EXT_TM_UN_LEN)
-     &     TMEXT_UNIT(TMEXT_NUNIT)
-      character(len=EXT_FL_UN_LEN)
-     &     FLEXT_UNIT(FLEXT_NUNIT)
-      character*4096 extfield_name
+cOLD      character(len=FLD_TP_LEN)
+cOLD     &     fld_tp(max_nfield), TP_OPTS(TP_NOPTS)
+cOLD      character(len=FLD_FR_UN_LEN)
+cOLD     &     fld_fr_un(max_nfield), FR_UNIT(FR_NUNIT)
+cOLD      character(len=FLD_CE_UN_LEN)
+cOLD     &     fld_ce_un(max_nfield), CE_UNIT(CE_NUNIT)
+cOLD      character(len=FLD_WI_UN_LEN)
+cOLD     &     fld_wi_un(max_nfield), WI_UNIT(WI_NUNIT)
+cOLD      character(len=FLD_MX_UN_LEN)
+cOLD     &     fld_mx_un(max_nfield), MX_UNIT(MX_NUNIT)
+cOLD      character(len=FLD_CP_UN_LEN)
+cOLD     &     fld_cp_un(max_nfield), CP_UNIT(CP_NUNIT)
+cOLD      character(len=DT_UN_LEN)
+cOLD     &     dt_un, DT_UNIT(DT_NUNIT)
+cOLD      character(len=TMAX_UN_LEN)
+cOLD     &     tmax_un, TMAX_UNIT(TMAX_NUNIT)
+cOLD      character(len=EXT_TM_UN_LEN)
+cOLD     &     TMEXT_UNIT(TMEXT_NUNIT)
+cOLD      character(len=EXT_FL_UN_LEN)
+cOLD     &     FLEXT_UNIT(FLEXT_NUNIT)
+cOLD      character*4096 extfield_name
 
-      double precision
-     &     fld_fr(max_nfield), fld_fr0(max_nfield), 
-     &     fld_ce(max_nfield), fld_ce0(max_nfield),
-     &     fld_wi(max_nfield), fld_wi0(max_nfield),
-     &     fld_mx(max_nfield), fld_mx0(max_nfield),
-     &     fld_cp(max_nfield), fld_cp0(max_nfield),
-     &     wfat_dt, wfat_dt0, wfat_tmax, wfat_tmax0,
-     &     fld_t_ext(MAX_EXTERNFIELD), fld_f_ext(MAX_EXTERNFIELD),
-     &     dt_ext, tmax_ext
+cOLD      double precision
+cOLD     &     fld_fr(max_nfield), fld_fr0(max_nfield), 
+cOLD     &     fld_ce(max_nfield), fld_ce0(max_nfield),
+cOLD     &     fld_wi(max_nfield), fld_wi0(max_nfield),
+cOLD     &     fld_mx(max_nfield), fld_mx0(max_nfield),
+cOLD     &     fld_cp(max_nfield), fld_cp0(max_nfield),
+cOLD     &     wfat_dt, wfat_dt0, wfat_tmax, wfat_tmax0,
+cOLD     &     fld_t_ext(MAX_EXTERNFIELD), fld_f_ext(MAX_EXTERNFIELD),
+cOLD     &     dt_ext, tmax_ext
       
       
-      common /wfat_input_field/
-c     == Logicals ==
-     &     is_extfield,
-c     == Integers ==
-     &     nfield, ext_start, ext_end, ntime_ext,
-c     == Doubles ==
-     &     fld_fr, fld_fr0, fld_ce, fld_ce0, fld_wi, fld_wi0, 
-     &     fld_mx, fld_mx0, fld_cp, fld_cp0, wfat_dt, wfat_dt0,
-     &     wfat_tmax, wfat_tmax0, fld_t_ext, fld_f_ext, dt_ext,
-     &     tmax_ext,
-c     == Characters ==
-     &     fld_tp, fld_fr_un, fld_ce_un, fld_wi_un, fld_mx_un,
-     &     fld_cp_un, dt_un, tmax_un, extfield_name
+cOLD      common /wfat_input_field/
+cOLDc     == Integers ==
+cOLD     &     nfield, ext_start, ext_end, ntime_ext,
+cOLDc     == Doubles ==
+cOLD     &     fld_fr, fld_fr0, fld_ce, fld_ce0, fld_wi, fld_wi0, 
+cOLD     &     fld_mx, fld_mx0, fld_cp, fld_cp0, wfat_dt, wfat_dt0,
+cOLD     &     wfat_tmax, wfat_tmax0, fld_t_ext, fld_f_ext, dt_ext,
+cOLD     &     tmax_ext,
+cOLDc     == Characters ==
+cOLD     &     fld_tp, fld_fr_un, fld_ce_un, fld_wi_un, fld_mx_un,
+cOLD     &     fld_cp_un, dt_un, tmax_un, extfield_name
       
       

@@ -779,46 +779,50 @@ c=================================================
 
 c=================================================
 c=================================================
-      subroutine wfat_prep_printsw(rtdb, pr_srfc, pr_rate, pr_yild, 
-     &     pr_avbeta, pr_avgamma, pr_tmd, pr_tmd_atom)
+      subroutine wfat_prep_printsw(rtdb, s, p_srfc, p_rate, p_yild,
+     &     p_avbeta, p_avgamma, p_tmd, p_tmd_atom)
 
       implicit none
 #include "errquit.fh"
 #include "rtdb.fh"
 #include "mafdecls.fh"
-      integer rtdb          ! [input],
-      logical pr_srfc       ! [output],
-      logical pr_rate       ! [output],
-      logical pr_yild       ! [output],
-      logical pr_avbeta     ! [output],
-      logical pr_avgamma    ! [output],
-      logical pr_tmd        ! [output],
-      logical pr_tmd_atom   ! [output],
+      integer rtdb         ! [input],
+      character*(*) s      ! [input],
+      logical p_srfc       ! [output],
+      logical p_rate       ! [output],
+      logical p_yild       ! [output],
+      logical p_avbeta     ! [output],
+      logical p_avgamma    ! [output],
+      logical p_tmd        ! [output],
+      logical p_tmd_atom   ! [output],
 
+
+      if (s/='' .and. s/='inp:') call errquit('WFAT: Bad value for '//
+     &     'argument s of wfat_prep_printsw.', 30, UERR)
 
 c     ==== Obtaining print switches ====
-      if (.not. rtdb_get(rtdb, 'wfat:print_srfc', mt_log, 1, pr_srfc))
+      if (.not. rtdb_get(rtdb, 'wfat:'//s//'p_srfc', mt_log, 1, p_srfc))
      &     call errquit('WFAT: Failed reading print_srfc from rtdb',
      &     1, RTDB_ERR)
-      if (.not. rtdb_get(rtdb, 'wfat:print_rate', mt_log, 1, pr_rate))
+      if (.not. rtdb_get(rtdb, 'wfat:'//s//'p_rate', mt_log, 1, p_rate))
      &     call errquit('WFAT: Failed reading print_rate from rtdb',
      &     1, RTDB_ERR)
-      if (.not. rtdb_get(rtdb, 'wfat:print_yild', mt_log, 1, pr_yild))
+      if (.not. rtdb_get(rtdb, 'wfat:'//s//'p_yild', mt_log, 1, p_yild))
      &     call errquit('WFAT: Failed reading print_yild from rtdb',
      &     1, RTDB_ERR)
-      if (.not. rtdb_get(rtdb, 'wfat:print_avbeta', mt_log,
-     &     1, pr_avbeta))
+      if (.not. rtdb_get(rtdb, 'wfat:'//s//'p_avbeta', mt_log,
+     &     1, p_avbeta))
      &     call errquit('WFAT: Failed reading print_avbeta from rtdb',
      &     1, RTDB_ERR)
-      if (.not. rtdb_get(rtdb, 'wfat:print_avgamma', mt_log,
-     &     1, pr_avgamma))
+      if (.not. rtdb_get(rtdb, 'wfat:'//s//'p_avgamma', mt_log,
+     &     1, p_avgamma))
      &     call errquit('WFAT: Failed reading print_avgamma from rtdb',
      &     1, RTDB_ERR)
-      if (.not. rtdb_get(rtdb, 'wfat:print_tmd', mt_log, 1, pr_tmd))
+      if (.not. rtdb_get(rtdb, 'wfat:'//s//'p_tmd', mt_log, 1, p_tmd))
      &     call errquit('WFAT: Failed reading print_tmd from rtdb',
      &     1, RTDB_ERR)
-      if (.not. rtdb_get(rtdb, 'wfat:print_tmd_atom', mt_log, 1,
-     &     pr_tmd_atom))
+      if (.not. rtdb_get(rtdb, 'wfat:'//s//'p_tmd_atom', mt_log, 1,
+     &     p_tmd_atom))
      &     call errquit('WFAT: Failed reading print_tmd_atom from '//
      &     'rtdb.', 1, RTDB_ERR)
 

@@ -70,34 +70,34 @@ c     ==== Checking existence of MANDATORY INPUTS ====
       endif
 
 c     ==== Checking existence of CONDITIONALLY MANDATORY INPUTS ====
-      call wfat_acdc_field(nfield, fld_tp, tdfield)
+cOLD      call wfat_acdc_field(nfield, fld_tp, tdfield)
       pp = (print_rate .or. print_yild .or. print_avbeta .or. 
      &     print_avgamma .or. print_tmd .or. print_tmd_atom)
-      if (.not. field_exist .and. pp) then
-         write(luout, 205) 'field', '* print_rate', '* print_yild', 
-     &        '* print_avbeta', '* print_avgamma', '* print_tmd',
-     &        '* print_tmd_atom', ' '
-         call errquit('INPUT ERROR: Cannot find input directive '//
-     &        '''field''.', 0, INPUT_ERR)
-      else if (field_exist) then
-         if (calc_dc .and. tdfield=='td') then
-            call errquit('WFAT: When either of ''print_rate'', '//
-     &           '''print_tmd'', or ''print_tmd_atom'' is invoked, '//
-     &           'the field type must ONLY be ''dc''', 1, INPUT_ERR)
-         else if (calc_td .and. tdfield=='ti') then
-            call errquit('WFAT: When either of ''print_yild'', '//
-     &           '''print_avbeta'', or ''print_avgamma'' is invoked, '//
-     &           'no field with type ''dc'' is allowed', 1, INPUT_ERR)
-         else if (.not. calc_dc .and. .not. calc_td) then
-            write(luout, 201) 'field',
-     &           '* print_rate      ',
-     &           '* print_yild      ',
-     &           '* print_avbeta    ',
-     &           '* print_avgamma   ',
-     &           '* print_tmd       ',
-     &           '* print_tmd_atom  ', ' '
-         endif
-      endif
+cOLD      if (.not. field_exist .and. pp) then
+cOLD         write(luout, 205) 'field', '* print_rate', '* print_yild', 
+cOLD     &        '* print_avbeta', '* print_avgamma', '* print_tmd',
+cOLD     &        '* print_tmd_atom', ' '
+cOLD         call errquit('INPUT ERROR: Cannot find input directive '//
+cOLD     &        '''field''.', 0, INPUT_ERR)
+cOLD      else if (field_exist) then
+cOLD         if (calc_dc .and. tdfield=='td') then
+cOLD            call errquit('WFAT: When either of ''print_rate'', '//
+cOLD     &           '''print_tmd'', or ''print_tmd_atom'' is invoked, '//
+cOLD     &           'the field type must ONLY be ''dc''', 1, INPUT_ERR)
+cOLD         else if (calc_td .and. tdfield=='ti') then
+cOLD            call errquit('WFAT: When either of ''print_yild'', '//
+cOLD     &           '''print_avbeta'', or ''print_avgamma'' is invoked, '//
+cOLD     &           'no field with type ''dc'' is allowed', 1, INPUT_ERR)
+cOLD         else if (.not. calc_dc .and. .not. calc_td) then
+cOLD            write(luout, 201) 'field',
+cOLD     &           '* print_rate      ',
+cOLD     &           '* print_yild      ',
+cOLD     &           '* print_avbeta    ',
+cOLD     &           '* print_avgamma   ',
+cOLD     &           '* print_tmd       ',
+cOLD     &           '* print_tmd_atom  ', ' '
+cOLD         endif
+cOLD      endif
 
 c     == dt ==
       if (.not. dt_exist .and. tdfield=='td') then
@@ -325,10 +325,10 @@ c     ==== Checking format of MANDATORY INPUTS ====
 c     ==== Checking format of CONDITIONALLY MANDATORY INPUTS ====
       pp = (print_rate .or. print_yild .or. print_avbeta .or. 
      &     print_avgamma .or. print_tmd .or. print_tmd_atom)
-      if (.not. field_stat .and. pp) then
-         call errquit('WFAT: The format of input directive '//
-     &        '''field'' is incorrect', 0, INPUT_ERR)
-      endif
+cOLD      if (.not. field_stat .and. pp) then
+cOLD         call errquit('WFAT: The format of input directive '//
+cOLD     &        '''field'' is incorrect', 0, INPUT_ERR)
+cOLD      endif
 
 c     == dt ==
       if (.not. dt_stat .and. tdfield=='td')
@@ -630,39 +630,39 @@ cdebug         call mewfat_dummy()
 c=======================================================
 
 
-c=======================================================
-c=======================================================
-      subroutine wfat_acdc_field(nf, tp, tdf)
-
-      implicit none
-#include "errquit.fh"
-#include "wfat_input.fh"
-      integer nf                         ! [input],
-      character(len=FLD_TP_LEN) tp(nf)   ! [input],
-      character*2 tdf                    ! [output],
-
-      integer i
-
-      tdf = 'no'
-      do i = 1, nf
-         if (tp(i) == 'dc') then
-            tdf = 'ti'
-         endif
-
-         if (tdf=='ti' .and. (tp(i)=='gaussian' .or. tp(i)=='hann' .or.
-     &        tp(i)=='external'))
-     &        call errquit('WFAT: When there is a ''dc'' type '//
-     &        'field in the ''field'' directive, no other field '//
-     &        'types are allowed to coexist', 1, INPUT_ERR)
-         
-         if (tp(i)=='gaussian' .or. tp(i)=='hann' .or.
-     &        tp(i)=='external') then
-            tdf = 'td'
-         endif
-      enddo
-
-      end
-c=======================================================
+cOLDc=======================================================
+cOLDc=======================================================
+cOLD      subroutine wfat_acdc_field(nf, tp, tdf)
+cOLD
+cOLD      implicit none
+cOLD#include "errquit.fh"
+cOLD#include "wfat_input.fh"
+cOLD      integer nf                         ! [input],
+cOLD      character(len=FLD_TP_LEN) tp(nf)   ! [input],
+cOLD      character*2 tdf                    ! [output],
+cOLD
+cOLD      integer i
+cOLD
+cOLD      tdf = 'no'
+cOLD      do i = 1, nf
+cOLD         if (tp(i) == 'dc') then
+cOLD            tdf = 'ti'
+cOLD         endif
+cOLD
+cOLD         if (tdf=='ti' .and. (tp(i)=='gaussian' .or. tp(i)=='hann' .or.
+cOLD     &        tp(i)=='external'))
+cOLD     &        call errquit('WFAT: When there is a ''dc'' type '//
+cOLD     &        'field in the ''field'' directive, no other field '//
+cOLD     &        'types are allowed to coexist', 1, INPUT_ERR)
+cOLD         
+cOLD         if (tp(i)=='gaussian' .or. tp(i)=='hann' .or.
+cOLD     &        tp(i)=='external') then
+cOLD            tdf = 'td'
+cOLD         endif
+cOLD      enddo
+cOLD
+cOLD      end
+cOLDc=======================================================
 
 
 cc c=======================================================
@@ -688,7 +688,7 @@ c=======================================================
       character*1 m
 
 
-      field_need = .false.          ! needed when OE or ME
+cOLD      field_need = .false.          ! needed when OE or ME
 cOLD      beta_tmd_need = .false.       ! needed when OE or ME
 cOLD      gamma_tmd_need = .false.      ! needed when OE or ME
       nktmd_need = .false.          ! needed when OE or ME
@@ -730,8 +730,8 @@ cOLD      nlgl_need = .false.           ! needed when oe or me
       tmda = print_tmd_atom
 
             
-      call wfat_need_input0(rt, tmd, tmda, yi, avb, avg, .false.,
-     &     field_need)
+cOLD      call wfat_need_input0(rt, tmd, tmda, yi, avb, avg, .false.,
+cOLD     &     field_need)
       call wfat_need_input0(yi, avb, avg, .false., .false., .false.,
      &     .false., dt_need)
       call wfat_need_input0(yi, avb, avg, .false., .false., .false.,
@@ -789,7 +789,7 @@ c=======================================================
       character*1 m
 
       
-      field_need = .false.              ! needed when oe or me
+cOLD      field_need = .false.              ! needed when oe or me
 cOLD      beta_tmd_need = .false.           ! needed when oe or me
 cOLD      gamma_tmd_need = .false.          ! needed when oe or me
       nktmd_need = .false.              ! needed when oe or me
@@ -830,8 +830,8 @@ cOLD      nlgl_need = .false.               ! needed when oe or me
       tmda = print_tmd_atom
 
       
-      call wfat_need_input0(rt, tmd, tmda, yi, avb, avg, .false.,
-     &     field_need)
+cOLD      call wfat_need_input0(rt, tmd, tmda, yi, avb, avg, .false.,
+cOLD     &     field_need)
       call wfat_need_input0(yi, avb, avg, .false., .false., .false.,
      &     .false., dt_need)
       call wfat_need_input0(yi, avb, avg, .false., .false., .false.,
@@ -944,10 +944,10 @@ c=======================================================
       integer k
       
 
-      if (field_need) then
-         call wfat_sanity_field(nfield, fld_tp, fld_fr, fld_ce, fld_wi,
-     &        fld_mx)
-      endif
+cOLD      if (field_need) then
+cOLD         call wfat_sanity_field(nfield, fld_tp, fld_fr, fld_ce, fld_wi,
+cOLD     &        fld_mx)
+cOLD      endif
 
       if (dt_need) then
          if (is_extfield) then
@@ -1189,45 +1189,45 @@ cOLD      endif
 c=======================================================
 
 
-c=======================================================
-c=======================================================
-      subroutine wfat_sanity_field(nf, tp, fr, ce, wi, mx)
-
-      implicit none
-#include "wfat_input.fh"
-      integer nf
-      character(len=FLD_TP_LEN) tp(nf)
-      double precision fr(max_nfield)
-      double precision ce(max_nfield)
-      double precision wi(max_nfield)
-      double precision mx(max_nfield)
-
-      character*2 s
-      character*3 is
-      character*1 w
-      logical r
-      integer i
-      parameter ( w='i' )
-      
-      
-      do i = 1, nf
-         write(is, '(i3)') i
-         call wfat_ordinal_suffix(i, s)
-         if (tp(i) /= 'dc' .and. tp(i) /= 'external') then
-            call wfat_dval_atleast(fr(i), 0.0d0, 'q', 'WFAT', ''''//
-     &           trim(adjustl(is))//s//' field frequency''', 'e', w, r)
-            call wfat_dval_atleast(ce(i), 0.0d0, 'q', 'WFAT', ''''//
-     &           trim(adjustl(is))//s//' field center''', 'e', w, r)
-            call wfat_dval_atleast(wi(i), 0.0d0, 'g', 'WFAT', ''''//
-     &           trim(adjustl(is))//s//' field width''', 'e', w, r)
-         endif
-         if (tp(i) /= 'external')
-     &        call wfat_dval_atleast(mx(i), 0.0d0, 'q', 'WFAT', ''''//
-     &        trim(adjustl(is))//s//' field max''', 'e', w, r)
-      enddo
-
-      end
-c=======================================================
+cOLDc=======================================================
+cOLDc=======================================================
+cOLD      subroutine wfat_sanity_field(nf, tp, fr, ce, wi, mx)
+cOLD
+cOLD      implicit none
+cOLD#include "wfat_input.fh"
+cOLD      integer nf
+cOLD      character(len=FLD_TP_LEN) tp(nf)
+cOLD      double precision fr(max_nfield)
+cOLD      double precision ce(max_nfield)
+cOLD      double precision wi(max_nfield)
+cOLD      double precision mx(max_nfield)
+cOLD
+cOLD      character*2 s
+cOLD      character*3 is
+cOLD      character*1 w
+cOLD      logical r
+cOLD      integer i
+cOLD      parameter ( w='i' )
+cOLD      
+cOLD      
+cOLD      do i = 1, nf
+cOLD         write(is, '(i3)') i
+cOLD         call wfat_ordinal_suffix(i, s)
+cOLD         if (tp(i) /= 'dc' .and. tp(i) /= 'external') then
+cOLD            call wfat_dval_atleast(fr(i), 0.0d0, 'q', 'WFAT', ''''//
+cOLD     &           trim(adjustl(is))//s//' field frequency''', 'e', w, r)
+cOLD            call wfat_dval_atleast(ce(i), 0.0d0, 'q', 'WFAT', ''''//
+cOLD     &           trim(adjustl(is))//s//' field center''', 'e', w, r)
+cOLD            call wfat_dval_atleast(wi(i), 0.0d0, 'g', 'WFAT', ''''//
+cOLD     &           trim(adjustl(is))//s//' field width''', 'e', w, r)
+cOLD         endif
+cOLD         if (tp(i) /= 'external')
+cOLD     &        call wfat_dval_atleast(mx(i), 0.0d0, 'q', 'WFAT', ''''//
+cOLD     &        trim(adjustl(is))//s//' field max''', 'e', w, r)
+cOLD      enddo
+cOLD
+cOLD      end
+cOLDc=======================================================
 
 
 c=======================================================
@@ -1291,47 +1291,47 @@ c forcheck     &     call errquit('WFAT: Printing rtdb failed', 1, RTDB_ERR)
      &     1, INPUT_ERR)
 
       
-      if (field_need) then
-         call wfat_acdc_field(nfield, fld_tp, td)
-         if (.not. rtdb_cput(rtdb, 'wfat:tdfield', 1, td))
-     &        call errquit('WFAT: Failed writing field:tdfield '
-     &        //'to rtdb', 1, INPUT_ERR)
-         if (.not. rtdb_put(rtdb, 'wfat:field:nfield', mt_int, 1,
-     &        nfield)) call errquit('WFAT: Failed writing field:nfield '
-     &        //'to rtdb', 1, INPUT_ERR)
-         if (.not. rtdb_cput(rtdb, 'wfat:field:type', nfield, fld_tp))
-     &        call errquit('WFAT: Failed writing field:type '//
-     &        'to rtdb', 1, INPUT_ERR)
-         if (.not. rtdb_put(rtdb, 'wfat:field:freq', mt_dbl, nfield,
-     &        fld_fr)) call errquit('WFAT: Failed writing field:freq '//
-     &        'to rtdb', 1, INPUT_ERR)
-         if (.not. rtdb_put(rtdb, 'wfat:field:center', mt_dbl, nfield,
-     &        fld_ce)) call errquit('WFAT: Failed writing field:center '
-     &        //'to rtdb', 1, INPUT_ERR)
-         if (.not. rtdb_put(rtdb, 'wfat:field:width', mt_dbl, nfield,
-     &        fld_wi)) call errquit('WFAT: Failed writing field:width '
-     &        //'to rtdb', 1, INPUT_ERR)
-         if (.not. rtdb_put(rtdb, 'wfat:field:max', mt_dbl, nfield,
-     &        fld_mx)) call errquit('WFAT: Failed writing field:max '//
-     &        'to rtdb', 1, INPUT_ERR)
-         if (.not. rtdb_put(rtdb, 'wfat:field:cep', mt_dbl, nfield,
-     &        fld_cp)) call errquit('WFAT: Failed writing field:cep '//
-     &        'to rtdb', 1, INPUT_ERR)
-
-         if (.not. rtdb_put(rtdb, 'wfat:is_extfield', mt_log, 1,
-     &        is_extfield)) call errquit('WFAT: Failed writing '//
-     &        'is_extfield to rtdb', 1, INPUT_ERR)
-         if (is_extfield) then
-            if (.not. rtdb_cput(rtdb, 'wfat:ext_fname', 1, 
-     &           trim(adjustl(extfield_name)) )) 
-     &           call errquit('WFAT: Failed writing ext_fname to rtdb',
-     &           1, INPUT_ERR)
-            er = (/ ext_start, ext_end /)
-            if (.not. rtdb_put(rtdb, 'wfat:ext_range', mt_int, 2,
-     &           er)) call errquit('WFAT: Failed writing ext_range '//
-     &           'to rtdb', 1, INPUT_ERR)
-         endif
-      endif
+cOLD      if (field_need) then
+cOLD         call wfat_acdc_field(nfield, fld_tp, td)
+cOLD         if (.not. rtdb_cput(rtdb, 'wfat:tdfield', 1, td))
+cOLD     &        call errquit('WFAT: Failed writing field:tdfield '
+cOLD     &        //'to rtdb', 1, INPUT_ERR)
+cOLD         if (.not. rtdb_put(rtdb, 'wfat:field:nfield', mt_int, 1,
+cOLD     &        nfield)) call errquit('WFAT: Failed writing field:nfield '
+cOLD     &        //'to rtdb', 1, INPUT_ERR)
+cOLD         if (.not. rtdb_cput(rtdb, 'wfat:field:type', nfield, fld_tp))
+cOLD     &        call errquit('WFAT: Failed writing field:type '//
+cOLD     &        'to rtdb', 1, INPUT_ERR)
+cOLD         if (.not. rtdb_put(rtdb, 'wfat:field:freq', mt_dbl, nfield,
+cOLD     &        fld_fr)) call errquit('WFAT: Failed writing field:freq '//
+cOLD     &        'to rtdb', 1, INPUT_ERR)
+cOLD         if (.not. rtdb_put(rtdb, 'wfat:field:center', mt_dbl, nfield,
+cOLD     &        fld_ce)) call errquit('WFAT: Failed writing field:center '
+cOLD     &        //'to rtdb', 1, INPUT_ERR)
+cOLD         if (.not. rtdb_put(rtdb, 'wfat:field:width', mt_dbl, nfield,
+cOLD     &        fld_wi)) call errquit('WFAT: Failed writing field:width '
+cOLD     &        //'to rtdb', 1, INPUT_ERR)
+cOLD         if (.not. rtdb_put(rtdb, 'wfat:field:max', mt_dbl, nfield,
+cOLD     &        fld_mx)) call errquit('WFAT: Failed writing field:max '//
+cOLD     &        'to rtdb', 1, INPUT_ERR)
+cOLD         if (.not. rtdb_put(rtdb, 'wfat:field:cep', mt_dbl, nfield,
+cOLD     &        fld_cp)) call errquit('WFAT: Failed writing field:cep '//
+cOLD     &        'to rtdb', 1, INPUT_ERR)
+cOLD
+cOLD         if (.not. rtdb_put(rtdb, 'wfat:is_extfield', mt_log, 1,
+cOLD     &        is_extfield)) call errquit('WFAT: Failed writing '//
+cOLD     &        'is_extfield to rtdb', 1, INPUT_ERR)
+cOLD         if (is_extfield) then
+cOLD            if (.not. rtdb_cput(rtdb, 'wfat:ext_fname', 1, 
+cOLD     &           trim(adjustl(extfield_name)) )) 
+cOLD     &           call errquit('WFAT: Failed writing ext_fname to rtdb',
+cOLD     &           1, INPUT_ERR)
+cOLD            er = (/ ext_start, ext_end /)
+cOLD            if (.not. rtdb_put(rtdb, 'wfat:ext_range', mt_int, 2,
+cOLD     &           er)) call errquit('WFAT: Failed writing ext_range '//
+cOLD     &           'to rtdb', 1, INPUT_ERR)
+cOLD         endif
+cOLD      endif
 
       if (dt_need) then
          if (is_extfield) then

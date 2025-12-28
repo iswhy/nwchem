@@ -80,7 +80,7 @@ c     ==== Check if research mode is enabled ====
 
 c     ==== Obtaining print switches ====
       call wfat_prep_printsw(rtdb, pr_srfc, pr_rate, pr_yild, pr_avbeta,
-     &     pr_avgamma, pr_tmd, pr_tmd_atom)
+     &     pr_avgamma, pr_tmd, pr_tmd_atom) fix
       if (pr_tmd .or. pr_tmd_atom)
      &     call errquit('MEWFAT: At the moment, TMD calculation with '//
      &     'MEWFAT need to be reviewed.', 1, UERR)

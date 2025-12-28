@@ -103,7 +103,7 @@ c     ==== Obtain WFAT(1) information ====
 
 c     ==== Obtain print switches ====
       call wfat_prep_printsw(rtdb, pr_srfc, pr_rate, pr_yild, pr_avbeta,
-     &     pr_avgamma, pr_tmd, pr_tmd_atom)
+     &     pr_avgamma, pr_tmd, pr_tmd_atom) fix
 
 
 c     ==== Whether using TD field or no ====

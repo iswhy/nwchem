@@ -275,7 +275,7 @@ c=======================================================
       write(luout, '(1x)')
 
       call wfat_prep_printsw(rtdb, pr_srfc, pr_rate, pr_yild, pr_avbeta,
-     &     pr_avgamma, pr_tmd, pr_tmd_atom)
+     &     pr_avgamma, pr_tmd, pr_tmd_atom) fix
 
       call wfat_tf_to_yn(pr_srfc, .true., ispr)
       write(luout, '(5x, "Print structure factor : ", a3)') ispr
@@ -316,7 +316,7 @@ c=======================================================
       
 
       call wfat_prep_printsw(rtdb, pr_srfc, pr_rate, pr_yild, pr_avbeta,
-     &     pr_avgamma, pr_tmd, pr_tmd_atom)
+     &     pr_avgamma, pr_tmd, pr_tmd_atom) fix
 
 
       write(luout, '(2/)')
@@ -495,7 +495,7 @@ c=======================================================
       
 
       call wfat_prep_printsw(rtdb, pr_srfc, pr_rate, pr_yild, pr_avbeta,
-     &     pr_avgamma, pr_tmd, pr_tmd_atom)
+     &     pr_avgamma, pr_tmd, pr_tmd_atom) fix
 
 
       write(luout, '(2/)')

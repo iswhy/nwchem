@@ -56,17 +56,7 @@ c     DEF_CGRID_THR is in angstrom
 
 
       integer
-     &     max_nfield, FLD_TP_LEN, FLD_FR_UN_LEN, FLD_CE_UN_LEN, 
-     &     FLD_WI_UN_LEN, FLD_MX_UN_LEN, FLD_CP_UN_LEN, TP_NOPTS, 
-     &     FR_NUNIT, CE_NUNIT, WI_NUNIT, MX_NUNIT, CP_NUNIT,
-     &     DT_UN_LEN, TMAX_UN_LEN, DT_NUNIT, TMAX_NUNIT, EXT_TM_UN_LEN,
-     &     EXT_FL_UN_LEN, TMEXT_NUNIT, FLEXT_NUNIT, MAX_EXTERNFIELD
+     &     max_nfield
 
       parameter
-     &     (max_nfield=50, FLD_TP_LEN=8, FLD_FR_UN_LEN=4,
-     &     FLD_CE_UN_LEN=2, FLD_WI_UN_LEN=2, FLD_MX_UN_LEN=6,
-     &     FLD_CP_UN_LEN=3, TP_NOPTS=4, FR_NUNIT=5, 
-     &     CE_NUNIT=2, WI_NUNIT=2, MX_NUNIT=2, CP_NUNIT=2,
-     &     DT_UN_LEN=2, TMAX_UN_LEN=2, DT_NUNIT=2, TMAX_NUNIT=2,
-     &     EXT_TM_UN_LEN=2, EXT_FL_UN_LEN=6, TMEXT_NUNIT=2,
-     &     FLEXT_NUNIT=2, MAX_EXTERNFIELD=100000)
+     &     (max_nfield=50)
