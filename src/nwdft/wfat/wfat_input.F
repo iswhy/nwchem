@@ -33,7 +33,7 @@ c=======================================================
       logical tt, ll1, ll2, ll3
       character*50 field, tail_unit
       character*255 ss
-      integer i1, i2, k
+      integer i1, i2, k, nfblocks
       double precision ang2bohr
 
       parameter(ang2bohr=1.8897261255d0)
@@ -63,10 +63,10 @@ c     ==== Initial status of WFAT inputs ====
       print_exist = .false.
       print_stat = .false.
 
-      nfield = 0
-      fld_tp = 'n/a'        ! Initiation.
-      field_exist = .false.
-      field_stat = .false.
+      nfblocks = 0
+cOLD      fld_tp = 'n/a'        ! Initiation.
+cOLD      field_exist = .false.
+cOLD      field_stat = .false.
 
 cOLD      dt_exist = .false.
 cOLD      dt_stat = .false.
@@ -224,8 +224,8 @@ c           ==== ABSOLUTELY MANDATORY INPUTS ====
 
 c           ==== CONDITIONALLY MANDATORY INPUTS ====    
             else if (inp_compare(.false., 'field', field)) then
-               nfield = nfield + 1
-               call wfat_parse_field(rtdb, nfield)
+               nfblocks = nfblocks + 1
+               call wfat_parse_field(rtdb, nfblocks)
             else if (inp_compare(.false., 'dt', field)) then
                call wfat_parse_dt(rtdb)
             else if (inp_compare(.false., 'tmax', field)) then
@@ -406,7 +406,7 @@ c        max <double> [ au | tw/cm2 ]
 c        cep <double> [ rad | deg ]
 c     end
       implicit none
-c#include "wfat_input.fh"
+#include "wfat_field_param.fh"
 #include "errquit.fh"
 #include "inp.fh"
 #include "stdio.fh"
@@ -415,12 +415,13 @@ c#include "wfat_input.fh"
       integer rtdb
       integer i                 ! [input],
 
-      character*50 key, tp, fru, ceu, wiu, mxu, cpu
+      character*50 key, fru, ceu, wiu, mxu, cpu
       character*2 max_str
       character*1 is
       character*4 notype
-      character*8 TP_OPTS(4)
-      integer k, typeg, tg
+      character*2 tp, TP_OPTS(4)
+      logical l
+      integer k, typeg
       double precision mx, mx0, fr, fr0, ce, ce0, wi, wi0, cp, cp0
 
       double precision wfat_convert_freq, wfat_convert_time,
@@ -431,8 +432,14 @@ c#include "wfat_input.fh"
       parameter (notype='none')
 
 
-      TP_OPTS = (/ 'dc      ', 'gaussian', 'hann    ', 'external' /)
+      TP_OPTS = (/ 'dc', 'ga', 'ha', 'ex' /)
+c     dc = DC/static field
+c     ga = Gaussian envelope
+c     ha = Hann envelope
+c     ex = Field from an external file
       
+
+c     ==== Ensure the number of field blocks is below limit ====
       write(max_str, '(i2)') max_nfield
       if (i <= max_nfield) then
          if (.not. rtdb_put(rtdb, 'wfat:field:n', mt_int, 1, i)) 
@@ -443,7 +450,8 @@ c#include "wfat_input.fh"
      &        'which is '//trim(adjustl(max_str)), 1, INPUT_ERR)
       endif
 
-       
+      
+c     ==== Parse field parameters ====
       tp = notype
       do while (inp_read())
          if (inp_a(key)) then
@@ -492,7 +500,8 @@ c           >>>> CEP <<<<
       write(is, '(i2)') i
       is = adjustl(is)
 
-      
+
+c     ==== Write field parameters to RTDB ====
 c     >>>> Field type <<<<
       if (inp_match(4, .false., tp, TP_OPTS, k)) then
          if (.not. rtdb_cput(rtdb, 'wfat:inp:field:type:'//is, 1, tp))
@@ -518,10 +527,7 @@ c        typeg = 3 ==> everything else
 c        ==== Check for the number of field blocks ====
 c        ====  when dc or external field is used   ====
          if (i > 1) then
-            if (.not. rtdb_get(rtdb, 'wfat:field:typeg', mt_int, 1, tg))
-     &           call errquit('WFAT: Failed reading field:typeg from '//
-     &           'rtdb', 1, RTDB_ERR)
-            if (tg==1 .or. tg==2 .or. typeg==1 .or. typeg==2) 
+            if (typeg==1 .or. typeg==2) 
      &           call errquit('WFAT: Only one field block is allowed '//
      &           'when dc or external field is specified.',
      &           1, INPUT_ERR)
@@ -531,35 +537,34 @@ c        ====  when dc or external field is used   ====
      &        ' is missing in a field block.', 40, INPUT_ERR)
       endif
       
-
-      if (typeg==1 .or. type==3) then
+      if (typeg==1 .or. typeg==3) then
 c        >>>> Amplitude <<<<
          mx = wfat_convert_efield(trim(adjustl(mxu)), mx0, 'au')
-         if (.not. rtdb_put(rtdb, 'wfat:inp:field:max'//is, mt_dbl, 1,
-     &        mx)) call errquit('WFAT: Failed writing inp:field:max'//
+         if (.not. rtdb_put(rtdb, 'wfat:inp:field:max:'//is, mt_dbl, 1,
+     &        mx)) call errquit('WFAT: Failed writing inp:field:max:'//
      &        is//' to rtdb', 1, RTDB_ERR)
       endif
 
       if (typeg==3) then
 c        >>>> Frequency <<<<
          fr = wfat_convert_freq(trim(adjustl(fru)), fr0, 'au')
-         if (.not. rtdb_put(rtdb, 'wfat:inp:field:freq'//is, mt_dbl, 1,
-     &        fr)) call errquit('WFAT: Failed writing inp:field:freq'//
+         if (.not. rtdb_put(rtdb, 'wfat:inp:field:freq:'//is, mt_dbl, 1,
+     &        fr)) call errquit('WFAT: Failed writing inp:field:freq:'//
      &        is//' to rtdb', 1, RTDB_ERR)
 c        >>>> Center <<<<
          ce = wfat_convert_time(trim(adjustl(ceu)), ce0, 'au')
-         if (.not. rtdb_put(rtdb, 'wfat:inp:field:center'//is, mt_dbl, 
+         if (.not. rtdb_put(rtdb, 'wfat:inp:field:center:'//is, mt_dbl, 
      &        1, ce)) call errquit('WFAT: Failed writing '//
-     &        'inp:field:center'//is//' to rtdb', 1, RTDB_ERR)
+     &        'inp:field:center:'//is//' to rtdb', 1, RTDB_ERR)
 c        >>>> Width <<<<
          wi = wfat_convert_time(trim(adjustl(wiu)), wi0, 'au')
-         if (.not. rtdb_put(rtdb, 'wfat:inp:field:width'//is, mt_dbl, 1,
-     &        wi)) call errquit('WFAT: Failed writing '//
-     &        'inp:field:width'//is//' to rtdb', 1, RTDB_ERR)
+         if (.not. rtdb_put(rtdb, 'wfat:inp:field:width:'//is, mt_dbl, 
+     &        1, wi)) call errquit('WFAT: Failed writing '//
+     &        'inp:field:width:'//is//' to rtdb', 1, RTDB_ERR)
 c        >>>> CEP <<<<
          cp = wfat_convert_angle(trim(adjustl(cpu)), cp0, 'rad')
-         if (.not. rtdb_put(rtdb, 'wfat:inp:field:cep'//is, mt_dbl, 1, 
-     &        cp)) call errquit('WFAT: Failed writing inp:field:cep'//
+         if (.not. rtdb_put(rtdb, 'wfat:inp:field:cep:'//is, mt_dbl, 1, 
+     &        cp)) call errquit('WFAT: Failed writing inp:field:cep:'//
      &        is//' to rtdb', 1, RTDB_ERR)
       endif
       
@@ -582,6 +587,7 @@ c     ...
 #include "errquit.fh"
 #include "inp.fh"
 #include "mafdecls.fh"
+#include "rtdb.fh"
       integer rtdb
       
       character*2 t_unit
@@ -589,11 +595,13 @@ c     ...
       character*2 TM_UNIT(2)
       character*6 FL_UNIT(2)
       character*5 ss
-      character*1000 ext_fn, dts, line
-      integer k, h, io, ntime
+      character*1000 ext_fn, ext_fnb, dts, line
+      integer k, h, bu, io, ntime
+      double precision dt, fval
 
       
       h = 1000
+      bu = h + 1
       TM_UNIT = (/ 'fs', 'au' /)
       FL_UNIT = (/ 'au    ', 'tw/cm2' /)
       
@@ -601,10 +609,18 @@ c     ...
 c        ==== Open external field file ====
          open(h, file=ext_fn, action='read', status='old',
      &        iostat=io)
-         if (io) then
+
+         if (io == 0) then
             if (.not. rtdb_cput(rtdb, 'wfat:field:ext_fn', 1,
-     &        trim(adjustl(ext_fn)))) call errquit('WFAT: Failed '//
+     &           trim(adjustl(ext_fn)))) call errquit('WFAT: Failed '//
      &           'writing field:ext_fn to rtdb', 1, RTDB_ERR)
+            
+c           == open a binary file named <ext_fn>.dat ==
+            ext_fnb = trim(adjustl(ext_fn))//'.dat'
+            open(bu, file=ext_fnb, action='write', form='unformatted')
+            if (.not. rtdb_cput(rtdb, 'wfat:field:ext_fnb', 1,
+     &           trim(adjustl(ext_fnb)))) call errquit('WFAT: Failed '//
+     &           'writing field:ext_fnb to rtdb', 1, RTDB_ERR)
          endif
 
 c        ==== Read dt and its unit ====
@@ -643,12 +659,14 @@ c        ==== Calculate ntime and tmax ====
                if (io /= 0) exit  ! Exit the loop on error or end-of-file
             
                if (len( trim(adjustl(line)) ) > 0) then
-                   ntime = ntime + 1
+                  ntime = ntime + 1
+                  read(line, *) fval
+                  write(bu) fval
                end if
             end do
-            if (.not. rtdb_put(rtdb, 'wfat:inp:field:ntime', mt_int, 1,
+            if (.not. rtdb_put(rtdb, 'wfat:field:ntime', mt_int, 1,
      &           ntime)) call errquit('WFAT: Failed writing '//
-     &           'inp:field:ntime to rtdb', 1, RTDB_ERR)
+     &           'field:ntime to rtdb', 1, RTDB_ERR)
             if (.not. rtdb_put(rtdb, 'wfat:inp:field:tmax', mt_dbl, 1,
      &           (ntime-1)*dt)) call errquit('WFAT: Failed writing '//
      &           'inp:field:tmax to rtdb', 1, RTDB_ERR)
@@ -658,6 +676,7 @@ c        ==== Calculate ntime and tmax ====
          endif
          
          close(h)
+         close(bu)
       else
          call errquit('WFAT: Filename of the file containing the '//
      &        'external field is incorrectly or not specified.',
@@ -801,8 +820,10 @@ c=======================================================
       subroutine wfat_parse_dt(rtdb)
 
       implicit none
+#include "mafdecls.fh"
 #include "errquit.fh"
 #include "inp.fh"
+#include "rtdb.fh"
       integer rtdb
       
       character*2 un
@@ -826,6 +847,10 @@ c=======================================================
       else
          dt = dt0
       endif
+
+      if (.not. rtdb_put(rtdb, 'wfat:inp:dt', mt_dbl, 1, dt))
+     &     call errquit('WFAT: Cannot write wfat:inp:dt to RTDB.',
+     &     21, RTDB_ERR)
       
       end
 c=======================================================
@@ -836,8 +861,10 @@ c=======================================================
       subroutine wfat_parse_tmax(rtdb)
 
       implicit none
+#include "mafdecls.fh"
 #include "errquit.fh"
 #include "inp.fh"
+#include "rtdb.fh"
       integer rtdb
 
       character*2 un
@@ -861,6 +888,10 @@ c=======================================================
       else
          tmax = tmax0
       endif
+
+      if (.not. rtdb_put(rtdb, 'wfat:inp:tmax', mt_dbl, 1, tmax))
+     &     call errquit('WFAT: Cannot write wfat:inp:tmax to RTDB.',
+     &     21, RTDB_ERR)
       
       end
 c=======================================================
@@ -2379,7 +2410,7 @@ c=======================================================
       if (.not. inp_i(val)) call errquit ("WFAT: "//key//
      &     "takes an integer.", 20, INPUT_ERR)     
       if (.not.rtdb_put(rtdb, 'wfat:inp:'//key, mt_int, 1, val))
-     $     call errquit('WFAT: Cannot write wfat:inp:'//key//
+     &     call errquit('WFAT: Cannot write wfat:inp:'//key//
      &     ' to RTDB.', 21, RTDB_ERR)
 
       end

@@ -5,9 +5,8 @@ c=======================================================
       implicit none
 #include "errquit.fh"
 #include "stdio.fh"
-#include "wfat_field_param.fh"
       integer nl
-      character(len=FLD_TP_LEN) ftl(nl)         ! Function type of envelope, 'gaussian' or 'hann'
+      character*2 ftl(nl)         ! Function type of envelope, 'ga' or 'ha'
       double precision al(nl)     ! Peak electric field, in a.u. of e. field.
       double precision wl(nl)     ! angular frequency, in a.u. (Hartree).
       double precision pl(nl)     ! Carrier-envelope phase, rad
@@ -31,11 +30,11 @@ c=======================================================
          tl0 = tl(i)
          dl0 = dl(i)
          
-         if (trim(adjustl(ftl(i))) == 'gaussian') then
+         if (ftl(i) == 'ga') then
             tt = t - tl0
             ef0 = al0 * exp(-4.0d0*log(2.0d0)*tt**2/dl0**2) *
      &            cos(wl0*tt + pl(i))
-         else if (trim(adjustl(ftl(i))) == 'hann') then
+         else if (ftl(i) == 'ha') then
             call wfat_eval_hann(al0, wl0, pl, tl0, dl0, t, ef0)
          else
             call errquit('WFAT: Unknown value for an element of '//
@@ -95,10 +94,9 @@ c=======================================================
 #include "rtdb.fh"
 #include "errquit.fh"
 #include "wfat.fh"
-#include "wfat_field_param.fh"
 #include "stdio.fh"
       integer nl
-      character(len=FLD_TP_LEN) ftl(nl)       ! Function type of envelope, 'gaussian' or 'hann'         
+      character*2 ftl(nl)       ! Function type of envelope, 'ga' or 'ha'         
       double precision al(nl)   ! Peak electric field, in a.u.                              
       double precision wl(nl)   ! Angular frequency in a.u. (Hartree)                         
       double precision pl(nl)   ! Carrier-envelope phase, rad                          
@@ -148,7 +146,7 @@ c=======================================================
       double precision las
 
 
-      las = fld_f_ext(i)
+c      las = fld_f_ext(i)
 
       end
 c=======================================================
@@ -161,10 +159,9 @@ c=======================================================
 
       implicit none
 #include "stdio.fh"
-#include "wfat_field_param.fh"
       integer nl
       double precision al(nl)
-      character(len=FLD_TP_LEN) las_env(max_nfield)
+      character*2 las_env(nl)
       double precision wl(nl)
       double precision pl(nl)
       double precision tl(nl)
@@ -193,7 +190,7 @@ c        ==== type ====
          write(luout, '(5x, "* ", a10, " = ", a)')
      &        'type      ', las_env(i) !byte_mb(k_ftl+(i-1)*FLD_TP_LEN)
 
-         if (las_env(i)=='hann' .or. las_env(i)=='gaussian' .or.
+         if (las_env(i)=='ha' .or. las_env(i)=='ga' .or.
      &        las_env(i)=='dc') then
 c           ==== amplitude ====
             write(luout, '(5x, "* ", a10, " = ", f10.3, " a.u.")')
@@ -204,7 +201,7 @@ c           ==== intensity ====
      &           'tw/cm2')
          endif
 
-         if (las_env(i)=='hann' .or. las_env(i)=='gaussian') then
+         if (las_env(i)=='ha' .or. las_env(i)=='ga') then
 c           ==== frequency ====
             write(luout, '(5x, "* ", a10, " = ", f10.3, " a.u. = ", '//
      &           'f10.3, " THz = ", f10.3, " eV")')

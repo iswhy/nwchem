@@ -40,7 +40,7 @@ c           maxn*maxn*6*nsub.
       logical pr_avbeta               ! [input], if .true. then print beta-averaged ion yield.
       logical pr_avgamma              ! [input], if .true. then print gamma-averaged ion yield.
       integer nlas
-      character(len=FLD_TP_LEN) ftlas(nlas)
+      character*2 ftlas(nlas)
 cOLD      character*5 ftlas(nlas)       ! Function type of envelope, 'gauss' or 'hann'         
       double precision alas(nlas)   ! Peak intensity, TW/cm^2                              
       double precision wlas(nlas)   ! Wavelength, nm                                       

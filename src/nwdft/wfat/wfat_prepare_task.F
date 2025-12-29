@@ -802,28 +802,28 @@ c=================================================
 
 c     ==== Obtaining print switches ====
       if (.not. rtdb_get(rtdb, 'wfat:'//s//'p_srfc', mt_log, 1, p_srfc))
-     &     call errquit('WFAT: Failed reading print_srfc from rtdb',
+     &     call errquit('WFAT: Failed reading '//s//'p_srfc from rtdb',
      &     1, RTDB_ERR)
       if (.not. rtdb_get(rtdb, 'wfat:'//s//'p_rate', mt_log, 1, p_rate))
-     &     call errquit('WFAT: Failed reading print_rate from rtdb',
+     &     call errquit('WFAT: Failed reading '//s//'p_rate from rtdb',
      &     1, RTDB_ERR)
       if (.not. rtdb_get(rtdb, 'wfat:'//s//'p_yild', mt_log, 1, p_yild))
-     &     call errquit('WFAT: Failed reading print_yild from rtdb',
+     &     call errquit('WFAT: Failed reading '//s//'p_yild from rtdb',
      &     1, RTDB_ERR)
       if (.not. rtdb_get(rtdb, 'wfat:'//s//'p_avbeta', mt_log,
      &     1, p_avbeta))
-     &     call errquit('WFAT: Failed reading print_avbeta from rtdb',
-     &     1, RTDB_ERR)
+     &     call errquit('WFAT: Failed reading '//s//'p_avbeta from '//
+     &     'rtdb', 1, RTDB_ERR)
       if (.not. rtdb_get(rtdb, 'wfat:'//s//'p_avgamma', mt_log,
      &     1, p_avgamma))
-     &     call errquit('WFAT: Failed reading print_avgamma from rtdb',
-     &     1, RTDB_ERR)
+     &     call errquit('WFAT: Failed reading '//s//'p_avgamma from '//
+     &     'rtdb', 1, RTDB_ERR)
       if (.not. rtdb_get(rtdb, 'wfat:'//s//'p_tmd', mt_log, 1, p_tmd))
-     &     call errquit('WFAT: Failed reading print_tmd from rtdb',
+     &     call errquit('WFAT: Failed reading '//s//'p_tmd from rtdb',
      &     1, RTDB_ERR)
       if (.not. rtdb_get(rtdb, 'wfat:'//s//'p_tmd_atom', mt_log, 1,
      &     p_tmd_atom))
-     &     call errquit('WFAT: Failed reading print_tmd_atom from '//
+     &     call errquit('WFAT: Failed reading '//s//'p_tmd_atom from '//
      &     'rtdb.', 1, RTDB_ERR)
 
       end
@@ -832,7 +832,7 @@ c=================================================
 
 c=================================================
 c=================================================
-      subroutine wfat_prep_field(rtdb, fieldm)
+      subroutine wfat_prep_dcfield(rtdb, fieldm)
 
       implicit none
 #include "errquit.fh"
@@ -843,25 +843,21 @@ c=================================================
       integer rtdb              ! [input],
       double precision fieldm  ! [output],
 
-      integer l_fl, k_fl, nf
-
+      integer tg
 
       if (ga_nodeid() == 0) then
          write(luout, '(2/)')
-         call util_print_centered(luout, 'External fields', 20, .true.)
+         call util_print_centered(luout, 'Ionizing field', 20, .true.)
          write(luout, '("")')
       endif
       
+      if (.not. rtdb_get(rtdb, 'wfat:field:typeg', mt_int, 1, tg))
+     &     call errquit('WFAT: Cannot read field:typeg', 1, RTDB_ERR)
+      if (tg /= 1) call errquit('WFAT: typeg must be 1 (DC) when '//
+     &     'wfat_prep_dcfield is called.', 27, UERR)
 
-      if (.not. rtdb_get(rtdb, 'wfat:field:nfield', mt_int, 1, nf))
-     &     call errquit('WFAT: Cannot read field:nfield', 1, RTDB_ERR)
-
-      if (.not. ma_alloc_get(MT_dbl, nf, 'fieldm', l_fl, k_fl))
-     &     call errquit('WFAT: Failed allocating fieldm', 1, MA_ERR)
-      if (.not. rtdb_get(rtdb, 'wfat:field:max', mt_dbl, nf,
-     &     dbl_mb(k_fl)))
+      if (.not. rtdb_get(rtdb, 'wfat:field:max', mt_dbl, 1, fieldm))
      &     call errquit('WFAT: Cannot read field:max', 1, RTDB_ERR)
-      fieldm = sum(dbl_mb(k_fl : k_fl+nf-1))
 
       if (ga_nodeid() == 0) then
          write(luout, '(5x, "* ", a10, " = ", a)') 'type      ', 'DC'
@@ -869,8 +865,6 @@ c=================================================
      &        'strength  ', fieldm
       endif
 
-      if (.not. ma_free_heap(l_fl))
-     &     call errquit('WFAT: Failed deallocating fieldm', 1, MA_ERR)
       end
 c=================================================
 
@@ -891,7 +885,7 @@ c=================================================
       integer rtdb
       integer nlas
       integer l_al, k_al
-      character(len=FLD_TP_LEN) las_env(max_nfield)
+      character*2 las_env(max_nfield)
       integer l_wl, k_wl
       integer l_pl, k_pl
       integer l_tl, k_tl
@@ -908,14 +902,14 @@ c=================================================
 
       if (ndid == 0) then
          write(luout, '(2/)')
-         call util_print_centered(luout, 'External fields', 20, .true.)
+         call util_print_centered(luout, 'Ionizing field', 20, .true.)
          write(luout, '("")')
       endif
       
       
 c     ==== Get no. laser colors ====
-      if (.not. rtdb_get(rtdb, 'wfat:field:nfield', mt_int, 1, nlas))
-     &     call errquit('WFAT: Cannot read field:nfield', 1, RTDB_ERR)
+      if (.not. rtdb_get(rtdb, 'wfat:field:n', mt_int, 1, nlas))
+     &     call errquit('WFAT: Cannot read field:n', 1, RTDB_ERR)
 
 c     ==== Get laser amplitudes ====
       if (.not. ma_alloc_get(mt_dbl, nlas, 'alas', l_al, k_al))
@@ -965,18 +959,11 @@ c     ==== Get time window length ====
      &     call errquit('WFAT: Cannot read field:tmax', 1, RTDB_ERR)
 
 c     ==== Get external field switch ====
-      wfat:is_extfield is no longer defined.
-      if (.not. rtdb_get(rtdb, 'wfat:is_extfield', mt_log, 1, extf))
-     &     call errquit('WFAT: Failed reading is_extfield from rtdb',
-     &     1, INPUT_ERR)
+      extf = (las_env(1) == 'ex')
       if (extf) then
-         if (.not. rtdb_cget(rtdb, 'wfat:ext_fname', 1, ext_fname)) 
-     &        call errquit('WFAT: Failed reading ext_fname from rtdb',
+         if (.not. rtdb_cget(rtdb, 'wfat:ext_fnb', 1, ext_fname)) 
+     &        call errquit('WFAT: Failed reading ext_fnb from rtdb',
      &        1, RTDB_ERR)         
-         if (.not. rtdb_get(rtdb, 'wfat:ext_range', mt_int, 2,
-     &        ext_range))
-     &        call errquit('WFAT: Failed reading ext_range from rtdb',
-     &        1, RTDB_ERR)
       endif
       
 
@@ -987,13 +974,9 @@ c     ==== Print laser parameters ====
      &        ntime, tmax)
 
 c        ==== External laser file ====
-         if (las_env(1)=='external') then
+         if (extf) then
             write(luout, '(5x, "* ", a10, " = ", a)')
      &           'File name ', trim(adjustl(ext_fname))
-            write(luout, '(5x, "* ", a10, " = ", i6, 2x, i6)')
-     &           'Data start', ext_range(1)
-            write(luout, '(5x, "* ", a10, " = ", i6, 2x, i6)')
-     &           'Data end  ', ext_range(2)
          endif
          
 c        ==== Print laser ====

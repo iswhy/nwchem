@@ -15,7 +15,7 @@ c===============================================================
 #include "geom.fh"
       integer rtdb
 
-      character(len=FLD_TP_LEN) las_env(max_nfield)
+      character*2 las_env(max_nfield)
       character*2 td
       character*3 pottype
       character*7 jobtype
@@ -33,7 +33,7 @@ c===============================================================
       integer lmax, gqual, nqn, nsh, nintg, g_il, ndid, nlgl, nel_2a
       integer nintj, nintk, g_j, g_k(2), npb, nr_m, nt_m, nr_p, nt_p
       integer ndgsub, max_ndgsub, dgs(1,1), ndgs(1), nfe, maxn, idum
-      integer nlas, ntime, nw1x
+      integer nlas, ntime, nw1x, tg
       double precision init_ke, out_ke, mult_ke, edip(3), chpos(3)
       double precision chmmt(3), fieldmag, pb(3,3), polb(3), polb33(3,3)
       double precision dps(1,1,3,1), pbs(1,1,6,1), ddum, potparam(2)
@@ -102,19 +102,20 @@ c     ==== Obtain WFAT(1) information ====
       
 
 c     ==== Obtain print switches ====
-      call wfat_prep_printsw(rtdb, pr_srfc, pr_rate, pr_yild, pr_avbeta,
-     &     pr_avgamma, pr_tmd, pr_tmd_atom) fix
+      call wfat_prep_printsw(rtdb, '', pr_srfc, pr_rate, pr_yild, 
+     &     pr_avbeta, pr_avgamma, pr_tmd, pr_tmd_atom)
 
 
 c     ==== Whether using TD field or no ====
-      if (.not. rtdb_cget(rtdb, 'wfat:tdfield', 1, td)) td = 'no'
-      if (td=='td') then
+      if (.not. rtdb_get(rtdb, 'wfat:field:typeg', mt_int, 1, tg))
+     &     tg = 0
+      if (tg == 2 .or. tg == 3) then
          call wfat_prep_tdfield(rtdb, nlas, l_al, k_al, las_env,
      &        l_wl, k_wl, l_pl, k_pl, l_tl, k_tl, l_dl, k_dl, ntime,
      &        tmax, extf)
-      else if (td=='ti') then
-         call wfat_prep_field(rtdb, fieldmag)
-      else if (td=='no') then
+      else if (tg == 1) then
+         call wfat_prep_dcfield(rtdb, fieldmag)
+      else if (tg == 0) then
          fieldmag = 0.0d0
       endif
 

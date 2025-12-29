@@ -33,8 +33,8 @@ c=======================================================
 c=======================================================
 c=======================================================
       subroutine wfat_calc_yield(nat, zi, nlas, ftlas, alas, wlas, 
-     &                 plas, tlas, dlas, nt, tmax, extf, nch, ergf, nqn,
-     &                 nid, mid, srfc, srfcn, yield)
+     &     plas, tlas, dlas, nt, tmax, extf, nch, ergf, nqn,
+     &     nid, mid, srfc, srfcn, yield)
 
       implicit none
 #include "errquit.fh"
@@ -44,7 +44,7 @@ c=======================================================
       integer nat
       double precision zi
       integer nlas
-      character(len=FLD_TP_LEN) ftlas(nlas)       ! Function type of envelope, 'gaussian' or 'hann'         
+      character*2 ftlas(nlas)       ! Function type of envelope, 'gaussian' or 'hann'         
       double precision alas(nlas)   ! Peak electric field, in a.u. of e. field.                              
       double precision wlas(nlas)   ! angular frequency, in a.u. (Hartree).                                      
       double precision plas(nlas)   ! Carrier-envelope phase, rad                          

@@ -44,7 +44,6 @@ c=======================================================
 #include "stdio.fh"      
       integer rtdb
 
-      character*2 tdfield
       logical calc_td, calc_dc, pp
 
       
@@ -99,21 +98,21 @@ cOLD     &           '* print_tmd_atom  ', ' '
 cOLD         endif
 cOLD      endif
 
-c     == dt ==
-      if (.not. dt_exist .and. tdfield=='td') then
-         call errquit('WFAT: Input directive ''dt'' is required when '//
-     &        'non-DC fields are used', 1, INPUT_ERR)
-      else if (dt_exist .and. (tdfield=='ti' .or. tdfield=='no')) then
-         write(luout, 206) 'dt'
-      endif
-
-c     == tmax ==
-      if (.not. tmax_exist .and. tdfield=='td') then
-         call errquit('WFAT: Input directive ''tmax'' is required '//
-     &        'when non-DC fields are used', 1, INPUT_ERR)
-      else if (tmax_exist .and. (tdfield=='ti' .or. tdfield=='no')) then
-         write(luout, 206) 'tmax' 
-      endif
+cOLDc     == dt ==
+cOLD      if (.not. dt_exist .and. tdfield=='td') then
+cOLD         call errquit('WFAT: Input directive ''dt'' is required when '//
+cOLD     &        'non-DC fields are used', 1, INPUT_ERR)
+cOLD      else if (dt_exist .and. (tdfield=='ti' .or. tdfield=='no')) then
+cOLD         write(luout, 206) 'dt'
+cOLD      endif
+cOLD
+cOLDc     == tmax ==
+cOLD      if (.not. tmax_exist .and. tdfield=='td') then
+cOLD         call errquit('WFAT: Input directive ''tmax'' is required '//
+cOLD     &        'when non-DC fields are used', 1, INPUT_ERR)
+cOLD      else if (tmax_exist .and. (tdfield=='ti' .or. tdfield=='no')) then
+cOLD         write(luout, 206) 'tmax' 
+cOLD      endif
       
 cOLD      gg = (print_srfc .or. print_rate .or. print_yild .or.
 cOLD     &      print_avbeta .or. print_avgamma)
@@ -330,14 +329,14 @@ cOLD         call errquit('WFAT: The format of input directive '//
 cOLD     &        '''field'' is incorrect', 0, INPUT_ERR)
 cOLD      endif
 
-c     == dt ==
-      if (.not. dt_stat .and. tdfield=='td')
-     &     call errquit('WFAT: The format of input directive '//
-     &     '''dt'' is incorrect', 0, INPUT_ERR)
-c     == tmax ==
-      if (.not. tmax_stat .and. tdfield=='td')
-     &     call errquit('WFAT: The format of input directive '//
-     &     '''tmax'' is incorrect', 0, INPUT_ERR)      
+cOLDc     == dt ==
+cOLD      if (.not. dt_stat .and. tdfield=='td')
+cOLD     &     call errquit('WFAT: The format of input directive '//
+cOLD     &     '''dt'' is incorrect', 0, INPUT_ERR)
+cOLDc     == tmax ==
+cOLD      if (.not. tmax_stat .and. tdfield=='td')
+cOLD     &     call errquit('WFAT: The format of input directive '//
+cOLD     &     '''tmax'' is incorrect', 0, INPUT_ERR)      
 
 cOLD      gg = (print_srfc .or. print_rate .or. print_yild .or.
 cOLD     &     print_avbeta .or. print_avgamma)
@@ -732,10 +731,10 @@ cOLD      nlgl_need = .false.           ! needed when oe or me
             
 cOLD      call wfat_need_input0(rt, tmd, tmda, yi, avb, avg, .false.,
 cOLD     &     field_need)
-      call wfat_need_input0(yi, avb, avg, .false., .false., .false.,
-     &     .false., dt_need)
-      call wfat_need_input0(yi, avb, avg, .false., .false., .false.,
-     &     .false., tmax_need)
+cOLD      call wfat_need_input0(yi, avb, avg, .false., .false., .false.,
+cOLD     &     .false., dt_need)
+cOLD      call wfat_need_input0(yi, avb, avg, .false., .false., .false.,
+cOLD     &     .false., tmax_need)
 cOLD      call wfat_need_input0(tmd, tmda, .false., .false., .false., 
 cOLD     &     .false., .false., beta_tmd_need)
 cOLD      call wfat_need_input0(tmd, tmda, .false., .false., .false., 
@@ -832,10 +831,10 @@ cOLD      nlgl_need = .false.               ! needed when oe or me
       
 cOLD      call wfat_need_input0(rt, tmd, tmda, yi, avb, avg, .false.,
 cOLD     &     field_need)
-      call wfat_need_input0(yi, avb, avg, .false., .false., .false.,
-     &     .false., dt_need)
-      call wfat_need_input0(yi, avb, avg, .false., .false., .false.,
-     &     .false., tmax_need)
+cOLD      call wfat_need_input0(yi, avb, avg, .false., .false., .false.,
+cOLD     &     .false., dt_need)
+cOLD      call wfat_need_input0(yi, avb, avg, .false., .false., .false.,
+cOLD     &     .false., tmax_need)
 cOLD      call wfat_need_input0(tmd, tmda, .false., .false., .false., 
 cOLD     &     .false., .false., beta_tmd_need)
 cOLD      call wfat_need_input0(tmd, tmda, .false., .false., .false., 
@@ -949,25 +948,25 @@ cOLD         call wfat_sanity_field(nfield, fld_tp, fld_fr, fld_ce, fld_wi,
 cOLD     &        fld_mx)
 cOLD      endif
 
-      if (dt_need) then
-         if (is_extfield) then
-            dt_00 = dt_ext
-         else
-            dt_00 = wfat_dt
-         endif
-         call wfat_dval_atleast(dt_00, 0.0d0, 'g', 'WFAT',
-     &        '''dt''', 'e', w, r)
-      endif
-
-      if (tmax_need) then
-         if (is_extfield) then
-            tmax_00 = tmax_ext
-         else
-            tmax_00 = wfat_tmax
-         endif
-         call wfat_dval_atleast(tmax_00, 0.0d0, 'g', 'WFAT',
-     &        '''tmax''', 'e', w, r)
-      endif
+cOLD      if (dt_need) then
+cOLD         if (is_extfield) then
+cOLD            dt_00 = dt_ext
+cOLD         else
+cOLD            dt_00 = wfat_dt
+cOLD         endif
+cOLD         call wfat_dval_atleast(dt_00, 0.0d0, 'g', 'WFAT',
+cOLD     &        '''dt''', 'e', w, r)
+cOLD      endif
+cOLD
+cOLD      if (tmax_need) then
+cOLD         if (is_extfield) then
+cOLD            tmax_00 = tmax_ext
+cOLD         else
+cOLD            tmax_00 = wfat_tmax
+cOLD         endif
+cOLD         call wfat_dval_atleast(tmax_00, 0.0d0, 'g', 'WFAT',
+cOLD     &        '''tmax''', 'e', w, r)
+cOLD      endif
             
       if (orbid_need) then
          write(n_orbid_c, '(i5)') n_orbid
@@ -1333,33 +1332,33 @@ cOLD     &           'to rtdb', 1, INPUT_ERR)
 cOLD         endif
 cOLD      endif
 
-      if (dt_need) then
-         if (is_extfield) then
-            dt_00 = dt_ext
-            nt_00 = ntime_ext
-         else
-            dt_00 = wfat_dt
-            nt_00 = int(wfat_tmax/wfat_dt) + 1
-         endif
-         if (.not. rtdb_put(rtdb, 'wfat:field:dt', mt_dbl, 1, dt_00))
-     &        call errquit('WFAT: Failed writing dt to rtdb',
-     &        1, INPUT_ERR)
-         if (.not. rtdb_put(rtdb, 'wfat:field:ntime', mt_int, 1, nt_00))
-     &        call errquit('WFAT: Failed writing ntime to rtdb',
-     &        1, INPUT_ERR)
-      endif
-
-      if (tmax_need) then
-         if (is_extfield) then
-            tmax_00 = tmax_ext
-         else
-            tmax_00 = wfat_tmax
-         endif
-         if (.not. rtdb_put(rtdb, 'wfat:field:tmax', mt_dbl, 1,
-     &        tmax_00))
-     &        call errquit('WFAT: Failed writing tmax to rtdb',
-     &        1, INPUT_ERR)
-      endif
+cOLD      if (dt_need) then
+cOLD         if (is_extfield) then
+cOLD            dt_00 = dt_ext
+cOLD            nt_00 = ntime_ext
+cOLD         else
+cOLD            dt_00 = wfat_dt
+cOLD            nt_00 = int(wfat_tmax/wfat_dt) + 1
+cOLD         endif
+cOLD         if (.not. rtdb_put(rtdb, 'wfat:field:dt', mt_dbl, 1, dt_00))
+cOLD     &        call errquit('WFAT: Failed writing dt to rtdb',
+cOLD     &        1, INPUT_ERR)
+cOLD         if (.not. rtdb_put(rtdb, 'wfat:field:ntime', mt_int, 1, nt_00))
+cOLD     &        call errquit('WFAT: Failed writing ntime to rtdb',
+cOLD     &        1, INPUT_ERR)
+cOLD      endif
+cOLD
+cOLD      if (tmax_need) then
+cOLD         if (is_extfield) then
+cOLD            tmax_00 = tmax_ext
+cOLD         else
+cOLD            tmax_00 = wfat_tmax
+cOLD         endif
+cOLD         if (.not. rtdb_put(rtdb, 'wfat:field:tmax', mt_dbl, 1,
+cOLD     &        tmax_00))
+cOLD     &        call errquit('WFAT: Failed writing tmax to rtdb',
+cOLD     &        1, INPUT_ERR)
+cOLD      endif
             
       if (orbid_need) then
          if (.not. rtdb_put(rtdb, 'wfat:n_orbid', mt_int, 1, n_orbid))

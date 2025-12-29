@@ -274,8 +274,8 @@ c=======================================================
      &     .true.)
       write(luout, '(1x)')
 
-      call wfat_prep_printsw(rtdb, pr_srfc, pr_rate, pr_yild, pr_avbeta,
-     &     pr_avgamma, pr_tmd, pr_tmd_atom) fix
+      call wfat_prep_printsw(rtdb, '', pr_srfc, pr_rate, pr_yild, 
+     &     pr_avbeta, pr_avgamma, pr_tmd, pr_tmd_atom)
 
       call wfat_tf_to_yn(pr_srfc, .true., ispr)
       write(luout, '(5x, "Print structure factor : ", a3)') ispr
@@ -315,8 +315,8 @@ c=======================================================
       double precision bt_tmd, gm_tmd
       
 
-      call wfat_prep_printsw(rtdb, pr_srfc, pr_rate, pr_yild, pr_avbeta,
-     &     pr_avgamma, pr_tmd, pr_tmd_atom) fix
+      call wfat_prep_printsw(rtdb, '', pr_srfc, pr_rate, pr_yild, 
+     &     pr_avbeta, pr_avgamma, pr_tmd, pr_tmd_atom)
 
 
       write(luout, '(2/)')
@@ -494,8 +494,8 @@ c=======================================================
       double precision fieldmag, omgpos(3)
       
 
-      call wfat_prep_printsw(rtdb, pr_srfc, pr_rate, pr_yild, pr_avbeta,
-     &     pr_avgamma, pr_tmd, pr_tmd_atom) fix
+      call wfat_prep_printsw(rtdb, '', pr_srfc, pr_rate, pr_yild, 
+     &     pr_avbeta, pr_avgamma, pr_tmd, pr_tmd_atom)
 
 
       write(luout, '(2/)')

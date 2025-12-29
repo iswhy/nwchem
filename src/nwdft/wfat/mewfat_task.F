@@ -14,7 +14,7 @@ c=================================================
 #include "wfat_field_param.fh"
       integer rtdb
 
-      character(len=FLD_TP_LEN) las_env(max_nfield)
+      character*2 las_env(max_nfield)
       character*4096 fname
       character*2 td
       character*7 jobtype
@@ -32,7 +32,7 @@ c=================================================
       integer k_npa, k_mpa, k_al, k_ftl, k_wl, k_pl, k_tl, k_dl
       integer k_ieg, k_ps, k_cmm, k_idp, k_in, k_mo0, k_mo1, k_pcf
       integer k_rcf, k_qcf, k_scf, k_eg0, k_eg1, k_ed0, k_ed1
-      integer g_il
+      integer g_il, tg
       double precision tmax, fieldmag, smh, mask_param(2), ergmask
       double precision amsk, bmsk
 
@@ -79,23 +79,23 @@ c     ==== Check if research mode is enabled ====
       
 
 c     ==== Obtaining print switches ====
-      call wfat_prep_printsw(rtdb, pr_srfc, pr_rate, pr_yild, pr_avbeta,
-     &     pr_avgamma, pr_tmd, pr_tmd_atom) fix
+      call wfat_prep_printsw(rtdb, '', pr_srfc, pr_rate, pr_yild, 
+     &     pr_avbeta, pr_avgamma, pr_tmd, pr_tmd_atom)
       if (pr_tmd .or. pr_tmd_atom)
      &     call errquit('MEWFAT: At the moment, TMD calculation with '//
      &     'MEWFAT need to be reviewed.', 1, UERR)
 
 
 c     ==== When TD field is true ====
-      if (.not. rtdb_cget(rtdb, 'wfat:tdfield', 1, td))
-     &     td = 'no'
-      if (td=='td') then
+      if (.not. rtdb_get(rtdb, 'wfat:field:typeg', mt_int, 1, tg))
+     &     tg = 0
+      if (tg == 2 .or. tg == 3) then
          call wfat_prep_tdfield(rtdb, nlas, l_al, k_al, las_env,
      &        l_wl, k_wl, l_pl, k_pl, l_tl, k_tl, l_dl, k_dl, ntime,
      &        tmax, extf)
-      else if (td=='ti') then
-         call wfat_prep_field(rtdb, fieldmag)
-      else if (td=='no') then
+      else if (tg == 1) then
+         call wfat_prep_dcfield(rtdb, fieldmag)
+      else if (tg == 0) then
          fieldmag = 0.0d0
       endif
 
@@ -307,7 +307,6 @@ c     DESCRIPTION:
 #include "errquit.fh"
 #include "stdio.fh"
 #include "mafdecls.fh"
-#include "wfat_field_param.fh"
       integer rtdb              ! [input]
       integer geom
       integer n0(2)             ! [input], no. of electrons in the neutral.
@@ -317,7 +316,7 @@ c     DESCRIPTION:
       logical pr_avbeta               ! [input], if .true. then print beta-averaged ion yield.
       logical pr_avgamma              ! [input], if .true. then print gamma-averaged ion yield.
       integer nlas
-      character(len=FLD_TP_LEN) ftlas(nlas)
+      character*2 ftlas(nlas)
       double precision alas(nlas)   ! Peak intensity, TW/cm^2                              
       double precision wlas(nlas)   ! Wavelength, nm                                       
       double precision plas(nlas)   ! Carrier-envelope phase, rad                          

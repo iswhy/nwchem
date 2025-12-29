@@ -1,5 +1,5 @@
 
 
 
-      integer max_nfield, FLD_TP_LEN
-      parameter (max_nfield=50, FLD_TP_LEN=8)
+      integer max_nfield
+      parameter (max_nfield=50)

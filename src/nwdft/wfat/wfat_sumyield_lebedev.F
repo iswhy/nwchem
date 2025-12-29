@@ -13,7 +13,7 @@ c===============================================================
       integer rtdb
       integer geom
       integer nlas
-      character(len=FLD_TP_LEN) ftlas(nlas)
+      character*2 ftlas(nlas)
       double precision alas(nlas)   ! Peak intensity, TW/cm^2                              
       double precision wlas(nlas)   ! Wavelength, nm                                       
       double precision plas(nlas)   ! Carrier-envelope phase, rad                          

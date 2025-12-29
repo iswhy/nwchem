@@ -11,7 +11,10 @@ c=======================================================
       integer ival
       double precision dval
       parameter (w='i')
+
       
+c     ==== Field ====
+      call wfat_process_field(rtdb)
 
 c     ==== quadgrid ====
       call wfat_process_quadgrid(rtdb)
@@ -58,8 +61,8 @@ c=======================================================
 c=======================================================
       subroutine wfat_process_idata(rtdb, key, md, defval, ival)
 c     DESCRIPTION:
-c     Checked for input availability, its mandatory status, and write that
-c     input to the RTDB.
+c     Checks for an entry of the form wfat:inp:<key> in the RTDB. If found, it will
+c     create a new RTDB entry named wfat:<key> with the same value as wfat:inp:<key>.
 c       rtdb: RTDB handle
 c       key: name of input
 c       md: if .true., the input is mandatory, otherwise, optional
@@ -106,13 +109,13 @@ c=======================================================
 c=======================================================
       subroutine wfat_process_ddata(rtdb, key, md, defval, dval)
 c     DESCRIPTION:
-c     Checked for input availability, its mandatory status, and write that
-c     input to the RTDB.
+c     Checks for an entry of the form wfat:inp:<key> in the RTDB. If found, it will
+c     create a new RTDB entry named wfat:<key> with the same value as wfat:inp:<key>.
 c       rtdb: RTDB handle
 c       key: name of input
 c       md: if .true., the input is mandatory, otherwise, optional
 c       defval: default value that will be used if input is missing and md=.false.
-c               Regardless of md, a value for md must be supplied.
+c               Regardless of md, a value for defval must be supplied.
 c       dval: the value of the input
       implicit none
 #include "errquit.fh"
@@ -448,29 +451,34 @@ c=======================================================
 
       character*1 cc(2)
       character*1 c
-      logical r
+      logical r, p_tmd
       integer i, nk
 
 
       cc = (/ 'x', 'y' /)
-      
-      do i = 1, 2
-         c = cc(i)
-         
-         call wfat_rtdb_fduplicate(rtdb, 'wfat:inp:k'//c//'_start',
-     &        'wfat:k'//c//'_start')
 
-         call wfat_rtdb_fduplicate(rtdb, 'wfat:inp:k'//c//'_last',
-     &        'wfat:k'//c//'_last')
-         
-         if (.not. rtdb_get(rtdb, 'wfat:inp:nk'//c, mt_int, 1, nk))
-     &        call errquit('WFAT: Cannot read nk'//c//' from rtdb', 
-     &        35, INPUT_ERR)
-         call wfat_ival_atleast(nk, 1, 'WFAT', '''nk'//c//'''', 'i', r)
-         if (.not. rtdb_put(rtdb, 'wfat:nk'//c, mt_int, 1, nk))
-     &        call errquit('WFAT: Cannot write nk'//c//' to rtdb', 
-     &        35, INPUT_ERR)
-      enddo
+      if (.not. rtdb_get(rtdb, 'wfat:inp:p_tmd', mt_log, 1, p_tmd))
+     &     call errquit('WFAT: Failed reading inp:p_tmd from rtdb',
+     &     1, RTDB_ERR)
+
+      if (p_tmd) then
+         do i = 1, 2
+            c = cc(i)
+            
+            call wfat_rtdb_fduplicate(rtdb, 'wfat:inp:k'//c//'_start',
+     &           'wfat:k'//c//'_start')
+            call wfat_rtdb_fduplicate(rtdb, 'wfat:inp:k'//c//'_last',
+     &           'wfat:k'//c//'_last')
+            if (.not. rtdb_get(rtdb, 'wfat:inp:nk'//c, mt_int, 1, nk))
+     &           call errquit('WFAT: Cannot read nk'//c//' from rtdb', 
+     &           35, INPUT_ERR)
+            call wfat_ival_atleast(nk, 1, 'WFAT', '''nk'//c//'''', 'i',
+     &           r)
+            if (.not. rtdb_put(rtdb, 'wfat:nk'//c, mt_int, 1, nk))
+     &           call errquit('WFAT: Cannot write nk'//c//' to rtdb', 
+     &           35, INPUT_ERR)
+         enddo
+      endif
 
       end
 c=======================================================
@@ -527,31 +535,55 @@ c=======================================================
       
 c=======================================================
 c=======================================================
-      subroutine wfat_process_field()
+      subroutine wfat_process_field(rtdb)
 
       implicit none
+#include "mafdecls.fh"
+#include "rtdb.fh"
+#include "errquit.fh"
+#include "stdio.fh"
+#include "wfat_field_param.fh"
+      integer rtdb
+
+      character*1 w
+      character*2 tp(max_nfield), is
+      logical p_srfc, p_rate, p_yild, p_avbeta, p_avgamma, p_tmd
+      logical p_tmd_atom, need_dc, need_td, r
+      integer nf, i, tg, nt
+      double precision mx(max_nfield), fr(max_nfield), ce(max_nfield)
+      double precision wi(max_nfield), cp(max_nfield), dt, tmax
+
+      parameter(w='i')
 
 
+c     ==== Get print switches ====
       call wfat_prep_printsw(rtdb, 'inp:', p_srfc, p_rate, p_yild,
      &     p_avbeta, p_avgamma, p_tmd, p_tmd_atom)
       need_dc = (p_rate .or. p_tmd .or. p_tmd_atom)
       need_td = (p_yild .or. p_avbeta .or. p_avgamma)
 
+      
+c     ==== Get the number of field blocks ====
       if (.not. rtdb_get(rtdb, 'wfat:field:n', mt_int, 1, nf)) nf = 0
       if ((need_dc .or. need_td) .and. nf == 0)
      &     call errquit('WFAT: A field block is needed.', 30, UERR)
 
-      if (.not. rtdb_get(rtdb, 'wfat:field:typeg', mt_int, 1, tg))
-     &     call errquit('WFAT: Failed reading field:typeg from rtdb',
-     &     1, RTDB_ERR)
-      if (need_dc .and. tg /= 1)
-     &     call errquit('WFAT: When rate or tmd is requested, the '//
-     &     'field must be DC.', 30, UERR)
-      if (need_td .and. tg == 1)
-     &     call errquit('WFAT: When yield, averaged or not, is '//
-     &     'requested, the field must not be DC.', 30, UERR)
-      if (.not. need_dc .and. .not. need_td .and. nf > 0)
-     &     write(luout, 201)
+
+c     ==== Check for consistencies with the print directive ====
+      if (nf > 0) then
+         if (.not. rtdb_get(rtdb, 'wfat:field:typeg', mt_int, 1, tg))
+     &        call errquit('WFAT: Failed reading field:typeg from rtdb',
+     &        1, RTDB_ERR)
+         if (need_dc .and. tg /= 1)
+     &        call errquit('WFAT: When rate or tmd is requested, the '//
+     &        'field must be DC.', 30, UERR)
+         if (need_td .and. tg == 1)
+     &        call errquit('WFAT: When yield, averaged or not, is '//
+     &        'requested, the field must not be DC.', 30, UERR)
+         if (.not. need_dc .and. .not. need_td)
+     &        write(luout, 201)
+      endif
+      
 
  201  format(/,
      &      3x, '*** ATTENTION ***', /, 
@@ -561,23 +593,102 @@ c=======================================================
      &      'TMD.')      
 
 
+c     ==== Fill local vectors ====
       do i = 1, nf
-         write(is, '(i3)') i
-         call wfat_ordinal_suffix(i, s)
-         if (tg /= 1 .and. tg /= 2) then
-            call wfat_dval_atleast(fr(i), 0.0d0, 'q', 'WFAT', ''''//
-     &           trim(adjustl(is))//s//' field frequency''', 'e', w, r)
-            call wfat_dval_atleast(ce(i), 0.0d0, 'q', 'WFAT', ''''//
-     &           trim(adjustl(is))//s//' field center''', 'e', w, r)
-            call wfat_dval_atleast(wi(i), 0.0d0, 'g', 'WFAT', ''''//
-     &           trim(adjustl(is))//s//' field width''', 'e', w, r)
+         write(is, '(i2)') i
+         is = adjustl(is)
+
+c        >>>> Field type <<<<
+         if (.not. rtdb_cget(rtdb, 'wfat:inp:field:type:'//is, 1, 
+     &        tp(i))) call errquit('WFAT: Failed reading '//
+     &        'inp:field:type:'//is//' from rtdb', 1, RTDB_ERR)
+
+         if (tg==1 .or. tg==3) then
+c           >>>> Amplitude <<<<
+            if (.not. rtdb_get(rtdb, 'wfat:inp:field:max:'//is, mt_dbl, 
+     &           1, mx(i))) call errquit('WFAT: Failed reading '//
+     &           'inp:field:max:'//is//' from rtdb', 1, RTDB_ERR)
+            call wfat_dval_atleast(mx(i), 0.0d0, 'q', 'WFAT',
+     &           'field '//is//' max', 'e', w, r)
          endif
-         if (tg /= 2)
-     &        call wfat_dval_atleast(mx(i), 0.0d0, 'q', 'WFAT', ''''//
-     &        trim(adjustl(is))//s//' field max''', 'e', w, r)
+         
+         if (tg==3) then
+c           >>>> Frequency <<<<
+            if (.not. rtdb_get(rtdb, 'wfat:inp:field:freq:'//is, mt_dbl,
+     &           1, fr(i))) call errquit('WFAT: Failed reading '//
+     &           'inp:field:freq:'//is//' from rtdb', 1, RTDB_ERR)
+            call wfat_dval_atleast(fr(i), 0.0d0, 'q', 'WFAT', 
+     &           'field '//is//' frequency', 'e', w, r)
+c           >>>> Center <<<<
+            if (.not. rtdb_get(rtdb, 'wfat:inp:field:center:'//is, 
+     &           mt_dbl, 1, ce(i))) call errquit('WFAT: Failed '//
+     &           'reading inp:field:center:'//is//' from rtdb',
+     &           1, RTDB_ERR)
+            call wfat_dval_atleast(ce(i), 0.0d0, 'q', 'WFAT',
+     &           'field '//is//' center', 'e', w, r)
+c           >>>> Width <<<<
+            if (.not. rtdb_get(rtdb, 'wfat:inp:field:width:'//is, 
+     &           mt_dbl, 1, wi(i))) call errquit('WFAT: Failed '//
+     &           'reading inp:field:width:'//is//' from rtdb',
+     &           1, RTDB_ERR)
+            call wfat_dval_atleast(wi(i), 0.0d0, 'g', 'WFAT',
+     &           'field '//is//' width', 'e', w, r)
+c           >>>> CEP <<<<
+            if (.not. rtdb_get(rtdb, 'wfat:inp:field:cep:'//is, mt_dbl, 
+     &           1, cp(i))) call errquit('WFAT: Failed reading '//
+     &           'inp:field:cep:'//is//' from rtdb', 1, RTDB_ERR)
+         endif
       enddo
 
 
+c     ==== Write the above local vectors to RTDB ====
+c     >>>> Field type <<<<
+      if (.not. rtdb_cput(rtdb, 'wfat:field:type', nf, tp(1:nf)))
+     &     call errquit('WFAT: Failed writing field:type to rtdb',
+     &     1, RTDB_ERR)
+      
+      if (tg==1 .or. tg==3) then
+c        >>>> Amplitude <<<<
+         if (.not. rtdb_put(rtdb, 'wfat:field:max', mt_dbl, nf,
+     &        mx(1:nf))) call errquit('WFAT: Failed writing '//
+     &        'field:max to rtdb', 1, RTDB_ERR)
+      endif
+
+      if (tg==3) then
+c        >>>> Frequency <<<<
+         if (.not. rtdb_put(rtdb, 'wfat:field:freq', mt_dbl, nf,
+     &        fr(1:nf))) call errquit('WFAT: Failed writing '//
+     &        'field:freq to rtdb', 1, RTDB_ERR)
+c        >>>> Center <<<<
+         if (.not. rtdb_put(rtdb, 'wfat:field:center', mt_dbl, nf,
+     &        ce(1:nf))) call errquit('WFAT: Failed writing '//
+     &        'field:center to rtdb', 1, RTDB_ERR)
+c        >>>> Width <<<<
+         if (.not. rtdb_put(rtdb, 'wfat:field:width', mt_dbl, nf,
+     &        wi(1:nf))) call errquit('WFAT: Failed writing '//
+     &        'field:width to rtdb', 1, RTDB_ERR)
+c        >>>> CEP <<<<
+         if (.not. rtdb_put(rtdb, 'wfat:field:cep', mt_dbl, nf,
+     &        cp(1:nf))) call errquit('WFAT: Failed writing '//
+     &        'field:cep to rtdb', 1, RTDB_ERR)
+      endif
+      
+
+c     >>>> dt <<<<
+      call wfat_process_ddata(rtdb, 'dt', (tg==3), 0.0d0, dt)
+      call wfat_dval_atleast(dt, 0.0d0, 'g', 'WFAT', '''dt''',
+     &     'e', w, r)
+c     >>>> tmax <<<<
+      call wfat_process_ddata(rtdb, 'tmax', (tg==3), 0.0d0, tmax)
+      call wfat_dval_atleast(dt, 0.0d0, 'g', 'WFAT', '''tmax''',
+     &     'e', w, r)
+
+      if (tg==3) then
+         nt = int(tmax/dt) + 1
+         if (.not. rtdb_put(rtdb, 'wfat:field:ntime', mt_int, 1, nt))
+     &        call errquit('WFAT: Failed writing field:ntime to rtdb',
+     &        1, RTDB_ERR)
+      endif
+      
       end
 c=======================================================
-      

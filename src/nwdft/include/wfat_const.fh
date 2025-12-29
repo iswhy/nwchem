@@ -53,10 +53,3 @@
      &     DEF_MDIP=1.0d10, DEF_MERG=1.0d10, DEF_MPOS=1.0D10,
      &     DEF_CGRID_THR=0.3d0)
 c     DEF_CGRID_THR is in angstrom
-
-
-      integer
-     &     max_nfield
-
-      parameter
-     &     (max_nfield=50)

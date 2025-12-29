@@ -43,8 +43,7 @@ c===============================================================
 #include "wfat_field_param.fh"
       integer rtdb
 
-      character(len=FLD_TP_LEN) las_env(max_nfield)
-      character*2 td
+      character*2 td, las_env(max_nfield)
       character*7 jobtype
       logical pr_srfc, pr_yild, pr_rate, pr_avbeta, pr_avgamma
       logical pr_tmd, pr_tmd_atom
@@ -63,7 +62,7 @@ c===============================================================
       integer k_dgs, k_dgss, k_ndgs, k_w1x
       integer g_il, g_j, g_k(2), nlas, ntime
       integer nch, nqn, nerg, ncpos, ncmm, niond, nsh, nintg, nintj
-      integer nintk, prtb_ord, ndgsub, max_ndgsub, nw1x
+      integer nintk, prtb_ord, ndgsub, max_ndgsub, nw1x, tg
       double precision fieldmag, smh, prtb_bt, prtb_gm, ctr(3)
       double precision mask_param(2), ergmask, amsk, bmsk, tmax
 
@@ -136,30 +135,31 @@ c     ==== Check if research mode is enabled ====
 
 
 c     ==== Obtaining print switches ====
-      call wfat_prep_printsw(rtdb, pr_srfc, pr_rate, pr_yild, pr_avbeta,
-     &     pr_avgamma, pr_tmd, pr_tmd_atom) fix
+      call wfat_prep_printsw(rtdb, '', pr_srfc, pr_rate, pr_yild, 
+     &     pr_avbeta, pr_avgamma, pr_tmd, pr_tmd_atom)
 
       
 c     ==== Whether using TD field or no ====
-      if (.not. rtdb_cget(rtdb, 'wfat:tdfield', 1, td)) td = 'no'
-      if (td=='td') then
+      if (.not. rtdb_get(rtdb, 'wfat:field:typeg', mt_int, 1, tg))
+     &     tg = 0
+      if (tg == 2 .or. tg == 3) then
          call wfat_prep_tdfield(rtdb, nlas, l_al, k_al, las_env,
      &        l_wl, k_wl, l_pl, k_pl, l_tl, k_tl, l_dl, k_dl, ntime,
      &        tmax, extf)
-      else if (td=='ti') then
-         call wfat_prep_field(rtdb, fieldmag)
-      else if (td=='no') then
+      else if (tg == 1) then
+         call wfat_prep_dcfield(rtdb, fieldmag)
+      else if (tg == 0) then
          fieldmag = 0.0d0
       endif
 
 
 c     ==== Perturbation theory analysis ====
-      if (.not. rtdb_get(rtdb, 'wfat:perturb', mt_log, 1, perturb))
-     &     perturb = .false.
-      if (td=='ti' .and. perturb)
-     &     call wfat_calc_perturb(rtdb, fieldmag, pr_rate,
-     &     pr_avbeta, pr_avgamma, pr_tmd, pr_tmd_atom, res_mode,
-     &     nch, int_mb(k_or), int_mb(k_sp))
+cOLD      if (.not. rtdb_get(rtdb, 'wfat:perturb', mt_log, 1, perturb))
+cOLD     &     perturb = .false.
+cOLD      if (td=='ti' .and. perturb)
+cOLD     &     call wfat_calc_perturb(rtdb, fieldmag, pr_rate,
+cOLD     &     pr_avbeta, pr_avgamma, pr_tmd, pr_tmd_atom, res_mode,
+cOLD     &     nch, int_mb(k_or), int_mb(k_sp))
 
 
 cfordebug     ==== Some tests ====
