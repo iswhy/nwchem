@@ -11,29 +11,27 @@ c=================================================
 #include "mafdecls.fh"
 #include "wfat.fh"
 #include "mewfat_qm_param.fh"
-#include "wfat_field_param.fh"
       integer rtdb
 
-      character*2 las_env(max_nfield)
       character*4096 fname
       character*2 td
       character*7 jobtype
       character*26 date
-      logical res_mode, rtdb_stat, os, oc, or, extf, isthere, wfat1
+      logical res_mode, rtdb_stat, os, oc, or, isthere, wfat1
       logical pr_srfc, pr_yild, pr_rate, pr_avbeta, pr_avgamma
       logical pr_tmd, pr_tmd_atom, ismask_i, ismask_e, int_nosave
       integer gqual, lmax
-      integer ndid, nqn, nlas, ntime, nsh, nintg
+      integer ndid, nqn, nsh, nintg
       integer nerg, ncpos, ncmm, niond, cx, cy, nocmo0, nocmo1, npcf
       integer nrcf, nqcf, nscf, nn, ma
-      integer l_npa, l_mpa, l_al, l_ftl, l_wl, l_pl, l_tl, l_dl
+      integer l_npa, l_mpa
       integer l_ieg, l_ps, l_cmm, l_idp, l_in, l_mo0, l_mo1, l_pcf
       integer l_rcf, l_qcf, l_scf, l_eg0, l_eg1, l_ed0, l_ed1
-      integer k_npa, k_mpa, k_al, k_ftl, k_wl, k_pl, k_tl, k_dl
+      integer k_npa, k_mpa
       integer k_ieg, k_ps, k_cmm, k_idp, k_in, k_mo0, k_mo1, k_pcf
       integer k_rcf, k_qcf, k_scf, k_eg0, k_eg1, k_ed0, k_ed1
       integer g_il, tg
-      double precision tmax, fieldmag, smh, mask_param(2), ergmask
+      double precision fieldmag, smh, mask_param(2), ergmask
       double precision amsk, bmsk
 
       double complex czero
@@ -89,11 +87,7 @@ c     ==== Obtaining print switches ====
 c     ==== When TD field is true ====
       if (.not. rtdb_get(rtdb, 'wfat:field:typeg', mt_int, 1, tg))
      &     tg = 0
-      if (tg == 2 .or. tg == 3) then
-         call wfat_prep_tdfield(rtdb, nlas, l_al, k_al, las_env,
-     &        l_wl, k_wl, l_pl, k_pl, l_tl, k_tl, l_dl, k_dl, ntime,
-     &        tmax, extf)
-      else if (tg == 1) then
+      if (tg == 1) then
          call wfat_prep_dcfield(rtdb, fieldmag)
       else if (tg == 0) then
          fieldmag = 0.0d0
@@ -240,12 +234,9 @@ c        ============================================
          if (td=='td') then
             if (pr_srfc .or. pr_yild .or. pr_avbeta .or. pr_avgamma)
      &           call mewfat_calc_td(rtdb, geom_hd, nel0, natm, pr_srfc,
-     &           pr_yild, pr_avbeta, pr_avgamma, nlas, las_env, 
-     &           dbl_mb(k_al), dbl_mb(k_wl), dbl_mb(k_pl), dbl_mb(k_tl),
-     &           dbl_mb(k_dl), ntime, tmax, extf, 1,
-     &           spinx, dbl_mb(k_ieg), dbl_mb(k_cmm), nqn,
-     &           int_mb(k_npa), int_mb(k_mpa), lmax, zion,
-     &           dcpl_mb(k_in))
+     &           pr_yild, pr_avbeta, pr_avgamma, 1, spinx, 
+     &           dbl_mb(k_ieg), dbl_mb(k_cmm), nqn, int_mb(k_npa), 
+     &           int_mb(k_mpa), lmax, zion, dcpl_mb(k_in))
          else
             if (pr_srfc .or. pr_rate .or. pr_tmd)
      &           call mewfat_calc_ti(rtdb, geom_hd, nel0, natm, pr_srfc,
@@ -275,8 +266,6 @@ c     ==== Deallocations ====
       call mewfat_erase_channelprop(l_eg0, l_eg1, l_ed0, l_ed1)
       call mewfat_dealloc_ocmo(l_mo0, l_mo1)
       call mewfat_dealloc_detcoef(l_pcf, l_rcf, l_qcf, l_scf)
-      if (td=='td')
-     &     call wfat_erase_tdfield(l_al, l_wl, l_pl, l_tl, l_dl)
       call wfat_erase_channelprop(l_ieg, l_ps, l_cmm, l_idp)
       if (.not. ga_destroy(g_il))
      &     call errquit('WFAT: Cannot destroy intgl.', 1, GA_ERR)
@@ -297,10 +286,9 @@ c=================================================
 c=================================================
 c=================================================
       subroutine mewfat_calc_td(rtdb, geom, n0, nat, pr_srfc, pr_yild,
-     &           pr_avbeta, pr_avgamma, nlas, ftlas, alas, wlas,
-     &           plas, tlas, dlas, nt, tmax, extf, nch, spinid, erg,
-     &           chmmt, nqn, nid, mid, lmax, zi, intgl)
-
+     &           pr_avbeta, pr_avgamma, nch, spinid, erg, chmmt, nqn, 
+     &           nid, mid, lmax, zi, intgl)
+      
 c     DESCRIPTION:
       
       implicit none
@@ -315,16 +303,6 @@ c     DESCRIPTION:
       logical pr_yild                 ! [input], if .true. then print ion yield.
       logical pr_avbeta               ! [input], if .true. then print beta-averaged ion yield.
       logical pr_avgamma              ! [input], if .true. then print gamma-averaged ion yield.
-      integer nlas
-      character*2 ftlas(nlas)
-      double precision alas(nlas)   ! Peak intensity, TW/cm^2                              
-      double precision wlas(nlas)   ! Wavelength, nm                                       
-      double precision plas(nlas)   ! Carrier-envelope phase, rad                          
-      double precision tlas(nlas)   ! Delay (temporal position of the envelope peak), fs   
-      double precision dlas(nlas)   ! Field FWHM, fs                                       
-      double precision nt
-      double precision tmax
-      logical extf
       integer nch                     ! [input], number of ionized channels.
       integer spinid(nch)             ! [input], spin value (1 or 2) of ionized channels.
       double precision erg(nch)       ! [input]
@@ -392,11 +370,10 @@ cOLD     &     erg, chmmt, nqn, nid, mid, lmax, zi, dcpl_mb(k_in),
 cOLD     &     wfat1, nb, ns, orbid, dpmo, pb, chpos, intgl_j, intgl_k1,
 cOLD     &     intgl_k2)
       call wfat_calc_td(rtdb, geom, pr_srfc, pr_yild, 
-     &     pr_avbeta, pr_avgamma, nlas, ftlas, alas, wlas, 
-     &     plas, tlas, dlas, nt, tmax, extf, nch, dummy_int, spinid, 
-     &     erg, chmmt, nqn, nid, mid, lmax, zi, dcpl_mb(k_in), 
-     &     wfat1, ndgsub, max_ndgsub, dgs, ndgs, dps, pbs, wfat1_exc, 
-     &     intgl_j, intgl_k1, intgl_k2)
+     &     pr_avbeta, pr_avgamma, nch, dummy_int, spinid, erg, chmmt,
+     &     nqn, nid, mid, lmax, zi, dcpl_mb(k_in), wfat1, ndgsub, 
+     &     max_ndgsub, dgs, ndgs, dps, pbs, wfat1_exc, intgl_j, 
+     &     intgl_k1, intgl_k2)
       
 
       if (.not. ma_free_heap(l_in))
@@ -411,7 +388,9 @@ c===============================================================
       subroutine mewfat_calc_ti(rtdb, geom, n0, nat, pr_srfc, pr_rate, 
      &           pr_tmd, fieldm, nch, spinid, erg, chmmt, nqn, nid, mid,
      &           lmax, zi, intgl)
-
+      load fieldm from inside this subroutine
+      update all calls to mewfat_calc_ti
+      
 c     DESCRIPTION:
       
       implicit none

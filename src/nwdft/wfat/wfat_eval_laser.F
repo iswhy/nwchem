@@ -89,7 +89,7 @@ c=======================================================
 c=======================================================
       subroutine wfat_print_laser(nl, ftl, al, wl, pl, 
      &                            tl, dl, nt, tmax, extf)
-
+c     This subroutine is deprecated.
       implicit none
 #include "rtdb.fh"
 #include "errquit.fh"
@@ -141,12 +141,14 @@ c=======================================================
       subroutine wfat_eval_extlaser(i, las)
 
       implicit none
-#include "wfat_input.fh"
+c#include "wfat_input.fh"
+#include "errquit.fh"
       integer i
       double precision las
 
 
-c      las = fld_f_ext(i)
+c     las = fld_f_ext(i)
+      call errquit('WFAT: wfat_eval_extlaser is deprecated', 1, UERR)
 
       end
 c=======================================================

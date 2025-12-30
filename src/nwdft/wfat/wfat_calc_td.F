@@ -1,8 +1,7 @@
 c===============================================================
 c===============================================================
       subroutine wfat_calc_td(rtdb, geom, pr_srfc, pr_yild, pr_avbeta,
-     &     pr_avgamma, nlas, ftlas, alas, wlas, plas, tlas, dlas, nt,
-     &     tmax, extf, nch, orbid0, spinid, erg, chmmt, nqn, nid, mid,
+     &     pr_avgamma, nch, orbid0, spinid, erg, chmmt, nqn, nid, mid,
      &     lmax, zi, intgl, wfat1, nsub, maxn, dgs, ndgs, dps, pbs,
      &     wfat1_exc, intgl_j, intgl_k1, intgl_k2)
 
@@ -39,17 +38,6 @@ c           maxn*maxn*6*nsub.
       logical pr_yild                 ! [input], if .true. then print ion yield.
       logical pr_avbeta               ! [input], if .true. then print beta-averaged ion yield.
       logical pr_avgamma              ! [input], if .true. then print gamma-averaged ion yield.
-      integer nlas
-      character*2 ftlas(nlas)
-cOLD      character*5 ftlas(nlas)       ! Function type of envelope, 'gauss' or 'hann'         
-      double precision alas(nlas)   ! Peak intensity, TW/cm^2                              
-      double precision wlas(nlas)   ! Wavelength, nm                                       
-      double precision plas(nlas)   ! Carrier-envelope phase, rad                          
-      double precision tlas(nlas)   ! Delay (temporal position of the envelope peak), fs   
-      double precision dlas(nlas)   ! Field FWHM, fs                                       
-      double precision nt
-      double precision tmax
-      logical extf
       integer nch                     ! [input], number of ionized channels.
       integer orbid0(nch)             ! [input], orbital ID of ionized channels.
       integer spinid(nch)             ! [input], spin value (1 or 2) of ionized channels.
@@ -75,15 +63,15 @@ cOLD      character*5 ftlas(nlas)       ! Function type of envelope, 'gauss' or 
       
       logical gap, sumbtgm
       integer nsf, nbt, ngm, nat, ndid, nsc, nsx, npbd
-      integer n_jn, n_kn, n_on
+      integer n_jn, n_kn, n_on, ntime
       integer ib, ig, i, iqn, i_on
       integer l_egf, l_gn, l_gnn, l_sc, l_sx, l_pbd, l_jn
-      integer l_kn, l_on, l_jnn, l_knn
+      integer l_kn, l_on, l_jnn, l_knn, l_ls
       integer k_egf, k_gn, k_gnn, k_sc, k_sx, k_pbd, k_jn
-      integer k_kn, k_on, k_jnn, k_knn
+      integer k_kn, k_on, k_jnn, k_knn, k_ls
       double precision bt_start, bt_last, dbt, dbtr, bt
       double precision gm_start, gm_last, dgm, dgmr, gm
-      double precision yield, a_yield, yieldbt, yieldbtgm, f, dthr
+      double precision yield, a_yield, yieldbt, yieldbtgm, f, dthr, tmax
       double precision deg2rad, pi_const
 
       parameter (deg2rad = 0.01745329251994d0)
@@ -103,6 +91,14 @@ c     ==== Obtaining info on gamma ====
       call wfat_get_gamma(rtdb, gm_start, gm_last, ngm, dgm)
       dgmr = dgm * deg2rad
 
+
+c     ==== Obtaining laser field ====
+      if (.not. rtdb_get(rtdb, 'wfat:field:ntime', mt_int, 1, ntime))
+     &     call errquit('WFAT: Cannot read field:ntime', 28, RTDB_ERR)
+      if (.not. MA_alloc_get(MT_DBL, ntime, 'laser', l_ls, k_ls))
+     &     call errquit('WFAT: laser allocation failed', 2, MA_ERR)
+      call wfat_prep_tdfield(rtdb, tmax, ntime, dbl_mb(k_ls))
+      
       
 c     ==== Allocation of structure factors ====
       if (.not. geom_ncent(geom, nat))
@@ -219,18 +215,16 @@ c              ==== Print structure factor ====
             if (pr_yild .or. pr_avbeta) then
 c              ==== Calculate ion yield ====
                if (wfat1) then
-                  call wfat_calc_wfat1_yield(bt, gm, zi, nlas, ftlas, 
-     &                 alas, wlas, plas, tlas, dlas, nt, tmax, extf, 
-     &                 nch, erg, dbl_mb(k_egf), nqn, nid, mid, nat, 
-     &                 dcpl_mb(k_gn), dcpl_mb(k_jn), dcpl_mb(k_kn), 
-     &                 dcpl_mb(k_gnn), dcpl_mb(k_jnn), dcpl_mb(k_knn), 
-     &                 dbl_mb(k_on), chmmt, dbl_mb(k_pbd), wfat1_exc,
-     &                 yield)
+                  call wfat_calc_wfat1_yield(bt, gm, zi, tmax, ntime, 
+     &                 dbl_mb(k_ls), nch, erg, dbl_mb(k_egf), nqn, nid, 
+     &                 mid, nat, dcpl_mb(k_gn), dcpl_mb(k_jn), 
+     &                 dcpl_mb(k_kn), dcpl_mb(k_gnn), dcpl_mb(k_jnn), 
+     &                 dcpl_mb(k_knn), dbl_mb(k_on), chmmt, 
+     &                 dbl_mb(k_pbd), wfat1_exc, yield)
                else
-                  call wfat_calc_yield(nat, zi, nlas, ftlas, alas, wlas,
-     &                 plas, tlas, dlas, nt, tmax, extf, nch, 
-     &                 dbl_mb(k_egf), nqn, nid, mid, dcpl_mb(k_gn),
-     &                 dcpl_mb(k_gnn), yield)
+                  call wfat_calc_yield(nat, zi, tmax, ntime, 
+     &                 dbl_mb(k_ls), nch, dbl_mb(k_egf), nqn, nid, mid, 
+     &                 dcpl_mb(k_gn), dcpl_mb(k_gnn), yield)
                endif
                
 c              ==== Print ion yield ====
@@ -275,9 +269,9 @@ c     ====   solid angle using Lebedev quadrature    ====
          write(luout, '("INFO : gamma interval  ", 2f11.4, i5)')
      &        gm_start, gm_last, ngm
 
-         call wfat_sumyield_lebedev(rtdb, geom, nlas, ftlas, alas, wlas,
-     &        plas, tlas, dlas, nt, tmax, extf, nch, erg, chmmt, nqn,
-     &        nid, mid, lmax, zi, intgl)
+         call wfat_sumyield_lebedev(rtdb, geom, tmax, ntime, 
+     &        dbl_mb(k_ls), nch, erg, chmmt, nqn, nid, mid, lmax, zi,
+     &        intgl)
       endif
       
 
@@ -319,18 +313,16 @@ c              ==== Calculate structure factor ====
 
 c              ==== Calculate ion yield ====
                if (wfat1) then
-                  call wfat_calc_wfat1_yield(bt, gm, zi, nlas, ftlas, 
-     &                 alas, wlas, plas, tlas, dlas, nt, tmax, extf, 
-     &                 nch, erg, dbl_mb(k_egf), nqn, nid, mid, nat, 
-     &                 dcpl_mb(k_gn), dcpl_mb(k_jn), dcpl_mb(k_kn), 
-     &                 dcpl_mb(k_gnn), dcpl_mb(k_jnn), dcpl_mb(k_knn), 
-     &                 dbl_mb(k_on), chmmt, dbl_mb(k_pbd), wfat1_exc,
-     &                 yield)
+                  call wfat_calc_wfat1_yield(bt, gm, zi, tmax, ntime, 
+     &                 dbl_mb(k_ls), nch, erg, dbl_mb(k_egf), nqn, nid, 
+     &                 mid, nat, dcpl_mb(k_gn), dcpl_mb(k_jn), 
+     &                 dcpl_mb(k_kn), dcpl_mb(k_gnn), dcpl_mb(k_jnn), 
+     &                 dcpl_mb(k_knn), dbl_mb(k_on), chmmt, 
+     &                 dbl_mb(k_pbd), wfat1_exc, yield)
                else
-                  call wfat_calc_yield(nat, zi, nlas, ftlas, alas, wlas,
-     &                 plas, tlas, dlas, nt, tmax, extf, nch, 
-     &                 dbl_mb(k_egf), nqn, nid, mid, dcpl_mb(k_gn), 
-     &                 dcpl_mb(k_gnn), yield)
+                  call wfat_calc_yield(nat, zi, tmax, ntime, 
+     &                 dbl_mb(k_ls), nch, dbl_mb(k_egf), nqn, nid, mid, 
+     &                 dcpl_mb(k_gn), dcpl_mb(k_gnn), yield)
                endif
 
                a_yield = a_yield + yield * dgmr / 2.0d0 / pi_const
@@ -352,6 +344,8 @@ c     ==== Terminating printings ====
 
       
 c     ==== Deallocations ====
+      if (.not. MA_free_heap(l_ls))
+     &     call errquit('WFAT: laser deallocation failed', 3, MA_ERR)
       if (.not. MA_free_heap(l_egf))
      &     call errquit('WFAT: ergf deallocation failed', 3, MA_ERR)
       if (.not. MA_free_heap(l_gn))

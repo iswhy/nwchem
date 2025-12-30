@@ -4,7 +4,9 @@ c===============================================================
      &           fieldm, nch, orbid0, spinid, erg, chmmt, nqn, nid, mid,
      &           lmax, zi, intgl, wfat1, nsub, maxn, dgs, ndgs, dps, 
      &           pbs, wfat1_exc, intgl_j, intgl_k1, intgl_k2)
-
+      load fieldmag from inside this subroutine
+      update all calls to wfat_calc_ti
+      
 c     DESCRIPTION:
 c     nsub = It is only used when wfat1=.true.. The number of degenerate subspaces,
 c            a nondegenerate state is considered a degenerate state in a subspace of

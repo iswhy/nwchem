@@ -1,7 +1,6 @@
 c===============================================================
 c===============================================================
-      subroutine wfat_sumyield_lebedev(rtdb, geom, nlas, ftlas, alas, 
-     &           wlas, plas, tlas, dlas, nt, tmax, extf, nch, 
+      subroutine wfat_sumyield_lebedev(rtdb, geom, tmax, nt, las, nch, 
      &           erg, chmmt, nqn, nid, mid, lmax, zi, intgl)
 
       implicit none
@@ -12,16 +11,9 @@ c===============================================================
 #include "wfat_field_param.fh"
       integer rtdb
       integer geom
-      integer nlas
-      character*2 ftlas(nlas)
-      double precision alas(nlas)   ! Peak intensity, TW/cm^2                              
-      double precision wlas(nlas)   ! Wavelength, nm                                       
-      double precision plas(nlas)   ! Carrier-envelope phase, rad                          
-      double precision tlas(nlas)   ! Delay (temporal position of the envelope peak), fs   
-      double precision dlas(nlas)   ! Field FWHM, fs                                       
-      double precision nt
       double precision tmax
-      logical extf
+      integer nt
+      double precision las(nt)
       integer nch                     ! [input], number of ionized channels.
       double precision erg(nch)       ! [input]
       double precision chmmt(3, nch)  ! [input]
@@ -91,8 +83,7 @@ c           ==== Calculate structure factor ====
      &           nqn, mid, lmax, chmmt, intgl, .false., dcpl_mb(k_sfn))
 
 c           ==== Calculate ionization yield ====
-            call wfat_calc_yield(nat, zi, nlas, ftlas, alas, wlas, 
-     &           plas, tlas, dlas, nt, tmax, extf, nch, erg, nqn,
+            call wfat_calc_yield(nat, zi, tmax, nt, las, nch, erg, nqn,
      &           nid, mid, dcpl_mb(k_sf), dcpl_mb(k_sfn), yield)
 
 c           ==== Integrate using the quadrature formula ====

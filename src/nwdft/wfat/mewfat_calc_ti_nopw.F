@@ -5,6 +5,8 @@ c========================================================
      &     nch, chnid0, ionerg, chmmt, chpos, nqn, nid, mid, zi, gq, 
      &     celm, smh, ismask_e, ergmask, amsk, bmsk, ismask, mask_param,
      &     wphase)
+      load fieldm from inside this subroutine
+      update all calls to mewfat_calc_ti_nopw
 
       implicit none
 #include "util.fh"

@@ -174,11 +174,10 @@ c============================================================
 
 c=======================================================
 c=======================================================
-      subroutine wfat_calc_wfat1_yield(bt, gm, zi, nlas, ftlas, alas, 
-     &                 wlas, plas, tlas, dlas, nt, tmax, extf, nch, erg,
-     &                 ergf, nqn, nid, mid, nat, gn, jn, kn, gnn, jnn, 
-     &                 knn, on, chmmt, pb, wfat0, yield)
-
+      subroutine wfat_calc_wfat1_yield(bt, gm, zi, tmax, nt, las, nch, 
+     &                 erg, ergf, nqn, nid, mid, nat, gn, jn, kn, gnn, 
+     &                 jnn, knn, on, chmmt, pb, wfat0, yield)
+      
       implicit none
 #include "errquit.fh"
 #include "mafdecls.fh"
@@ -187,16 +186,9 @@ c=======================================================
       double precision bt           ! [input],
       double precision gm           ! [input],
       double precision zi
-      integer nlas
-      character*2 ftlas(nlas)       ! Function type of envelope, 'ga' or 'ha'
-      double precision alas(nlas)   ! Peak electric field, in a.u. of e. field.                              
-      double precision wlas(nlas)   ! angular frequency, in a.u. (Hartree).                                      
-      double precision plas(nlas)   ! Carrier-envelope phase, rad                          
-      double precision tlas(nlas)   ! Delay (temporal position of the envelope peak), a.u. of time
-      double precision dlas(nlas)   ! Field FWHM, a.u. of time                                       
-      integer nt                    
-      double precision tmax         ! Time window width, a.u. of time
-      logical extf
+      double precision tmax
+      integer nt
+      double precision las(nt)
       integer nch
       double precision erg(nch)
       double precision ergf(nch)
@@ -217,7 +209,7 @@ c=======================================================
       double precision yield                 ! [output],
       
       integer i, j, k, npi, l_pi, k_pi, nfc, l_fc, k_fc, i_fc, ich, iqn
-      double precision t0, dt, t, las, rate
+      double precision t0, dt, t, rate
       parameter (t0=0.0d0)
 
       
@@ -235,23 +227,15 @@ c=======================================================
       do i = 1, nt
          t = t0 + (i-1)*dt
          
-c        ==== Evaluate laser field ====
-         if (extf) then
-            call wfat_eval_extlaser(i, las)
-         else
-            call wfat_eval_laser(nlas, ftlas, alas, wlas, plas, tlas, 
-     &           dlas, t, las)
-         endif
-         
 c        ==== Calculate field factors ====
          do ich = 1, nch
             do iqn = 1, nqn
                i_fc = k_fc + (ich-1)*nqn + (iqn-1)
-               if (las >= 1.0d-13) then
-                  call wfat_field_factor(las, ergf(ich), zi, nid(iqn),
-     &                 mid(iqn), dbl_mb(i_fc))
-               else if (las <= -1.0d-13) then
-                  call wfat_field_factor(abs(las), ergf(ich), zi, 
+               if (las(i) >= 1.0d-13) then
+                  call wfat_field_factor(las(i), ergf(ich), zi, 
+     &                 nid(iqn), mid(iqn), dbl_mb(i_fc))
+               else if (las(i) <= -1.0d-13) then
+                  call wfat_field_factor(abs(las(i)), ergf(ich), zi, 
      &                 nid(iqn), mid(iqn), dbl_mb(i_fc))
                else
                   dbl_mb(i_fc) = 0.0d0
@@ -261,13 +245,13 @@ c        ==== Calculate field factors ====
          
 c        ==== Calculate rates ====
          dbl_mb(k_pi:k_pi+npi-1) = 0.0d0
-         if (las >= 1.0d-13) then
+         if (las(i) >= 1.0d-13) then
             call wfat_calc_wfat1_rate(bt, gm, nat, nqn, nch, nid, mid,
-     &           las, erg, zi, gn, jn, kn, on, chmmt, pb, dbl_mb(k_fc),
-     &           wfat0, .false., dbl_mb(k_pi), rate)
-         else if (las <= -1.0d-13) then
+     &           las(i), erg, zi, gn, jn, kn, on, chmmt, pb, 
+     &           dbl_mb(k_fc), wfat0, .false., dbl_mb(k_pi), rate)
+         else if (las(i) <= -1.0d-13) then
             call wfat_calc_wfat1_rate(180.0d0-bt, 180.0d0+gm, nat, nqn,
-     &           nch, nid, mid, abs(las), erg, zi, gnn, jnn, knn, on, 
+     &           nch, nid, mid, abs(las(i)), erg, zi, gnn, jnn, knn, on,
      &           chmmt, pb, dbl_mb(k_fc), wfat0, .false., dbl_mb(k_pi),
      &           rate)
          else

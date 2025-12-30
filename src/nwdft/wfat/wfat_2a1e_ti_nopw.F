@@ -6,6 +6,8 @@ c=======================================================
      &     fieldm, wfat1, nr_m, nt_m, nr_p, nt_p, cfx, cfy, cfz, pbs, 
      &     wfat1_exc, fedvr, nfe, ndvr, maxn, xq, wq, ismask,
      &     mask_param)
+      load fieldm from inside this subroutine
+      update all calls to wfat_2a1e_ti_nopw
 
       implicit none
 #include "util.fh"

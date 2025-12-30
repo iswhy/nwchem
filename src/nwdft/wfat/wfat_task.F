@@ -40,31 +40,30 @@ c===============================================================
 #include "mafdecls.fh"
 #include "wfat.fh"
 #include "wfat_qm_param.fh"
-#include "wfat_field_param.fh"
       integer rtdb
 
-      character*2 td, las_env(max_nfield)
+      character*2 td
       character*7 jobtype
       logical pr_srfc, pr_yild, pr_rate, pr_avbeta, pr_avgamma
       logical pr_tmd, pr_tmd_atom
       logical rtdb_stat, wfat1, res_mode, loadint
-      logical dd, extf, corb_print, perturb, ismask_i, ismask_e
+      logical dd, corb_print, perturb, ismask_i, ismask_e
       character*32 theory
       character*2 prtb_type
       integer ndid, gqual, i, lmax, nlgl, is, npb, ndpo, ncf, nch1, nrd
       integer l_nd, l_or0, l_sp, l_or, l_npa, l_mpa, l_eg, l_cf, l_rd
-      integer l_ps, l_cmm, l_idp, l_in, l_al, l_wl, l_pl, l_tl
-      integer l_dl, l_pb, l_dpo, l_dps, l_pbs, l_inj, l_ink1, l_ink2
+      integer l_ps, l_cmm, l_idp, l_in
+      integer l_pb, l_dpo, l_dps, l_pbs, l_inj, l_ink1, l_ink2
       integer l_dgs, l_dgss, l_ndgs, l_w1x
       integer k_nd, k_or0, k_sp, k_or, k_npa, k_mpa, k_eg, k_cf, k_rd
-      integer k_ps, k_cmm, k_idp, k_in, k_al, k_wl, k_pl, k_tl
-      integer k_dl, k_pb, k_dpo, k_dps, k_pbs, k_inj, k_ink1, k_ink2
+      integer k_ps, k_cmm, k_idp, k_in
+      integer k_pb, k_dpo, k_dps, k_pbs, k_inj, k_ink1, k_ink2
       integer k_dgs, k_dgss, k_ndgs, k_w1x
-      integer g_il, g_j, g_k(2), nlas, ntime
+      integer g_il, g_j, g_k(2)
       integer nch, nqn, nerg, ncpos, ncmm, niond, nsh, nintg, nintj
       integer nintk, prtb_ord, ndgsub, max_ndgsub, nw1x, tg
       double precision fieldmag, smh, prtb_bt, prtb_gm, ctr(3)
-      double precision mask_param(2), ergmask, amsk, bmsk, tmax
+      double precision mask_param(2), ergmask, amsk, bmsk
 
       
       ndid = ga_nodeid()
@@ -142,11 +141,7 @@ c     ==== Obtaining print switches ====
 c     ==== Whether using TD field or no ====
       if (.not. rtdb_get(rtdb, 'wfat:field:typeg', mt_int, 1, tg))
      &     tg = 0
-      if (tg == 2 .or. tg == 3) then
-         call wfat_prep_tdfield(rtdb, nlas, l_al, k_al, las_env,
-     &        l_wl, k_wl, l_pl, k_pl, l_tl, k_tl, l_dl, k_dl, ntime,
-     &        tmax, extf)
-      else if (tg == 1) then
+      if (tg == 1) then
          call wfat_prep_dcfield(rtdb, fieldmag)
       else if (tg == 0) then
          fieldmag = 0.0d0
@@ -332,14 +327,13 @@ c        =============================================
          if (td=='td') then
             if (pr_srfc .or. pr_yild .or. pr_avbeta .or. pr_avgamma)
      &           call wfat_calc_td(rtdb, geom_hd, pr_srfc, pr_yild, 
-     &           pr_avbeta, pr_avgamma, nlas, las_env, dbl_mb(k_al), 
-     &           dbl_mb(k_wl), dbl_mb(k_pl), dbl_mb(k_tl), dbl_mb(k_dl),
-     &           ntime, tmax, extf, nch, int_mb(k_or0), int_mb(k_sp),
-     &           dbl_mb(k_eg), dbl_mb(k_cmm), nqn, int_mb(k_npa), 
-     &           int_mb(k_mpa), lmax, zion, dcpl_mb(k_in), wfat1, 
-     &           ndgsub, max_ndgsub, int_mb(k_dgs), int_mb(k_ndgs),
-     &           dbl_mb(k_dps), dbl_mb(k_pbs), log_mb(k_w1x), 
-     &           dcpl_mb(k_inj), dcpl_mb(k_ink1), dcpl_mb(k_ink2))
+     &           pr_avbeta, pr_avgamma, nch, int_mb(k_or0), 
+     &           int_mb(k_sp), dbl_mb(k_eg), dbl_mb(k_cmm), nqn, 
+     &           int_mb(k_npa), int_mb(k_mpa), lmax, zion, 
+     &           dcpl_mb(k_in), wfat1, ndgsub, max_ndgsub, 
+     &           int_mb(k_dgs), int_mb(k_ndgs), dbl_mb(k_dps), 
+     &           dbl_mb(k_pbs), log_mb(k_w1x), dcpl_mb(k_inj),
+     &           dcpl_mb(k_ink1), dcpl_mb(k_ink2))
 
             if (pr_tmd) call errquit('WFAT: TMDs produced by TD field'//
      &           'need more robust theoretical foundation.', 55, UERR)
@@ -392,8 +386,6 @@ c     ==== Deallocations ====
       call wfat_erase_cf(l_cf)
       call wfat_erase_channels(l_or0, l_sp, l_or)
       call wfat_erase_paraqn(l_npa, l_mpa)
-      if (td=='td') 
-     &     call wfat_erase_tdfield(l_al, l_wl, l_pl, l_tl, l_dl)
       call wfat_erase_channelprop(l_eg, l_ps, l_cmm, l_idp)
       if (.not. ga_destroy(g_il))
      &     call errquit('WFAT: Cannot destroy intgl.', 1, GA_ERR)

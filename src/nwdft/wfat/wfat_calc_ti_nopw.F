@@ -5,6 +5,8 @@ c=======================================================
      &     chmmt, chpos, nqn, nid, mid, zi, gq, celm, smh, ismask_e, 
      &     ergmask, amsk, bmsk, ismask, mask_param, wfat1, nsub, maxn, 
      &     dgs, ndgs, dps, pbs, wfat1_exc)
+      load fieldmag from inside this subroutine
+      update all calls to wfat_calc_ti_nopw
 
       implicit none
 #include "util.fh"

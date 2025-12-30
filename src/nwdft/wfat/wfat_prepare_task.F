@@ -832,7 +832,7 @@ c=================================================
 
 c=================================================
 c=================================================
-      subroutine wfat_prep_dcfield(rtdb, fieldm)
+      subroutine wfat_prep_dcfield(rtdb, efield)
 
       implicit none
 #include "errquit.fh"
@@ -841,7 +841,7 @@ c=================================================
 #include "stdio.fh"
 #include "global.fh"
       integer rtdb              ! [input],
-      double precision fieldm  ! [output],
+      double precision efield  ! [output],
 
       integer tg
 
@@ -856,13 +856,13 @@ c=================================================
       if (tg /= 1) call errquit('WFAT: typeg must be 1 (DC) when '//
      &     'wfat_prep_dcfield is called.', 27, UERR)
 
-      if (.not. rtdb_get(rtdb, 'wfat:field:max', mt_dbl, 1, fieldm))
+      if (.not. rtdb_get(rtdb, 'wfat:field:max', mt_dbl, 1, efield))
      &     call errquit('WFAT: Cannot read field:max', 1, RTDB_ERR)
 
       if (ga_nodeid() == 0) then
          write(luout, '(5x, "* ", a10, " = ", a)') 'type      ', 'DC'
          write(luout, '(5x, "* ", a10, " = ", f10.3, " a.u.")')
-     &        'strength  ', fieldm
+     &        'strength  ', efield
       endif
 
       end
@@ -871,9 +871,7 @@ c=================================================
 
 c=================================================
 c=================================================
-      subroutine wfat_prep_tdfield(rtdb, nlas, l_al, k_al, las_env,
-     &     l_wl, k_wl, l_pl, k_pl, l_tl, k_tl, l_dl, k_dl, ntime, tmax,
-     &     extf)
+      subroutine wfat_prep_tdfield(rtdb, tmax, ntime, efield)
 
       implicit none
 #include "errquit.fh"
@@ -881,137 +879,139 @@ c=================================================
 #include "mafdecls.fh"
 #include "global.fh"
 #include "stdio.fh"
+#include "wfat.fh"
 #include "wfat_field_param.fh"
-      integer rtdb
-      integer nlas
-      integer l_al, k_al
-      character*2 las_env(max_nfield)
-      integer l_wl, k_wl
-      integer l_pl, k_pl
-      integer l_tl, k_tl
-      integer l_dl, k_dl
-      integer ntime
-      double precision tmax
-      logical extf
+      integer rtdb                 ! [input]
+      double precision tmax        ! [output]
+      integer ntime                ! [output]
+      double precision efield(ntime)  ! [output]
 
-      character*4096 ext_fname
-      integer ndid, ext_range(2)
+      character*2 tp(max_nfield)
+      character*1000 ext_fn, ext_fnb, fname
+      integer nf, tg, i, ndid
+      double precision dt, t, mx(max_nfield), fr(max_nfield)
+      double precision cp(max_nfield), ce(max_nfield), wi(max_nfield)
 
+      double precision wfat_convert_time
+      external wfat_convert_time
+      
 
       ndid = ga_nodeid()
 
-      if (ndid == 0) then
-         write(luout, '(2/)')
-         call util_print_centered(luout, 'Ionizing field', 20, .true.)
-         write(luout, '("")')
-      endif
+      if (.not. rtdb_get(rtdb, 'wfat:field:typeg', mt_int, 1, tg))
+     &     call errquit('WFAT: Cannot read field:typeg from RTDB', 70,
+     &     RTDB_ERR)
       
-      
-c     ==== Get no. laser colors ====
-      if (.not. rtdb_get(rtdb, 'wfat:field:n', mt_int, 1, nlas))
+c     ==== Get no. field blocks ====
+      if (.not. rtdb_get(rtdb, 'wfat:field:n', mt_int, 1, nf))
      &     call errquit('WFAT: Cannot read field:n', 1, RTDB_ERR)
-
-c     ==== Get laser amplitudes ====
-      if (.not. ma_alloc_get(mt_dbl, nlas, 'alas', l_al, k_al))
-     &     call errquit('WFAT: Cannot allocate alas', 1, MA_ERR)
-      if (.not. rtdb_get(rtdb, 'wfat:field:max', mt_dbl, nlas,
-     &     dbl_mb(k_al)))
-     &     call errquit('WFAT: Cannot read field:max', 1, RTDB_ERR)
-
-c     ==== Get laser envelope type ====
-      if (.not. rtdb_cget(rtdb, 'wfat:field:type', nlas, las_env))
-     &     call errquit('WFAT: Cannot read field:type', 1, RTDB_ERR)
-
-c     ==== Get laser frequencies ====
-      if (.not. ma_alloc_get(mt_dbl, nlas, 'wlas', l_wl, k_wl))
-     &     call errquit('WFAT: Cannot allocate wlas', 1, MA_ERR)
-      if (.not. rtdb_get(rtdb, 'wfat:field:freq', mt_dbl, nlas,
-     &     dbl_mb(k_wl)))
-     &     call errquit('WFAT: Cannot read field:freq', 1, RTDB_ERR)
-
-c     ==== Get laser phases ====
-      if (.not. ma_alloc_get(mt_dbl, nlas, 'plas', l_pl, k_pl))
-     &     call errquit('WFAT: Cannot allocate plas', 1, MA_ERR)
-      if (.not. rtdb_get(rtdb, 'wfat:field:cep', mt_dbl, nlas,
-     &     dbl_mb(k_pl)))
-     &     call errquit('WFAT: Cannot read field:cep', 1, RTDB_ERR)
-
-c     ==== Get laser durations ====
-      if (.not. ma_alloc_get(mt_dbl, nlas, 'tlas', l_tl, k_tl))
-     &     call errquit('WFAT: Cannot allocate tlas', 1, MA_ERR)
-      if (.not. rtdb_get(rtdb, 'wfat:field:center', mt_dbl, nlas,
-     &     dbl_mb(k_tl)))
-     &     call errquit('WFAT: Cannot read field:center', 1, RTDB_ERR)
-
-c     ==== Get laser delays ====
-      if (.not. ma_alloc_get(mt_dbl, nlas, 'dlas', l_dl, k_dl))
-     &     call errquit('WFAT: Cannot allocate dlas', 1, MA_ERR)
-      if (.not. rtdb_get(rtdb, 'wfat:field:width', mt_dbl, nlas,
-     &     dbl_mb(k_dl)))
-     &     call errquit('WFAT: Cannot read field:width', 1, RTDB_ERR)
 
 c     ==== Get no. of time points ====
       if (.not. rtdb_get(rtdb, 'wfat:field:ntime', mt_int, 1, ntime))
      &     call errquit('WFAT: Cannot read field:ntime', 1, RTDB_ERR)
 
-c     ==== Get time window length ====
+c     ==== Get time span ====
       if (.not. rtdb_get(rtdb, 'wfat:field:tmax', mt_dbl, 1, tmax))
      &     call errquit('WFAT: Cannot read field:tmax', 1, RTDB_ERR)
-
-c     ==== Get external field switch ====
-      extf = (las_env(1) == 'ex')
-      if (extf) then
-         if (.not. rtdb_cget(rtdb, 'wfat:ext_fnb', 1, ext_fname)) 
-     &        call errquit('WFAT: Failed reading ext_fnb from rtdb',
-     &        1, RTDB_ERR)         
-      endif
+      dt = tmax / (ntime-1)
       
+      
+      if (tg == 3) then
+c        ==== Get laser amplitudes ====
+         if (.not. rtdb_get(rtdb, 'wfat:field:max', mt_dbl, nf, mx))
+     &        call errquit('WFAT: Cannot read field:max', 1, RTDB_ERR)
+c        ==== Get laser envelope type ====
+         if (.not. rtdb_cget(rtdb, 'wfat:field:type', nf, tp))
+     &        call errquit('WFAT: Cannot read field:type', 1, RTDB_ERR)
+c        ==== Get laser frequencies ====
+         if (.not. rtdb_get(rtdb, 'wfat:field:freq', mt_dbl, nf, fr))
+     &        call errquit('WFAT: Cannot read field:freq', 1, RTDB_ERR)
+c        ==== Get laser CEPs ====
+         if (.not. rtdb_get(rtdb, 'wfat:field:cep', mt_dbl, nf, cp))
+     &        call errquit('WFAT: Cannot read field:cep', 1, RTDB_ERR)
+c        ==== Get laser delays ====
+         if (.not. rtdb_get(rtdb, 'wfat:field:center', mt_dbl, nf, ce))
+     &        call errquit('WFAT: Cannot read field:center', 1,
+     &        RTDB_ERR)
+c        ==== Get laser durations ====
+         if (.not. rtdb_get(rtdb, 'wfat:field:width', mt_dbl, nf, wi))
+     &        call errquit('WFAT: Cannot read field:width', 1, RTDB_ERR)
+
+         do i = 1, ntime
+            t = (i-1) * dt
+            call wfat_eval_laser(nf, tp, mx, fr, cp, ce, wi, t,
+     &           efield(i))
+         enddo
+      else if (tg == 2) then
+         if (.not. rtdb_cget(rtdb, 'wfat:ext_fnb', 1, ext_fnb)) 
+     &        call errquit('WFAT: Failed reading ext_fnb from rtdb',
+     &        1, RTDB_ERR)
+
+         open(1000, file=ext_fnb, action='read', status='old',
+     &        form='unformatted')
+         do i = 1, ntime
+            read(1000) efield(i)
+         enddo
+         close(1000)
+      endif
+            
 
 c     ==== Print laser parameters ====
       if (ndid == 0) then
-         call wfat_print_laser_info(nlas, dbl_mb(k_al), las_env,
-     &        dbl_mb(k_wl), dbl_mb(k_pl), dbl_mb(k_tl), dbl_mb(k_dl),
-     &        ntime, tmax)
+         write(luout, '(2/)')
+         call util_print_centered(luout, 'Ionizing field', 20, .true.)
+         write(luout, '("")')
 
-c        ==== External laser file ====
-         if (extf) then
-            write(luout, '(5x, "* ", a10, " = ", a)')
-     &           'File name ', trim(adjustl(ext_fname))
+         if (tg == 3) then
+            call wfat_print_laser_info(nf, mx, tp, fr, cp, ce, wi, 
+     &           ntime, tmax)
+         else if (tg == 2) then
+            if (.not. rtdb_cget(rtdb, 'wfat:ext_fn', 1, ext_fn)) 
+     &           call errquit('WFAT: Failed reading ext_fn from rtdb',
+     &           1, RTDB_ERR)
+            write(luout, '(5x, "* ", a16, " = ", a)')
+     &           'Laser file name ', trim(adjustl(ext_fn))
          endif
-         
-c        ==== Print laser ====
-         call wfat_print_laser(nlas, las_env, dbl_mb(k_al),
-     &        dbl_mb(k_wl), dbl_mb(k_pl), dbl_mb(k_tl), dbl_mb(k_dl),
-     &        ntime, tmax, extf)
+
+c        ==== Print laser field as a function of time ====
+         call util_file_name('wlas', .false., .false., fname)
+         open(WF_LAS_UNIT, file=fname, action='write')
+         do i = 1, ntime
+            t = (i-1) * dt   
+            write(WF_LAS_UNIT, '(i4, 2x, es14.6, 2x es14.6)') i,
+     &           wfat_convert_time('au',t,'fs'), efield(i)
+         enddo
+         close(WF_LAS_UNIT)
       endif      
 
       end
 c=================================================
 
 
-c=================================================
-c=================================================
-      subroutine wfat_erase_tdfield(l_al, l_wl, l_pl, l_tl, l_dl)
-
-      implicit none
-#include "errquit.fh"
-#include "mafdecls.fh"
-      integer l_al, l_wl, l_pl, l_tl, l_dl
-
-
-      if (.not. ma_free_heap(l_al))
-     &     call errquit('WFAT: alas deallocation failed', 3, MA_ERR)
-      if (.not. ma_free_heap(l_wl))
-     &     call errquit('WFAT: wlas deallocation failed', 3, MA_ERR) 
-      if (.not. ma_free_heap(l_pl))
-     &     call errquit('WFAT: plas deallocation failed', 3, MA_ERR)
-      if (.not. ma_free_heap(l_tl))
-     &     call errquit('WFAT: tlas deallocation failed', 3, MA_ERR)
-      if (.not. ma_free_heap(l_dl))
-     &     call errquit('WFAT: dlas deallocation failed', 3, MA_ERR)
-         
-      end
-c=================================================
+cOLDc=================================================
+cOLDc=================================================
+cOLD      subroutine wfat_erase_tdfield(l_al, l_wl, l_pl, l_tl, l_dl)
+cOLD      consider whether to remove this subroutine
+cOLD
+cOLD      implicit none
+cOLD#include "errquit.fh"
+cOLD#include "mafdecls.fh"
+cOLD      integer l_al, l_wl, l_pl, l_tl, l_dl
+cOLD
+cOLD
+cOLD      if (.not. ma_free_heap(l_al))
+cOLD     &     call errquit('WFAT: alas deallocation failed', 3, MA_ERR)
+cOLD      if (.not. ma_free_heap(l_wl))
+cOLD     &     call errquit('WFAT: wlas deallocation failed', 3, MA_ERR) 
+cOLD      if (.not. ma_free_heap(l_pl))
+cOLD     &     call errquit('WFAT: plas deallocation failed', 3, MA_ERR)
+cOLD      if (.not. ma_free_heap(l_tl))
+cOLD     &     call errquit('WFAT: tlas deallocation failed', 3, MA_ERR)
+cOLD      if (.not. ma_free_heap(l_dl))
+cOLD     &     call errquit('WFAT: dlas deallocation failed', 3, MA_ERR)
+cOLD         
+cOLD      end
+cOLDc=================================================
 
 
 c=================================================
