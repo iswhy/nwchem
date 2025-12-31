@@ -31,7 +31,7 @@ c=================================================
       integer k_ieg, k_ps, k_cmm, k_idp, k_in, k_mo0, k_mo1, k_pcf
       integer k_rcf, k_qcf, k_scf, k_eg0, k_eg1, k_ed0, k_ed1
       integer g_il, tg
-      double precision fieldmag, smh, mask_param(2), ergmask
+      double precision smh, mask_param(2), ergmask
       double precision amsk, bmsk
 
       double complex czero
@@ -82,16 +82,6 @@ c     ==== Obtaining print switches ====
       if (pr_tmd .or. pr_tmd_atom)
      &     call errquit('MEWFAT: At the moment, TMD calculation with '//
      &     'MEWFAT need to be reviewed.', 1, UERR)
-
-
-c     ==== When TD field is true ====
-      if (.not. rtdb_get(rtdb, 'wfat:field:typeg', mt_int, 1, tg))
-     &     tg = 0
-      if (tg == 1) then
-         call wfat_prep_dcfield(rtdb, fieldmag)
-      else if (tg == 0) then
-         fieldmag = 0.0d0
-      endif
 
 
 c     ==== Get channel properties ====
@@ -240,7 +230,7 @@ c        ============================================
          else
             if (pr_srfc .or. pr_rate .or. pr_tmd)
      &           call mewfat_calc_ti(rtdb, geom_hd, nel0, natm, pr_srfc,
-     &           pr_rate, pr_tmd, fieldmag, 1, spinx, dbl_mb(k_ieg), 
+     &           pr_rate, pr_tmd, 1, spinx, dbl_mb(k_ieg), 
      &           dbl_mb(k_cmm), nqn, int_mb(k_npa), int_mb(k_mpa),
      &           lmax, zion, dcpl_mb(k_in))
          endif
@@ -251,13 +241,12 @@ c        ============================================
          rtdb_stat = rtdb_parallel(.true.)
       else if (lmax < 0) then
          call mewfat_calc_ti_nopw(rtdb, geom_hd, bas_hd, pr_srfc, 
-     &        pr_rate, fieldmag, nbas, spinx, spiny, nel0, nel1, 
-     &        dbl_mb(k_mo0), dbl_mb(k_mo1), dbl_mb(k_pcf), 
-     &        dbl_mb(k_rcf), dbl_mb(k_qcf), dbl_mb(k_scf), 1, 0, 
-     &        dbl_mb(k_ieg), dbl_mb(k_cmm), dbl_mb(k_ps), nqn, 
-     &        int_mb(k_npa), int_mb(k_mpa), zion, gqual, wf_msm, smh, 
-     &        ismask_e, ergmask, amsk, bmsk, ismask_i, mask_param,
-     &        wfphase)
+     &        pr_rate, nbas, spinx, spiny, nel0, nel1, dbl_mb(k_mo0), 
+     &        dbl_mb(k_mo1), dbl_mb(k_pcf), dbl_mb(k_rcf), 
+     &        dbl_mb(k_qcf), dbl_mb(k_scf), 1, 0, dbl_mb(k_ieg), 
+     &        dbl_mb(k_cmm), dbl_mb(k_ps), nqn, int_mb(k_npa), 
+     &        int_mb(k_mpa), zion, gqual, wf_msm, smh, ismask_e, 
+     &        ergmask, amsk, bmsk, ismask_i, mask_param, wfphase)
       endif
       
 
@@ -386,10 +375,8 @@ c=================================================
 c===============================================================
 c===============================================================
       subroutine mewfat_calc_ti(rtdb, geom, n0, nat, pr_srfc, pr_rate, 
-     &           pr_tmd, fieldm, nch, spinid, erg, chmmt, nqn, nid, mid,
-     &           lmax, zi, intgl)
-      load fieldm from inside this subroutine
-      update all calls to mewfat_calc_ti
+     &           pr_tmd, nch, spinid, erg, chmmt, nqn, nid, mid, lmax,
+     &           zi, intgl)
       
 c     DESCRIPTION:
       
@@ -404,7 +391,6 @@ c     DESCRIPTION:
       logical pr_srfc                 ! [input], if .true. then print structure factor.
       logical pr_rate                 ! [input], if .true. then print ion yield.
       logical pr_tmd                  ! [input], if .true. then print TMD.
-      double precision fieldm
       integer nch                     ! [input], number of ionized channels.
       integer spinid(nch)             ! [input], spin value (1 or 2) of ionized channels.
       double precision erg(nch)       ! [input]
@@ -465,9 +451,9 @@ cOLD      call wfat_calc_ti(rtdb, geom, pr_srfc, pr_rate, fieldm,
 cOLD     &     1, dummy_int, spinid, erg, chmmt, nqn, nid, mid, lmax,
 cOLD     &     zi, dcpl_mb(k_in), wfat1, nb, ns, orbid, dpmo, pb, chpos, 
 cOLD     &     intgl_j, intgl_k1, intgl_k2)
-      call wfat_calc_ti(rtdb, geom, pr_srfc, pr_rate, pr_tmd, fieldm, 
-     &     1, dummy_int, spinid, erg, chmmt, nqn, nid, mid, lmax,
-     &     zi, dcpl_mb(k_in), wfat1, ndgsub, max_ndgsub, dgs, ndgs, dps,
+      call wfat_calc_ti(rtdb, geom, pr_srfc, pr_rate, pr_tmd, 1, 
+     &     dummy_int, spinid, erg, chmmt, nqn, nid, mid, lmax, zi, 
+     &     dcpl_mb(k_in), wfat1, ndgsub, max_ndgsub, dgs, ndgs, dps,
      &     pbs, wfat1_exc, intgl_j, intgl_k1, intgl_k2)
 
       

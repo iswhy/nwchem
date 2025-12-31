@@ -1,12 +1,10 @@
 c========================================================
 c========================================================
       subroutine mewfat_calc_ti_nopw(rtdb, geom, bas, pr_srfc, pr_rate,
-     &     fieldm, nb, sx, sy, n0, n1, ocmo0, ocmo1, pcf, rcf, qcf, scf,
-     &     nch, chnid0, ionerg, chmmt, chpos, nqn, nid, mid, zi, gq, 
-     &     celm, smh, ismask_e, ergmask, amsk, bmsk, ismask, mask_param,
+     &     nb, sx, sy, n0, n1, ocmo0, ocmo1, pcf, rcf, qcf, scf, nch, 
+     &     chnid0, ionerg, chmmt, chpos, nqn, nid, mid, zi, gq, celm, 
+     &     smh, ismask_e, ergmask, amsk, bmsk, ismask, mask_param,
      &     wphase)
-      load fieldm from inside this subroutine
-      update all calls to mewfat_calc_ti_nopw
 
       implicit none
 #include "util.fh"
@@ -21,7 +19,6 @@ c========================================================
       integer bas
       logical pr_srfc                 ! [input], if .true. then print structure factor.
       logical pr_rate                 ! [input], if .true. then print ion yield.
-      double precision fieldm
       integer nb
       integer sx                                      ! [input], sx=1 or 2. The ionized spin channel.
       integer sy                                      ! [input], if sx=1 then sy=2 and vice versa. The complementary channel.
@@ -69,6 +66,7 @@ c========================================================
       double precision bt_start, bt_last, dbt, dbtr, gm_start, gm_last
       double precision nall, dgm, dgmr, dthr, bt, gm, rate, vdum(3)
       double precision t_start, t_last, t_now, dt_prog, dt_all, deg2rad
+      double precision fieldm
       parameter(deg2rad=0.01745329251994d0)
 
       logical nwxc_has_cam, nwxc_has_xc
@@ -99,6 +97,9 @@ c     ==== Obtaining info on gamma ====
       call wfat_get_gamma(rtdb, gm_start, gm_last, ngm, dgm)
       dgmr = dgm * deg2rad
 
+c     ==== Obtaining laser field ====
+      call wfat_prep_dcfield(rtdb, fieldm)
+      
 c     ==== Calculate and gather grid points ====
       call wfat_alloc_gridrange(natom, l_icp, k_icp, l_ipp, k_ipp)
       call wfat_get_gridrange(geom, ndid, gq, int_mb(k_icp),

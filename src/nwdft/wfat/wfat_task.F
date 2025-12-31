@@ -62,7 +62,7 @@ c===============================================================
       integer g_il, g_j, g_k(2)
       integer nch, nqn, nerg, ncpos, ncmm, niond, nsh, nintg, nintj
       integer nintk, prtb_ord, ndgsub, max_ndgsub, nw1x, tg
-      double precision fieldmag, smh, prtb_bt, prtb_gm, ctr(3)
+      double precision smh, prtb_bt, prtb_gm, ctr(3)
       double precision mask_param(2), ergmask, amsk, bmsk
 
       
@@ -136,16 +136,6 @@ c     ==== Check if research mode is enabled ====
 c     ==== Obtaining print switches ====
       call wfat_prep_printsw(rtdb, '', pr_srfc, pr_rate, pr_yild, 
      &     pr_avbeta, pr_avgamma, pr_tmd, pr_tmd_atom)
-
-      
-c     ==== Whether using TD field or no ====
-      if (.not. rtdb_get(rtdb, 'wfat:field:typeg', mt_int, 1, tg))
-     &     tg = 0
-      if (tg == 1) then
-         call wfat_prep_dcfield(rtdb, fieldmag)
-      else if (tg == 0) then
-         fieldmag = 0.0d0
-      endif
 
 
 c     ==== Perturbation theory analysis ====
@@ -340,12 +330,12 @@ c        =============================================
          else
             if (pr_srfc .or. pr_rate .or. pr_tmd)
      &           call wfat_calc_ti(rtdb, geom_hd, pr_srfc, pr_rate,
-     &           pr_tmd, fieldmag, nch, int_mb(k_or0), int_mb(k_sp), 
-     &           dbl_mb(k_eg), dbl_mb(k_cmm), nqn, int_mb(k_npa),
-     &           int_mb(k_mpa), lmax, zion, dcpl_mb(k_in), wfat1, 
-     &           ndgsub, max_ndgsub, int_mb(k_dgs), int_mb(k_ndgs),
-     &           dbl_mb(k_dps), dbl_mb(k_pbs), log_mb(k_w1x), 
-     &           dcpl_mb(k_inj), dcpl_mb(k_ink1), dcpl_mb(k_ink2))
+     &           pr_tmd, nch, int_mb(k_or0), int_mb(k_sp), dbl_mb(k_eg),
+     &           dbl_mb(k_cmm), nqn, int_mb(k_npa), int_mb(k_mpa), lmax,
+     &           zion, dcpl_mb(k_in), wfat1, ndgsub, max_ndgsub, 
+     &           int_mb(k_dgs), int_mb(k_ndgs), dbl_mb(k_dps), 
+     &           dbl_mb(k_pbs), log_mb(k_w1x), dcpl_mb(k_inj), 
+     &           dcpl_mb(k_ink1), dcpl_mb(k_ink2))
 
 cOLD            if (pr_tmd .or. pr_tmd_atom) 
 cOLD     &           call wfat_calcprint_tmd(rtdb, geom_hd, pr_tmd, 
@@ -363,7 +353,7 @@ cOLD     &           res_mode)
 
       else if (lmax < 0) then
          call wfat_calc_ti_nopw(rtdb, geom_hd, bas_hd, pr_srfc, pr_rate,
-     &        pr_tmd, fieldmag, nbas0, nspin0, dbl_mb(k_rd), nch, 
+     &        pr_tmd, nbas0, nspin0, dbl_mb(k_rd), nch, 
      &        int_mb(k_or0), dbl_mb(k_cf), int_mb(k_sp), dbl_mb(k_eg), 
      &        dbl_mb(k_cmm), dbl_mb(k_ps), nqn, int_mb(k_npa), 
      &        int_mb(k_mpa), zion, gqual, wf_msm, smh, ismask_e, 

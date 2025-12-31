@@ -1,12 +1,10 @@
 c=======================================================
 c=======================================================
       subroutine wfat_calc_ti_nopw(rtdb, geom, bas, pr_srfc, pr_rate,
-     &     pr_tmd, fieldm, nb, ns, rdm, nch, orbid0, vch, spinid, erg, 
+     &     pr_tmd, nb, ns, rdm, nch, orbid0, vch, spinid, erg, 
      &     chmmt, chpos, nqn, nid, mid, zi, gq, celm, smh, ismask_e, 
      &     ergmask, amsk, bmsk, ismask, mask_param, wfat1, nsub, maxn, 
      &     dgs, ndgs, dps, pbs, wfat1_exc)
-      load fieldmag from inside this subroutine
-      update all calls to wfat_calc_ti_nopw
 
       implicit none
 #include "util.fh"
@@ -22,7 +20,6 @@ c=======================================================
       logical pr_srfc                 ! [input], if .true. then print structure factor.
       logical pr_rate                 ! [input], if .true. then print ion yield.
       logical pr_tmd                  ! [input], if .true. then print TMD.
-      double precision fieldm
       integer nb
       integer ns
       double precision rdm(nb,nb,ns)
@@ -72,7 +69,7 @@ c=======================================================
       integer i_on, ig, ib, i_tu0, i_tu0o, i_vc, i_vco, i_acj, icpo
       integer ippo(2), ozn, geomo, pr_chk(20), nang, kk
       double precision bt_start, bt_last, dbt, dbtr, gm_start, gm_last
-      double precision dgm, dgmr, dthr, bt, gm, rate, vdum(3)
+      double precision dgm, dgmr, dthr, bt, gm, rate, vdum(3), fieldm
       double precision deg2rad, t_now, t_last, t_start, dt_all, dt_prog
       parameter(deg2rad=0.01745329251994d0)
 
@@ -95,6 +92,9 @@ c     ==== Obtaining info on gamma ====
       call wfat_get_gamma(rtdb, gm_start, gm_last, ngm, dgm)
       dgmr = dgm * deg2rad
 
+c     ==== Obtaining laser field ====
+      call wfat_prep_dcfield(rtdb, fieldm)
+      
 c     ==== Calculate and gather nuclei grid points ====
       call wfat_alloc_gridrange(natom, l_icp, k_icp, l_ipp, k_ipp)
       call wfat_get_gridrange(geom, ndid, gq, int_mb(k_icp),

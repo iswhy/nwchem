@@ -1,11 +1,9 @@
 c===============================================================
 c===============================================================
       subroutine wfat_calc_ti(rtdb, geom, pr_srfc, pr_rate, pr_tmd, 
-     &           fieldm, nch, orbid0, spinid, erg, chmmt, nqn, nid, mid,
+     &           nch, orbid0, spinid, erg, chmmt, nqn, nid, mid,
      &           lmax, zi, intgl, wfat1, nsub, maxn, dgs, ndgs, dps, 
      &           pbs, wfat1_exc, intgl_j, intgl_k1, intgl_k2)
-      load fieldmag from inside this subroutine
-      update all calls to wfat_calc_ti
       
 c     DESCRIPTION:
 c     nsub = It is only used when wfat1=.true.. The number of degenerate subspaces,
@@ -41,7 +39,6 @@ c           maxn*maxn*6*nsub.
       logical pr_srfc                 ! [input], if .true. then print structure factor.
       logical pr_rate                 ! [input], if .true. then print ion yield.
       logical pr_tmd                  ! [input], if .true. then print TMD.
-      double precision fieldm
       integer nch                     ! [input], number of ionized channels.
       integer orbid0(nch)             ! [input], orbital ID of ionized channels.
       integer spinid(nch)             ! [input], spin value (1 or 2) of ionized channels.
@@ -74,7 +71,7 @@ c           maxn*maxn*6*nsub.
       integer k_jn, k_kn, k_on
       double precision bt_start, bt_last, dbt, dbtr, bt
       double precision gm_start, gm_last, dgm, dgmr, gm
-      double precision rate, dthr, ooo(2), ooo_(2)
+      double precision rate, dthr, ooo(2), ooo_(2), fieldm
       double precision deg2rad, pi_const
 
       parameter (deg2rad = 0.01745329251994d0)
@@ -93,6 +90,10 @@ c     ==== Obtaining info on beta ====
 c     ==== Obtaining info on gamma ====
       call wfat_get_gamma(rtdb, gm_start, gm_last, ngm, dgm)
       dgmr = dgm * deg2rad
+
+
+c     ==== Obtaining laser field ====
+      call wfat_prep_dcfield(rtdb, fieldm)
 
       
 c     ==== Allocation of structure factors and ion yields ====

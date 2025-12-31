@@ -33,7 +33,7 @@ c===============================================================
       integer ndgsub, max_ndgsub, dgs(1,1), ndgs(1), nfe, maxn, idum
       integer nw1x, tg
       double precision init_ke, out_ke, mult_ke, edip(3), chpos(3)
-      double precision chmmt(3), fieldmag, pb(3,3), polb(3), polb33(3,3)
+      double precision chmmt(3), pb(3,3), polb(3), polb33(3,3)
       double precision dps(1,1,3,1), pbs(1,1,6,1), ddum, potparam(2)
       double precision mask_param(2), ergmask, amsk, bmsk, iondip(3)
 
@@ -101,16 +101,6 @@ c     ==== Obtain WFAT(1) information ====
 c     ==== Obtain print switches ====
       call wfat_prep_printsw(rtdb, '', pr_srfc, pr_rate, pr_yild, 
      &     pr_avbeta, pr_avgamma, pr_tmd, pr_tmd_atom)
-
-
-c     ==== Whether using TD field or no ====
-      if (.not. rtdb_get(rtdb, 'wfat:field:typeg', mt_int, 1, tg))
-     &     tg = 0
-      if (tg == 1) then
-         call wfat_prep_dcfield(rtdb, fieldmag)
-      else if (tg == 0) then
-         fieldmag = 0.0d0
-      endif
 
 
 c     ==== Print DVR grids and weights ====
@@ -322,8 +312,8 @@ c        ==================================================
          else
             if (pr_srfc .or. pr_rate .or. pr_tmd)
      &           call wfat_calc_ti(rtdb, geom_hd, pr_srfc, pr_rate,
-     &           pr_tmd, fieldmag, nch, orbid, spinid, dbl_mb(i_eg), 
-     &           chmmt, nqn, int_mb(k_npa), int_mb(k_mpa), lmax, zion, 
+     &           pr_tmd, nch, orbid, spinid, dbl_mb(i_eg), chmmt, nqn,
+     &           int_mb(k_npa), int_mb(k_mpa), lmax, zion, 
      &           dcpl_mb(k_in), wfat1, ndgsub, max_ndgsub, dgs, ndgs,
      &           dps, pbs, log_mb(k_w1x), dcpl_mb(k_inj), 
      &           dcpl_mb(k_ink1), dcpl_mb(k_ink2))
@@ -345,7 +335,7 @@ clater     &           res_mode)
      &        int_mb(k_mpa), gqual, zion, wf_msm, sphi, mch, nr, nt, 
      &        out_ke, dbl_mb(k_cf), dbl_mb(i_eg), chmmt, chpos, orbid,
      &        spinid, pottype, nel_2a, potparam, pr_srfc, pr_rate, 
-     &        pr_tmd, fieldmag, wfat1, nr_m, nt_m, nr_p, nt_p, 
+     &        pr_tmd, wfat1, nr_m, nt_m, nr_p, nt_p, 
      &        dbl_mb(k_cfx), dbl_mb(k_cfy), dbl_mb(k_cfz), pbs, 
      &        log_mb(k_w1x), fedvr, nfe, int_mb(k_ndvr), maxn, 
      &        dbl_mb(k_xquad), dbl_mb(k_wquad), ismask_i, mask_param)

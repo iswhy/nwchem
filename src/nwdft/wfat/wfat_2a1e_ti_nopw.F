@@ -3,11 +3,9 @@ c=======================================================
       subroutine wfat_2a1e_ti_nopw(rtdb, geom, nqn, nid, mid, gq, zi,
      &     celm, sphi, mch, nr, nt, ke, vcf, erg, chmmt, chpos, orbid0,
      &     spinid, pottype, nel, potparam, pr_srfc, pr_rate, pr_tmd, 
-     &     fieldm, wfat1, nr_m, nt_m, nr_p, nt_p, cfx, cfy, cfz, pbs, 
+     &     wfat1, nr_m, nt_m, nr_p, nt_p, cfx, cfy, cfz, pbs, 
      &     wfat1_exc, fedvr, nfe, ndvr, maxn, xq, wq, ismask,
      &     mask_param)
-      load fieldm from inside this subroutine
-      update all calls to wfat_2a1e_ti_nopw
 
       implicit none
 #include "util.fh"
@@ -42,7 +40,6 @@ c=======================================================
       logical pr_srfc                 ! [input], if .true. then print structure factor.
       logical pr_rate                 ! [input], if .true. then print ionization rate.
       logical pr_tmd                  ! [input], if .true. then print TMD.
-      double precision fieldm         ! [input],
       logical wfat1                   ! [input],
       integer nr_m                    ! [input], only used when wfat1=.true.
       integer nt_m                    ! [input], only used when wfat1=.true.
@@ -81,7 +78,7 @@ c=======================================================
       integer ippo(2), pr_chk(20), nang, kk
       double precision bt_start, bt_last, dbt, dbtr, gm_start, gm_last
       double precision dgm, dgmr, dthr, bt, gm, rate, vdum(3), t_start
-      double precision t_last, t_now, dt_prog, deg2rad, dt_all
+      double precision t_last, t_now, dt_prog, deg2rad, dt_all, fieldm
       parameter(deg2rad=0.01745329251994d0)
 
       integer nch, nch1
@@ -105,6 +102,9 @@ c     ==== Obtaining info on beta ====
 c     ==== Obtaining info on gamma ====
       call wfat_get_gamma(rtdb, gm_start, gm_last, ngm, dgm)
       dgmr = dgm * deg2rad
+
+c     ==== Obtaining laser field ====
+      call wfat_prep_dcfield(rtdb, fieldm)
       
 c     ==== Calculate and gather nuclei grid points ====
       call wfat_alloc_gridrange(natom, l_icp, k_icp, l_ipp, k_ipp)
