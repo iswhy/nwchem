@@ -32,7 +32,6 @@ c=======================================================
       
       logical tt, ll1, ll2, ll3
       character*50 field, tail_unit
-      character*255 ss
       integer i1, i2, k, nfblocks
       double precision ang2bohr
 
@@ -48,21 +47,10 @@ c=======================================================
       external wfat_inp_mydip, wfat_inp_myerg
 
       
-      WFAT_PRINT_OPTIONS = (/
-     &     'srfc      ',
-     &     'rate      ',
-     &     'yield     ',
-     &     'avbeta    ', 
-     &     'avgamma   ',
-     &     'tmd       ',
-     &     'tmd_atom  ' /)
       
 
 
 c     ==== Initial status of WFAT inputs ====
-      print_exist = .false.
-      print_stat = .false.
-
       nfblocks = 0
 cOLD      fld_tp = 'n/a'        ! Initiation.
 cOLD      field_exist = .false.
@@ -166,14 +154,6 @@ cOLD      nlgl_stat = .false.
       prtb_maxord_exist = .false.
       prtb_maxord_stat = .false.
 
-      print_srfc = .false.
-      print_rate = .false.
-      print_yild = .false.
-      print_avbeta = .false.
-      print_avgamma = .false.
-      print_tmd = .false.
-      print_tmd_atom = .false.
-
       s2a1e_exist = .false.
       s2a1e_stat = .true.
 
@@ -189,38 +169,7 @@ cfordebug            write(luout, '("input field : ", a)') field
 
 c           ==== ABSOLUTELY MANDATORY INPUTS ====
             if (inp_compare(.false., 'print', field)) then
-               print_exist = .true.
-               
-               if (.not. inp_line(ss))
-     &              call errquit('WFAT: Error in reading the '//
-     &              '''print'' line.', 1, INPUT_ERR)
-               i1 = 0       ! i1 must be initiated to zero before first call of inp_strtok
-               tt = inp_strtok(ss, ' ', i1, i2) !! The 'print' keyword
-               
-               do while (inp_strtok(ss, ' ', i1, i2))        !! The rest of 'print' line
-                  tt = inp_match(WFAT_NPRINT, .false.,
-     &                 ss(i1:i2), WFAT_PRINT_OPTIONS, k)
-                  
-                  if (WFAT_PRINT_OPTIONS(k) == 'srfc') then
-                     print_srfc = .true.
-                  else if (WFAT_PRINT_OPTIONS(k) == 'rate') then
-                     print_rate = .true.
-                  else if (WFAT_PRINT_OPTIONS(k) == 'yield') then
-                     print_yild = .true.
-                  else if (WFAT_PRINT_OPTIONS(k) == 'avbeta') then
-                     print_avbeta = .true.
-                  else if (WFAT_PRINT_OPTIONS(k) == 'avgamma') then
-                     print_avgamma = .true.
-                  else if (WFAT_PRINT_OPTIONS(k) == 'tmd') then
-                     print_tmd = .true.
-                  else if (WFAT_PRINT_OPTIONS(k) == 'tmd_atom') then
-                     print_tmd_atom = .true.
-                  else
-                     print_stat = .false.
-                     exit
-                  endif
-                  print_stat = .true.
-               enddo
+               call wfat_parse_print(rtdb)
 
 c           ==== CONDITIONALLY MANDATORY INPUTS ====    
             else if (inp_compare(.false., 'field', field)) then
@@ -388,6 +337,92 @@ c     ==== Check whether the current theory is DFT ====
      &       'quantities such as molecular orbitals and effective ',
      &       'potential. All WFAT related inputs will thus be ignored.')
 
+      
+      end
+c=======================================================
+
+
+c=======================================================
+c=======================================================
+      subroutine wfat_parse_print(rtdb)
+
+      implicit none
+#include "errquit.fh"
+#include "inp.fh"
+#include "rtdb.fh"
+#include "mafdecls.fh"
+      integer rtdb
+      
+      character*255 ss
+      character*10 options(7)
+      logical tt, sr, rt, yi, avb, avg, tmd, tmda
+      integer i1, i2, k
+
+      
+      options = (/
+     &     'srfc      ',
+     &     'rate      ',
+     &     'yield     ',
+     &     'avbeta    ', 
+     &     'avgamma   ',
+     &     'tmd       ',
+     &     'tmd_atom  ' /)
+
+
+c     ==== Read the entire line containing the print directive ====
+      if (.not. inp_line(ss)) call errquit('WFAT: Error in reading '//
+     &     'the ''print'' line.', 1, INPUT_ERR)
+      i1 = 0       ! i1 must be initiated to zero before first call of inp_strtok
+      tt = inp_strtok(ss, ' ', i1, i2)     !! The 'print' keyword
+
+      
+c     ==== Iterate over keywords ====
+      do while (inp_strtok(ss, ' ', i1, i2))        !! The rest of 'print' line
+         tt = inp_match(7, .false., ss(i1:i2), options, k)
+         if (options(k) == 'srfc') then
+            sr = .true.
+         else if (options(k) == 'rate') then
+            rt = .true.
+         else if (options(k) == 'yield') then
+            yi = .true.
+         else if (options(k) == 'avbeta') then
+            avb = .true.
+         else if (options(k) == 'avgamma') then
+            avg = .true.
+         else if (options(k) == 'tmd') then
+            tmd = .true.
+         else if (options(k) == 'tmd_atom') then
+            tmda = .true.
+         else
+            call errquit('WFAT: Unknown keyword is specified for the '//
+     &           'print directive', 64, INPUT_ERR)
+cOLD            exit
+         endif
+      enddo
+
+
+c     ==== Put into RTDB ====
+      if (.not. rtdb_put(rtdb, 'wfat:inp:p_srfc', mt_log, 1, sr))
+     &     call errquit('WFAT: Failed writing inp:p_srfc to rtdb',
+     &     1, RTDB_ERR)
+      if (.not. rtdb_put(rtdb, 'wfat:inp:p_rate', mt_log, 1, rt))
+     &     call errquit('WFAT: Failed writing inp:p_srfc to rtdb',
+     &     1, RTDB_ERR)
+      if (.not. rtdb_put(rtdb, 'wfat:inp:p_yild', mt_log, 1, yi))
+     &     call errquit('WFAT: Failed writing inp:p_yild to rtdb',
+     &     1, RTDB_ERR)
+      if (.not. rtdb_put(rtdb, 'wfat:inp:p_avbeta', mt_log, 1, avb))
+     &     call errquit('WFAT: Failed writing inp:p_avbeta to rtdb',
+     &     1, RTDB_ERR)
+      if (.not. rtdb_put(rtdb, 'wfat:inp:p_avgamma', mt_log, 1, avg))
+     &     call errquit('WFAT: Failed writing inp:p_avgamma to rtdb',
+     &     1, RTDB_ERR)
+      if (.not. rtdb_put(rtdb, 'wfat:inp:p_tmd', mt_log, 1, tmd))
+     &     call errquit('WFAT: Failed writing inp:p_tmd to rtdb',
+     &     1, RTDB_ERR)
+      if (.not. rtdb_put(rtdb, 'wfat:inp:p_tmd_atom', mt_log, 1, tmda))
+     &     call errquit('WFAT: Failed writing inp:p_tmd_atom to rtdb',
+     &     1, RTDB_ERR)
       
       end
 c=======================================================

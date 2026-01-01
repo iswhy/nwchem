@@ -44,104 +44,19 @@ c=======================================================
 #include "stdio.fh"      
       integer rtdb
 
-      logical calc_td, calc_dc, pp
+      logical print_srfc, print_rate, print_yild
+      logical print_avbeta, print_avgamma, print_tmd, print_tmd_atom
 
       
+      call wfat_prep_printsw(rtdb, 'inp:', print_srfc, print_rate, 
+     &     print_yild, print_avbeta, print_avgamma, print_tmd,
+     &     print_tmd_atom)
 cOLD      call util_get_rtdb_state(rtdb, os, oc, or)
 
 
 c     ==========================================================
 c     ==================== EXISTENCE CHECKS ====================
 c     ==========================================================
-
-c     ==== Checking existence of MANDATORY INPUTS ====
-      calc_dc = (print_rate .or. print_tmd .or. print_tmd_atom)
-      calc_td = (print_yild .or. print_avbeta .or. print_avgamma)
-      if (print_exist) then
-         if (calc_dc .and. calc_td) then
-            write(luout, 302)
-            call errquit('WFAT: Conflict in the ''print'' keywords',
-     &           1, INPUT_ERR)
-         endif
-      else
-         call errquit('WFAT: Cannot find the mandatory directive '//
-     &        '''print''.', 0, INPUT_ERR)
-      endif
-
-c     ==== Checking existence of CONDITIONALLY MANDATORY INPUTS ====
-cOLD      call wfat_acdc_field(nfield, fld_tp, tdfield)
-      pp = (print_rate .or. print_yild .or. print_avbeta .or. 
-     &     print_avgamma .or. print_tmd .or. print_tmd_atom)
-cOLD      if (.not. field_exist .and. pp) then
-cOLD         write(luout, 205) 'field', '* print_rate', '* print_yild', 
-cOLD     &        '* print_avbeta', '* print_avgamma', '* print_tmd',
-cOLD     &        '* print_tmd_atom', ' '
-cOLD         call errquit('INPUT ERROR: Cannot find input directive '//
-cOLD     &        '''field''.', 0, INPUT_ERR)
-cOLD      else if (field_exist) then
-cOLD         if (calc_dc .and. tdfield=='td') then
-cOLD            call errquit('WFAT: When either of ''print_rate'', '//
-cOLD     &           '''print_tmd'', or ''print_tmd_atom'' is invoked, '//
-cOLD     &           'the field type must ONLY be ''dc''', 1, INPUT_ERR)
-cOLD         else if (calc_td .and. tdfield=='ti') then
-cOLD            call errquit('WFAT: When either of ''print_yild'', '//
-cOLD     &           '''print_avbeta'', or ''print_avgamma'' is invoked, '//
-cOLD     &           'no field with type ''dc'' is allowed', 1, INPUT_ERR)
-cOLD         else if (.not. calc_dc .and. .not. calc_td) then
-cOLD            write(luout, 201) 'field',
-cOLD     &           '* print_rate      ',
-cOLD     &           '* print_yild      ',
-cOLD     &           '* print_avbeta    ',
-cOLD     &           '* print_avgamma   ',
-cOLD     &           '* print_tmd       ',
-cOLD     &           '* print_tmd_atom  ', ' '
-cOLD         endif
-cOLD      endif
-
-cOLDc     == dt ==
-cOLD      if (.not. dt_exist .and. tdfield=='td') then
-cOLD         call errquit('WFAT: Input directive ''dt'' is required when '//
-cOLD     &        'non-DC fields are used', 1, INPUT_ERR)
-cOLD      else if (dt_exist .and. (tdfield=='ti' .or. tdfield=='no')) then
-cOLD         write(luout, 206) 'dt'
-cOLD      endif
-cOLD
-cOLDc     == tmax ==
-cOLD      if (.not. tmax_exist .and. tdfield=='td') then
-cOLD         call errquit('WFAT: Input directive ''tmax'' is required '//
-cOLD     &        'when non-DC fields are used', 1, INPUT_ERR)
-cOLD      else if (tmax_exist .and. (tdfield=='ti' .or. tdfield=='no')) then
-cOLD         write(luout, 206) 'tmax' 
-cOLD      endif
-      
-cOLD      gg = (print_srfc .or. print_rate .or. print_yild .or.
-cOLD     &      print_avbeta .or. print_avgamma)
-cOLDc     == beta_tmd ==
-cOLD      if (.not. beta_tmd_exist .and.
-cOLD     &     (print_tmd .or. print_tmd_atom)) then
-cOLD         write(luout, 205) 'beta_tmd', '* print_tmd',
-cOLD     &        '* print_tmd_atom', ' ', ' ', ' ', ' ', ' '
-cOLD         call errquit('INPUT ERROR: Cannot find input directive '//
-cOLD     &        '''beta_tmd''. ', 0, INPUT_ERR)
-cOLD      else if (beta_tmd_exist .and. .not.
-cOLD     &        (print_tmd .or. print_tmd_atom)) then
-cOLD         write(luout, 201) 'beta_tmd',
-cOLD     &        '* print_tmd       ',
-cOLD     &        '* print_tmd_atom  ', ' ', ' ', ' ', ' ', ' '
-cOLD      endif
-cOLDc     == gamma_tmd ==
-cOLD      if (.not. gamma_tmd_exist .and.
-cOLD     &     (print_tmd .or. print_tmd_atom)) then
-cOLD         write(luout, 205) 'gamma_tmd', '* print_tmd',
-cOLD     &        '* print_tmd_atom', ' ', ' ', ' ', ' ', ' '
-cOLD         call errquit('INPUT ERROR: Cannot find input directive '//
-cOLD     &        '''gamma_tmd''. ', 0, INPUT_ERR)
-cOLD      else if (gamma_tmd_exist .and. .not.
-cOLD     &        (print_tmd .or. print_tmd_atom)) then
-cOLD         write(luout, 201) 'gamma_tmd',
-cOLD     &        '* print_tmd       ',
-cOLD     &        '* print_tmd_atom  ', ' ', ' ', ' ', ' ', ' '
-cOLD      endif
       
 c     ==== Checking existence of CONDITIONALLY OPTIONAL INPUTS ====
 c     == nktmd ==
@@ -172,25 +87,11 @@ c     ==== Checking existence of OPTIONAL INPUTS ====
          mpara(1:n_npara) = (/ 0, -1, +1 /)
          paraqn_stat = .true.
       endif
-cOLD      if (.not. lmax_exist) then
-cOLD         wfat_lmax = def_wfat_lmax
-cOLD         lmax_stat = .true.
-cOLD      endif
-cOLD      if (.not. gqual_exist) then
-cOLD         wfat_gqual = def_gqual
-cOLD         gqual_stat = .true.
-cOLD      else if (gqual_exist .and. or) then
-cOLD         write(luout, 202) 'gqual', 'gqual'
-cOLD      endif
       if (.not. omgpos_exist) then
          autopos = .true.
          omgpos = 0.0d0
          omgpos_stat = .true.
       endif
-cOLD      if (.not. intgl_exist) then
-cOLD         call wfat_def_intglname(rtdb, wfat_level, wfat_intgl_name)
-cOLD         intgl_stat = .true.
-cOLD      endif
       if (.not. wfat1_exist) then
          wfat1 = DEF_WFAT1
          wfat1_stat = .true.
@@ -220,10 +121,6 @@ cOLD      endif
      &        wfat_orbid0, wfat_spinid, wfat_merg, wfat_merg_l)
          merg_stat = .true.
       endif
-cOLD      if (.not. nlgl_exist) then
-cOLD         wfat_nlgl = DEF_NLGL
-cOLD         nlgl_stat = .true.
-cOLD      endif
       if (.not. wfat_mask_exist) then
          wfat_mask = DEF_WFAT_MASK
          wfat_mask_param = (/ -1.0d6, -1.0d6 /)
@@ -311,52 +208,7 @@ cOLD      endif
 c     =======================================================
 c     ==================== FORMAT CHECKS ====================
 c     =======================================================
-      
-c     ==== Checking format of MANDATORY INPUTS ====
-      if (.not. print_stat) then
-         call errquit('WFAT: Error reading mandatory input parameter '//
-     &        '''print''. Please check if it is specified following '//
-     &        'the format ''print [srfc] [rate] [yield] [avbeta] '//
-     &        '[avgamma] [tmd] [tmd_atom]''. At least one of the '//
-     &        'seven options must be present.', 0, INPUT_ERR)
-      endif
-      
-c     ==== Checking format of CONDITIONALLY MANDATORY INPUTS ====
-      pp = (print_rate .or. print_yild .or. print_avbeta .or. 
-     &     print_avgamma .or. print_tmd .or. print_tmd_atom)
-cOLD      if (.not. field_stat .and. pp) then
-cOLD         call errquit('WFAT: The format of input directive '//
-cOLD     &        '''field'' is incorrect', 0, INPUT_ERR)
-cOLD      endif
-
-cOLDc     == dt ==
-cOLD      if (.not. dt_stat .and. tdfield=='td')
-cOLD     &     call errquit('WFAT: The format of input directive '//
-cOLD     &     '''dt'' is incorrect', 0, INPUT_ERR)
-cOLDc     == tmax ==
-cOLD      if (.not. tmax_stat .and. tdfield=='td')
-cOLD     &     call errquit('WFAT: The format of input directive '//
-cOLD     &     '''tmax'' is incorrect', 0, INPUT_ERR)      
-
-cOLD      gg = (print_srfc .or. print_rate .or. print_yild .or.
-cOLD     &     print_avbeta .or. print_avgamma)
-cOLDc     == beta_tmd ==
-cOLD      if (.not. beta_tmd_stat .and.
-cOLD     &     (print_tmd .or. print_tmd_atom)) then
-cOLD         call errquit('WFAT: The format of input directive '//
-cOLD     &        '''beta_tmd'' is incorrect. The correct format '//
-cOLD     &        'should be ''beta_tmd <float value>''.',
-cOLD     &        0, INPUT_ERR)
-cOLD      endif
-cOLDc     == gamma_tmd ==
-cOLD      if (.not. gamma_tmd_stat .and.
-cOLD     &     (print_tmd .or. print_tmd_atom)) then
-cOLD         call errquit('WFAT: The format of input directive '//
-cOLD     &        '''gamma_tmd'' is incorrect. The correct format '//
-cOLD     &        'should be ''gamma_tmd <float value>''.',
-cOLD     &        0, INPUT_ERR)
-cOLD      endif
-
+            
 c     ==== Checking format of CONDITIONALLY OPTIONAL INPUTS ====
       if (.not. nktmd_stat .and. (print_tmd .or. print_tmd_atom)) then
          call errquit('WFAT: The format of input directive '//
@@ -392,12 +244,6 @@ c     ==== Checking format of OPTIONAL INPUTS ====
      &        '(0,0); (0,-1); (0,+1); (1,0).',
      &        0, INPUT_ERR)
       endif      
-cOLD      if (.not. gqual_stat) then
-cOLD         call errquit('WFAT: Error reading optional input parameter '//
-cOLD     &        '''gridqual''. Please check if it is specified '//
-cOLD     &        'following the format ''gridqual <integer value>''.',
-cOLD     &        0, INPUT_ERR)
-cOLD      endif
       if (.not. omgpos_stat) then
          call errquit('WFAT: Error reading optional input parameter '//
      &        '''omgpos''. Please check if it is specified '//
@@ -412,19 +258,6 @@ cOLD      endif
      &        '<value> is any of ''none'', ''mo'', and ''dyson''.',
      &        0, INPUT_ERR)
       endif
-cOLD      if (.not. lmax_stat) then
-cOLD         call errquit('WFAT: Error reading optional input parameter '//
-cOLD     &        '''lmax''. Please check if it is specified following '//
-cOLD     &        'the format ''lmax <integer value>''.',
-cOLD     &        0, INPUT_ERR)
-cOLD      endif
-cOLD      if (.not. intgl_stat) then
-cOLD         call errquit('WFAT: Error reading optional input parameter '//
-cOLD     &        '''intgl''. Please check if it is specified '//
-cOLD     &        'following the format ''intgl "<string value>"'' '//
-cOLD     &        '(do not skip the double quotes).',
-cOLD     &        0, INPUT_ERR)
-cOLD      endif
       if (wfat_level == 'oe') then
          if (.not. movec_stat) then
             call errquit('WFAT: Error reading optional input '//
@@ -477,12 +310,6 @@ cOLD      endif
      &        'manually given ionization energy.', 0, INPUT_ERR)
       endif
       
-cOLD      if (.not. nlgl_stat) then
-cOLD         call errquit('WFAT: Error reading optional input parameter '//
-cOLD     &        '''nlgl''. Please check if it is specified following '//
-cOLD     &        'the format ''nlgl <integer value>''.',
-cOLD     &        0, INPUT_ERR)
-cOLD      endif
       if (.not. wfat_mask_stat) then
          call errquit('WFAT: Error reading optional input parameter '//
      &        '''tailmask''. Please check if it is specified '//
@@ -573,10 +400,10 @@ c     ====================================================
 c     ================= NECESSITY CHECKS =================
 c     ====================================================
       if (wfat_level == 'oe') then
-         call wfat_need_input()
+         call wfat_need_input(rtdb)
       else if (wfat_level == 'me') then 
 cdebug         call mewfat_dummy()
-         call mewfat_need_input()
+         call mewfat_need_input(rtdb)
       endif
 
 
@@ -677,12 +504,14 @@ cc c=======================================================
       
 c=======================================================
 c=======================================================
-      subroutine mewfat_need_input()
+      subroutine mewfat_need_input(rtdb)
 
       implicit none
 #include "wfat_input.fh"
 #include "stdio.fh"
-#include "errquit.fh"      
+#include "errquit.fh"
+      integer rtdb
+      
       logical sr, rt, yi, avb, avg, tmd, tmda
       character*1 m
 
@@ -720,14 +549,8 @@ cOLD      nlgl_need = .false.           ! needed when oe or me
       prtb_maxord_need = .false.    ! needed when OE
 
 
-      sr = print_srfc
-      rt = print_rate
-      yi = print_yild
-      avb = print_avbeta
-      avg = print_avgamma
-      tmd = print_tmd
-      tmda = print_tmd_atom
-
+      call wfat_prep_printsw(rtdb, 'inp:', sr, rt, yi, avb, avg, tmd, 
+     &     tmda)
             
 cOLD      call wfat_need_input0(rt, tmd, tmda, yi, avb, avg, .false.,
 cOLD     &     field_need)
@@ -779,11 +602,13 @@ c=======================================================
 
 c=======================================================
 c=======================================================
-      subroutine wfat_need_input()
+      subroutine wfat_need_input(rtdb)
 
       implicit none
 #include "wfat_input.fh"
 #include "stdio.fh"
+      integer rtdb
+      
       logical sr, rt, yi, avb, avg, tmd, tmda
       character*1 m
 
@@ -819,15 +644,9 @@ cOLD      nlgl_need = .false.               ! needed when oe or me
       prtb_ordthr_need = .false.    ! needed when oe
       prtb_maxord_need = .false.    ! needed when oe
 
-      
-      sr = print_srfc
-      rt = print_rate
-      yi = print_yild
-      avb = print_avbeta
-      avg = print_avgamma
-      tmd = print_tmd
-      tmda = print_tmd_atom
 
+      call wfat_prep_printsw(rtdb, 'inp:', sr, rt, yi, avb, avg, tmd, 
+     &     tmda)
       
 cOLD      call wfat_need_input0(rt, tmd, tmda, yi, avb, avg, .false.,
 cOLD     &     field_need)
@@ -941,7 +760,14 @@ c=======================================================
       logical r, unit_ffc
       parameter ( w='i' )
       integer k
+
+      logical print_srfc, print_rate, print_yild, print_avbeta
+      logical print_avgamma, print_tmd, print_tmd_atom
+
       
+      call wfat_prep_printsw(rtdb, 'inp:', print_srfc, print_rate, 
+     &     print_yild, print_avbeta, print_avgamma, print_tmd,
+     &     print_tmd_atom)
 
 cOLD      if (field_need) then
 cOLD         call wfat_sanity_field(nfield, fld_tp, fld_fr, fld_ce, fld_wi,
@@ -1259,35 +1085,6 @@ cOLDc     that is already in the RTDB.
 c forcheck      if (.not. rtdb_print(rtdb, .false.))
 c forcheck     &     call errquit('WFAT: Printing rtdb failed', 1, RTDB_ERR)
 
-
-      if (.not. rtdb_put(rtdb, 'wfat:print_srfc', mt_log, 1, 
-     &     print_srfc))
-     &     call errquit('WFAT: Failed writing print_srfc to rtdb',
-     &     1, INPUT_ERR)
-      if (.not. rtdb_put(rtdb, 'wfat:print_rate', mt_log, 1, 
-     &     print_rate))
-     &     call errquit('WFAT: Failed writing print_rate to rtdb',
-     &     1, INPUT_ERR)
-      if (.not. rtdb_put(rtdb, 'wfat:print_yild', mt_log, 1, 
-     &     print_yild))
-     &     call errquit('WFAT: Failed writing print_yild to rtdb',
-     &     1, INPUT_ERR)
-      if (.not. rtdb_put(rtdb, 'wfat:print_avbeta', mt_log, 1, 
-     &     print_avbeta))
-     &     call errquit('WFAT: Failed writing print_avbeta to rtdb',
-     &     1, INPUT_ERR)
-      if (.not. rtdb_put(rtdb, 'wfat:print_avgamma', mt_log, 1, 
-     &     print_avgamma))
-     &     call errquit('WFAT: Failed writing print_avgamma to rtdb',
-     &     1, INPUT_ERR)
-      if (.not. rtdb_put(rtdb, 'wfat:print_tmd', mt_log, 1, 
-     &     print_tmd))
-     &     call errquit('WFAT: Failed writing print_tmd to rtdb',
-     &     1, INPUT_ERR)
-      if (.not. rtdb_put(rtdb, 'wfat:print_tmd_atom', mt_log, 1, 
-     &     print_tmd_atom))
-     &     call errquit('WFAT: Failed writing print_tmd_atom to rtdb',
-     &     1, INPUT_ERR)
 
       
 cOLD      if (field_need) then

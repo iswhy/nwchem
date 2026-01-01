@@ -114,14 +114,14 @@ c     ==== Initiate total wave function phase ====
       
 c     ==== Neutral molecular orbitals ====
       call mewfat_alloc_mo(rtdb, 0, movecs0, title0, basname0, scftype0,
-     &           nbf0, ns_ion0, nmo0, me_nocc0, me_nerg0, l_moocc0, 
-     &           k_moocc0, l_moerg0, k_moerg0, g_mov0, nel0_)
+     &     nbf0, ns_ion0, nmo0, me_nocc0, me_nerg0, l_moocc0, k_moocc0,
+     &     l_moerg0, k_moerg0, g_mov0, nel0_)
       
 
 c     ==== Cation molecular orbitals ====
       call mewfat_alloc_mo(rtdb, 1, movecs1, title1, basname1, scftype1,
-     &           nbf1, ns_ion1, nmo1, me_nocc1, me_nerg1, l_moocc1, 
-     &           k_moocc1, l_moerg1, k_moerg1, g_mov1, nel1_)
+     &     nbf1, ns_ion1, nmo1, me_nocc1, me_nerg1, l_moocc1, k_moocc1, 
+     &     l_moerg1, k_moerg1, g_mov1, nel1_)
       
 
 c     ==== No. of bases consistency checks ====

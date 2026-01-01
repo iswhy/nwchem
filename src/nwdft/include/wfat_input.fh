@@ -41,8 +41,8 @@ cOLD     &     def_nktmd=150, def_wfat_lmax=8, def_gqual=2,
 cOLD     &     WFAT_NPRINT=7, def_si_type='none', DEF_WFAT1=.false.,
 cOLD     &     DEF_WFAT_MASK=.false., DEF_FFC_TYPE=2, MAX_FEN=1000)
 
-      character*10
-     &     WFAT_PRINT_OPTIONS(WFAT_NPRINT)
+cOLD      character*10
+cOLD     &     WFAT_PRINT_OPTIONS(WFAT_NPRINT)
 
       character*32
      &     wfat_theory
@@ -62,7 +62,6 @@ cOLD     &     DEF_WFAT_MASK=.false., DEF_FFC_TYPE=2, MAX_FEN=1000)
      &     wfat_mdip_l(MAX_N_ORBID), wfat_merg_l(MAX_N_ORBID)
 
       logical
-     &     print_exist, print_stat, 
      &     field_exist, field_stat,
      &     orbid_exist, orbid_stat,
      &     paraqn_exist, paraqn_stat,
@@ -93,8 +92,6 @@ cOLD     &     gqual_exist, gqual_stat,
      &     s2a1e_exist, s2a1e_stat
       
       logical
-     &     print_srfc, print_rate, print_yild, print_avbeta, 
-     &     print_avgamma, print_tmd, print_tmd_atom, 
      &     field_need, 
      &     nktmd_need, orbid_need, 
      &     paraqn_need, lmax_need, omgpos_need, dgnthr_need,
@@ -142,7 +139,6 @@ cOLD     &     DEF_2A1E_MAXIT=20, DEF_LEGDVR_NT=40, DEF_SOFT_COULOMB=0.0d0)
       
       common /wfat_input_var/
 c     == Logicals ==
-     &     print_exist, print_stat,
      &     field_exist, field_stat,
      &     orbid_exist, orbid_stat,
      &     paraqn_exist, paraqn_stat,
@@ -171,8 +167,6 @@ cOLD     &     gqual_exist, gqual_stat,
      &     prtb_ordthr_exist, prtb_ordthr_stat,
      &     prtb_maxord_exist, prtb_maxord_stat,
      &     s2a1e_exist, s2a1e_stat,
-     &     print_srfc, print_rate, print_yild, print_avbeta,
-     &     print_avgamma, print_tmd, print_tmd_atom, field_need,
      &     nktmd_need, orbid_need, paraqn_need, lmax_need, 
      &     omgpos_need, dgnthr_need, movec_need, 
      &     movec1_need, sitype_need, wfat1_need, w1x_need, mdip_need,
@@ -197,7 +191,7 @@ c     == Doubles ==
      &     wfat2a_q, wfat2a_inter, wfat2a_potparam, wfat2a_fenodes, 
      &     wfat2a_kein, wfat2a_kemult, wfat_mdip, wfat_merg,
 c     == Characters ==
-     &     prtb_type, WFAT_PRINT_OPTIONS, wfat_theory, wfat_level,
+     &     prtb_type, wfat_theory, wfat_level,
      &     wfat_movec_name, wfat_movec1_name, si_type,
      &     wfat2a_pot, wfat1_exclude, wfat_mdip_s, wfat_merg_s
 

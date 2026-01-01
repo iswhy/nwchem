@@ -12,6 +12,9 @@ c=======================================================
       double precision dval
       parameter (w='i')
 
+
+c     ==== Print ====
+      call wfat_process_print(rtdb)
       
 c     ==== Field ====
       call wfat_process_field(rtdb)
@@ -59,10 +62,60 @@ c=======================================================
 
 c=======================================================
 c=======================================================
+      subroutine wfat_process_ldata(rtdb, key, md, defval, lval)
+c     DESCRIPTION:
+c     Checks for a logical-valued entry of the form wfat:inp:<key> in the RTDB. If
+c     found, it will create a new RTDB entry named wfat:<key> with the same value
+c     as wfat:inp:<key>.
+c       rtdb: RTDB handle
+c       key: name of input
+c       md: if .true., the input is mandatory, otherwise, optional
+c       defval: default value that will be used if input is missing and md=.false.
+c               Regardless of md, a value for md must be supplied.
+c       lval: the value of the input
+      implicit none
+#include "errquit.fh"
+#include "rtdb.fh"      
+#include "mafdecls.fh"
+#include "stdio.fh"
+      integer rtdb       ![input]
+      character*(*) key  ![input]
+      logical md         ![input]
+      logical defval     ![input]
+      logical lval       ![output]
+
+      if (.not. rtdb_get(rtdb, 'wfat:inp:'//key, mt_log, 1, lval)) then
+         if (md) then
+            call errquit('Mandatory WFAT input directive '//key//' '//
+     &           'cannot be found. Either supply it in the input '//
+     &           'file or, if it is a restart job, make sure that it '//
+     &           'was defined in the previous job the present one is '//
+     &           'restarting from.', 30, INPUT_ERR)
+         else
+            write(luout, 100) key, defval
+            lval = defval
+         endif
+      endif
+      if (.not. rtdb_put(rtdb, 'wfat:'//key, mt_log, 1, lval))
+     &     call errquit('WFAT: Failed writing '//key//' to rtdb',
+     &     1, RTDB_ERR)
+
+ 100  format(
+     &     /, 3x, '*** INFO ***',
+     &     /, 5x, 'Input directive ', a, ' is not found. The default ',
+     &     'value of ', i4, ' will be assumed.')
+
+      end
+c=======================================================
+
+      
+c=======================================================
+c=======================================================
       subroutine wfat_process_idata(rtdb, key, md, defval, ival)
 c     DESCRIPTION:
-c     Checks for an entry of the form wfat:inp:<key> in the RTDB. If found, it will
-c     create a new RTDB entry named wfat:<key> with the same value as wfat:inp:<key>.
+c     Checks for an integer-valued entry of the form wfat:inp:<key> in the RTDB. If
+c     found, it will create a new RTDB entry named wfat:<key> with the same value
+c     as wfat:inp:<key>.
 c       rtdb: RTDB handle
 c       key: name of input
 c       md: if .true., the input is mandatory, otherwise, optional
@@ -109,8 +162,9 @@ c=======================================================
 c=======================================================
       subroutine wfat_process_ddata(rtdb, key, md, defval, dval)
 c     DESCRIPTION:
-c     Checks for an entry of the form wfat:inp:<key> in the RTDB. If found, it will
-c     create a new RTDB entry named wfat:<key> with the same value as wfat:inp:<key>.
+c     Checks for a decimal-valued entry of the form wfat:inp:<key> in the RTDB. If
+c     found, it will create a new RTDB entry named wfat:<key> with the same value
+c     as wfat:inp:<key>.
 c       rtdb: RTDB handle
 c       key: name of input
 c       md: if .true., the input is mandatory, otherwise, optional
@@ -148,6 +202,37 @@ c       dval: the value of the input
      &     /, 3x, '*** INFO ***',
      &     /, 5x, 'Input directive ', a, ' is not found. The default ',
      &     'value of ', es13.6, ' will be assumed.')
+
+      end
+c=======================================================
+
+
+c=======================================================
+c=======================================================
+      subroutine wfat_process_print(rtdb)
+
+      implicit none
+#include "errquit.fh"
+      integer rtdb
+
+      logical sr, rt, yi, avb, avg, tmd, tmda, md, def, test1, test2
+      parameter (md=.false., def=.false.)
+
+      call wfat_process_ldata(rtdb, 'print_srfc', md, def, sr)
+      call wfat_process_ldata(rtdb, 'print_rate', md, def, rt)
+      call wfat_process_ldata(rtdb, 'print_yild', md, def, yi)
+      call wfat_process_ldata(rtdb, 'print_avbeta', md, def, avb)
+      call wfat_process_ldata(rtdb, 'print_avgamma', md, def, avg)
+      call wfat_process_ldata(rtdb, 'print_tmd', md, def, tmd)
+      call wfat_process_ldata(rtdb, 'print_tmd_atom', md, def, tmda)
+
+      test1 = (rt .or. tmd .or. tmda)
+      test2 = (yi .or. avb .or. avg)
+      if (test1 .and. test2)
+     &     call errquit('WFAT: If any of the keywords rate, tmd, or '//
+     &     'tmd_atom are specified for the print directive, then none'//
+     &     ' of the keywords yield, avbeta, or avgamma can be '//
+     &     'specified simultaneously, and vice versa.', 63, INPUT_ERR)
 
       end
 c=======================================================
@@ -565,8 +650,6 @@ c     ==== Get print switches ====
       
 c     ==== Get the number of field blocks ====
       if (.not. rtdb_get(rtdb, 'wfat:field:n', mt_int, 1, nf)) nf = 0
-      if ((need_dc .or. need_td) .and. nf == 0)
-     &     call errquit('WFAT: A field block is needed.', 30, UERR)
 
 
 c     ==== Check for consistencies with the print directive ====
@@ -582,6 +665,14 @@ c     ==== Check for consistencies with the print directive ====
      &        'requested, the field must not be DC.', 30, UERR)
          if (.not. need_dc .and. .not. need_td)
      &        write(luout, 201)
+      else if (nf == 0) then
+         if (need_dc) call errquit('WFAT: One field block of type dc '//
+     &        'is needed when the rate and/or tmd are specified for '//
+     &        'the print directive.', 90, INPUT_ERR)
+         if (need_td) call errquit('WFAT: At least one time-dependent'//
+     &        ' field block (gaussian, hann, or one from an external '//
+     &        'file) is needed when the yields, averaged or not, are '//
+     &        'specified for the print directive.', 90, INPUT_ERR)
       endif
       
 
