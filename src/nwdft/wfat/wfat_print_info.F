@@ -58,7 +58,7 @@ c     ==== Orientation angles ====
 
 
 c     ==== Transverse momenta ====
-      if (.not. rtdb_get(rtdb, 'wfat:print_tmd', mt_log, 1, pr_tmd))
+      if (.not. rtdb_get(rtdb, 'wfat:p_tmd', mt_log, 1, pr_tmd))
      &     call errquit('WFAT: Failed reading print_tmd from rtdb',
      &     1, RTDB_ERR)
       if (pr_tmd) call wfat_print_momenta(rtdb)
@@ -141,9 +141,9 @@ c=======================================================
       endif
 
       if (ga_nodeid() == 0)
-     &     write(luout, 900) 'initial species (neutral)',
-     &     trim(movecs), trim(title), trim(scftype), trim(basname),
-     &     nbas0, nspin0, nmo, nel, multip, charge
+     &     write(luout, 900) 'initial species (neutral)', trim(movecs),
+     &     trim(title), trim(scftype), trim(basname), nbas0, nspin0, 
+     &     nmo, nel, multip, charge
 
  900  format(
      &     3x, 'Information about the ', a, ' :', /,

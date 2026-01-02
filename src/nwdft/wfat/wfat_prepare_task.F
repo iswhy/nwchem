@@ -802,29 +802,19 @@ c=================================================
 
 c     ==== Obtaining print switches ====
       if (.not. rtdb_get(rtdb, 'wfat:'//s//'p_srfc', mt_log, 1, p_srfc))
-     &     call errquit('WFAT: Failed reading '//s//'p_srfc from rtdb',
-     &     1, RTDB_ERR)
+     &     p_srfc = .false.
       if (.not. rtdb_get(rtdb, 'wfat:'//s//'p_rate', mt_log, 1, p_rate))
-     &     call errquit('WFAT: Failed reading '//s//'p_rate from rtdb',
-     &     1, RTDB_ERR)
+     &     p_rate = .false.
       if (.not. rtdb_get(rtdb, 'wfat:'//s//'p_yild', mt_log, 1, p_yild))
-     &     call errquit('WFAT: Failed reading '//s//'p_yild from rtdb',
-     &     1, RTDB_ERR)
+     &     p_yild = .false.
       if (.not. rtdb_get(rtdb, 'wfat:'//s//'p_avbeta', mt_log,
-     &     1, p_avbeta))
-     &     call errquit('WFAT: Failed reading '//s//'p_avbeta from '//
-     &     'rtdb', 1, RTDB_ERR)
+     &     1, p_avbeta)) p_avbeta = .false.
       if (.not. rtdb_get(rtdb, 'wfat:'//s//'p_avgamma', mt_log,
-     &     1, p_avgamma))
-     &     call errquit('WFAT: Failed reading '//s//'p_avgamma from '//
-     &     'rtdb', 1, RTDB_ERR)
+     &     1, p_avgamma)) p_avgamma = .false.
       if (.not. rtdb_get(rtdb, 'wfat:'//s//'p_tmd', mt_log, 1, p_tmd))
-     &     call errquit('WFAT: Failed reading '//s//'p_tmd from rtdb',
-     &     1, RTDB_ERR)
+     &     p_tmd = .false.
       if (.not. rtdb_get(rtdb, 'wfat:'//s//'p_tmd_atom', mt_log, 1,
-     &     p_tmd_atom))
-     &     call errquit('WFAT: Failed reading '//s//'p_tmd_atom from '//
-     &     'rtdb.', 1, RTDB_ERR)
+     &     p_tmd_atom)) p_tmd_atom = .false.
 
       end
 c=================================================

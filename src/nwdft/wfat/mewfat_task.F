@@ -14,12 +14,12 @@ c=================================================
       integer rtdb
 
       character*4096 fname
-      character*2 td
       character*7 jobtype
       character*26 date
       logical res_mode, rtdb_stat, os, oc, or, isthere, wfat1
       logical pr_srfc, pr_yild, pr_rate, pr_avbeta, pr_avgamma
       logical pr_tmd, pr_tmd_atom, ismask_i, ismask_e, int_nosave
+      logical need_dc, need_td
       integer gqual, lmax
       integer ndid, nqn, nsh, nintg
       integer nerg, ncpos, ncmm, niond, cx, cy, nocmo0, nocmo1, npcf
@@ -221,20 +221,22 @@ cOLD     &     int_mb(k_mpa), wfat1, dcpl_mb(k_in), czero, czero, czero)
 c        ============================================
 c        ==== Calculate and print key quantities ====
 c        ============================================
-         if (td=='td') then
-            if (pr_srfc .or. pr_yild .or. pr_avbeta .or. pr_avgamma)
-     &           call mewfat_calc_td(rtdb, geom_hd, nel0, natm, pr_srfc,
-     &           pr_yild, pr_avbeta, pr_avgamma, 1, spinx, 
-     &           dbl_mb(k_ieg), dbl_mb(k_cmm), nqn, int_mb(k_npa), 
-     &           int_mb(k_mpa), lmax, zion, dcpl_mb(k_in))
-         else
-            if (pr_srfc .or. pr_rate .or. pr_tmd)
-     &           call mewfat_calc_ti(rtdb, geom_hd, nel0, natm, pr_srfc,
-     &           pr_rate, pr_tmd, 1, spinx, dbl_mb(k_ieg), 
-     &           dbl_mb(k_cmm), nqn, int_mb(k_npa), int_mb(k_mpa),
-     &           lmax, zion, dcpl_mb(k_in))
-         endif
+         need_dc = (pr_rate .or. pr_tmd .or. pr_tmd_atom)
+         need_td = (pr_yild .or. pr_avbeta .or. pr_avgamma)
+         if (need_dc .and. need_td) call errquit('WFAT: Inconsistent '//
+     &        'print specifications.', 20, UERR)
          
+         if (need_td .and. .not. need_dc)
+     &        call mewfat_calc_td(rtdb, geom_hd, nel0, natm, pr_srfc,
+     &        pr_yild, pr_avbeta, pr_avgamma, 1, spinx, dbl_mb(k_ieg),
+     &        dbl_mb(k_cmm), nqn, int_mb(k_npa), int_mb(k_mpa), lmax,
+     &        zion, dcpl_mb(k_in))
+
+         if ((pr_srfc .or. need_dc) .and. .not. need_td)
+     &        call mewfat_calc_ti(rtdb, geom_hd, nel0, natm, pr_srfc,
+     &        pr_rate, pr_tmd, 1, spinx, dbl_mb(k_ieg), dbl_mb(k_cmm), 
+     &        nqn, int_mb(k_npa), int_mb(k_mpa), lmax, zion, 
+     &        dcpl_mb(k_in))
          
          if (.not. MA_free_heap(l_in))
      &        call errquit('WFAT: intgl deallocation failed', 3, MA_ERR)

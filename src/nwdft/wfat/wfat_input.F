@@ -355,7 +355,7 @@ c=======================================================
       
       character*255 ss
       character*10 options(7)
-      logical tt, sr, rt, yi, avb, avg, tmd, tmda
+      logical tt
       integer i1, i2, k
 
       
@@ -379,50 +379,48 @@ c     ==== Read the entire line containing the print directive ====
 c     ==== Iterate over keywords ====
       do while (inp_strtok(ss, ' ', i1, i2))        !! The rest of 'print' line
          tt = inp_match(7, .false., ss(i1:i2), options, k)
+
          if (options(k) == 'srfc') then
-            sr = .true.
+            if (.not. rtdb_put(rtdb, 'wfat:inp:p_srfc', mt_log, 1,
+     &           .true.)) call errquit('WFAT: Failed writing '//
+     &           'inp:p_srfc to rtdb', 1, RTDB_ERR)
+
          else if (options(k) == 'rate') then
-            rt = .true.
+            if (.not. rtdb_put(rtdb, 'wfat:inp:p_rate', mt_log, 1,
+     &           .true.)) call errquit('WFAT: Failed writing '//
+     &           'inp:p_rate to rtdb', 1, RTDB_ERR)
+
          else if (options(k) == 'yield') then
-            yi = .true.
+            if (.not. rtdb_put(rtdb, 'wfat:inp:p_yild', mt_log, 1,
+     &           .true.)) call errquit('WFAT: Failed writing '//
+     &           'inp:p_yild to rtdb', 1, RTDB_ERR)
+
          else if (options(k) == 'avbeta') then
-            avb = .true.
+            if (.not. rtdb_put(rtdb, 'wfat:inp:p_avbeta', mt_log, 1,
+     &           .true.)) call errquit('WFAT: Failed writing '//
+     &           'inp:p_avbeta to rtdb', 1, RTDB_ERR)
+
          else if (options(k) == 'avgamma') then
-            avg = .true.
+            if (.not. rtdb_put(rtdb, 'wfat:inp:p_avgamma', mt_log, 1,
+     &           .true.)) call errquit('WFAT: Failed writing '//
+     &           'inp:p_avgamma to rtdb', 1, RTDB_ERR)
+
          else if (options(k) == 'tmd') then
-            tmd = .true.
+            if (.not. rtdb_put(rtdb, 'wfat:inp:p_tmd', mt_log, 1,
+     &           .true.)) call errquit('WFAT: Failed writing '//
+     &           'inp:p_tmd to rtdb', 1, RTDB_ERR)
+
          else if (options(k) == 'tmd_atom') then
-            tmda = .true.
+            if (.not. rtdb_put(rtdb, 'wfat:inp:p_tmd_atom', mt_log, 1,
+     &           .true.)) call errquit('WFAT: Failed writing '//
+     &           'inp:p_tmd_atom to rtdb', 1, RTDB_ERR)
+
          else
             call errquit('WFAT: Unknown keyword is specified for the '//
      &           'print directive', 64, INPUT_ERR)
 cOLD            exit
          endif
       enddo
-
-
-c     ==== Put into RTDB ====
-      if (.not. rtdb_put(rtdb, 'wfat:inp:p_srfc', mt_log, 1, sr))
-     &     call errquit('WFAT: Failed writing inp:p_srfc to rtdb',
-     &     1, RTDB_ERR)
-      if (.not. rtdb_put(rtdb, 'wfat:inp:p_rate', mt_log, 1, rt))
-     &     call errquit('WFAT: Failed writing inp:p_srfc to rtdb',
-     &     1, RTDB_ERR)
-      if (.not. rtdb_put(rtdb, 'wfat:inp:p_yild', mt_log, 1, yi))
-     &     call errquit('WFAT: Failed writing inp:p_yild to rtdb',
-     &     1, RTDB_ERR)
-      if (.not. rtdb_put(rtdb, 'wfat:inp:p_avbeta', mt_log, 1, avb))
-     &     call errquit('WFAT: Failed writing inp:p_avbeta to rtdb',
-     &     1, RTDB_ERR)
-      if (.not. rtdb_put(rtdb, 'wfat:inp:p_avgamma', mt_log, 1, avg))
-     &     call errquit('WFAT: Failed writing inp:p_avgamma to rtdb',
-     &     1, RTDB_ERR)
-      if (.not. rtdb_put(rtdb, 'wfat:inp:p_tmd', mt_log, 1, tmd))
-     &     call errquit('WFAT: Failed writing inp:p_tmd to rtdb',
-     &     1, RTDB_ERR)
-      if (.not. rtdb_put(rtdb, 'wfat:inp:p_tmd_atom', mt_log, 1, tmda))
-     &     call errquit('WFAT: Failed writing inp:p_tmd_atom to rtdb',
-     &     1, RTDB_ERR)
       
       end
 c=======================================================
@@ -450,9 +448,9 @@ c     end
       integer rtdb
       integer i                 ! [input],
 
-      character*50 key, fru, ceu, wiu, mxu, cpu
+      character*50 key, tp0, fru, ceu, wiu, mxu, cpu
       character*2 max_str
-      character*1 is
+      character*2 is
       character*4 notype
       character*2 tp, TP_OPTS(4)
       logical l
@@ -487,38 +485,39 @@ c     ==== Ensure the number of field blocks is below limit ====
 
       
 c     ==== Parse field parameters ====
-      tp = notype
+      tp0 = notype
       do while (inp_read())
          if (inp_a(key)) then
 
 c           >>>> Field type (dc, external, gaussian, etc) <<<<
             if (inp_compare(.false., 'type', key)) then
-               l = inp_a(tp)
+               l = inp_a(tp0)
+               call wfat_abbrev_fieldtp(tp0, tp)
 
 c           >>>> Frequency <<<<
             else if (inp_compare(.false., 'frequency', key)) then
                l = inp_f(fr0)
-               if (.not. inp_a(key)) fru = 'au'
+               if (.not. inp_a(fru)) fru = 'au'
                
 c           >>>> Center <<<<
             else if (inp_compare(.false., 'center', key)) then
                l = inp_f(ce0)
-               if (.not. inp_a(key)) ceu = 'au'
+               if (.not. inp_a(ceu)) ceu = 'au'
 
 c           >>>> Width <<<<
             else if (inp_compare(.false., 'width', key)) then
                l = inp_f(wi0)
-               if (.not. inp_a(key)) wiu = 'au'
+               if (.not. inp_a(wiu)) wiu = 'au'
                
 c           >>>> Amplitude <<<<
             else if (inp_compare(.false., 'max', key)) then
                l = inp_f(mx0)
-               if (.not. inp_a(key)) mxu = 'au'
+               if (.not. inp_a(mxu)) mxu = 'au'
                
 c           >>>> CEP <<<<
             else if (inp_compare(.false., 'cep', key)) then
                l = inp_f(cp0)
-               if (.not. inp_a(key)) cpu = 'rad'
+               if (.not. inp_a(cpu)) cpu = 'rad'
 
             else if (inp_compare(.false., 'end', key)) then
                exit
@@ -549,7 +548,7 @@ c        typeg = 2 ==> external
 c        typeg = 3 ==> everything else
          if (inp_compare(.false., 'dc', tp)) then
             typeg = 1
-         else if (inp_compare(.false., 'external', tp)) then
+         else if (inp_compare(.false., 'ex', tp)) then
             typeg = 2
             call wfat_inp_externfield(rtdb)
          else
@@ -604,6 +603,56 @@ c        >>>> CEP <<<<
       endif
       
          
+      end
+c=======================================================
+
+
+c=======================================================
+c=======================================================
+      subroutine wfat_abbrev_fieldtp(tp0, tp)
+
+      implicit none
+#include "errquit.fh"
+      character*(*) tp0
+      character*2 tp
+
+      if (trim(adjustl(tp0)) == 'dc') then
+         tp = 'dc'
+      else if (trim(adjustl(tp0)) == 'gaussian') then
+         tp = 'ga'
+      else if (trim(adjustl(tp0)) == 'hann') then
+         tp = 'ha'
+      else if (trim(adjustl(tp0)) == 'external') then
+         tp = 'ex'
+      else
+         call errquit('WFAT: Unkown field type.', 90, INPUT_ERR)
+      endif
+
+      end
+c=======================================================
+
+
+c=======================================================
+c=======================================================
+      subroutine wfat_expand_fieldtp(tp0, tp)
+
+      implicit none
+#include "errquit.fh"
+      character*2 tp0
+      character*(*) tp
+
+      if (tp0 == 'dc') then
+         tp = 'dc'
+      else if (tp0 == 'ga') then
+         tp = 'gaussian'
+      else if (tp0 == 'ha') then
+         tp = 'hann'
+      else if (tp0 == 'ex') then
+         tp = 'external'
+      else
+         call errquit('WFAT: Unkown field type.', 91, INPUT_ERR)
+      endif
+
       end
 c=======================================================
 
@@ -883,8 +932,8 @@ c=======================================================
          dt = dt0
       endif
 
-      if (.not. rtdb_put(rtdb, 'wfat:inp:dt', mt_dbl, 1, dt))
-     &     call errquit('WFAT: Cannot write wfat:inp:dt to RTDB.',
+      if (.not. rtdb_put(rtdb, 'wfat:inp:field:dt', mt_dbl, 1, dt))
+     &     call errquit('WFAT: Cannot write inp:field:dt to RTDB.',
      &     21, RTDB_ERR)
       
       end
@@ -924,8 +973,8 @@ c=======================================================
          tmax = tmax0
       endif
 
-      if (.not. rtdb_put(rtdb, 'wfat:inp:tmax', mt_dbl, 1, tmax))
-     &     call errquit('WFAT: Cannot write wfat:inp:tmax to RTDB.',
+      if (.not. rtdb_put(rtdb, 'wfat:inp:field:tmax', mt_dbl, 1, tmax))
+     &     call errquit('WFAT: Cannot write :inp:field:tmax to RTDB.',
      &     21, RTDB_ERR)
       
       end
@@ -978,8 +1027,8 @@ c     ==== Loop for reading spins ====
      &              '''a'' or ''b''. The trailing list of integers '//
      &              'give the spatial orbitals having the x spin. At '//
      &              'the moment, only negative integers '//
-     &              '(corresponding to occupied orbitals) are ',
-     &              'supported.',1, INPUT_ERR)
+     &              '(corresponding to occupied orbitals) are '//
+     &              'supported.', 1, INPUT_ERR)
             endif
          endif
 
@@ -2274,25 +2323,22 @@ c     This type is equivalent to bt <bt_start> 1 <bt_start>.
             nag = 1
             agn = ag0
          endif
+         
+         if (.not. rtdb_put(rtdb, 'wfat:inp:'//c//'_start', mt_dbl, 1, 
+     &        ag0)) call errquit('WFAT: Cannot write inp:'//c//
+     &        '_start to rtdb', 53, INPUT_ERR)
+         
+         if (.not. rtdb_put(rtdb, 'wfat:inp:'//c//'_last', mt_dbl, 1,
+     &        agn)) call errquit('WFAT: Cannot write inp:'//c//
+     &        '_last to rtdb', 53, INPUT_ERR)
+         
+         if (.not. rtdb_put(rtdb, 'wfat:inp:n'//c, mt_int, 1, nag)) 
+     &        call errquit('WFAT: Cannot write inp:n'//c//' to rtdb',
+     &        53, INPUT_ERR)
       else
          call errquit('WFAT: Valid inputs for '//c//' directive is '//
      &        'expected.', 24, INPUT_ERR)
       endif
-
-      
-      if (.not. rtdb_put(rtdb, 'wfat:inp:'//c//'_start',
-     &     mt_dbl, 1, ag0))
-     &     call errquit('WFAT: Cannot write inp:'//c//'_start to rtdb',
-     &     53, INPUT_ERR)
-
-      if (.not. rtdb_put(rtdb, 'wfat:inp:'//c//'_last',
-     &     mt_dbl, 1, agn))
-     &     call errquit('WFAT: Cannot write inp:'//c//'_last to rtdb',
-     &     53, INPUT_ERR)
-
-      if (.not. rtdb_put(rtdb, 'wfat:inp:n'//c, mt_int, 1, nag)) 
-     &     call errquit('WFAT: Cannot write inp:n'//c//' to rtdb',
-     &     53, INPUT_ERR)
 
       end
 c=======================================================
@@ -2337,25 +2383,22 @@ cOLD     by NWChem according to the span of the broadest channel function.
             nk = 1
             kn = k0
          endif
+
+         if (.not. rtdb_put(rtdb, 'wfat:inp:k'//c//'_start', mt_dbl, 1, 
+     &        k0)) call errquit('WFAT: Cannot write inp:k'//c//
+     &        '_start to rtdb', 53, INPUT_ERR)
+         
+         if (.not. rtdb_put(rtdb, 'wfat:inp:k'//c//'_last', mt_dbl, 1, 
+     &        kn)) call errquit('WFAT: Cannot write inp:k'//c//
+     &        '_last to rtdb', 53, INPUT_ERR)
+         
+         if (.not. rtdb_put(rtdb, 'wfat:inp:nk'//c, mt_int, 1, nk)) 
+     &        call errquit('WFAT: Cannot write inp:nk'//c//' to rtdb',
+     &        53, INPUT_ERR)
       else
          call errquit('WFAT: Valid inputs for k'//c//' directive is '//
      &        'expected.', 24, INPUT_ERR)
       endif
-
-      
-      if (.not. rtdb_put(rtdb, 'wfat:inp:k'//c//'_start',
-     &     mt_dbl, 1, k0))
-     &     call errquit('WFAT: Cannot write inp:k'//c//'_start to rtdb',
-     &     53, INPUT_ERR)
-
-      if (.not. rtdb_put(rtdb, 'wfat:inp:k'//c//'_last',
-     &     mt_dbl, 1, kn))
-     &     call errquit('WFAT: Cannot write inp:k'//c//'_last to rtdb',
-     &     53, INPUT_ERR)
-
-      if (.not. rtdb_put(rtdb, 'wfat:inp:nk'//c, mt_int, 1, nk)) 
-     &     call errquit('WFAT: Cannot write inp:nk'//c//' to rtdb',
-     &     53, INPUT_ERR)
 
       end
 c=======================================================
@@ -2442,12 +2485,15 @@ c=======================================================
 
       integer val
 
-      if (.not. inp_i(val)) call errquit ("WFAT: "//key//
-     &     "takes an integer.", 20, INPUT_ERR)     
-      if (.not.rtdb_put(rtdb, 'wfat:inp:'//key, mt_int, 1, val))
+      if (inp_i(val)) then
+         if (.not. rtdb_put(rtdb, 'wfat:inp:'//key, mt_int, 1, val))
      &     call errquit('WFAT: Cannot write wfat:inp:'//key//
      &     ' to RTDB.', 21, RTDB_ERR)
-
+      else
+         call errquit ("WFAT: "//key//"takes an integer.",
+     &        20, INPUT_ERR)
+      endif
+      
       end
 c=======================================================
 
@@ -2466,11 +2512,14 @@ c=======================================================
 
       double precision val
 
-      if (.not. inp_f(val)) call errquit ("WFAT: "//key//
-     &     "takes an integer.", 20, INPUT_ERR)     
-      if (.not.rtdb_put(rtdb, 'wfat:inp:'//key, mt_dbl, 1, val))
+      if (inp_f(val)) then
+         if (.not.rtdb_put(rtdb, 'wfat:inp:'//key, mt_dbl, 1, val))
      $     call errquit('WFAT: Cannot write wfat:inp:'//key//
      &     ' to RTDB.', 21, RTDB_ERR)
+      else
+         call errquit ("WFAT: "//key//"takes an integer.", 
+     &        20, INPUT_ERR)
+      endif
 
       end
 c=======================================================

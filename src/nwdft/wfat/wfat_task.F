@@ -42,10 +42,9 @@ c===============================================================
 #include "wfat_qm_param.fh"
       integer rtdb
 
-      character*2 td
       character*7 jobtype
       logical pr_srfc, pr_yild, pr_rate, pr_avbeta, pr_avgamma
-      logical pr_tmd, pr_tmd_atom
+      logical pr_tmd, pr_tmd_atom, need_dc, need_td
       logical rtdb_stat, wfat1, res_mode, loadint
       logical dd, corb_print, perturb, ismask_i, ismask_e
       character*32 theory
@@ -314,28 +313,29 @@ c        ==== Printing the WFAT integrals ====
 c        =============================================
 c        ==== Calculate and print some quantities ====
 c        =============================================
-         if (td=='td') then
-            if (pr_srfc .or. pr_yild .or. pr_avbeta .or. pr_avgamma)
-     &           call wfat_calc_td(rtdb, geom_hd, pr_srfc, pr_yild, 
-     &           pr_avbeta, pr_avgamma, nch, int_mb(k_or0), 
-     &           int_mb(k_sp), dbl_mb(k_eg), dbl_mb(k_cmm), nqn, 
-     &           int_mb(k_npa), int_mb(k_mpa), lmax, zion, 
-     &           dcpl_mb(k_in), wfat1, ndgsub, max_ndgsub, 
-     &           int_mb(k_dgs), int_mb(k_ndgs), dbl_mb(k_dps), 
-     &           dbl_mb(k_pbs), log_mb(k_w1x), dcpl_mb(k_inj),
-     &           dcpl_mb(k_ink1), dcpl_mb(k_ink2))
+         need_dc = (pr_rate .or. pr_tmd .or. pr_tmd_atom)
+         need_td = (pr_yild .or. pr_avbeta .or. pr_avgamma)
+         if (need_dc .and. need_td) call errquit('WFAT: Inconsistent '//
+     &        'print specifications.', 18, UERR)
+         
+         if (need_td .and. .not. need_dc)
+     &        call wfat_calc_td(rtdb, geom_hd, pr_srfc, pr_yild,
+     &        pr_avbeta, pr_avgamma, nch, int_mb(k_or0),
+     &        int_mb(k_sp), dbl_mb(k_eg), dbl_mb(k_cmm), nqn, 
+     &        int_mb(k_npa), int_mb(k_mpa), lmax, zion, 
+     &        dcpl_mb(k_in), wfat1, ndgsub, max_ndgsub, 
+     &        int_mb(k_dgs), int_mb(k_ndgs), dbl_mb(k_dps), 
+     &        dbl_mb(k_pbs), log_mb(k_w1x), dcpl_mb(k_inj),
+     &        dcpl_mb(k_ink1), dcpl_mb(k_ink2))
 
-            if (pr_tmd) call errquit('WFAT: TMDs produced by TD field'//
-     &           'need more robust theoretical foundation.', 55, UERR)
-         else
-            if (pr_srfc .or. pr_rate .or. pr_tmd)
-     &           call wfat_calc_ti(rtdb, geom_hd, pr_srfc, pr_rate,
-     &           pr_tmd, nch, int_mb(k_or0), int_mb(k_sp), dbl_mb(k_eg),
-     &           dbl_mb(k_cmm), nqn, int_mb(k_npa), int_mb(k_mpa), lmax,
-     &           zion, dcpl_mb(k_in), wfat1, ndgsub, max_ndgsub, 
-     &           int_mb(k_dgs), int_mb(k_ndgs), dbl_mb(k_dps), 
-     &           dbl_mb(k_pbs), log_mb(k_w1x), dcpl_mb(k_inj), 
-     &           dcpl_mb(k_ink1), dcpl_mb(k_ink2))
+         if ((pr_srfc .or. need_dc) .and. .not. need_td)
+     &        call wfat_calc_ti(rtdb, geom_hd, pr_srfc, pr_rate,
+     &        pr_tmd, nch, int_mb(k_or0), int_mb(k_sp), dbl_mb(k_eg),
+     &        dbl_mb(k_cmm), nqn, int_mb(k_npa), int_mb(k_mpa), lmax,
+     &        zion, dcpl_mb(k_in), wfat1, ndgsub, max_ndgsub, 
+     &        int_mb(k_dgs), int_mb(k_ndgs), dbl_mb(k_dps), 
+     &        dbl_mb(k_pbs), log_mb(k_w1x), dcpl_mb(k_inj), 
+     &        dcpl_mb(k_ink1), dcpl_mb(k_ink2))
 
 cOLD            if (pr_tmd .or. pr_tmd_atom) 
 cOLD     &           call wfat_calcprint_tmd(rtdb, geom_hd, pr_tmd, 
@@ -343,8 +343,6 @@ cOLD     &           pr_tmd_atom, fieldmag, nch, int_mb(k_or0),
 cOLD     &           int_mb(k_sp), dbl_mb(k_eg), dbl_mb(k_cmm), nqn, 
 cOLD     &           int_mb(k_npa), int_mb(k_mpa), lmax, dcpl_mb(k_in),
 cOLD     &           res_mode)
-         endif
-         
          
          if (.not. MA_free_heap(l_in))
      &        call errquit('WFAT: intgl deallocation failed', 3, MA_ERR)

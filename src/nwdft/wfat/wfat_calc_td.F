@@ -179,37 +179,33 @@ c     ==== Calculate and print structure factor and ion yield ====
                gap = .true.
             endif
             
-            if (pr_srfc .or. pr_yild .or. pr_avbeta) then
-c              ==== Calculate structure factor ====
-               if (wfat1) then
-                  call wfat_get_srfc1(bt, gm, nat, nch, nqn, lmax, mid, 
-     &                 erg, chmmt, intgl, intgl_j, intgl_k1, intgl_k2, 
-     &                 nsub, maxn, dgs, ndgs, dthr, dps, pbs, .false.,
-     &                 dbl_mb(k_sc), dcpl_mb(k_sx), dbl_mb(k_pbd), 
-     &                 dcpl_mb(k_gn), dcpl_mb(k_jn), dcpl_mb(k_kn))
-                  call wfat_get_srfc1(180.d0-bt, 180.0d0+gm, nat, nch,
-     &                 nqn, lmax, mid, erg, chmmt, intgl, intgl_j, 
-     &                 intgl_k1, intgl_k2, nsub, maxn, dgs, ndgs, dthr, 
-     &                 dps, pbs, .false., dbl_mb(k_sc), dcpl_mb(k_sx), 
-     &                 dbl_mb(k_pbd), dcpl_mb(k_gnn), dcpl_mb(k_jnn),
-     &                 dcpl_mb(k_knn))
-               else
-                  call wfat_get_srfc0(geom, bt, gm, nch, erg, nqn, mid, 
-     &                 lmax, chmmt, intgl, .false., dcpl_mb(k_gn))
-                  call wfat_get_srfc0(geom, 180.0d0-bt, 
-     &                 180.0d0+gm, nch, erg, nqn, mid, lmax, chmmt, 
-     &                 intgl, .false., dcpl_mb(k_gnn))
-               endif
-               
-               
-c              ==== Print structure factor ====
-               if (ndid == 0 .and. pr_srfc) then
-                  call wfat_print_structuref(nat, bt, gm, nch, nqn,
-     &                 dcpl_mb(k_gn), gap)
-                  if (wfat1) call wfat_print_srfc1(nat, bt, gm, nch, 
-     &                 nqn, dcpl_mb(k_jn), dcpl_mb(k_kn), gap)
-               endif
-               
+c           ==== Calculate structure factor ====
+            if (wfat1) then
+               call wfat_get_srfc1(bt, gm, nat, nch, nqn, lmax, mid, 
+     &              erg, chmmt, intgl, intgl_j, intgl_k1, intgl_k2, 
+     &              nsub, maxn, dgs, ndgs, dthr, dps, pbs, .false.,
+     &              dbl_mb(k_sc), dcpl_mb(k_sx), dbl_mb(k_pbd), 
+     &              dcpl_mb(k_gn), dcpl_mb(k_jn), dcpl_mb(k_kn))
+               call wfat_get_srfc1(180.d0-bt, 180.0d0+gm, nat, nch,
+     &              nqn, lmax, mid, erg, chmmt, intgl, intgl_j, 
+     &              intgl_k1, intgl_k2, nsub, maxn, dgs, ndgs, dthr, 
+     &              dps, pbs, .false., dbl_mb(k_sc), dcpl_mb(k_sx), 
+     &              dbl_mb(k_pbd), dcpl_mb(k_gnn), dcpl_mb(k_jnn),
+     &              dcpl_mb(k_knn))
+            else
+               call wfat_get_srfc0(geom, bt, gm, nch, erg, nqn, mid, 
+     &              lmax, chmmt, intgl, .false., dcpl_mb(k_gn))
+               call wfat_get_srfc0(geom, 180.0d0-bt, 
+     &              180.0d0+gm, nch, erg, nqn, mid, lmax, chmmt, 
+     &              intgl, .false., dcpl_mb(k_gnn))
+            endif
+                        
+c           ==== Print structure factor ====
+            if (ndid == 0 .and. pr_srfc) then
+               call wfat_print_structuref(nat, bt, gm, nch, nqn,
+     &              dcpl_mb(k_gn), gap)
+               if (wfat1) call wfat_print_srfc1(nat, bt, gm, nch, nqn,
+     &              dcpl_mb(k_jn), dcpl_mb(k_kn), gap)
             endif
 
             if (pr_yild .or. pr_avbeta) then

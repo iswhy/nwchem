@@ -736,23 +736,23 @@ c     ==== Common integrals ====
 
 
 c     ==== RTDB ====
-      ll = rtdb_delete(rtdb, 'wfat:print_srfc')
-      ll = rtdb_delete(rtdb, 'wfat:print_rate')
-      ll = rtdb_delete(rtdb, 'wfat:print_yild')
-      ll = rtdb_delete(rtdb, 'wfat:print_tmd')
-      ll = rtdb_delete(rtdb, 'wfat:print_tmd_atom')
-      ll = rtdb_delete(rtdb, 'wfat:beta_start')
-      ll = rtdb_delete(rtdb, 'wfat:beta_last')
-      ll = rtdb_delete(rtdb, 'wfat:nbeta')
-      ll = rtdb_delete(rtdb, 'wfat:gamma_start')
-      ll = rtdb_delete(rtdb, 'wfat:gamma_last')
-      ll = rtdb_delete(rtdb, 'wfat:ngamma')
-      ll = rtdb_delete(rtdb, 'wfat:nktmd')
+cOLD      ll = rtdb_delete(rtdb, 'wfat:print_srfc')
+cOLD      ll = rtdb_delete(rtdb, 'wfat:print_rate')
+cOLD      ll = rtdb_delete(rtdb, 'wfat:print_yild')
+cOLD      ll = rtdb_delete(rtdb, 'wfat:print_tmd')
+cOLD      ll = rtdb_delete(rtdb, 'wfat:print_tmd_atom')
+cOLD      ll = rtdb_delete(rtdb, 'wfat:beta_start')
+cOLD      ll = rtdb_delete(rtdb, 'wfat:beta_last')
+cOLD      ll = rtdb_delete(rtdb, 'wfat:nbeta')
+cOLD      ll = rtdb_delete(rtdb, 'wfat:gamma_start')
+cOLD      ll = rtdb_delete(rtdb, 'wfat:gamma_last')
+cOLD      ll = rtdb_delete(rtdb, 'wfat:ngamma')
+cOLD      ll = rtdb_delete(rtdb, 'wfat:nktmd')
 cOLD      ll = rtdb_delete(rtdb, 'wfat:beta_tmd')
 cOLD      ll = rtdb_delete(rtdb, 'wfat:gamma_tmd')
-      ll = rtdb_delete(rtdb, 'wfat:intgl_name')
-      ll = rtdb_delete(rtdb, 'wfat:intgl_nosave')
-      ll = rtdb_delete(rtdb, 'wfat:movec_name')
+cOLD      ll = rtdb_delete(rtdb, 'wfat:intgl_name')
+cOLD      ll = rtdb_delete(rtdb, 'wfat:intgl_nosave')
+cOLD      ll = rtdb_delete(rtdb, 'wfat:movec_name')
       
       end
 c=================================================

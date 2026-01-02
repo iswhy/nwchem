@@ -84,6 +84,8 @@ c       lval: the value of the input
       logical defval     ![input]
       logical lval       ![output]
 
+      character*5 defs
+      
       if (.not. rtdb_get(rtdb, 'wfat:inp:'//key, mt_log, 1, lval)) then
          if (md) then
             call errquit('Mandatory WFAT input directive '//key//' '//
@@ -92,7 +94,12 @@ c       lval: the value of the input
      &           'was defined in the previous job the present one is '//
      &           'restarting from.', 30, INPUT_ERR)
          else
-            write(luout, 100) key, defval
+            if (defval) then
+               defs = 'True '
+            else
+               defs = 'False'
+            endif
+            write(luout, 100) key, trim(defs)
             lval = defval
          endif
       endif
@@ -103,7 +110,7 @@ c       lval: the value of the input
  100  format(
      &     /, 3x, '*** INFO ***',
      &     /, 5x, 'Input directive ', a, ' is not found. The default ',
-     &     'value of ', i4, ' will be assumed.')
+     &     'value of ', a, ' will be assumed.')
 
       end
 c=======================================================
@@ -218,13 +225,13 @@ c=======================================================
       logical sr, rt, yi, avb, avg, tmd, tmda, md, def, test1, test2
       parameter (md=.false., def=.false.)
 
-      call wfat_process_ldata(rtdb, 'print_srfc', md, def, sr)
-      call wfat_process_ldata(rtdb, 'print_rate', md, def, rt)
-      call wfat_process_ldata(rtdb, 'print_yild', md, def, yi)
-      call wfat_process_ldata(rtdb, 'print_avbeta', md, def, avb)
-      call wfat_process_ldata(rtdb, 'print_avgamma', md, def, avg)
-      call wfat_process_ldata(rtdb, 'print_tmd', md, def, tmd)
-      call wfat_process_ldata(rtdb, 'print_tmd_atom', md, def, tmda)
+      call wfat_process_ldata(rtdb, 'p_srfc', md, def, sr)
+      call wfat_process_ldata(rtdb, 'p_rate', md, def, rt)
+      call wfat_process_ldata(rtdb, 'p_yild', md, def, yi)
+      call wfat_process_ldata(rtdb, 'p_avbeta', md, def, avb)
+      call wfat_process_ldata(rtdb, 'p_avgamma', md, def, avg)
+      call wfat_process_ldata(rtdb, 'p_tmd', md, def, tmd)
+      call wfat_process_ldata(rtdb, 'p_tmd_atom', md, def, tmda)
 
       test1 = (rt .or. tmd .or. tmda)
       test2 = (yi .or. avb .or. avg)
@@ -318,7 +325,8 @@ c     ==== Get lengths ====
       endif
       if (.not. rtdb_get(rtdb, 'wfat:inp:chpos_n', mt_int, 1, n))
      &     return
-      if (n <= 0) call errquit('WFAT: Bad value for wfat:inp:chpos_n')
+      if (n <= 0) call errquit('WFAT: Bad value for wfat:inp:chpos_n',
+     &     22, INPUT_ERR)
 
       if (n > nch)
      &     call errquit('WFAT: The number of manually specified '//
@@ -543,8 +551,7 @@ c=======================================================
       cc = (/ 'x', 'y' /)
 
       if (.not. rtdb_get(rtdb, 'wfat:inp:p_tmd', mt_log, 1, p_tmd))
-     &     call errquit('WFAT: Failed reading inp:p_tmd from rtdb',
-     &     1, RTDB_ERR)
+     &     p_tmd = .false.
 
       if (p_tmd) then
          do i = 1, 2
@@ -765,14 +772,18 @@ c        >>>> CEP <<<<
       endif
       
 
-c     >>>> dt <<<<
-      call wfat_process_ddata(rtdb, 'dt', (tg==3), 0.0d0, dt)
-      call wfat_dval_atleast(dt, 0.0d0, 'g', 'WFAT', '''dt''',
-     &     'e', w, r)
-c     >>>> tmax <<<<
-      call wfat_process_ddata(rtdb, 'tmax', (tg==3), 0.0d0, tmax)
-      call wfat_dval_atleast(dt, 0.0d0, 'g', 'WFAT', '''tmax''',
-     &     'e', w, r)
+      if (tg==2 .or. tg==3) then
+c        >>>> dt <<<<
+         call wfat_process_ddata(rtdb, 'field:dt', .true., 0.0d0, dt)
+         call wfat_dval_atleast(dt, 0.0d0, 'g', 'WFAT', '''dt''', 
+     &        'e', w, r)         
+c        >>>> tmax <<<<
+         call wfat_process_ddata(rtdb, 'field:tmax', .true., 0.0d0,
+     &        tmax)
+         call wfat_dval_atleast(tmax, 0.0d0, 'g', 'WFAT', '''tmax''',
+     &        'e', w, r)
+      endif
+         
 
       if (tg==3) then
          nt = int(tmax/dt) + 1

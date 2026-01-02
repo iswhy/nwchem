@@ -171,6 +171,7 @@ c=======================================================
       integer ntime
       double precision tmax
 
+      character*50 tp
       integer i
       double precision wfat_convert_freq, wfat_convert_time,
      &     wfat_convert_efield, wfat_convert_angle
@@ -189,8 +190,9 @@ c     ==== ntime ====
          write(luout, '(" ")')
          write(luout, '(3x, "Field no. ", i2)') i
 c        ==== type ====
+         call wfat_expand_fieldtp(las_env(i), tp)
          write(luout, '(5x, "* ", a10, " = ", a)')
-     &        'type      ', las_env(i) !byte_mb(k_ftl+(i-1)*FLD_TP_LEN)
+     &        'type      ', adjustl(tp)    !byte_mb(k_ftl+(i-1)*FLD_TP_LEN)
 
          if (las_env(i)=='ha' .or. las_env(i)=='ga' .or.
      &        las_env(i)=='dc') then
