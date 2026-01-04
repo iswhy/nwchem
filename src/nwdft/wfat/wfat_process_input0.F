@@ -4,12 +4,16 @@ c=======================================================
 
       implicit none
 #include "wfat_const.fh"
+#include "errquit.fh"
+#include "inp.fh"
       integer rtdb
 
       character*1 w
       logical r
-      integer ival
+      integer ival, k
       double precision dval
+      character*1000 aval
+      character*5 si_opt(3)
       parameter (w='i')
 
 
@@ -55,10 +59,67 @@ c     ==== diagthr ====
       call wfat_dval_atleast(dval, 0.0d0, 'g', 'WFAT', '''diagthr''', 
      &     'e', w, r)
       
+c     ==== si_type ====
+      si_opt = (/ def_si_type//' ', 'mo   ', 'dyson' /)
+      call wfat_process_adata(rtdb, 'si_type', .false., def_si_type,
+     &     aval)
+      if (.not. inp_match(3, .false., aval, si_opt, k))
+     &     call errquit('WFAT: Choose among none, mo, or dyson for '//
+     &     'the value of the si_type directive.', 25, INPUT_ERR)
+      
       
       end
 c=======================================================
 
+
+c=======================================================
+c=======================================================
+      subroutine wfat_process_adata(rtdb, key, md, defval, aval)
+c     DESCRIPTION:
+c     Checks for an integer-valued entry of the form wfat:inp:<key> in the RTDB. If
+c     found, it will create a new RTDB entry named wfat:<key> with the same value
+c     as wfat:inp:<key>.
+c       rtdb: RTDB handle
+c       key: name of input
+c       md: if .true., the input is mandatory, otherwise, optional
+c       defval: default value that will be used if input is missing and md=.false.
+c               Regardless of md, a value for md must be supplied.
+c       aval: the value of the input
+      implicit none
+#include "errquit.fh"
+#include "rtdb.fh"      
+#include "mafdecls.fh"
+#include "stdio.fh"
+      integer rtdb             ![input]
+      character*(*) key        ![input]
+      logical md               ![input]
+      character*(*) defval     ![input]
+      character*(*) aval       ![output]
+
+      if (.not. rtdb_cget(rtdb, 'wfat:inp:'//key, 1, aval)) then
+         if (md) then
+            call errquit('Mandatory WFAT input directive '//key//' '//
+     &           'cannot be found. Either supply it in the input '//
+     &           'file or, if it is a restart job, make sure that it '//
+     &           'was defined in the previous job the present one is '//
+     &           'restarting from.', 30, INPUT_ERR)
+         else
+            write(luout, 100) key, defval
+            aval = defval
+         endif
+      endif
+      if (.not. rtdb_cput(rtdb, 'wfat:'//key, 1, trim(adjustl(aval))) )
+     &     call errquit('WFAT: Failed writing '//key//' to rtdb',
+     &     1, RTDB_ERR)
+
+ 100  format(
+     &     /, 3x, '*** INFO ***',
+     &     /, 5x, 'Input directive ', a, ' is not found. The default ',
+     &     'value of ', a, ' will be assumed.')
+
+      end
+c=======================================================
+      
 
 c=======================================================
 c=======================================================

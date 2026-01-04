@@ -13,10 +13,9 @@ c=================================================
 #include "mewfat_qm_param.fh"
       integer rtdb
 
-      character*4096 fname
       character*7 jobtype
       character*26 date
-      logical res_mode, rtdb_stat, os, oc, or, isthere, wfat1
+      logical res_mode, rtdb_stat, wfat1, loadint
       logical pr_srfc, pr_yild, pr_rate, pr_avbeta, pr_avgamma
       logical pr_tmd, pr_tmd_atom, ismask_i, ismask_e, int_nosave
       logical need_dc, need_td
@@ -60,7 +59,6 @@ c     ==== Reading general parameters ====
       
 
 c     ==== Checking the numerical density ====
-
 
 
 c     ==== Obtaining parabolic quantum numbers ====
@@ -139,20 +137,28 @@ c     ==== Create MEWFAT integrals array ====
 c     ==== Get mask parameters ====
       call wfat_get_masks(rtdb, dbl_mb(k_ieg), ismask_i, mask_param, 
      &     ismask_e, ergmask, amsk, bmsk)
+      if (ismask_i .and. ndid==0) call wfat_print_mask(mask_param(1),
+     &     mask_param(2))
 
-
-      if (.not. rtdb_cget(rtdb, 'wfat:intgl_name', 1, fname))
-     &     call errquit('MEWFAT: Cannot read wfat:intgl_name from '//
-     &     'RTDB.', 1, RTDB_ERR)
-      inquire(file=fname, exist=isthere)
-      
 
 c     ==== Calculate or store MEWFAT integrals ====
       smh = 0.0d0
-      call util_get_rtdb_state(rtdb, os, oc, or)
+cOLD      call util_get_rtdb_state(rtdb, os, oc, or)
       if (lmax >= 0) then
-         if (os .and. .not. or) then
-cNEWRESTART      if (.not. isthere .or. os) then
+         if (.not. rtdb_get(rtdb, 'wfat:load_intgl', mt_log, 1,
+     &        loadint)) call errquit('WFAT: Cannot read '//
+     &        'load_intgl from RTDB', 1, RTDB_ERR)
+         
+         if (loadint) then
+c           ==== Binary-load MEWFAT integrals on 'restart' startup mode ====
+            if (ndid == 0) call mewfat_load_intgl(rtdb, nsh, natm, nqn, 
+     &           1, g_il)
+            
+            call ga_brdcst(msg_wfat_eg, dbl_mb(k_ieg),
+     &                     ma_sizeof(MT_DBL, 1, MT_BYTE), 0)
+            call ga_brdcst(msg_wfat_cmm, dbl_mb(k_cmm),
+     &                     ma_sizeof(MT_DBL, 3*1, MT_BYTE), 0)
+         else
 c           ==== Calculate ME-WFAT integrals on 'start' startup mode ====
             call mewfat_calc_intgl(rtdb, geom_hd, bas_hd, nbas, gqual, 
      &           spinx, spiny, nel0, nel1, dbl_mb(k_mo0), dbl_mb(k_mo1),
@@ -160,46 +166,15 @@ c           ==== Calculate ME-WFAT integrals on 'start' startup mode ====
      &           dbl_mb(k_scf), zion, dbl_mb(k_ps), dbl_mb(k_ieg), 
      &           wf_msm, nqn, int_mb(k_npa), int_mb(k_mpa), lmax, smh, 
      &           ismask_i, mask_param, wfphase, res_mode, g_il)
-         
-c           ==== Store ME-WFAT integrals freshly calculated ====
-            if (.not. rtdb_get(rtdb, 'wfat:intgl_nosave', mt_log, 1,
-     &           int_nosave)) call errquit('MEWFAT: Cannot read '//
-     &           'intgl_nosave from RTDB', 1, RTDB_ERR)
-            if (ndid == 0 .and. .not. int_nosave) then
-               call mewfat_store_intgl(rtdb, nsh, natm, nqn, 1, 
-     &              dbl_mb(k_eg0), dbl_mb(k_eg1), dbl_mb(k_ieg),
-     &              dbl_mb(k_ed0), dbl_mb(k_ed1), dbl_mb(k_ps),
-     &              dbl_mb(k_cmm), dbl_mb(k_idp), g_il)
-            else if (ndid == 0 .and. int_nosave) then
-               write(luout, '("ATTENTION: MEWFAT integrals are not '//
-     &              'saved.")')
-            endif
-            call ga_sync()
-            
-         else if (.not. os .and. or) then
-cNEWRESTART      else
-c           ==== Binary-load MEWFAT integrals on 'restart' startup mode ====
-            if (ndid == 0) then
-               call mewfat_load_intgl(rtdb, nsh, natm, nqn, 1,
-     &              spinx, dbl_mb(k_ieg), dbl_mb(k_ps), dbl_mb(k_cmm),
-     &              dbl_mb(k_idp), g_il)
-            endif
-            call ga_sync()
-            
-            call ga_brdcst(msg_wfat_eg, dbl_mb(k_ieg),
-     &                     ma_sizeof(MT_DBL, 1, MT_BYTE), 0)
-            call ga_brdcst(msg_wfat_cmm, dbl_mb(k_cmm),
-     &                     ma_sizeof(MT_DBL, 3*1, MT_BYTE), 0)
-         else
-            call errquit('MEWFAT: MEWFAT module requires the startup '//
-     &           'directive to be either ''start'' or ''restart''.',
-     &           1, UERR)
          endif
-      else
-         if (.not. os .and. or) 
-     &        call errquit('MEWFAT: When performing WFAT calculation '//
-     &        'without partial wave expansion, the job must be a '//
-     &        'start type. Restart is not allowed', 38, UERR)
+
+cOLD         if (ndid == 0) call mewfat_store_intgl(rtdb, nsh, natm, nqn, 1,
+cOLD     &        dbl_mb(k_eg0), dbl_mb(k_eg1), dbl_mb(k_ieg),
+cOLD     &        dbl_mb(k_ed0), dbl_mb(k_ed1), dbl_mb(k_ps),
+cOLD     &        dbl_mb(k_cmm), dbl_mb(k_idp), g_il)
+         if (ndid == 0) call mewfat_store_intgl(rtdb, nsh, natm, nqn, 1,
+     &        g_il)
+         call ga_sync()
       endif      
 
 

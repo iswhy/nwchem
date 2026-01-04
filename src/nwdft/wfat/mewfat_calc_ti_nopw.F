@@ -147,7 +147,7 @@ c     ==== Calculate and gather V_c|psi> at all grid points ====
       rs = nwxc_has_cam()
       isdft = nwxc_has_xc()
       if (isdft) then
-         if (.not. rtdb_cget(rtdb, 'mewfat:si', 1, si_type))
+         if (.not. rtdb_cget(rtdb, 'wfat:si_type', 1, si_type))
      &        call errquit('MEWFAT: Failed reading SI from RTDB.', 17,
      &        RTDB_ERR)
          call mewfat_collect_dft_vcpsi(geom, bas, nb, sx, sy, n0, n1,

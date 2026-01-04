@@ -149,10 +149,6 @@ c     ==== Checking existence of OPTIONAL INPUTS ====
             call wfat_def_movecname('me1', rtdb, wfat_movec1_name)
             movec1_stat = .true.
          endif
-         if (.not. sitype_exist) then
-            si_type = def_si_type
-            sitype_stat = .true.
-         endif
          if (wfat1) call errquit('MEWFAT: At the moment, MEWFAT '//
      &        'cannot be used with the first order correction. '//
      &        'Please remove the ''wfat1'' keyword from your input '//
@@ -249,13 +245,6 @@ c     ==== Checking format of OPTIONAL INPUTS ====
      &        '''omgpos''. Please check if it is specified '//
      &        'following the format ''omgpos <string ''auto''> || '//
      &        '<float valuex  float valuey  float valuez>''',
-     &        0, INPUT_ERR)
-      endif
-      if (.not. sitype_stat .and. wfat_level == 'me') then
-         call errquit('WFAT: Error reading optional input parameter '//
-     &        '''si_type''. Please check if it is specified '//
-     &        'following the format ''si_type <value>'', where '//
-     &        '<value> is any of ''none'', ''mo'', and ''dyson''.',
      &        0, INPUT_ERR)
       endif
       if (wfat_level == 'oe') then
@@ -528,7 +517,6 @@ cOLD      dgnthr_need = .false.         ! needed when oe or me
       lmax_need = .false.           ! needed when OE or ME
       movec_need = .false.          ! needed when OE or ME
       movec1_need = .false.         ! needed when ME
-      sitype_need = .false.         ! needed when ME
       wfat1_need = .false.          ! needed when OE or ME
       w1x_need = .false.            ! needed when oe or me
       mdip_need = .false.           ! needed when oe or me
@@ -579,8 +567,6 @@ cOLD     &     dgnthr_need)
      &     movec_need)
       call wfat_need_input0(sr, rt, tmd, tmda, yi, avb, avg,
      &     movec1_need)
-      call wfat_need_input0(sr, rt, tmd, tmda, yi, avb, avg,
-     &     sitype_need)
       call wfat_need_input0(sr, rt, tmd, tmda, yi, avb, avg,
      &     wfat1_need)
       call wfat_need_input0(sr, rt, tmd, tmda, yi, avb, avg,
@@ -921,12 +907,12 @@ cOLD      endif
          write(luout, 500)
       endif
       
-      if (sitype_need) then
-         if (si_type/='none' .and. si_type/='mo' .and. si_type/='dyson')
-     &        call errquit('WFAT: The value of si_type ('//si_type// 
-     &        ') does not match the available options, which are '//
-     &        '''none'', ''mo'', or ''dyson''.', 31, INPUT_ERR)
-      endif
+cOLD      if (sitype_need) then
+cOLD         if (si_type/='none' .and. si_type/='mo' .and. si_type/='dyson')
+cOLD     &        call errquit('WFAT: The value of si_type ('//si_type// 
+cOLD     &        ') does not match the available options, which are '//
+cOLD     &        '''none'', ''mo'', or ''dyson''.', 31, INPUT_ERR)
+cOLD      endif
 
       if (wfat_mask_need .and. wfat_mask) then
          call wfat_dval_atleast(wfat_mask_param(1), 0.0d0, 'g', 'WFAT',
@@ -1328,13 +1314,6 @@ cOLD      if (prtb_ord_need .and. os) then
      &        prtb_maxord))
      &        call errquit('WFAT: Failed writing perturb_maxord to rtdb'
      &        , 1, INPUT_ERR)
-      endif
-
-      if (sitype_need) then
-         if (.not. rtdb_cput(rtdb, 'mewfat:si', 1,
-     &        trim(adjustl(si_type))))
-     &        call errquit('WFAT: Failed writing si to RTDB', 1,
-     &        RTDB_ERR)
       endif
 
       if (wfat1_need) then

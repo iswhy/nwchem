@@ -198,7 +198,7 @@ c     ==== Calculate neutral RDM in case of DFT ====
      &        call errquit('MEWFAT: Cannot allocate rdm0', 1, MA_ERR)
          call mewfat_calc_rdm0(nb, n0, ocmo0, dbl_mb(k_rd0))
 
-         if (.not. rtdb_cget(rtdb, 'mewfat:si', 1, si_type))
+         if (.not. rtdb_cget(rtdb, 'wfat:si_type', 1, si_type))
      &        call errquit('MEWFAT: Failed reading SI from RTDB.', 1,
      &        RTDB_ERR)
       endif

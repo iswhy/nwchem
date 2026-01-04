@@ -93,7 +93,7 @@ c     ==== Obtaining info on gamma ====
 
 
 c     ==== Obtaining laser field ====
-      call wfat_prep_dcfield(rtdb, fieldm)
+      if (pr_rate .or. pr_tmd) call wfat_prep_dcfield(rtdb, fieldm)
 
       
 c     ==== Allocation of structure factors and ion yields ====

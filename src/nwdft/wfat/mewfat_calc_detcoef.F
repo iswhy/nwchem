@@ -607,9 +607,10 @@ c=================================================
 
 
       write(luout, '("   *** S determinant coefficients ***")')
-      ng = int(cy/5) + 1
+      ng = ceiling(dble(cy)/5)
       j_in = 1
       j_fin = min(j_in + 5 - 1, cy)
+c      write(luout, '("ng = ", 2i4)') cy, ng
       do g = 1, ng     !Loop over groups
 
 c        ==== Columns title ====

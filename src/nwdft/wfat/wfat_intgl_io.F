@@ -21,9 +21,7 @@ c=======================================================
       
       character*4096 fname
       logical rtdb_stat, isthere
-      integer ndid, l_il_, k_il_
-      integer i1, i2, j, ich, iqn, icent, i_lm
-      integer nil_
+      integer ndid
       
 
       ndid = ga_nodeid()
@@ -130,8 +128,7 @@ c=======================================================
       write(luout, '(7x, "No. of ionized channels = ", i4)') nch
       
 
-      open(WF_INTGL_UNIT, file=fname, action='read',
-     &     form='unformatted')
+      open(WF_INTGL_UNIT, file=fname, action='read', form='unformatted')
       call wfat_load_intgl0(WF_INTGL_UNIT, nsh, ncent, nqn, nch, g_il)
       if (wfat1) then
          call wfat_load_intgl0(WF_INTGL_UNIT, nsh, ncent, nqn, 3*nch, 
@@ -191,7 +188,7 @@ c=======================================================
       enddo
 
       if (.not. ma_free_heap(l_i))
-     &     call errquit('WFAT: Cannot deallocate intgl.', 1, MA_ERR)
+     &     call errquit('WFAT: Cannot deallocate intgl.', 22, MA_ERR)
       
       end
 c=======================================================

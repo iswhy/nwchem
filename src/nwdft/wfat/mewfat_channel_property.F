@@ -179,6 +179,7 @@ c=================================================
 #include "stdio.fh"
 #include "errquit.fh"
 #include "mafdecls.fh"
+#include "rtdb.fh"
 #include "global.fh"
       integer rtdb              ! [input]
       integer geom              ! [input]
@@ -202,6 +203,7 @@ c=================================================
       double precision gserg1   ! [output], cation GS energy
       double precision ionerg   ! [output], ionization energy
 
+      logical l0, l1, li
       integer ndid, n1e, nfk, nocmo0, nocmo1, nrd, ggg, jjj
       integer l_1e, l_fk0, l_fk1, l_mo0, l_mo1, l_rd0, l_rd1
       integer k_1e, k_fk0, k_fk1, k_mo0, k_mo1, k_rd0, k_rd1
@@ -279,9 +281,24 @@ c     ==== Calculate RDM's ====
 
 
 c     ==== GS and ionization energies ====
-      call mewfat_calc_ionerg(geom, bas, nb, n0, n1, gq, mcel, 
-     &     dbl_mb(k_1e), dbl_mb(k_rd0), dbl_mb(k_rd1), dbl_mb(k_fk0), 
-     &     dbl_mb(k_fk1), gserg0, gserg1, ionerg)
+      l0 = rtdb_get(rtdb, 'mewfat:gserg0', mt_dbl, 1, gserg0)
+      l1 = rtdb_get(rtdb, 'mewfat:gserg1', mt_dbl, 1, gserg1)
+      li = rtdb_get(rtdb, 'mewfat:ionerg', mt_dbl, 1, ionerg)
+      if (.not. (l0 .and. l1 .and. li)) then
+         call mewfat_calc_ionerg(geom, bas, nb, n0, n1, gq, mcel, 
+     &        dbl_mb(k_1e), dbl_mb(k_rd0), dbl_mb(k_rd1), dbl_mb(k_fk0),
+     &        dbl_mb(k_fk1), gserg0, gserg1, ionerg)
+
+         if (.not. rtdb_put(rtdb, 'mewfat:gserg0', mt_dbl, 1, gserg0))
+     &        call errquit('MEWFAT: Cannot write gserg0 to RTDB',
+     &        9, RTDB_ERR)
+         if (.not. rtdb_put(rtdb, 'mewfat:gserg1', mt_dbl, 1, gserg1))
+     &        call errquit('MEWFAT: Cannot write gserg1 to RTDB',
+     &        9, RTDB_ERR)
+         if (.not. rtdb_put(rtdb, 'mewfat:ionerg', mt_dbl, 1, ionerg))
+     &        call errquit('MEWFAT: Cannot write ionerg to RTDB',
+     &        9, RTDB_ERR)
+      endif
 
 
 c     ==== Deallocations ====

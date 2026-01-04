@@ -82,7 +82,7 @@ c=======================================================
       integer dgid(nb,ns)
       integer dgn(nb,ns)
 
-      integer is, i, nel(ns)
+      integer is, i, nel(ns), nc
 
 
       write(luout, '(5x, "Degenerate threshold = ", es15.6)') thr
@@ -105,7 +105,9 @@ c     ==== Print column titles ====
 
             
 c     ==== Print ID's ====
-      do i = 1, maxval(nel)
+      if (ns == 1) nc = nel(1)/2
+      if (ns == 2) nc = maxval(nel)
+      do i = 1, nc
          write(luout, '(5x, i5)', advance='no') i
          do is = 1, ns
             if (i > nel(is)) then

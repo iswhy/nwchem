@@ -236,7 +236,7 @@ c     ==== Calculate OE-WFAT integrals on 'start' startup mode ====
      &           g_il, g_j, g_k)
          endif
          
-c        ==== Store the OE-WFAT integrals freshly calculated ====
+c        ==== Store the OE-WFAT integrals ====
          if (ndid == 0) call wfat_store_intgl(rtdb, nsh, natm, nqn, nch,
      &           wfat1, g_il, g_j, g_k)
          call ga_sync()

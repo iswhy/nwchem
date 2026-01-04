@@ -231,7 +231,7 @@ c     ==== XC functionals ====
 c     ==== DFT self-interaction ====
       isdft = nwxc_has_xc()
       if (isdft) then
-         if (.not. rtdb_cget(rtdb, 'mewfat:si', 1, si_type))
+         if (.not. rtdb_cget(rtdb, 'wfat:si_type', 1, si_type))
      &        call errquit('MEWFAT: Failed reading SI from RTDB.', 1,
      &        RTDB_ERR)
          call wfat_info_banner(luout, .true.)

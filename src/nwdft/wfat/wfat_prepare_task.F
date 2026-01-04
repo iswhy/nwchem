@@ -933,7 +933,7 @@ c        ==== Get laser durations ====
      &           efield(i))
          enddo
       else if (tg == 2) then
-         if (.not. rtdb_cget(rtdb, 'wfat:ext_fnb', 1, ext_fnb)) 
+         if (.not. rtdb_cget(rtdb, 'wfat:field:ext_fnb', 1, ext_fnb)) 
      &        call errquit('WFAT: Failed reading ext_fnb from rtdb',
      &        1, RTDB_ERR)
 
@@ -956,7 +956,7 @@ c     ==== Print laser parameters ====
             call wfat_print_laser_info(nf, mx, tp, fr, cp, ce, wi, 
      &           ntime, tmax)
          else if (tg == 2) then
-            if (.not. rtdb_cget(rtdb, 'wfat:ext_fn', 1, ext_fn)) 
+            if (.not. rtdb_cget(rtdb, 'wfat:field:ext_fn', 1, ext_fn)) 
      &           call errquit('WFAT: Failed reading ext_fn from rtdb',
      &           1, RTDB_ERR)
             write(luout, '(5x, "* ", a16, " = ", a)')
