@@ -71,22 +71,6 @@ c     == nktmd ==
       endif
       
 c     ==== Checking existence of OPTIONAL INPUTS ====
-      if (.not. orbid_exist) then
-         if (wfat_level == 'oe') then
-            n_orbid = 2
-            wfat_spinid(1:n_orbid) = (/ 1,  1 /)
-            wfat_orbid0(1:n_orbid) = (/ 0, -1 /)
-         else if (wfat_level == 'me') then
-            n_orbid = 1
-         endif
-         orbid_stat = .true.
-      endif
-      if (.not. paraqn_exist) then
-         n_npara = 3
-         npara(1:n_npara) = 0
-         mpara(1:n_npara) = (/ 0, -1, +1 /)
-         paraqn_stat = .true.
-      endif
       if (.not. omgpos_exist) then
          autopos = .true.
          omgpos = 0.0d0
@@ -95,23 +79,6 @@ c     ==== Checking existence of OPTIONAL INPUTS ====
       if (.not. wfat1_exist) then
          wfat1 = DEF_WFAT1
          wfat1_stat = .true.
-      endif
-      if (.not. w1x_exist) then
-         wfat1_exclude = DEF_W1X
-         w1x_stat = .true.
-      else if (w1x_exist) then
-         call wfat_extract_w1x(CHID_CHARLEN, MAX_N_NPARA*MAX_N_ORBID, 
-     &        wfat1_exclude, n_orbid, wfat_orbid0, wfat_spinid, n_npara,
-     &        npara, mpara, wfat1_exclude_l)
-         w1x_stat = .true.
-      endif
-      if (.not. mdip_exist) then
-         wfat_mdip(:,:) = DEF_MDIP
-         mdip_stat = .true.
-      else
-         call wfat_process_mydip(ORBID_CHARLEN, wfat_mdip_s, n_orbid,
-     &        wfat_orbid0, wfat_spinid, wfat_mdip, wfat_mdip_l)
-         mdip_stat = .true.
       endif
       if (.not. merg_exist) then
          wfat_merg(:) = DEF_MERG
@@ -228,18 +195,6 @@ c     ==== Checking format of OPTIONAL INPUTS ====
      &        'supported for the spatial orbitals (so#1, so#2, etc.)',
      &        0, INPUT_ERR)
       endif
-      if (.not. paraqn_stat) then
-         call errquit('WFAT: Error reading optional input parameter '//
-     &        '''paraqn''. Please check if it is '//
-     &        'specified following the format '//
-     &        '''paraqn "n<integer i>" <integer m#1> [<integer m#2> '//
-     &        '...] ["n<integer j>" <integer m#1> [<integer m#2> ... '//
-     &        ']] .... For example, the following input '//
-     &        '''paraqn "n0" 0 -1 1 "n1" 0'' corresponds to the '//
-     &        'following list of (n,m) parabolic quantum numbers: '//
-     &        '(0,0); (0,-1); (0,+1); (1,0).',
-     &        0, INPUT_ERR)
-      endif      
       if (.not. omgpos_stat) then
          call errquit('WFAT: Error reading optional input parameter '//
      &        '''omgpos''. Please check if it is specified '//
@@ -271,23 +226,6 @@ c     ==== Checking format of OPTIONAL INPUTS ====
      &        '''wfat1''. Please check if it is specified following '//
      &        'the format ''wfat1''.',
      &        0, INPUT_ERR)
-      endif
-      if (.not. w1x_stat) then
-         call errquit('WFAT: Error reading optional input parameter '//
-     &        '''wfat1_exclude''. Please check if it is specified '//
-     &        'following the format ''wfat1_exclude '//
-     &        '"spin, oid" ...'' where spin is ''a'' or ''b'', '//
-     &        'oid is movec_id, and n and m are the parabolic '//
-     &        'quantum number.', 0, INPUT_ERR)
-      endif
-
-      if (.not. mdip_stat) then
-         call errquit('WFAT: Error reading optional input parameter '//
-     &        '''mydipole''. Please check if it is specified '//
-     &        'following the format ''mydipole '//
-     &        '"spin, oid" dipx dipy dipz ...'' where spin is ''a'' '//
-     &        'or ''b'', oid is movec_id, and dipx dipy dipz are the '//
-     &        'three Cartesian components of dipole.', 0, INPUT_ERR)
       endif
 
       if (.not. merg_stat) then
@@ -510,7 +448,6 @@ cOLD      beta_tmd_need = .false.       ! needed when OE or ME
 cOLD      gamma_tmd_need = .false.      ! needed when OE or ME
       nktmd_need = .false.          ! needed when OE or ME
       orbid_need = .false.          ! needed when OE
-      paraqn_need = .false.         ! needed when OE or ME
 cOLD      gqual_need = .false.          ! needed when OE or ME
       omgpos_need = .false.         ! needed when OE or ME
 cOLD      dgnthr_need = .false.         ! needed when oe or me
@@ -518,8 +455,6 @@ cOLD      dgnthr_need = .false.         ! needed when oe or me
       movec_need = .false.          ! needed when OE or ME
       movec1_need = .false.         ! needed when ME
       wfat1_need = .false.          ! needed when OE or ME
-      w1x_need = .false.            ! needed when oe or me
-      mdip_need = .false.           ! needed when oe or me
       merg_need = .false.           ! needed when oe or me
 cOLD      nlgl_need = .false.           ! needed when oe or me
       ffc_need = .false.            ! needed when oe or me
@@ -553,8 +488,6 @@ cOLD     &     .false., .false., gamma_tmd_need)
       call wfat_need_input0(tmd, tmda, .false., .false., .false., 
      &     .false., .false., nktmd_need)
 
-      call wfat_need_input0(sr, rt, tmd, tmda, yi, avb, avg,
-     &     paraqn_need)
 cOLD      call wfat_need_input0(sr, rt, tmd, tmda, yi, avb, avg,
 cOLD     &     gqual_need)
       call wfat_need_input0(sr, rt, tmd, tmda, yi, avb, avg,
@@ -569,10 +502,6 @@ cOLD     &     dgnthr_need)
      &     movec1_need)
       call wfat_need_input0(sr, rt, tmd, tmda, yi, avb, avg,
      &     wfat1_need)
-      call wfat_need_input0(sr, rt, tmd, tmda, yi, avb, avg,
-     &     w1x_need)
-      call wfat_need_input0(sr, rt, tmd, tmda, yi, avb, avg,
-     &     mdip_need)
       call wfat_need_input0(sr, rt, tmd, tmda, yi, avb, avg,
      &     merg_need)
 cOLD      call wfat_need_input0(sr, rt, tmd, tmda, yi, avb, avg,
@@ -604,7 +533,6 @@ cOLD      beta_tmd_need = .false.           ! needed when oe or me
 cOLD      gamma_tmd_need = .false.          ! needed when oe or me
       nktmd_need = .false.              ! needed when oe or me
       orbid_need = .false.              ! needed when oe
-      paraqn_need = .false.             ! needed when oe or me
 cOLD      gqual_need = .false.              ! needed when oe or me
       omgpos_need = .false.             ! needed when oe or me
 cOLD      dgnthr_need = .false.             ! needed when oe or me
@@ -612,8 +540,6 @@ cOLD      dgnthr_need = .false.             ! needed when oe or me
       movec_need = .false.              ! needed when oe or me
       movec1_need = .false.             ! needed when me
       wfat1_need = .false.              ! needed when oe or me
-      w1x_need = .false.                ! needed when oe or me
-      mdip_need = .false.               ! needed when oe or me
       merg_need = .false.               ! needed when oe or me
 cOLD      nlgl_need = .false.               ! needed when oe or me
       ffc_need = .false.                ! needed when oe or me
@@ -648,8 +574,6 @@ cOLD     &     .false., .false., gamma_tmd_need)
      &     .false., .false., nktmd_need)
       call wfat_need_input0(sr, rt, tmd, tmda, yi, avb, avg,
      &     orbid_need)
-      call wfat_need_input0(sr, rt, tmd, tmda, yi, avb, avg,
-     &     paraqn_need)
 cOLD      call wfat_need_input0(sr, rt, tmd, tmda, yi, avb, avg,
 cOLD     &     gqual_need)
       call wfat_need_input0(sr, rt, tmd, tmda, yi, avb, avg,
@@ -662,10 +586,6 @@ cOLD     &     dgnthr_need)
      &     movec_need)
       call wfat_need_input0(sr, rt, tmd, tmda, yi, avb, avg,
      &     wfat1_need)
-      call wfat_need_input0(sr, rt, tmd, tmda, yi, avb, avg,
-     &     w1x_need)
-      call wfat_need_input0(sr, rt, tmd, tmda, yi, avb, avg,
-     &     mdip_need)
       call wfat_need_input0(sr, rt, tmd, tmda, yi, avb, avg,
      &     merg_need)
 cOLD      call wfat_need_input0(sr, rt, tmd, tmda, yi, avb, avg,
@@ -734,12 +654,7 @@ c=======================================================
       integer rtdb
 
       character*4 nch_s
-      character*1 spin_str
-      character*10 ss1, ss2
-      character*3 n_npara_c, MAX_N_NPARA_c
-      character*5 n_orbid_c, MAX_N_ORBID_c
-
-      integer nsp, numelc(2), i, is, nrr, ntt, ffcount
+      integer i, is, ffcount
       double precision dt_00, tmax_00
       
       character*1 w
@@ -754,140 +669,10 @@ c=======================================================
       call wfat_prep_printsw(rtdb, 'inp:', print_srfc, print_rate, 
      &     print_yild, print_avbeta, print_avgamma, print_tmd,
      &     print_tmd_atom)
-
-cOLD      if (field_need) then
-cOLD         call wfat_sanity_field(nfield, fld_tp, fld_fr, fld_ce, fld_wi,
-cOLD     &        fld_mx)
-cOLD      endif
-
-cOLD      if (dt_need) then
-cOLD         if (is_extfield) then
-cOLD            dt_00 = dt_ext
-cOLD         else
-cOLD            dt_00 = wfat_dt
-cOLD         endif
-cOLD         call wfat_dval_atleast(dt_00, 0.0d0, 'g', 'WFAT',
-cOLD     &        '''dt''', 'e', w, r)
-cOLD      endif
-cOLD
-cOLD      if (tmax_need) then
-cOLD         if (is_extfield) then
-cOLD            tmax_00 = tmax_ext
-cOLD         else
-cOLD            tmax_00 = wfat_tmax
-cOLD         endif
-cOLD         call wfat_dval_atleast(tmax_00, 0.0d0, 'g', 'WFAT',
-cOLD     &        '''tmax''', 'e', w, r)
-cOLD      endif
             
-      if (orbid_need) then
-         write(n_orbid_c, '(i5)') n_orbid
-         write(MAX_N_ORBID_c, '(i5)') MAX_N_ORBID
-         if (n_orbid >= MAX_N_ORBID) then
-            call errquit('WFAT: The number of molecular orbitals '//
-     &           'specified in ''movec_id'' (='//
-     &           trim(adjustl(n_orbid_c))//
-     &           ') must be less than or equal to the maximum value, '//
-     &           'which is '//trim(adjustl(MAX_N_ORBID_c))//'.',
-     &           1, INPUT_ERR)
-         endif
-
-c        ==== Check spin ID ====
-         if (s2a1e) then
-            nsp = 2
-         else
-            if (.not. rtdb_get(rtdb, 'dft:ipol', mt_int, 1, nsp))
-     &           call errquit('WFAT: Error in getting ipol from RTDB',
-     &           1, RTDB_ERR)
-         endif
-         call wfat_ivec_inrange(n_orbid, wfat_spinid, 1, nsp, 'WFAT', 
-     &        '''spin_id''', 'o', r, k)
-         if (.not. r)
-     &        call errquit('WFAT: One spin channel specified has '//
-     &        'an illegal value. The allowed value is ''a'' when the '//
-     &        'system is spin-unpolarized. If it is spin-polarized, ' //
-     &        'the possible spin is either ''a'' or ''b''.',
-     &        1, INPUT_ERR)
-
-c        ==== Check orbitals ID ====
-         if (s2a1e) then
-            numelc = (/ 1, 0 /)
-         else
-            if (.not. rtdb_get(rtdb, 'dft:noc', mt_int, 2, numelc))
-     &           call errquit('WFAT: Error in getting noc from RTDB',
-     &           1, RTDB_ERR)
-         endif
-         do i = 1, n_orbid
-            is = wfat_spinid(i)
-            if (is == 1) spin_str = 'a'
-            if (is == 2) spin_str = 'b'
-            if (s2a1e) then
-c               if (.not. rtdb_get(rtdb, 'wfat:2a1e_nr', mt_int, 1, nrr))
-c     &              call errquit('WFAT: Error in getting 2a1e_nr '//
-c     &              'from RTDB', 1, RTDB_ERR)
-c               if (.not. rtdb_get(rtdb, 'wfat:2a1e_nt', mt_int, 1, ntt))
-c     &              call errquit('WFAT: Error in getting 2a1e_nt '//
-c     &              'from RTDB', 1, RTDB_ERR)
-
-               ntt = wfat2a_nt(1)
-               if (wfat2a_fedvr) then
-                  call wfat_get_fedvrnr(wfat2a_nfe, wfat2a_ndvr, nrr)
-               else
-                  nrr = wfat2a_nr(1)
-               endif
-               call wfat_ival_inrange(wfat_orbid0(i), 1, nrr*ntt, 
-     &              'WFAT', '''orb_id''', 'o', r)
-               write(ss1, '(i10)') 1
-               write(ss2, '(i10)') nrr*ntt
-            else
-               call wfat_ival_inrange(wfat_orbid0(i), -(numelc(is)-1), 
-     &              0, 'WFAT', '''orb_id''', 'o', r)
-               write(ss1, '(i10)') -(numelc(is)-1)
-               write(ss2, '(i10)') 0
-            endif
-            if (.not. r) then
-               call errquit('WFAT: One spatial orbital in '//
-     &              spin_str//'-spin channel lies outside of the '//  
-     &              'allowed range, which is in between and '//
-     &              'including '//trim(adjustl(ss1))//' and '//
-     &              trim(adjustl(ss2))//'.', 1, INPUT_ERR)
-            endif
-         enddo
-      endif
-
-c     ==== Check parabolic quantum numbers ====
-      if (paraqn_need) then
-         write(n_npara_c, '(i3)') n_npara
-         write(MAX_N_NPARA_c, '(i3)') MAX_N_NPARA
-         if (n_npara >= MAX_N_NPARA) then
-            call errquit('WFAT: The number of integers specified for'//
-     &           '''npara'' (='//trim(adjustl(n_npara_c))//') '//
-     &           'must be less than or equal to the maximum value, '//
-     &           'which is '//trim(adjustl(MAX_N_NPARA_c))//'.',
-     &           1, INPUT_ERR)
-         endif
-         call wfat_ivec_atleast(n_npara, npara, 0, 'WFAT', '''npara''',
-     &        w, r, k)
-      endif
-
       if (nktmd_need) then
          call wfat_ival_atleast(nktmd, 1, 'WFAT', '''nktmd''', w, r)
       endif
-
-cOLD      if (beta_tmd_need) then
-cOLD         call wfat_dval_inrange(beta_tmd, 0.0d0, 'q', 180.0d0, 'q',
-cOLD     &        'WFAT', '''beta_tmd''', 'f', w, r)
-cOLD      endif
-cOLD
-cOLD      if (gamma_tmd_need) then
-cOLD         call wfat_dval_inrange(gamma_tmd, 0.0d0, 'q', 360.0d0, 'q',
-cOLD     &        'WFAT', '''gamma_tmd''', 'f', w, r)
-cOLD      endif
-
-cOLD      if (gqual_need) then
-cOLD         call wfat_ival_inrange(wfat_gqual, 1, 4, 'WFAT', 
-cOLD     &        '''gridqual''', w, r)
-cOLD      endif
 
       unit_ffc = .false.
       ffcount = 0
@@ -907,13 +692,6 @@ cOLD      endif
          write(luout, 500)
       endif
       
-cOLD      if (sitype_need) then
-cOLD         if (si_type/='none' .and. si_type/='mo' .and. si_type/='dyson')
-cOLD     &        call errquit('WFAT: The value of si_type ('//si_type// 
-cOLD     &        ') does not match the available options, which are '//
-cOLD     &        '''none'', ''mo'', or ''dyson''.', 31, INPUT_ERR)
-cOLD      endif
-
       if (wfat_mask_need .and. wfat_mask) then
          call wfat_dval_atleast(wfat_mask_param(1), 0.0d0, 'g', 'WFAT',
      &        '''tailmask:param_1''', 'e', w, r)
@@ -1055,7 +833,7 @@ c=======================================================
 
       character*2 td
       logical nosave
-      integer nt_00, er(2), nw1x_
+      integer nt_00, er(2)
       double precision dt_00, tmax_00
 
 
@@ -1143,31 +921,6 @@ cOLD     &        call errquit('WFAT: Failed writing tmax to rtdb',
 cOLD     &        1, INPUT_ERR)
 cOLD      endif
             
-      if (orbid_need) then
-         if (.not. rtdb_put(rtdb, 'wfat:n_orbid', mt_int, 1, n_orbid))
-     &        call errquit('WFAT: Failed writing n_orbid to rtdb',
-     &        1, INPUT_ERR)
-         if (.not. rtdb_put(rtdb, 'wfat:orbid', mt_int, n_orbid,
-     &        wfat_orbid0))
-     &        call errquit('WFAT: Failed writing orbid to rtdb',
-     &        1, INPUT_ERR)
-         if (.not. rtdb_put(rtdb, 'wfat:spinid', mt_int, n_orbid,
-     &        wfat_spinid))
-     &        call errquit('WFAT: Failed writing spinid to rtdb',
-     &        1, INPUT_ERR)
-      endif
-
-      if (paraqn_need) then
-         if (.not. rtdb_put(rtdb, 'wfat:n_npara', mt_int, 1, n_npara))
-     &        call errquit('WFAT: Failed writing n_npara to rtdb',
-     &        1, INPUT_ERR)
-         if (.not. rtdb_put(rtdb, 'wfat:npara', mt_int, n_npara, npara))
-     &        call errquit('WFAT: Failed writing npara to rtdb',
-     &        1, INPUT_ERR)
-         if (.not. rtdb_put(rtdb, 'wfat:mpara', mt_int, n_npara, mpara))
-     &        call errquit('WFAT: Failed writing mpara to rtdb',
-     &        1, INPUT_ERR)
-      endif
 
       if (nktmd_need) then
          if (.not. rtdb_put(rtdb, 'wfat:nktmd', mt_int, 1, nktmd))
@@ -1320,25 +1073,6 @@ cOLD      if (prtb_ord_need .and. os) then
          if (.not. rtdb_put(rtdb, 'wfat:wfat1', mt_log, 1, wfat1))
      &        call errquit('WFAT: Failed writing wfat1 to RTDB', 1,
      &        RTDB_ERR)
-      endif
-
-      if (w1x_need) then
-         nw1x_ = n_npara * n_orbid
-         if (.not. rtdb_put(rtdb, 'wfat:wfat1_exclude', mt_log, nw1x_,
-     &        wfat1_exclude_l(1:nw1x_)))
-     &        call errquit('WFAT: Failed writing wfat1_exclude to RTDB',
-     &        1, RTDB_ERR)
-      endif
-
-      if (mdip_need) then
-         if (.not. rtdb_put(rtdb, 'wfat:use_mandip', mt_log, n_orbid,
-     &        wfat_mdip_l(1:n_orbid)))
-     &        call errquit('WFAT: Failed writing use_mandip to RTDB',
-     &        1, RTDB_ERR)
-         if (.not. rtdb_put(rtdb, 'wfat:mandip', mt_dbl, 3*n_orbid,
-     &        wfat_mdip(1:3, 1:n_orbid)))
-     &        call errquit('WFAT: Failed writing mandip to RTDB',
-     &        1, RTDB_ERR)
       endif
 
       if (merg_need) then

@@ -1,6 +1,3 @@
-
-      character*6
-     &     NFIELD_FORM
       
       character*4
      &     def_si_type, DEF_W1X
@@ -9,17 +6,15 @@
      &     DEF_WFAT1, DEF_WFAT_MASK
       
       integer
-     &     MAX_N_ORBID, MAX_MOVEC_FIELDS, MAX_N_NPARA,
-     &     MAX_PARAQN_NFIELDS, MAX_PARAQN_MFIELDS,
-     &     NMAX_NFIELD, DEF_FFC_TYPE, DEF_OZN,
+     &     MAX_N_ORBID, MAX_N_LEN, MAX_M_LEN, MAX_MOVEC_FIELDS,
+     &     DEF_FFC_TYPE, DEF_OZN,
      &     def_nktmd, def_wfat_lmax, def_gqual,
      &     MAX_FEN, CHID_CHARLEN, ORBID_CHARLEN,
      &     MAXIDLEN
       
       parameter
-     &     (MAX_N_ORBID=50, MAX_MOVEC_FIELDS=50 , MAX_N_NPARA=110,
-     &     MAX_PARAQN_NFIELDS=10, MAX_PARAQN_MFIELDS=11,
-     &     NMAX_NFIELD=4, NFIELD_FORM='(i3)', DEF_OZN=1, def_nktmd=150, 
+     &     (MAX_N_ORBID=50, MAX_N_LEN=10, MAX_M_LEN=11, 
+     &     MAX_MOVEC_FIELDS=50, DEF_OZN=1, def_nktmd=150, 
      &     def_wfat_lmax=8, def_gqual=2, 
      &     def_si_type='none', DEF_WFAT1=.false.,
      &     DEF_WFAT_MASK=.false., DEF_FFC_TYPE=2, MAX_FEN=1000,
