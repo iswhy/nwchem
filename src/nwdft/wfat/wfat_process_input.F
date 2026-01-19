@@ -80,27 +80,10 @@ c     ==== Checking existence of OPTIONAL INPUTS ====
          wfat1 = DEF_WFAT1
          wfat1_stat = .true.
       endif
-      if (.not. merg_exist) then
-         wfat_merg(:) = DEF_MERG
-         merg_stat = .true.
-      else
-         call wfat_process_myerg(ORBID_CHARLEN, wfat_merg_s, n_orbid,
-     &        wfat_orbid0, wfat_spinid, wfat_merg, wfat_merg_l)
-         merg_stat = .true.
-      endif
       if (.not. wfat_mask_exist) then
          wfat_mask = DEF_WFAT_MASK
          wfat_mask_param = (/ -1.0d6, -1.0d6 /)
          wfat_mask_stat = .true.
-      endif
-      if (.not. ffc_exist) then
-         ffc_type0(1:n_orbid) = DEF_FFC_TYPE
-         ergffc(1:n_orbid) = DEF_ERG_FFC
-         ffc_stat = .true.
-      else if (ffc_exist .and. .not. print_rate) then
-         write(luout, 201) 'field_factor',
-     &        '* print_rate      ',
-     &        ' ', ' ', ' ', ' ', ' ', ' '
       endif
       if (wfat_level == 'oe') then
          if (.not. movec_exist) then
@@ -181,20 +164,6 @@ c     ==== Checking format of CONDITIONALLY OPTIONAL INPUTS ====
       endif
 
 c     ==== Checking format of OPTIONAL INPUTS ====
-      if (.not. orbid_stat) then
-         call errquit('WFAT: Error reading optional input parameter '//
-     &        '''movec_id''. Please check if it is '//
-     &        'specified following the format '//
-     &        '''movec_id a <integer so#1> [<integer so#2> ... ] '//
-     &        '[b <integer so#1> [<integer so#2> ... ]]''. For '//
-     &        'example, the following input ''movec_id a 0 -1 -2 '//
-     &        'b -1'' corresponds to the following list of molecular '//
-     &        'orbitals to be ionized: HOMO, HOMO-1, and HOMO-2 '//
-     &        'having alpha-spin and HOMO-1 having beta-spin. Note: '//
-     &        'At the moment only zero and negative integers are '//
-     &        'supported for the spatial orbitals (so#1, so#2, etc.)',
-     &        0, INPUT_ERR)
-      endif
       if (.not. omgpos_stat) then
          call errquit('WFAT: Error reading optional input parameter '//
      &        '''omgpos''. Please check if it is specified '//
@@ -228,30 +197,11 @@ c     ==== Checking format of OPTIONAL INPUTS ====
      &        0, INPUT_ERR)
       endif
 
-      if (.not. merg_stat) then
-         call errquit('WFAT: Error reading optional input parameter '//
-     &        '''myenergy''. Please check if it is specified '//
-     &        'following the format ''myenergy '//
-     &        '"spin, oid" erg ...'' where spin is ''a'' '//
-     &        'or ''b'', oid is movec_id, and erg is the '//
-     &        'manually given ionization energy.', 0, INPUT_ERR)
-      endif
-      
       if (.not. wfat_mask_stat) then
          call errquit('WFAT: Error reading optional input parameter '//
      &        '''tailmask''. Please check if it is specified '//
      &        'following the format ''tailmask <float value> '//
      &        '<float value>''.',
-     &        0, INPUT_ERR)
-      endif
-      if (.not. ffc_stat) then
-         call errquit('WFAT: Error reading optional input parameter '//
-     &        '''field_factor''. Please check if it is specified '//
-     &        'following the format ''field_factor <value> '//
-     &        '<value> ... <value>'' where ''value'' is either a '//
-     &        'floating point number, a string ''orb'', or a string '//
-     &        '''unit''. There must be as many <value> fields as '//
-     &        'there are the total number of ionized channels.',
      &        0, INPUT_ERR)
       endif
       if (.not. prtb_type_stat) then
@@ -383,41 +333,6 @@ cdebug         call mewfat_dummy()
 c=======================================================
 
 
-cOLDc=======================================================
-cOLDc=======================================================
-cOLD      subroutine wfat_acdc_field(nf, tp, tdf)
-cOLD
-cOLD      implicit none
-cOLD#include "errquit.fh"
-cOLD#include "wfat_input.fh"
-cOLD      integer nf                         ! [input],
-cOLD      character(len=FLD_TP_LEN) tp(nf)   ! [input],
-cOLD      character*2 tdf                    ! [output],
-cOLD
-cOLD      integer i
-cOLD
-cOLD      tdf = 'no'
-cOLD      do i = 1, nf
-cOLD         if (tp(i) == 'dc') then
-cOLD            tdf = 'ti'
-cOLD         endif
-cOLD
-cOLD         if (tdf=='ti' .and. (tp(i)=='gaussian' .or. tp(i)=='hann' .or.
-cOLD     &        tp(i)=='external'))
-cOLD     &        call errquit('WFAT: When there is a ''dc'' type '//
-cOLD     &        'field in the ''field'' directive, no other field '//
-cOLD     &        'types are allowed to coexist', 1, INPUT_ERR)
-cOLD         
-cOLD         if (tp(i)=='gaussian' .or. tp(i)=='hann' .or.
-cOLD     &        tp(i)=='external') then
-cOLD            tdf = 'td'
-cOLD         endif
-cOLD      enddo
-cOLD
-cOLD      end
-cOLDc=======================================================
-
-
 cc c=======================================================
 cc c=======================================================
 cc       subroutine mewfat_need_input()
@@ -443,21 +358,12 @@ c=======================================================
       character*1 m
 
 
-cOLD      field_need = .false.          ! needed when OE or ME
-cOLD      beta_tmd_need = .false.       ! needed when OE or ME
-cOLD      gamma_tmd_need = .false.      ! needed when OE or ME
       nktmd_need = .false.          ! needed when OE or ME
-      orbid_need = .false.          ! needed when OE
-cOLD      gqual_need = .false.          ! needed when OE or ME
       omgpos_need = .false.         ! needed when OE or ME
-cOLD      dgnthr_need = .false.         ! needed when oe or me
       lmax_need = .false.           ! needed when OE or ME
       movec_need = .false.          ! needed when OE or ME
       movec1_need = .false.         ! needed when ME
       wfat1_need = .false.          ! needed when OE or ME
-      merg_need = .false.           ! needed when oe or me
-cOLD      nlgl_need = .false.           ! needed when oe or me
-      ffc_need = .false.            ! needed when oe or me
       wfat_mask_need = .false.      ! needed when oe or me
       prtb_type_need = .false.      ! needed when OE
       prtb_ord_need = .false.       ! needed when OE
@@ -474,26 +380,10 @@ cOLD      nlgl_need = .false.           ! needed when oe or me
 
       call wfat_prep_printsw(rtdb, 'inp:', sr, rt, yi, avb, avg, tmd, 
      &     tmda)
-            
-cOLD      call wfat_need_input0(rt, tmd, tmda, yi, avb, avg, .false.,
-cOLD     &     field_need)
-cOLD      call wfat_need_input0(yi, avb, avg, .false., .false., .false.,
-cOLD     &     .false., dt_need)
-cOLD      call wfat_need_input0(yi, avb, avg, .false., .false., .false.,
-cOLD     &     .false., tmax_need)
-cOLD      call wfat_need_input0(tmd, tmda, .false., .false., .false., 
-cOLD     &     .false., .false., beta_tmd_need)
-cOLD      call wfat_need_input0(tmd, tmda, .false., .false., .false., 
-cOLD     &     .false., .false., gamma_tmd_need)
       call wfat_need_input0(tmd, tmda, .false., .false., .false., 
      &     .false., .false., nktmd_need)
-
-cOLD      call wfat_need_input0(sr, rt, tmd, tmda, yi, avb, avg,
-cOLD     &     gqual_need)
       call wfat_need_input0(sr, rt, tmd, tmda, yi, avb, avg,
      &     omgpos_need)
-cOLD      call wfat_need_input0(sr, rt, tmd, tmda, yi, avb, avg,
-cOLD     &     dgnthr_need)
       call wfat_need_input0(sr, rt, tmd, tmda, yi, avb, avg,
      &     lmax_need)
       call wfat_need_input0(sr, rt, tmd, tmda, yi, avb, avg,
@@ -502,12 +392,6 @@ cOLD     &     dgnthr_need)
      &     movec1_need)
       call wfat_need_input0(sr, rt, tmd, tmda, yi, avb, avg,
      &     wfat1_need)
-      call wfat_need_input0(sr, rt, tmd, tmda, yi, avb, avg,
-     &     merg_need)
-cOLD      call wfat_need_input0(sr, rt, tmd, tmda, yi, avb, avg,
-cOLD     &     nlgl_need)
-      call wfat_need_input0(sr, rt, tmd, tmda, yi, avb, avg,
-     &     ffc_need)
       call wfat_need_input0(sr, rt, tmd, tmda, yi, avb, avg,
      &     wfat_mask_need)
 
@@ -528,21 +412,12 @@ c=======================================================
       character*1 m
 
       
-cOLD      field_need = .false.              ! needed when oe or me
-cOLD      beta_tmd_need = .false.           ! needed when oe or me
-cOLD      gamma_tmd_need = .false.          ! needed when oe or me
       nktmd_need = .false.              ! needed when oe or me
-      orbid_need = .false.              ! needed when oe
-cOLD      gqual_need = .false.              ! needed when oe or me
       omgpos_need = .false.             ! needed when oe or me
-cOLD      dgnthr_need = .false.             ! needed when oe or me
       lmax_need = .false.               ! needed when oe or me
       movec_need = .false.              ! needed when oe or me
       movec1_need = .false.             ! needed when me
       wfat1_need = .false.              ! needed when oe or me
-      merg_need = .false.               ! needed when oe or me
-cOLD      nlgl_need = .false.               ! needed when oe or me
-      ffc_need = .false.                ! needed when oe or me
       wfat_mask_need = .false.          ! needed when oe or me
       prtb_type_need = .false.      ! needed when oe
       prtb_ord_need = .false.       ! needed when oe
@@ -558,40 +433,17 @@ cOLD      nlgl_need = .false.               ! needed when oe or me
 
 
       call wfat_prep_printsw(rtdb, 'inp:', sr, rt, yi, avb, avg, tmd, 
-     &     tmda)
-      
-cOLD      call wfat_need_input0(rt, tmd, tmda, yi, avb, avg, .false.,
-cOLD     &     field_need)
-cOLD      call wfat_need_input0(yi, avb, avg, .false., .false., .false.,
-cOLD     &     .false., dt_need)
-cOLD      call wfat_need_input0(yi, avb, avg, .false., .false., .false.,
-cOLD     &     .false., tmax_need)
-cOLD      call wfat_need_input0(tmd, tmda, .false., .false., .false., 
-cOLD     &     .false., .false., beta_tmd_need)
-cOLD      call wfat_need_input0(tmd, tmda, .false., .false., .false., 
-cOLD     &     .false., .false., gamma_tmd_need)
+     &     tmda)      
       call wfat_need_input0(tmd, tmda, .false., .false., .false., 
      &     .false., .false., nktmd_need)
       call wfat_need_input0(sr, rt, tmd, tmda, yi, avb, avg,
-     &     orbid_need)
-cOLD      call wfat_need_input0(sr, rt, tmd, tmda, yi, avb, avg,
-cOLD     &     gqual_need)
-      call wfat_need_input0(sr, rt, tmd, tmda, yi, avb, avg,
      &     omgpos_need)
-cOLD      call wfat_need_input0(sr, rt, tmd, tmda, yi, avb, avg,
-cOLD     &     dgnthr_need)
       call wfat_need_input0(sr, rt, tmd, tmda, yi, avb, avg,
      &     lmax_need)
       call wfat_need_input0(sr, rt, tmd, tmda, yi, avb, avg,
      &     movec_need)
       call wfat_need_input0(sr, rt, tmd, tmda, yi, avb, avg,
      &     wfat1_need)
-      call wfat_need_input0(sr, rt, tmd, tmda, yi, avb, avg,
-     &     merg_need)
-cOLD      call wfat_need_input0(sr, rt, tmd, tmda, yi, avb, avg,
-cOLD     &     nlgl_need)
-      call wfat_need_input0(sr, rt, tmd, tmda, yi, avb, avg,
-     &     ffc_need)
       call wfat_need_input0(sr, rt, tmd, tmda, yi, avb, avg,
      &     wfat_mask_need)
       call wfat_need_input0(rt, tmd, tmda, .false., .false., .false., 
@@ -653,12 +505,11 @@ c=======================================================
 #include "mafdecls.fh"      
       integer rtdb
 
-      character*4 nch_s
-      integer i, is, ffcount
+      integer i, is
       double precision dt_00, tmax_00
       
       character*1 w
-      logical r, unit_ffc
+      logical r
       parameter ( w='i' )
       integer k
 
@@ -672,24 +523,6 @@ c=======================================================
             
       if (nktmd_need) then
          call wfat_ival_atleast(nktmd, 1, 'WFAT', '''nktmd''', w, r)
-      endif
-
-      unit_ffc = .false.
-      ffcount = 0
-      do i = 1, n_orbid
-         if (.not. unit_ffc) unit_ffc = (ffc_type0(i) == 1)
-         if (ffc_type0(i)==1 .or. ffc_type0(i)==2 .or. ffc_type0(i)==3)
-     &        ffcount = ffcount + 1
-      enddo
-      write(nch_s, '(i4)') n_orbid
-      if (ffcount /= n_orbid)
-     &     call errquit('WFAT: The number of entries given for the '//
-     &     'input keyword ''field_factor'' must be the same as the '//
-     &     'number of ionized channels, which is '//nch_s//'.',
-     &     36, INPUT_ERR)
-      if (ffc_need .and. unit_ffc .and. print_rate .and. n_orbid > 1)
-     &     then
-         write(luout, 500)
       endif
       
       if (wfat_mask_need .and. wfat_mask) then
@@ -758,65 +591,24 @@ c=======================================================
      &        '''perturb:maxord''', w, r)
       endif
       
- 500  format(/,
-     &     3x, '*** ATTENTION ***', /,
-     &     3x, 'NWChem detected that the following situations ',
-     &     'are true:', /,
-     &     3x, '  * ionization rate is requested, ', /,
-     &     3x, '  * there are more than one channels, and ', /,
-     &     3x, '  * unit field factor is chosen.', /,
-     &     3x, 'While the above situations do not lead to ',
-     &     'a runtime error, the calculated total ionization ', /,
-     &     3x, 'rate is erroneous. This is because the rate of ',
-     &     'several channels are added together to compute total ', /,
-     &     3x, 'rate. And each of these rates has a specific ',
-     &     'field factor that depends on their orbital energies. ', /,
-     &     3x, 'Summing these rates while some or all of them have ',
-     &     'their corresponding field factor artificially set to ', /,
-     &     3x, 'unity produces an unphysical situation.')
+cOLD 500  format(/,
+cOLD     &     3x, '*** ATTENTION ***', /,
+cOLD     &     3x, 'NWChem detected that the following situations ',
+cOLD     &     'are true:', /,
+cOLD     &     3x, '  * ionization rate is requested, ', /,
+cOLD     &     3x, '  * there are more than one channels, and ', /,
+cOLD     &     3x, '  * unit field factor is chosen.', /,
+cOLD     &     3x, 'While the above situations do not lead to ',
+cOLD     &     'a runtime error, the calculated total ionization ', /,
+cOLD     &     3x, 'rate is erroneous. This is because the rate of ',
+cOLD     &     'several channels are added together to compute total ', /,
+cOLD     &     3x, 'rate. And each of these rates has a specific ',
+cOLD     &     'field factor that depends on their orbital energies. ', /,
+cOLD     &     3x, 'Summing these rates while some or all of them have ',
+cOLD     &     'their corresponding field factor artificially set to ', /,
+cOLD     &     3x, 'unity produces an unphysical situation.')
       end
 c=======================================================
-
-
-cOLDc=======================================================
-cOLDc=======================================================
-cOLD      subroutine wfat_sanity_field(nf, tp, fr, ce, wi, mx)
-cOLD
-cOLD      implicit none
-cOLD#include "wfat_input.fh"
-cOLD      integer nf
-cOLD      character(len=FLD_TP_LEN) tp(nf)
-cOLD      double precision fr(max_nfield)
-cOLD      double precision ce(max_nfield)
-cOLD      double precision wi(max_nfield)
-cOLD      double precision mx(max_nfield)
-cOLD
-cOLD      character*2 s
-cOLD      character*3 is
-cOLD      character*1 w
-cOLD      logical r
-cOLD      integer i
-cOLD      parameter ( w='i' )
-cOLD      
-cOLD      
-cOLD      do i = 1, nf
-cOLD         write(is, '(i3)') i
-cOLD         call wfat_ordinal_suffix(i, s)
-cOLD         if (tp(i) /= 'dc' .and. tp(i) /= 'external') then
-cOLD            call wfat_dval_atleast(fr(i), 0.0d0, 'q', 'WFAT', ''''//
-cOLD     &           trim(adjustl(is))//s//' field frequency''', 'e', w, r)
-cOLD            call wfat_dval_atleast(ce(i), 0.0d0, 'q', 'WFAT', ''''//
-cOLD     &           trim(adjustl(is))//s//' field center''', 'e', w, r)
-cOLD            call wfat_dval_atleast(wi(i), 0.0d0, 'g', 'WFAT', ''''//
-cOLD     &           trim(adjustl(is))//s//' field width''', 'e', w, r)
-cOLD         endif
-cOLD         if (tp(i) /= 'external')
-cOLD     &        call wfat_dval_atleast(mx(i), 0.0d0, 'q', 'WFAT', ''''//
-cOLD     &        trim(adjustl(is))//s//' field max''', 'e', w, r)
-cOLD      enddo
-cOLD
-cOLD      end
-cOLDc=======================================================
 
 
 c=======================================================
@@ -849,109 +641,12 @@ cOLDc     that is already in the RTDB.
 c forcheck      if (.not. rtdb_print(rtdb, .false.))
 c forcheck     &     call errquit('WFAT: Printing rtdb failed', 1, RTDB_ERR)
 
-
       
-cOLD      if (field_need) then
-cOLD         call wfat_acdc_field(nfield, fld_tp, td)
-cOLD         if (.not. rtdb_cput(rtdb, 'wfat:tdfield', 1, td))
-cOLD     &        call errquit('WFAT: Failed writing field:tdfield '
-cOLD     &        //'to rtdb', 1, INPUT_ERR)
-cOLD         if (.not. rtdb_put(rtdb, 'wfat:field:nfield', mt_int, 1,
-cOLD     &        nfield)) call errquit('WFAT: Failed writing field:nfield '
-cOLD     &        //'to rtdb', 1, INPUT_ERR)
-cOLD         if (.not. rtdb_cput(rtdb, 'wfat:field:type', nfield, fld_tp))
-cOLD     &        call errquit('WFAT: Failed writing field:type '//
-cOLD     &        'to rtdb', 1, INPUT_ERR)
-cOLD         if (.not. rtdb_put(rtdb, 'wfat:field:freq', mt_dbl, nfield,
-cOLD     &        fld_fr)) call errquit('WFAT: Failed writing field:freq '//
-cOLD     &        'to rtdb', 1, INPUT_ERR)
-cOLD         if (.not. rtdb_put(rtdb, 'wfat:field:center', mt_dbl, nfield,
-cOLD     &        fld_ce)) call errquit('WFAT: Failed writing field:center '
-cOLD     &        //'to rtdb', 1, INPUT_ERR)
-cOLD         if (.not. rtdb_put(rtdb, 'wfat:field:width', mt_dbl, nfield,
-cOLD     &        fld_wi)) call errquit('WFAT: Failed writing field:width '
-cOLD     &        //'to rtdb', 1, INPUT_ERR)
-cOLD         if (.not. rtdb_put(rtdb, 'wfat:field:max', mt_dbl, nfield,
-cOLD     &        fld_mx)) call errquit('WFAT: Failed writing field:max '//
-cOLD     &        'to rtdb', 1, INPUT_ERR)
-cOLD         if (.not. rtdb_put(rtdb, 'wfat:field:cep', mt_dbl, nfield,
-cOLD     &        fld_cp)) call errquit('WFAT: Failed writing field:cep '//
-cOLD     &        'to rtdb', 1, INPUT_ERR)
-cOLD
-cOLD         if (.not. rtdb_put(rtdb, 'wfat:is_extfield', mt_log, 1,
-cOLD     &        is_extfield)) call errquit('WFAT: Failed writing '//
-cOLD     &        'is_extfield to rtdb', 1, INPUT_ERR)
-cOLD         if (is_extfield) then
-cOLD            if (.not. rtdb_cput(rtdb, 'wfat:ext_fname', 1, 
-cOLD     &           trim(adjustl(extfield_name)) )) 
-cOLD     &           call errquit('WFAT: Failed writing ext_fname to rtdb',
-cOLD     &           1, INPUT_ERR)
-cOLD            er = (/ ext_start, ext_end /)
-cOLD            if (.not. rtdb_put(rtdb, 'wfat:ext_range', mt_int, 2,
-cOLD     &           er)) call errquit('WFAT: Failed writing ext_range '//
-cOLD     &           'to rtdb', 1, INPUT_ERR)
-cOLD         endif
-cOLD      endif
-
-cOLD      if (dt_need) then
-cOLD         if (is_extfield) then
-cOLD            dt_00 = dt_ext
-cOLD            nt_00 = ntime_ext
-cOLD         else
-cOLD            dt_00 = wfat_dt
-cOLD            nt_00 = int(wfat_tmax/wfat_dt) + 1
-cOLD         endif
-cOLD         if (.not. rtdb_put(rtdb, 'wfat:field:dt', mt_dbl, 1, dt_00))
-cOLD     &        call errquit('WFAT: Failed writing dt to rtdb',
-cOLD     &        1, INPUT_ERR)
-cOLD         if (.not. rtdb_put(rtdb, 'wfat:field:ntime', mt_int, 1, nt_00))
-cOLD     &        call errquit('WFAT: Failed writing ntime to rtdb',
-cOLD     &        1, INPUT_ERR)
-cOLD      endif
-cOLD
-cOLD      if (tmax_need) then
-cOLD         if (is_extfield) then
-cOLD            tmax_00 = tmax_ext
-cOLD         else
-cOLD            tmax_00 = wfat_tmax
-cOLD         endif
-cOLD         if (.not. rtdb_put(rtdb, 'wfat:field:tmax', mt_dbl, 1,
-cOLD     &        tmax_00))
-cOLD     &        call errquit('WFAT: Failed writing tmax to rtdb',
-cOLD     &        1, INPUT_ERR)
-cOLD      endif
-            
-
       if (nktmd_need) then
          if (.not. rtdb_put(rtdb, 'wfat:nktmd', mt_int, 1, nktmd))
      &        call errquit('WFAT: Failed writing nktmd to rtdb',
      &        1, INPUT_ERR)
       endif
-
-cOLD      if (beta_tmd_need) then
-cOLD         if (.not. rtdb_put(rtdb, 'wfat:beta_tmd', mt_dbl, 1, beta_tmd))
-cOLD     &        call errquit('WFAT: Failed writing beta_tmd to rtdb',
-cOLD     &        1, INPUT_ERR)
-cOLD      endif
-cOLD
-cOLD      if (gamma_tmd_need) then
-cOLD         if (.not. rtdb_put(rtdb, 'wfat:gamma_tmd', mt_dbl, 1,
-cOLD     &        gamma_tmd))
-cOLD     &        call errquit('WFAT: Failed writing gamma_tmd to rtdb',
-cOLD     &        1, INPUT_ERR)
-cOLD      endif
-
-cOLD      if (lmax_need) then
-cOLD         if (.not. rtdb_put(rtdb, 'wfat:lmax', mt_int, 1, wfat_lmax))
-cOLD     &        call errquit('WFAT: Failed writing lmax to rtdb',
-cOLD     &        1, INPUT_ERR)
-cOLD      endif
-
-cOLD      if (gqual_need) then
-cOLD         if (.not. rtdb_put(rtdb, 'wfat:gqual', mt_int, 1, wfat_gqual))
-cOLD     &        call errquit('WFAT: Failed writing gqual to rtdb',
-cOLD     &        1, INPUT_ERR)
-cOLD      endif
       
       if (omgpos_need) then
          if (.not. rtdb_put(rtdb, 'wfat:autopos', mt_log, 1, autopos))
@@ -961,13 +656,6 @@ cOLD      endif
      &        call errquit('WFAT: Failed writing omgpos to rtdb',
      &        1, INPUT_ERR)
       endif
-
-cOLD      if (intgl_need) then
-cOLD         if (.not. rtdb_cput(rtdb, 'wfat:intgl_name', 1,
-cOLD     &        trim(adjustl(wfat_intgl_name))))
-cOLD     &        call errquit('WFAT: Failed writing intgl_name to RTDB.',
-cOLD     &        1, INPUT_ERR)
-cOLD      endif
 
       if (wfat_level == 'oe') then
          if (movec_need) then
@@ -1075,23 +763,6 @@ cOLD      if (prtb_ord_need .and. os) then
      &        RTDB_ERR)
       endif
 
-      if (merg_need) then
-         if (.not. rtdb_put(rtdb, 'wfat:use_manerg', mt_log, n_orbid,
-     &        wfat_merg_l(1:n_orbid)))
-     &        call errquit('WFAT: Failed writing use_manerg to RTDB',
-     &        1, RTDB_ERR)
-         if (.not. rtdb_put(rtdb, 'wfat:manerg', mt_dbl, n_orbid,
-     &        wfat_merg(1:n_orbid)))
-     &        call errquit('WFAT: Failed writing manerg to RTDB',
-     &        1, RTDB_ERR)
-      endif
-
-cOLD      if (nlgl_need) then
-cOLD         if (.not. rtdb_put(rtdb, 'wfat:nlgl', mt_int, 1, wfat_nlgl))
-cOLD     &        call errquit('WFAT: Failed writing nlgl to RTDB', 1,
-cOLD     &        RTDB_ERR)
-cOLD      endif
-
       if (wfat_mask_need) then
          if (.not. rtdb_put(rtdb, 'wfat:mask', mt_log, 1, wfat_mask))
      &        call errquit('WFAT: Failed writing mask to RTDB', 1,
@@ -1112,30 +783,6 @@ cOLD      endif
          endif
       endif
 
-      if (ffc_need) then
-         if (.not. rtdb_put(rtdb, 'wfat:ffc_type', mt_int, n_orbid,
-     &        ffc_type0))
-     &        call errquit('WFAT: Failed writing ffc_type to RTDB', 1,
-     &        RTDB_ERR)
-         if (.not. rtdb_put(rtdb, 'wfat:erg_ffc', mt_dbl, n_orbid,
-     &        ergffc))
-     &        call errquit('WFAT: Failed writing erg_ffc to RTDB', 1,
-     &        RTDB_ERR)
-      endif
-
-cOLD      if (.true.) then
-cOLD         if (.not. rtdb_put(rtdb, 'wfat:ozn', mt_int, 1, DEF_OZN))
-cOLD     &        call errquit('WFAT: Failed writing ozn to RTDB', 1,
-cOLD     &        RTDB_ERR)
-cOLD      endif
-cOLD
-cOLD      if (.true.) then
-cOLD         if (.not. rtdb_put(rtdb, 'wfat:cgrid_thr', mt_dbl, 1,
-cOLD     &        DEF_CGRID_THR))
-cOLD     &        call errquit('WFAT: Failed writing cgrid_thr to RTDB', 1,
-cOLD     &        RTDB_ERR)
-cOLD      endif
-      
       if (s2a1e) then
          if (.not. rtdb_put(rtdb, 'wfat:2a1e_nc', mt_int, 1, wfat2a_nc))
      &        call errquit('WFAT: Failed writing 2a1e_nc to RTDB', 1,

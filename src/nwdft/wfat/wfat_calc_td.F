@@ -65,9 +65,9 @@ c           maxn*maxn*6*nsub.
       integer nsf, nbt, ngm, nat, ndid, nsc, nsx, npbd
       integer n_jn, n_kn, n_on, ntime
       integer ib, ig, i, iqn, i_on
-      integer l_egf, l_gn, l_gnn, l_sc, l_sx, l_pbd, l_jn
+      integer l_gn, l_gnn, l_sc, l_sx, l_pbd, l_jn
       integer l_kn, l_on, l_jnn, l_knn, l_ls
-      integer k_egf, k_gn, k_gnn, k_sc, k_sx, k_pbd, k_jn
+      integer k_gn, k_gnn, k_sc, k_sx, k_pbd, k_jn
       integer k_kn, k_on, k_jnn, k_knn, k_ls
       double precision bt_start, bt_last, dbt, dbtr, bt
       double precision gm_start, gm_last, dgm, dgmr, gm
@@ -133,10 +133,6 @@ c     ==== When WFAT1 is active ====
          call wfat_print_o(nch, nqn, nid, mid, dbl_mb(k_on))
       endif
 
-c     ==== Modified energy for field factors ====
-      if (.not. MA_alloc_get(MT_DBL, nch, 'ergf', l_egf, k_egf))
-     &     call errquit('WFAT: ergf allocation failed', 22, MA_ERR)
-      call wfat_get_ergffc(rtdb, nch, erg, dbl_mb(k_egf))
       
 c     ==== Initializing the printings ====
       if (ndid == 0 .and. pr_srfc) then
@@ -212,14 +208,14 @@ c           ==== Print structure factor ====
 c              ==== Calculate ion yield ====
                if (wfat1) then
                   call wfat_calc_wfat1_yield(bt, gm, zi, tmax, ntime, 
-     &                 dbl_mb(k_ls), nch, erg, dbl_mb(k_egf), nqn, nid, 
-     &                 mid, nat, dcpl_mb(k_gn), dcpl_mb(k_jn), 
-     &                 dcpl_mb(k_kn), dcpl_mb(k_gnn), dcpl_mb(k_jnn), 
-     &                 dcpl_mb(k_knn), dbl_mb(k_on), chmmt, 
-     &                 dbl_mb(k_pbd), wfat1_exc, yield)
+     &                 dbl_mb(k_ls), nch, erg, nqn, nid, mid, nat, 
+     &                 dcpl_mb(k_gn), dcpl_mb(k_jn), dcpl_mb(k_kn), 
+     &                 dcpl_mb(k_gnn), dcpl_mb(k_jnn), dcpl_mb(k_knn), 
+     &                 dbl_mb(k_on), chmmt, dbl_mb(k_pbd), wfat1_exc, 
+     &                 yield)
                else
                   call wfat_calc_yield(nat, zi, tmax, ntime, 
-     &                 dbl_mb(k_ls), nch, dbl_mb(k_egf), nqn, nid, mid, 
+     &                 dbl_mb(k_ls), nch, erg, nqn, nid, mid, 
      &                 dcpl_mb(k_gn), dcpl_mb(k_gnn), yield)
                endif
                
@@ -310,14 +306,14 @@ c              ==== Calculate structure factor ====
 c              ==== Calculate ion yield ====
                if (wfat1) then
                   call wfat_calc_wfat1_yield(bt, gm, zi, tmax, ntime, 
-     &                 dbl_mb(k_ls), nch, erg, dbl_mb(k_egf), nqn, nid, 
-     &                 mid, nat, dcpl_mb(k_gn), dcpl_mb(k_jn), 
-     &                 dcpl_mb(k_kn), dcpl_mb(k_gnn), dcpl_mb(k_jnn), 
-     &                 dcpl_mb(k_knn), dbl_mb(k_on), chmmt, 
-     &                 dbl_mb(k_pbd), wfat1_exc, yield)
+     &                 dbl_mb(k_ls), nch, erg, nqn, nid, mid, nat, 
+     &                 dcpl_mb(k_gn), dcpl_mb(k_jn), dcpl_mb(k_kn), 
+     &                 dcpl_mb(k_gnn), dcpl_mb(k_jnn), dcpl_mb(k_knn), 
+     &                 dbl_mb(k_on), chmmt, dbl_mb(k_pbd), wfat1_exc,
+     &                 yield)
                else
                   call wfat_calc_yield(nat, zi, tmax, ntime, 
-     &                 dbl_mb(k_ls), nch, dbl_mb(k_egf), nqn, nid, mid, 
+     &                 dbl_mb(k_ls), nch, erg, nqn, nid, mid, 
      &                 dcpl_mb(k_gn), dcpl_mb(k_gnn), yield)
                endif
 
@@ -342,8 +338,6 @@ c     ==== Terminating printings ====
 c     ==== Deallocations ====
       if (.not. MA_free_heap(l_ls))
      &     call errquit('WFAT: laser deallocation failed', 3, MA_ERR)
-      if (.not. MA_free_heap(l_egf))
-     &     call errquit('WFAT: ergf deallocation failed', 3, MA_ERR)
       if (.not. MA_free_heap(l_gn))
      &     call errquit('WFAT: srfc deallocation failed', 3, MA_ERR)
       if (.not. MA_free_heap(l_gnn))

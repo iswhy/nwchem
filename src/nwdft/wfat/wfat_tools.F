@@ -1532,8 +1532,8 @@ c     delimiter, which must be either a blank space character or a comma.
       integer nid(nqn)    ! [input],
       integer mid(nqn)    ! [input],
       character(len=*) s  ! [input],
-      integer ir          ! [output],
-      integer ic          ! [output],
+      integer ir          ! [output], parabolic quantum number address
+      integer ic          ! [output], ionized orbital address
       integer info        ! [output],
 
       logical tt

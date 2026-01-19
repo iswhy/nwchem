@@ -40,10 +40,10 @@ c=======================================================
       
       logical wfat_inp_omgpos
       logical wfat_inp_perturb
-      logical wfat_inp_ffc, wfat_inp_s2a1e
+      logical wfat_inp_s2a1e
       external wfat_inp_omgpos
       external wfat_inp_perturb
-      external wfat_inp_ffc, wfat_inp_s2a1e
+      external wfat_inp_s2a1e
 
       
 c     ==== Initial status of WFAT inputs ====
@@ -62,9 +62,6 @@ c     ==== Initial status of WFAT inputs ====
 
       wfat1_exist = .false.
       wfat1_stat = .false.
-
-      ffc_exist = .false.
-      ffc_stat = .false.
 
       wfat_mask_exist = .false.
       wfat_mask_stat = .false.
@@ -118,11 +115,8 @@ c     ========================================================
 
 cfordebug            write(luout, '("input field : ", a)') field
 
-c           ==== ABSOLUTELY MANDATORY INPUTS ====
             if (inp_compare(.false., 'print', field)) then
                call wfat_parse_print(rtdb)
-
-c           ==== CONDITIONALLY MANDATORY INPUTS ====    
             else if (inp_compare(.false., 'field', field)) then
                nfblocks = nfblocks + 1
                call wfat_parse_field(rtdb, nfblocks)
@@ -138,8 +132,6 @@ c           ==== CONDITIONALLY MANDATORY INPUTS ====
                call wfat_parse_momentum(rtdb, 'x')
             else if (inp_compare(.false., 'ky', field)) then
                call wfat_parse_momentum(rtdb, 'y')
-                              
-c           ==== OPTIONAL INPUTS ====
             else if (inp_compare(.false., 'movec_id', field)) then
                call wfat_parse_movec(rtdb)
             else if(inp_compare(.false., 'paraqn', field)) then
@@ -148,9 +140,6 @@ c           ==== OPTIONAL INPUTS ====
                call wfat_parse_inpi(rtdb, 'lmax')
             else if (inp_compare(.false., 'quadgrid', field)) then
                call wfat_parse_quadgrid(rtdb)
-            else if (inp_compare(.false., 'omgpos', field)) then
-               omgpos_exist = .true.
-               omgpos_stat = wfat_inp_omgpos(autopos, omgpos)
             else if (inp_compare(.false., 'si_type', field)) then
                call wfat_parse_inpa(rtdb, 'si_type')
             else if (inp_compare(.false., 'degenthr', field)) then
@@ -180,6 +169,8 @@ c                Syntax:  vectors <movec file1> [movec file2]
                call wfat_parse_myerg(rtdb)
             else if (inp_compare(.false., 'mychpos', field)) then
                call wfat_inp_mypos(rtdb, MAX_N_ORBID)
+            else if (inp_compare(.false., 'myffactor', field)) then
+               call wfat_parse_ffc(rtdb)
             else if (inp_compare(.false., 'nlgl', field)) then
                call wfat_parse_inpi(rtdb, 'nlgl')
             else if (inp_compare(.false., 'diagthr', field)) then
@@ -200,10 +191,20 @@ c                Syntax:  vectors <movec file1> [movec file2]
                endif
                wfat_mask_stat = (ll1 .and. ll2)
                if (wfat_mask_stat) wfat_mask = .true.
-            else if (inp_compare(.false., 'field_factor', field)) then
-               ffc_exist = .true.
-               ffc_type0 = -9999
-               ffc_stat = wfat_inp_ffc(ffc_type0, ergffc)
+            else if (inp_compare(.false., 'system_2a1e', field)) then
+               s2a1e_exist = .true.
+               s2a1e_stat = wfat_inp_s2a1e(wfat2a_nc, wfat2a_q, 
+     &              wfat2a_inter, wfat2a_mag, wfat2a_xzr, wfat2a_pot, 
+     &              wfat2a_potparam, wfat2a_nel, wfat2a_fedvr, 
+     &              wfat2a_nfe, wfat2a_fenodes, wfat2a_ndvr, wfat2a_nr, 
+     &              wfat2a_kein, wfat2a_kemult, wfat2a_maxit, wfat2a_nt)
+               s2a1e = s2a1e_stat
+               if (.not. rtdb_put(rtdb, 'wfat:inp:s2a1e', mt_log, 1, 
+     &              s2a1e)) call errquit('WFAT: Failed writing '//
+     &              'inp:s2a1e to rtdb', 42, RTDB_ERR)
+            else if (inp_compare(.false., 'omgpos', field)) then
+               omgpos_exist = .true.
+               omgpos_stat = wfat_inp_omgpos(autopos, omgpos)
             else if (inp_compare(.false., 'perturb', field)) then
                perturb_exist = .true.
                perturb_stat = wfat_inp_perturb(
@@ -218,18 +219,7 @@ c                Syntax:  vectors <movec file1> [movec file2]
      &              prtb_maxitr, prtb_maxitr_exist, prtb_maxitr_stat,
      &              prtb_ordthr, prtb_ordthr_exist, prtb_ordthr_stat,
      &              prtb_maxord, prtb_maxord_exist, prtb_maxord_stat)
-            else if (inp_compare(.false., 'system_2a1e', field)) then
-               s2a1e_exist = .true.
-               s2a1e_stat = wfat_inp_s2a1e(wfat2a_nc, wfat2a_q, 
-     &              wfat2a_inter, wfat2a_mag, wfat2a_xzr, wfat2a_pot, 
-     &              wfat2a_potparam, wfat2a_nel, wfat2a_fedvr, 
-     &              wfat2a_nfe, wfat2a_fenodes, wfat2a_ndvr, wfat2a_nr, 
-     &              wfat2a_kein, wfat2a_kemult, wfat2a_maxit, wfat2a_nt)
-               s2a1e = s2a1e_stat
-               if (.not. rtdb_put(rtdb, 'wfat:inp:s2a1e', mt_log, 1, 
-     &              s2a1e)) call errquit('WFAT: Failed writing '//
-     &              'inp:s2a1e to rtdb', 42, RTDB_ERR)
-
+            
 c           ==== End ====
             else if (inp_compare(.false., 'end', field)) then
                exit
@@ -724,123 +714,6 @@ c        ==== Calculate ntime and tmax ====
 c=======================================================
       
       
-cOLDc=======================================================
-cOLDc=======================================================
-cOLD      logical function wfat_inp_externfield_old()
-cOLDc     <string t_unit>
-cOLDc     <string f_unit>
-cOLDc     <integer data_start>  <integer data_end>
-cOLDc     data:
-cOLDc     <double t(1)>     <double f(1)>
-cOLDc     <double t(2)>     <double f(2)>
-cOLDc     ...               ...          
-cOLD     
-cOLD      implicit none
-cOLD#include "stdio.fh"
-cOLD#include "errquit.fh"
-cOLD#include "inp.fh"
-cOLD#include "wfat_input.fh"
-cOLD      character(len=EXT_TM_UN_LEN) t_unit
-cOLD      character(len=EXT_FL_UN_LEN) f_unit
-cOLD      character*5 ss
-cOLD      integer k, h, i, j, ios
-cOLD      double precision time, field
-cOLD
-cOLD      double precision wfat_convert_time, wfat_convert_efield
-cOLD      external wfat_convert_time, wfat_convert_efield
-cOLD
-cOLD
-cOLD      wfat_inp_externfield_old = .false.
-cOLD      h = 1000
-cOLD      TMEXT_UNIT = (/ 'fs', 'au' /)
-cOLD      FLEXT_UNIT = (/ 'au    ', 'tw/cm2' /)
-cOLD      fld_t_ext(:) = 0.0d0
-cOLD      fld_f_ext(:) = 0.0d0
-cOLD
-cOLD      
-cOLD      if (inp_a(extfield_name)) then
-cOLD         open(h, file=extfield_name, action='read')
-cOLD
-cOLDc        ==== Time data unit ====
-cOLD         read(h, '(a)') t_unit
-cOLD         if (.not. inp_match(TMEXT_NUNIT, .false., t_unit, TMEXT_UNIT, 
-cOLD     &        k)) call errquit('WFAT: The unit choice for time data of '
-cOLD     &        //'the external field is unavailable', 1, INPUT_ERR)
-cOLD
-cOLDc        ==== Field data unit ====
-cOLD         read(h, '(a)') f_unit
-cOLD         if (.not. inp_match(FLEXT_NUNIT, .false., f_unit, FLEXT_UNIT,
-cOLD     &        k))
-cOLD     &        call errquit('WFAT: The unit choice for field data of '//
-cOLD     &        'the external field is unavailable', 1, INPUT_ERR)
-cOLD
-cOLDc        ==== Data range ====
-cOLD         read(h, *) ext_start, ext_end
-cOLD         ntime_ext = ext_end - ext_start + 1
-cOLD         if (ntime_ext > MAX_EXTERNFIELD) then
-cOLD            write(luout, 100) ntime_ext, MAX_EXTERNFIELD
-cOLD            call errquit('WFAT: Error inside the external field file.',
-cOLD     &           1, INPUT_ERR)
-cOLD         endif
-cOLD
-cOLDc        ==== Field and time data ====
-cOLD         read(h, '(a)') ss
-cOLD         if (ss == 'data:') then
-cOLD            j = 0
-cOLD            do i = 1, MAX_EXTERNFIELD
-cOLD               if (i >= ext_start .and. i <= ext_end) then
-cOLD                  read(h, *, iostat=ios) time, field
-cOLD                  if (ios /= 0) call errquit('WFAT: Bad data within '//
-cOLD     &                 'the ''data:'' scope in the file containing'//
-cOLD     &                 'the external field.', 1, INPUT_ERR)
-cOLD                  j = j + 1
-cOLD                  fld_t_ext(j) = wfat_convert_time(t_unit, time, 'au')
-cOLD                  fld_f_ext(j) = wfat_convert_efield(f_unit, field,
-cOLD     &                 'au')
-cOLD               else if (i < ext_start) then
-cOLD                  read(h, *)
-cOLD               else if (i > ext_end) then
-cOLD                  exit
-cOLD               endif
-cOLD            enddo
-cOLD         else
-cOLD            call errquit('WFAT: The keyword ''data:'' is not found '//
-cOLD     &           'in the external field file.', 1, INPUT_ERR)
-cOLD         endif
-cOLD         
-cOLD         close(h)
-cOLD
-cOLDc        ==== dt and tmax ====
-cOLD         dt_ext = fld_t_ext(2) - fld_t_ext(1)
-cOLD         write(luout, '("dt_ext = ", es14.6)') dt_ext
-cOLD         tmax_ext = fld_t_ext(ntime_ext) - fld_t_ext(1)
-cOLD      else
-cOLD         call errquit('WFAT: Filename of the file containing the '//
-cOLD     &        'external field is incorrectly or not specified.',
-cOLD     &        1, INPUT_ERR)
-cOLD      endif
-cOLD
-cOLD
-cOLD      write(luout, '(/, 3x, "*** ATTENTION ***")')
-cOLD      write(luout, 101)
-cOLD
-cOLD      wfat_inp_externfield_old = .true.
-cOLD
-cOLD      
-cOLD 100  format('ERROR: The no. of data points specified for the ',
-cOLD     &     'external field, which is ', i6, /,
-cOLD     &     7x, ', exceeds the maximum, which is ', i6, '.')
-cOLD
-cOLD 101  format(
-cOLD     &     5x, 'The field has been taken from an external file.',
-cOLD     &     'In this case, the user is ', /,
-cOLD     &     5x, 'responsible in ensuring that the time data values ',
-cOLD     &     'are equally spaced.')
-cOLD      
-cOLD      end
-cOLDc=======================================================
-
-
 c=======================================================
 c=======================================================
       subroutine wfat_parse_dt(rtdb)
@@ -927,7 +800,9 @@ c=======================================================
 c=======================================================
       subroutine wfat_parse_movec(rtdb)
 c     (rtdb, nelm, orbid0, spinid0, nor0)
-
+c     Input syntax:
+c       a <list of 0 or negative integers> \
+c       b <list of 0 or negative integers>
       implicit none
 #include "rtdb.fh"
 #include "stdio.fh"
@@ -1025,8 +900,8 @@ c        ==== Check duplicate in orbital ====
 
       enddo
 
-      if (.not. rtdb_put(rtdb, 'wfat:inp:nch', mt_int, 1, nor0))
-     &     call errquit('WFAT: Failed writing wfat:inp:nch to rtdb',
+      if (.not. rtdb_put(rtdb, 'wfat:inp:n_orbid', mt_int, 1, nor0))
+     &     call errquit('WFAT: Failed writing wfat:inp:n_orbid to rtdb',
      &     1, INPUT_ERR)
       if (.not. rtdb_put(rtdb, 'wfat:inp:orbid', mt_int, nor0, orbid0))
      &     call errquit('WFAT: Failed writing inp:orbid to rtdb',
@@ -1172,45 +1047,61 @@ c=======================================================
 
 c=======================================================
 c=======================================================
-      logical function wfat_inp_ffc(ftp, ergf)
+      subroutine wfat_parse_ffc(rtdb)   !(ftp, ergf)
 c     Input syntax:
-c       field_factor <float energy> | unit | orb
+c       field_factor <float energy>
       implicit none
-#include "wfat_input.fh"
+#include "wfat_const.fh"
 #include "inp.fh"
 #include "errquit.fh"
+#include "mafdecls.fh"
+#include "rtdb.fh"
 #include "stdio.fh"
-      integer ftp(MAX_N_ORBID)
-      double precision ergf(MAX_N_ORBID)
+      integer rtdb
 
-      character*255 field_a
-      integer i
-      double precision field_d
+      character(len=CHID_CHARLEN) ffc_s(MAX_N_LEN*MAX_M_LEN*MAX_N_ORBID)
+      logical l1, l2
+      integer nfields, n, i
+      double precision tmp, ffc(MAX_N_LEN*MAX_M_LEN*MAX_N_ORBID)
 
-      wfat_inp_ffc = .false.
       
-      ergf = 0.0d0
-      do i = 1, MAX_N_ORBID
-         if (inp_f(field_d)) then
-            ergf(i) = field_d
-            ftp(i) = 3
-         else if (inp_a(field_a)) then
-            ergf(i) = 0.0d0
-            if (trim(adjustl(field_a)) == 'orb') then
-               ftp(i) = 2
-            else if (trim(adjustl(field_a)) == 'unit') then
-               ftp(i) = 1
-            else
-               call errquit('WFAT: When a string is supplied for the '//
-     &              'keyword ''field_factor'', the available options '//
-     &              'are ''orb'' or ''unit''.', 82, UERR)
-            endif
-         else
-            exit
-         endif
-      enddo
-
-      wfat_inp_ffc = .true.
+      nfields = inp_n_field()
+      if (nfields == 2) then
+c        myffactor  <float value>
+         l1 = inp_f(tmp)
+         n = MAX_N_LEN * MAX_M_LEN * MAX_N_ORBID
+         ffc_s(1:n) = 'all'
+         ffc(1:n) = tmp
+      else if (nfields > 2) then
+c        myffactor \
+c          "sid1 oid1 n1 m1"  <float value> \
+c          "sid2 oid2 n2 m2"  <float value> \
+c          ...
+         if (mod(nfields,2) == 0) call errquit('WFAT: User-set field '//
+     &        'factors are specified through pairs of channel IDs and'//
+     &        ' the custom field factor corresponding to the channel.',
+     &        5, INPUT_ERR)
+         n = (nfields-1) / 2
+         ffc_s = ''
+         ffc = DEF_MFFC
+         do i = 1, n
+            l1 = inp_a(ffc_s(i))
+            l2 = inp_f(ffc(i))
+         enddo
+      else
+         call errquit('WFAT: Input directive myffactor has been given'//
+     &        ' without any value.', 61, INPUT_ERR)
+      endif
+      
+      if (.not. rtdb_put(rtdb, 'wfat:inp:n_myffc', mt_int, 1, n)) 
+     &     call errquit('WFAT: Failed writing inp:n_myffc to RTDB',
+     &     11, RTDB_ERR)
+      if (.not. rtdb_cput(rtdb, 'wfat:inp:myffc_s', n, ffc_s))
+     &     call errquit('WFAT: Failed writing inp:myffc_s to RTDB',
+     &     12, RTDB_ERR)
+      if (.not. rtdb_put(rtdb, 'wfat:inp:myffc', mt_dbl, n, ffc)) 
+     &     call errquit('WFAT: Failed writing inp:myffc to RTDB',
+     &     13, RTDB_ERR)
       
       end
 c=======================================================
@@ -1219,12 +1110,19 @@ c=======================================================
 c=======================================================
 c=======================================================
       subroutine wfat_parse_w1x(rtdb)   !(nc, maxn, w1x, n)
-c        wfat1_exclude \
+c     Input syntax when using oe-wfat:
+c       wfat1_exclude \
 c          "sid1 oid1 n1 m1" \
 c          "sid2 oid2 n2 m2" \
 c          ...
 c     where sid and oid are the spin and orbital IDs (integers) specified
-c     through the movec_id directive.
+c     through the movec_id directive, and n and m are parabolic quantum
+c     numbers.
+c     Input syntax when using me-wfat:
+c       wfat1_exclude \
+c          "n1 m1" \
+c          "n2 m2" \
+c          ...
       implicit none
 #include "inp.fh"
 #include "mafdecls.fh"
@@ -1255,60 +1153,6 @@ c     through the movec_id directive.
 
       end
 c=======================================================
-
-
-cOLDc=======================================================
-cOLDc=======================================================
-cOLD      subroutine wfat_extract_w1x(nc, maxn, w1x, nch, orbid, 
-cOLD     &     spinid, nqn, nid, mid, w1x_l)
-cOLD
-cOLD      implicit none
-cOLD#include "errquit.fh"
-cOLD#include "stdio.fh"
-cOLD      integer nc                    ! [input],
-cOLD      integer maxn                  ! [input],
-cOLD      character(len=nc) w1x(maxn)   ! [input],
-cOLD      integer nch                   ! [input],
-cOLD      integer orbid(nch)            ! [input],
-cOLD      integer spinid(nch)           ! [input],
-cOLD      integer nqn                   ! [input],
-cOLD      integer nid(nqn)              ! [input],
-cOLD      integer mid(nqn)              ! [input],
-cOLD      logical w1x_l(nqn, nch)       ! [output],
-cOLD
-cOLD      integer i, ir, ic, info
-cOLD      
-cOLD
-cOLD      w1x_l = .false.
-cOLD      do i = 1, maxn
-cOLD         if (len_trim(w1x(i)) > 0) then
-cOLD            call wfat_read_channel_id(nch, orbid, spinid, nqn, nid, mid,
-cOLD     &           w1x(i), ir, ic, info)
-cOLD            if (info /= 0) then
-cOLD               write(luout, '(4x, "info = ", i3)') info
-cOLD               write(luout, '(4x, "Bad entry = ", a)')
-cOLD     &              trim(adjustl(w1x(i)))
-cOLD               if (info == 5) then
-cOLD                  call errquit('WFAT: The above entry of input '//
-cOLD     &                 'directive wfat1_exclude contains an '//
-cOLD     &                 'unspecified ionized channel.', 8, INPUT_ERR)
-cOLD               else if (info == 10) then
-cOLD                  call errquit('WFAT: The above entry of input '//
-cOLD     &                 'directive wfat1_exclude contains an '//
-cOLD     &                 'unspecified parabolic quantum number.',
-cOLD     &                 8, INPUT_ERR)
-cOLD               else
-cOLD                  call errquit('WFAT: The above entry of input '//
-cOLD     &                 'wfat1_exclude does not conform to the '//
-cOLD     &                 'correct format.', 8, INPUT_ERR)
-cOLD               endif
-cOLD            endif
-cOLD            w1x_l(ir,ic) = .true.
-cOLD         endif
-cOLD      enddo
-cOLD
-cOLD      end
-cOLDc=======================================================
 
 
 c=======================================================
@@ -1431,66 +1275,6 @@ c          ...
       if (.not. rtdb_put(rtdb, 'wfat:inp:myerg', mt_dbl, 3*n, erg)) 
      &     call errquit('WFAT: Failed writing inp:myerg to RTDB',
      &     13, RTDB_ERR)
-      
-      end
-c=======================================================
-
-
-c=======================================================
-c=======================================================
-      subroutine wfat_process_myerg(nchar, erg_s, nch, orbid, spinid,
-     &     erg, erg_l)
-c     DESCRIPTION:
-c     Rearranges contents of erg so that they are filled based on the
-c     channel indices contained in erg_s.
-      implicit none
-#include "errquit.fh"
-#include "stdio.fh"
-#include "wfat_const.fh"
-      integer nchar                  ! [input],
-      character(len=nchar) erg_s(*)  ! [input],
-      integer nch                    ! [input],
-      integer orbid(nch)             ! [input],
-      integer spinid(nch)            ! [input],
-      double precision erg(*)        ! [in/output],
-      logical erg_l(*)               ! [output],
-
-      integer i, ic, info
-      double precision tmp(nch)
-
-
-      tmp = DEF_MERG
-      erg_l(1:nch) = .false.
-      do i = 1, nch
-         if (len_trim(erg_s(i)) > 0) then
-            if (trim(adjustl(erg_s(i))) == 'all') then
-               erg_l(1:nch) = .true.
-               tmp(1:nch) = erg(1:nch)
-               exit
-            else
-               call wfat_read_orb_id(nch, orbid, spinid, erg_s(i), ic,
-     &              info)
-               if (info /= 0) then
-                  write(luout, '(4x, "info = ", i3)') info
-                  write(luout, '(4x, "Bad entry = ", a)')
-     &                 trim(adjustl(erg_s(i)))
-                  if (info == 5) then
-                     call errquit('WFAT: The above entry of input '//
-     &                    'directive myenergy contains an '//
-     &                    'unspecified ionized channel.', 8, INPUT_ERR)
-                  else
-                     call errquit('WFAT: The above entry of input '//
-     &                    'myenergy does not conform to the '//
-     &                    'correct format.', 8, INPUT_ERR)
-                  endif
-               endif
-               erg_l(ic) = .true.
-               tmp(ic) = erg(i)
-            endif
-         endif
-      enddo
-
-      erg(1:nch) = tmp(1:nch)
       
       end
 c=======================================================
@@ -2449,39 +2233,4 @@ c=======================================================
       
       
       
-      
-cc=======================================================
-cc=======================================================
-c      subroutine wfat_process_input()
-c
-c      implicit none
-c
-c
-cc     ==== beta ====
-c      if (wfat_nbeta > 1) then
-c         dbt = (wfat_beta_last-wfat_beta_start) / (wfat_nbeta-1)
-c         do i = 1, wfat_nbeta
-c            wfat_beta(i) = wfat_beta_start + (i-1)*dbt
-c         enddo
-c      else
-c         wfat_beta(1) = wfat_beta_start
-c      endif
-c
-cc     ==== gamma ====
-c      if (wfat_ngamma > 1) then
-c         dgm = (wfat_gamma_last-wfat_gamma_start) / (wfat_ngamma-1)
-c         do i = 1, wfat_ngamma
-c            wfat_gamma(i) = wfat_gamma_start + (i-1)*dgm
-c         enddo
-c      else
-c         wfat_gamma(1) = wfat_gamma_start
-c      endif
-c
-cc     ==== orbid ====
-c      
-c      
-c      
-c
-c      end
-cc=======================================================
      

@@ -175,7 +175,7 @@ c============================================================
 c=======================================================
 c=======================================================
       subroutine wfat_calc_wfat1_yield(bt, gm, zi, tmax, nt, las, nch, 
-     &                 erg, ergf, nqn, nid, mid, nat, gn, jn, kn, gnn, 
+     &                 erg, nqn, nid, mid, nat, gn, jn, kn, gnn, 
      &                 jnn, knn, on, chmmt, pb, wfat0, yield)
       
       implicit none
@@ -191,7 +191,6 @@ c=======================================================
       double precision las(nt)
       integer nch
       double precision erg(nch)
-      double precision ergf(nch)
       integer nqn
       integer nid(nqn)
       integer mid(nqn)
@@ -232,10 +231,10 @@ c        ==== Calculate field factors ====
             do iqn = 1, nqn
                i_fc = k_fc + (ich-1)*nqn + (iqn-1)
                if (las(i) >= 1.0d-13) then
-                  call wfat_field_factor(las(i), ergf(ich), zi, 
+                  call wfat_field_factor(las(i), erg(ich), zi, 
      &                 nid(iqn), mid(iqn), dbl_mb(i_fc))
                else if (las(i) <= -1.0d-13) then
-                  call wfat_field_factor(abs(las(i)), ergf(ich), zi, 
+                  call wfat_field_factor(abs(las(i)), erg(ich), zi, 
      &                 nid(iqn), mid(iqn), dbl_mb(i_fc))
                else
                   dbl_mb(i_fc) = 0.0d0

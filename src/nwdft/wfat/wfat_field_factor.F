@@ -1,7 +1,7 @@
 c=======================================================
 c=======================================================
-      subroutine wfat_field_factor(fmagn, orberg_, zion,
-     &                             nchan, mchan, fifc)
+      subroutine wfat_field_factor(fmagn, orberg_, zion, nchan, mchan, 
+     &     fifc)
       
       implicit none
 #include "stdio.fh"
@@ -27,7 +27,7 @@ c=======================================================
 c=======================================================
 c=======================================================
       subroutine wfat_get_field_factor(rtdb, nch, nqn, nid, mid, zi, ef,
-     &     erg, fifc)
+     &     erg, ffc)
 
       implicit none
 #include "rtdb.fh"
@@ -41,94 +41,29 @@ c=======================================================
       double precision zi
       double precision ef
       double precision erg(nch)
-      double precision fifc(nqn,nch)
+      double precision ffc(nqn,nch)
 
-      integer ich, iqn, ffc_type(nch)
-      double precision ergf3(nch)
+      logical ffc_l(nqn,nch)
+      integer ic, iq
+      double precision mffc(nqn,nch)
 
-      if (.not. rtdb_get(rtdb, 'wfat:ffc_type', mt_int, nch, ffc_type))
-     &     call errquit('WFAT: Cannot read ffc_type from RTDB.',
-     &     30, UERR)
-      
-      do ich = 1, nch
-         if (ffc_type(ich) == 3) then
-            if (.not. rtdb_get(rtdb, 'wfat:erg_ffc', mt_dbl, nch,
-     &           ergf3))
-     &           call errquit('WFAT: Cannot read erg_ffc from RTDB.',
-     &           30, UERR)
-            exit
-         endif
-      enddo
-         
-      do ich = 1, nch
-         do iqn = 1, nqn
-            if (ffc_type(ich) == 1) then
-               fifc(iqn, ich) = 1.0d0
-            else if (ffc_type(ich) == 2) then
-               call wfat_field_factor(ef, erg(ich), zi, nid(iqn),
-     &              mid(iqn), fifc(iqn,ich))
-            else if (ffc_type(ich) == 3) then
-               call wfat_field_factor(ef, ergf3(ich), zi, nid(iqn), 
-     &              mid(iqn), fifc(iqn,ich))
+      if (.not. rtdb_get(rtdb, 'wfat:use_manffc', mt_log, nqn*nch,
+     &     ffc_l)) call errquit('WFAT: Cannot read use_manffc from '//
+     &     'RTDB.', 30, UERR)
+      if (.not. rtdb_get(rtdb, 'wfat:manffc', mt_dbl, nqn*nch, mffc)) 
+     &     call errquit('WFAT: Cannot read manffc from RTDB.', 30, UERR)
+
+      do ic = 1, nch
+         do iq = 1, nqn
+            if (ffc_l(iq,ic)) then
+               ffc(iq,ic) = mffc(iq,ic)
             else
-               call errquit('WFAT: The input ffc_type of '//
-     &              'wfat_get_field_factor corresponds to a '//
-     &              'nonexisting option.', 33, UERR)
+               call wfat_field_factor(ef, erg(ic), zi, nid(iq), mid(iq),
+     &              ffc(iq,ic))
             endif
          enddo
       enddo
-
-      end
-c=======================================================
-
       
-c=======================================================
-c=======================================================
-      subroutine wfat_get_ergffc(rtdb, nch, erg, ergf)
-
-      implicit none
-#include "rtdb.fh"
-#include "errquit.fh"
-#include "mafdecls.fh"
-      integer rtdb
-      integer nch
-      double precision erg(nch)
-      double precision ergf(nch)
-
-      integer ich, iqn, ffc_type(nch)
-      double precision ergf3(nch)
-      
-      
-      if (.not. rtdb_get(rtdb, 'wfat:ffc_type', mt_int, nch, ffc_type))
-     &     call errquit('WFAT: Cannot read ffc_type from RTDB.',
-     &     44, UERR)
-
-      do ich = 1, nch
-         if (ffc_type(ich) == 3) then
-            if (.not. rtdb_get(rtdb, 'wfat:erg_ffc', mt_dbl, nch,
-     &           ergf3))
-     &           call errquit('WFAT: Cannot read erg_ffc from RTDB.',
-     &           44, UERR)
-            exit
-         endif
-      enddo
-
-      do ich = 1, nch
-         if (ffc_type(ich) == 1) then
-            call errquit('WFAT: None of the elements of ffc_type '//
-     &           'in wfat_get_ergffc can be equal to 1 if this '//
-     &           'subroutine is to be called.', 60, UERR)
-         else if (ffc_type(ich) == 2) then
-            ergf(ich) = erg(ich)
-         else if (ffc_type(ich) == 3) then
-            ergf(ich) = ergf3(ich)
-         else
-            call errquit('WFAT: The input ffc_type of '//
-     &           'wfat_get_ergffc corresponds to a nonexisting '//
-     &           'option.', 35, UERR)
-         endif
-      enddo
-
       end
 c=======================================================
 
@@ -155,18 +90,14 @@ c=======================================================
 
       character*5 i_str
       character*15 e_str
-      character*23 ftps
-      logical rtdb_stat
-      integer i, j, n, m, ftp(nch)
-      double precision ergf(nch)
+      character*4 ftps
+      logical ffc_l(nqn,nch)
+      integer i, j
 
       
-      if (.not. rtdb_get(rtdb, 'wfat:ffc_type', mt_int, nch, ftp))
-     &     call errquit('WFAT: Cannot read ffc_type from RTDB.',
-     &     29, UERR)
-      if (.not. rtdb_get(rtdb, 'wfat:erg_ffc', mt_dbl, nch, ergf))
-     &     call errquit('WFAT: Cannot read erg_ffc from RTDB.',
-     &     29, UERR)
+      if (.not. rtdb_get(rtdb, 'wfat:use_manffc', mt_log, nqn*nch,
+     &     ffc_l)) call errquit('WFAT: Cannot read use_manffc from '//
+     &     'RTDB.', 29, UERR)
 
       write(luout, '(2/)')
       call util_print_centered(luout, 'Field factors', 20, .true.)
@@ -177,29 +108,23 @@ c=======================================================
       
       do i = 1, nch
          write(i_str, '(i5)') i
-         if (ftp(i) == 1) then
-            ftps = 'unit'
-            e_str = 'N/A'
-         else if (ftp(i) == 2) then
-            ftps = 'orbital energy'
-            write(e_str, '(f15.6)') erg(i)
-         else if (ftp(i) == 3) then
-            ftps = 'modified orbital energy'
-            write(e_str, '(f15.6)') ergf(i)
-         endif
-         
+         write(e_str, '(f15.6)') erg(i)         
          write(luout, '(3x, "Channel = ", a, ",", 2x, "energy = ", '//
-     &        'a, ",", 2x, "type = ", a)')
-     &        trim(adjustl(i_str)), trim(adjustl(e_str)),
-     &        trim(adjustl(ftps))
+     &        'a)') trim(adjustl(i_str)), trim(adjustl(e_str))
 
-         write(luout, '(5x, 2a4, a21)') 'n', 'm', 'field factor'
-         call wfat_print_repeat(luout, 29, 5, '-')
+         write(luout, '(5x, 2a4, a21, 2x, a4)')
+     &        'n', 'm', 'field factor', 'type'
+         call wfat_print_repeat(luout, 35, 5, '-')
          write(luout, '("")')
+         
          do j = 1, nqn
-            n = nid(j)
-            m = mid(j)
-            write(luout, '(5x, 2i4, es21.12)') n, m, ff(j,i)
+            if (ffc_l(j,i)) then
+               ftps = 'user'
+            else
+               ftps = 'auto'
+            endif
+            write(luout, '(5x, 2i4, es21.12, 2x, a4)')
+     &           nid(j), mid(j), ff(j,i), ftps
          enddo
          write(luout, '("")')
       enddo

@@ -2,17 +2,11 @@
 #include "wfat_const.fh"
       
 c     ==== Input-related variables ====
-cOLD      character*6
-cOLD     &     NFIELD_FORM
-
       character*2
      &     prtb_type
 
       character*3
      &     wfat2a_pot
-
-      character(len=ORBID_CHARLEN)
-     &     wfat_merg_s(MAX_N_ORBID)
 
       character*32
      &     wfat_theory
@@ -24,8 +18,7 @@ cOLD     &     NFIELD_FORM
      &     wfat_movec_name, wfat_movec1_name
 
       logical
-     &     wfat1, s2a1e, wfat_mask, wfat2a_fedvr,
-     &     wfat_merg_l(MAX_N_ORBID)
+     &     wfat1, s2a1e, wfat_mask, wfat2a_fedvr
 
       logical
      &     field_exist, field_stat,
@@ -35,8 +28,6 @@ cOLD     &     gqual_exist, gqual_stat,
      &     movec_exist, movec_stat,
      &     movec1_exist, movec1_stat,
      &     wfat1_exist, wfat1_stat,
-     &     merg_exist, merg_stat,
-     &     ffc_exist, ffc_stat,
      &     wfat_mask_exist, wfat_mask_stat,
      &     perturb_exist, perturb_stat,
      &     prtb_type_exist, prtb_type_stat,
@@ -57,31 +48,29 @@ cOLD     &     gqual_exist, gqual_stat,
      &     nktmd_need, 
      &     lmax_need, omgpos_need, dgnthr_need,
      &     movec_need, movec1_need, wfat1_need,
-     &     merg_need, nlgl_need, dthr_need, 
-     &     ffc_need, wfat_mask_need, autopos, prtb_type_need, 
+     &     nlgl_need, dthr_need, 
+     &     wfat_mask_need, autopos, prtb_type_need, 
      &     prtb_ord_need, prtb_bt_need, prtb_gm_need, prtb_dgnthr_need, 
      &     prtb_offthr_need, prtb_e1thr_need, prtb_itrthr_need, 
      &     prtb_maxitr_need, prtb_ordthr_need, prtb_maxord_need
       
       integer
      &     nktmd, 
-     &     prtb_ord, prtb_maxitr, prtb_maxord, ffc_type0(MAX_N_ORBID),
+     &     prtb_ord, prtb_maxitr, prtb_maxord, 
      &     wfat2a_nc, wfat2a_mag,
      &     wfat2a_xzr, wfat2a_nel, wfat2a_nfe, wfat2a_ndvr(MAX_FEN),
-     &     wfat2a_nr(3), wfat2a_maxit, wfat2a_nt(3), 
-     &     merg_len
+     &     wfat2a_nr(3), wfat2a_maxit, wfat2a_nt(3)
 cOLD     &     DEF_PRTB_ORD_BW,
 cOLD     &     DEF_PRTB_ORD_RS, DEF_PRTB_MAXITR, DEF_PRTB_MAXORD, DEF_NLGL,
 cOLD     &     DEF_NFENODES, DEF_LAGDVR_NR,
 cOLD     &     DEF_2A1E_MAXIT, DEF_LEGDVR_NT,
 
       double precision
-     &     ergffc(MAX_N_ORBID), omgpos(3), 
+     &     omgpos(3), 
      &     wfat_mask_param(2), prtb_bt, prtb_gm, prtb_dgnthr,
      &     prtb_offthr, prtb_e1thr, prtb_itrthr, prtb_ordthr, 
      &     wfat2a_q(2), wfat2a_inter, wfat2a_potparam(2),
-     &     wfat2a_fenodes(MAX_FEN), wfat2a_kein, wfat2a_kemult,
-     &     wfat_merg(MAX_N_ORBID)
+     &     wfat2a_fenodes(MAX_FEN), wfat2a_kein, wfat2a_kemult
 
 cOLD      character*2 DEF_PRTB_type
       
@@ -105,8 +94,6 @@ cOLD     &     gqual_exist, gqual_stat,
      &     movec_exist, movec_stat,
      &     movec1_exist, movec1_stat,
      &     wfat1_exist, wfat1_stat,
-     &     merg_exist, merg_stat,
-     &     ffc_exist, ffc_stat,
      &     wfat_mask_exist, wfat_mask_stat, 
      &     perturb_exist, perturb_stat,
      &     prtb_type_exist, prtb_type_stat,
@@ -124,28 +111,27 @@ cOLD     &     gqual_exist, gqual_stat,
      &     nktmd_need, lmax_need, 
      &     omgpos_need, dgnthr_need, movec_need, 
      &     movec1_need, wfat1_need, 
-     &     merg_need, nlgl_need, dthr_need, ffc_need, wfat_mask_need, 
+     &     nlgl_need, dthr_need, wfat_mask_need, 
      &     autopos, prtb_type_need, prtb_ord_need, prtb_bt_need,
      &     prtb_gm_need, prtb_dgnthr_need, prtb_offthr_need, 
      &     prtb_e1thr_need, prtb_itrthr_need, prtb_maxitr_need, 
      &     prtb_ordthr_need, prtb_maxord_need,
-     &     wfat1, s2a1e, wfat_mask, wfat2a_fedvr, 
-     &     wfat_merg_l,
+     &     wfat1, s2a1e, wfat_mask, wfat2a_fedvr,
 c     == Integers ==
      &     nktmd, prtb_ord, prtb_maxitr,
-     &     prtb_maxord, ffc_type0, wfat2a_nc, wfat2a_mag, 
+     &     prtb_maxord, wfat2a_nc, wfat2a_mag, 
      &     wfat2a_xzr, wfat2a_nel, wfat2a_nfe, wfat2a_ndvr, wfat2a_nr, 
-     &     wfat2a_maxit, wfat2a_nt, merg_len,
+     &     wfat2a_maxit, wfat2a_nt,
 c     == Doubles ==
-     &     ergffc, omgpos, 
+     &     omgpos, 
      &     prtb_bt, prtb_gm, prtb_dgnthr, prtb_offthr, prtb_e1thr, 
      &     prtb_itrthr, prtb_ordthr, wfat_mask_param,
      &     wfat2a_q, wfat2a_inter, wfat2a_potparam, wfat2a_fenodes, 
-     &     wfat2a_kein, wfat2a_kemult, wfat_merg,
+     &     wfat2a_kein, wfat2a_kemult,
 c     == Characters ==
      &     prtb_type, wfat_theory, wfat_level,
      &     wfat_movec_name, wfat_movec1_name, 
-     &     wfat2a_pot, wfat_merg_s
+     &     wfat2a_pot
 
       
       

@@ -7,7 +7,7 @@
       
       integer
      &     MAX_N_ORBID, MAX_N_LEN, MAX_M_LEN, MAX_MOVEC_FIELDS,
-     &     DEF_FFC_TYPE, DEF_OZN,
+     &     DEF_OZN,
      &     def_nktmd, def_wfat_lmax, def_gqual,
      &     MAX_FEN, CHID_CHARLEN, ORBID_CHARLEN,
      &     MAXIDLEN
@@ -17,7 +17,7 @@
      &     MAX_MOVEC_FIELDS=50, DEF_OZN=1, def_nktmd=150, 
      &     def_wfat_lmax=8, def_gqual=2, 
      &     def_si_type='none', DEF_WFAT1=.false.,
-     &     DEF_WFAT_MASK=.false., DEF_FFC_TYPE=2, MAX_FEN=1000,
+     &     DEF_WFAT_MASK=.false., MAX_FEN=1000,
      &     CHID_CHARLEN=50, ORBID_CHARLEN=30, DEF_W1X='none',
      &     MAXIDLEN=255)
 
@@ -29,7 +29,7 @@
       double precision
      &     DEF_PRTB_BT, DEF_PRTB_GM, DEF_PRTB_DGNTHR, DEF_PRTB_OFFTHR,
      &     DEF_PRTB_E1THR, DEF_PRTB_ITRTHR, DEF_PRTB_ORDTHR, DEF_DGNTHR,
-     &     DEF_WFAT_DTHR, DEF_ERG_FFC, DEF_KEIN, DEF_KEMULT,
+     &     DEF_WFAT_DTHR, DEF_KEIN, DEF_KEMULT, DEF_MFFC,
      &     DEF_SOFT_COULOMB, DEF_MDIP, DEF_MERG, DEF_MPOS, DEF_CGRID_THR
 
       character*2 DEF_PRTB_type
@@ -42,9 +42,9 @@
      &     DEF_PRTB_DGNTHR=1.0d-6, DEF_PRTB_OFFTHR=1.0d-10, 
      &     DEF_PRTB_E1THR=1.0d-4, DEF_PRTB_ITRTHR=1.0d-14,
      &     DEF_PRTB_ORDTHR=1.0d-10, DEF_DGNTHR=1.0d-6, DEF_NLGL=8,
-     &     DEF_WFAT_DTHR=1.0d-10, DEF_ERG_FFC=0.0d0, DEF_NFENODES=9,
+     &     DEF_WFAT_DTHR=1.0d-10, DEF_NFENODES=9,
      &     DEF_LAGDVR_NR=25, DEF_KEIN=1.2d0, DEF_KEMULT=6.0d0,
      &     DEF_2A1E_MAXIT=20, DEF_LEGDVR_NT=40, DEF_SOFT_COULOMB=0.0d0,
      &     DEF_MDIP=1.0d10, DEF_MERG=1.0d10, DEF_MPOS=1.0D10,
-     &     DEF_CGRID_THR=0.3d0)
+     &     DEF_CGRID_THR=0.3d0, DEF_MFFC=1.0d50)
 c     DEF_CGRID_THR is in angstrom

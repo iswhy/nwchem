@@ -82,6 +82,12 @@ c     ==== wfat1_exclude ====
       
 c     ==== mydipole ====
       call wfat_process_mydip(rtdb, wlv)
+
+c     ==== myenergy ====
+      call wfat_process_myerg(rtdb, wlv)
+
+c     ==== myffactor ====
+      call wfat_process_myffc(rtdb, wlv)
       
       end
 c=======================================================
@@ -885,14 +891,14 @@ c=======================================================
       
       character*1 spin_str
       character*10 ss1, ss2
-      character*5 n_orbid_c, MAX_N_ORBID_c
+      character*5 nch_c, MAX_N_ORBID_c
       logical r, s2a1e, fedvr
-      integer nsp, numelc(2), k, nr(3), nrr, ntt(3), nch, i, is
-      integer oid0(MAX_N_ORBID), sid(MAX_N_ORBID)
+      integer nsp, numelc(2), k, nr(3), nrr, ntt(3), nch, i, is, nfe
+      integer oid0(MAX_N_ORBID), sid(MAX_N_ORBID), l_ndvr, k_ndvr
 
 
 c     ==== Get orbital and spin IDs ====
-      if (rtdb_get(rtdb, 'wfat:inp:nch', mt_int, 1, nch)) then
+      if (rtdb_get(rtdb, 'wfat:inp:n_orbid', mt_int, 1, nch)) then
          if (.not. rtdb_get(rtdb, 'wfat:inp:orbid', mt_int, nch, oid0))
      &        call errquit('WFAT: Failed reading inp:orbid from rtdb',
      &        1, INPUT_ERR)
@@ -963,10 +969,13 @@ c           ==== get the numbers of radial points ====
                if (.not. rtdb_get(rtdb, 'wfat:2a1e_nfe', mt_int, 1,
      &              nfe)) call errquit('WFAT: Failed reading 2a1e_nfe'//
      &              ' from RTDB', 1, RTDB_ERR)
+               if (.not. ma_alloc_get(MT_INT, nfe, 'ndvr', l_ndvr, 
+     &              k_ndvr)) call errquit('WFAT: Cannot allocate ndvr',
+     &              22, MA_ERR)
                if (.not. rtdb_get(rtdb, 'wfat:2a1e_ndvr', mt_int, nfe, 
-     &              ndvr)) call errquit('WFAT: Failed reading '//
-     &              '2a1e_ndvr from RTDB', 1, RTDB_ERR)
-               call wfat_get_fedvrnr(nfe, ndvr, nrr)
+     &              int_mb(k_ndvr))) call errquit('WFAT: Failed '//
+     &              'reading 2a1e_ndvr from RTDB', 1, RTDB_ERR)
+               call wfat_get_fedvrnr(nfe, int_mb(k_ndvr), nrr)
             else
                if (.not. rtdb_get(rtdb, 'wfat:2a1e_nr', mt_int, 3, nr))
      &              call errquit('WFAT: Failed reading 2a1e_nr from '//
@@ -1010,7 +1019,10 @@ c     ==== Write to RTDB ====
       if (.not. rtdb_put(rtdb, 'wfat:spinid', mt_int, nch, sid))
      &     call errquit('WFAT: Failed writing spinid to rtdb',
      &     1, INPUT_ERR)
-         
+
+      if (.not. MA_free_heap(l_ndvr))
+     &     call errquit('WFAT: ndvr deallocation failed', 17, MA_ERR)
+      
       end
 c=======================================================
 
@@ -1138,6 +1150,8 @@ c        actual input.
          if (wlv == 'me') then
             do i = 1, nw1x
                w1x(i) = 'a 0 '//trim(adjustl(w1x(i)))
+c              This 'a 0 ' is consistent with the values of orbid0 and spinid
+c              set above when wlv = 'me'.
             enddo
          endif
       else
@@ -1241,7 +1255,7 @@ c        actual input.
 
          tmp = DEF_MDIP
          dip_l(1:nch) = .false.
-         do i = 1, nmd
+         do i = 1, ndip
             if (len_trim(dip_s(i)) > 0) then
                if (trim(adjustl(dip_s(i))) == 'all') then
                   dip_l(1:nch) = .true.
@@ -1288,4 +1302,240 @@ c        actual input.
 
       end
 c=======================================================
+
+
+c=======================================================
+c=======================================================
+      subroutine wfat_process_myffc(rtdb, wlv)
+c     &     (nchar, dip_s, nch, orbid, spinid, dip, dip_l)
+c     DESCRIPTION:
+c     Rearranges contents of ffc so that they are filled based on the
+c     channel indices contained in ffc_s.
+      implicit none
+#include "errquit.fh"
+#include "stdio.fh"
+#include "wfat_const.fh"
+#include "rtdb.fh"
+#include "mafdecls.fh"
+      integer rtdb
+      character*2 wlv
+
+      character(len=ORBID_CHARLEN)
+     &     ffc_s(MAX_N_LEN*MAX_M_LEN*MAX_N_ORBID)
+      logical ffc_l(MAX_N_LEN*MAX_M_LEN, MAX_N_ORBID), p_s, p_r, p_y
+      logical p_ab, p_ag, p_t, p_ta
+      integer i, ir, ic, info, nffc
+      integer nqn, nid(MAX_N_LEN*MAX_M_LEN), mid(MAX_N_LEN*MAX_M_LEN)
+      integer nch, orbid0(MAX_N_ORBID), spinid(MAX_N_ORBID)
+      double precision ffc0(MAX_N_LEN*MAX_M_LEN*MAX_N_ORBID)
+      double precision ffc(MAX_N_LEN*MAX_M_LEN, MAX_N_ORBID)
+
+
+c     ==== Get print switches ====
+      call wfat_prep_printsw(rtdb, 'inp:', p_s, p_r, p_y, p_ab, p_ag, 
+     &     p_t, p_ta)
+      if (p_y .or. p_ab .or. p_ag) call errquit('WFAT: Input '//
+     &     'directive myffactor cannot be given when yield, avbeta, '//
+     &     'or avgamma is specified for the print directive since in '//
+     &     'those cases, the field factor is time-dependent.',
+     &     9, INPUT_ERR)
+
+      
+      if (wlv == 'oe') then
+         if (.not. rtdb_get(rtdb, 'wfat:n_orbid', mt_int, 1, nch))
+     &        call errquit('WFAT: Call wfat_process_orbital before '//
+     &        'calling wfat_process_myffc', 13, RTDB_ERR)
+         if (.not. rtdb_get(rtdb, 'wfat:orbid', mt_int, nch, orbid0))
+     &        call errquit('WFAT: Call wfat_process_orbital before '//
+     &        'calling wfat_process_myffc', 14, RTDB_ERR)
+         if (.not. rtdb_get(rtdb, 'wfat:spinid', mt_int, nch, spinid))
+     &        call errquit('WFAT: Call wfat_process_orbital before '//
+     &        'calling wfat_process_myffc', 15, RTDB_ERR)
+      else if (wlv == 'me') then
+c        In mewfat, there is only one channel NWChem can calculate at a time,
+c        defined as channel 0 with spin alpha although it may not reflect the
+c        actual input.
+         nch = 1
+         orbid0 = 0
+         spinid = 1
+      endif
+
+
+      if (.not. rtdb_get(rtdb, 'wfat:n_npara', mt_int, 1, nqn)) 
+     &     call errquit('WFAT: Call wfat_process_paraqn before '//
+     &     'calling wfat_process_ffc', 13, RTDB_ERR)
+      if (.not. rtdb_get(rtdb, 'wfat:npara', mt_int, nqn, nid)) 
+     &     call errquit('WFAT: Call wfat_process_paraqn before '//
+     &     'calling wfat_process_ffc', 14, RTDB_ERR)
+      if (.not. rtdb_get(rtdb, 'wfat:mpara', mt_int, nqn, mid)) 
+     &     call errquit('WFAT: Call wfat_process_paraqn before '//
+     &     'calling wfat_process_ffc', 15, RTDB_ERR)
+      
+
+      if (rtdb_get(rtdb, 'wfat:inp:n_myffc', mt_int, 1, nffc)) then
+         if (.not. rtdb_cget(rtdb, 'wfat:inp:myffc_s', nffc, ffc_s))
+     &        call errquit('WFAT: Failed reading inp:myffc_s from RTDB',
+     &        12, RTDB_ERR)
+         if (.not. rtdb_get(rtdb, 'wfat:inp:myffc', mt_dbl, nffc, ffc0))
+     &        call errquit('WFAT: Failed reading inp:myffc from RTDB',
+     &        12, RTDB_ERR)
+         if (wlv == 'me' .and. trim(adjustl(ffc_s(1))) /= 'all')
+     &        call errquit('WFAT: When MEWFAT is invoked, the user-'//
+     &        'set field factor must be specified using the uniform '//
+     &        'syntax.', 99, UERR)
+
+         ffc = DEF_MFFC
+         ffc_l(1:nqn,1:nch) = .false.
+         do i = 1, nffc
+            if (len_trim(ffc_s(i)) > 0) then
+               if (trim(adjustl(ffc_s(i))) == 'all') then
+                  ffc_l(1:nqn,1:nch) = .true.
+                  ffc(1:nqn,1:nch) = ffc0(1)
+                  exit
+               else
+                  call wfat_read_channel_id(nch, orbid0, spinid, nqn, 
+     &                 nid, mid, ffc_s(i), ir, ic, info)
+                  if (info /= 0) then
+                     write(luout, '(4x, "info = ", i3)') info
+                     write(luout, '(4x, "Bad entry = ", a)')
+     &                    trim(adjustl(ffc_s(i)))
+                     if (info == 5) then
+                        call errquit('WFAT: The above entry of input '//
+     &                       'directive myffactor contains an '//
+     &                       'unspecified ionized channel.', 8,
+     &                       INPUT_ERR)
+                     else
+                        call errquit('WFAT: The above entry of input '//
+     &                       'myffactor does not conform to the '//
+     &                       'correct format.', 8, INPUT_ERR)
+                     endif
+                  endif
+                  ffc_l(ir,ic) = .true.
+                  ffc(ir,ic) = ffc0(i)
+               endif
+            endif
+         enddo
+      else
+         nffc = 1
+         ffc_l = .false.
+         ffc = DEF_MFFC
+      endif
+
+            
+      if (.not. rtdb_put(rtdb, 'wfat:use_manffc', mt_log, nqn*nch,
+     &     ffc_l(1:nqn,1:nch))) call errquit('WFAT: Failed writing '//
+     &     'use_manffc to RTDB', 1, RTDB_ERR)
+      if (.not. rtdb_put(rtdb, 'wfat:manffc', mt_dbl, nqn*nch,
+     &     ffc(1:nqn,1:nch))) call errquit('WFAT: Failed writing '//
+     &     'manffc to RTDB', 1, RTDB_ERR)
+
+      end
+c=======================================================
+      
+
+c=======================================================
+c=======================================================
+      subroutine wfat_process_myerg(rtdb, wlv)
+c     &     (nchar, erg_s, nch, orbid, spinid, erg, erg_l)
+c     DESCRIPTION:
+c     Rearranges contents of erg so that they are filled based on the
+c     channel indices contained in erg_s.
+      implicit none
+#include "errquit.fh"
+#include "stdio.fh"
+#include "wfat_const.fh"
+#include "rtdb.fh"
+#include "mafdecls.fh"
+      integer rtdb
+      character*2 wlv
+
+      character(len=ORBID_CHARLEN) erg_s(MAX_N_ORBID)
+      logical erg_l(MAX_N_ORBID)
+      integer i, ic, info, orbid0(MAX_N_ORBID), spinid(MAX_N_ORBID)
+      integer nch, nerg
+      double precision tmp(MAX_N_ORBID), erg(MAX_N_ORBID)
+      
+
+      if (wlv == 'oe') then
+         if (.not. rtdb_get(rtdb, 'wfat:n_orbid', mt_int, 1, nch))
+     &        call errquit('WFAT: Call wfat_process_orbital before '//
+     &        'calling wfat_process_myerg', 13, RTDB_ERR)
+         if (.not. rtdb_get(rtdb, 'wfat:orbid', mt_int, nch, orbid0))
+     &        call errquit('WFAT: Call wfat_process_orbital before '//
+     &        'calling wfat_process_myerg', 14, RTDB_ERR)
+         if (.not. rtdb_get(rtdb, 'wfat:spinid', mt_int, nch, spinid))
+     &        call errquit('WFAT: Call wfat_process_orbital before '//
+     &        'calling wfat_process_myerg', 15, RTDB_ERR)
+      else if (wlv == 'me') then
+c        In mewfat, there is only one channel NWChem can calculate at a time,
+c        defined as channel 0 with spin alpha although it may not reflect the
+c        actual input.
+         nch = 1
+         orbid0 = 0
+         spinid = 1
+      endif
+
+
+      if (rtdb_get(rtdb, 'wfat:inp:n_myerg', mt_int, 1, nerg)) then
+         if (.not. rtdb_cget(rtdb, 'wfat:inp:myerg_s', nerg, erg_s))
+     &        call errquit('WFAT: Failed reading inp:myerg_s from RTDB',
+     &        12, RTDB_ERR)
+         if (.not. rtdb_get(rtdb, 'wfat:inp:myerg', mt_dbl, nerg, erg))
+     &        call errquit('WFAT: Failed reading inp:myerg from RTDB',
+     &        12, RTDB_ERR)
+         if (wlv == 'me' .and. trim(adjustl(erg_s(1))) /= 'all')
+     &        call errquit('WFAT: When MEWFAT is invoked, the user-'//
+     &        'set energy must be specified using the uniform syntax.',
+     &        99, UERR)
+
+         tmp = DEF_MERG
+         erg_l(1:nch) = .false.
+         do i = 1, nerg
+            if (len_trim(erg_s(i)) > 0) then
+               if (trim(adjustl(erg_s(i))) == 'all') then
+                  erg_l(1:nch) = .true.
+                  tmp(1:nch) = erg(1:nch)
+                  exit
+               else
+                  call wfat_read_orb_id(nch, orbid0, spinid, erg_s(i), 
+     &                 ic, info)
+                  if (info /= 0) then
+                     write(luout, '(4x, "info = ", i3)') info
+                     write(luout, '(4x, "Bad entry = ", a)')
+     &                    trim(adjustl(erg_s(i)))
+                     if (info == 5) then
+                        call errquit('WFAT: The above entry of input '//
+     &                       'directive myenergy contains an '//
+     &                       'unspecified ionized channel.', 8,
+     &                       INPUT_ERR)
+                     else
+                        call errquit('WFAT: The above entry of input '//
+     &                       'myenergy does not conform to the '//
+     &                       'correct format.', 8, INPUT_ERR)
+                     endif
+                  endif
+                  erg_l(ic) = .true.
+                  tmp(ic) = erg(i)
+               endif
+            endif
+         enddo
+         
+         erg(1:nch) = tmp(1:nch)
+      else
+         nerg = 1
+         erg_l = .false.
+         erg = DEF_MERG
+      endif
+
+            
+      if (.not. rtdb_put(rtdb, 'wfat:use_manerg', mt_log, nch, erg_l))
+     &     call errquit('WFAT: Failed writing use_manerg to RTDB',
+     &     1, RTDB_ERR)
+      if (.not. rtdb_put(rtdb, 'wfat:manerg', mt_dbl, nch, erg)) 
+     &     call errquit('WFAT: Failed writing manerg to RTDB',
+     &     1, RTDB_ERR)
+
+      end
+c=======================================================
+      
       
