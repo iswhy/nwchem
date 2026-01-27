@@ -49,19 +49,8 @@ c=======================================================
 c     ==== Initial status of WFAT inputs ====
       nfblocks = 0
       
-      nktmd_exist = .false.
-      nktmd_stat = .false.
-
       omgpos_exist = .false.
       omgpos_stat = .false.
-
-      movec_exist = .false.
-      movec_stat = .false.
-      movec1_exist = .false.
-      movec1_stat = .false.
-
-      wfat1_exist = .false.
-      wfat1_stat = .false.
 
       wfat_mask_exist = .false.
       wfat_mask_stat = .false.
@@ -146,21 +135,10 @@ cfordebug            write(luout, '("input field : ", a)') field
                call wfat_parse_inpf(rtdb, 'dgnthr')
             else if (inp_compare(.false., 'intgl', field)) then
                call wfat_parse_intgl(rtdb)
-            else if (inp_compare(.false., 'vectors', field)) then   ! Needed for restarting MEWFAT task.
-c              Loads MO coefficients from a file. Along with the restart directive, it can be
-c              used to skip the SCF calculation that yield the orbitals.
-c                Syntax:  vectors <movec file1> [movec file2]
-               movec_exist = .true.
-               movec_stat = inp_a(wfat_movec_name)
-               if (inp_a(wfat_movec1_name)) then
-                  movec1_exist = .true.
-                  movec1_stat = .true.
-               endif
-               call inp_prev_field()
-            else if (inp_compare(.false., 'wfat1', field)) then
-               wfat1_exist = .true.
-               wfat1_stat = .true.
-               wfat1 = .true.
+            else if (inp_compare(.false., 'vectors', field)) then
+               call wfat_parse_vectors(rtdb)
+            else if (inp_compare(.false., 'order', field)) then
+               call wfat_parse_inpi(rtdb, 'order')
             else if (inp_compare(.false., 'wfat1_exclude', field)) then
                call wfat_parse_w1x(rtdb)
             else if (inp_compare(.false., 'mydipole', field)) then
@@ -355,6 +333,31 @@ cOLD            exit
          endif
       enddo
       
+      end
+c=======================================================
+
+
+c=======================================================
+c=======================================================
+      subroutine wfat_parse_vectors(rtdb)
+c     Loads MO coefficients from a file. Along with the restart directive, it can be
+c     used to skip the SCF calculation that yield the orbitals.
+c       Syntax:  vectors <movec file1> [movec file2]
+      implicit none
+#include "rtdb.fh"
+#include "inp.fh"
+#include "errquit.fh"
+      integer rtdb
+
+      character*1000 fname1
+      
+      call wfat_parse_inpa(rtdb, 'movec0_name')
+      if (inp_a(fname1)) then
+         if (.not. rtdb_cput(rtdb, 'wfat:inp:movec1_name', 1,
+     &        trim(adjustl(fname1)))) call errquit('WFAT: Failed '//
+     &        'writing movec1_name to RTDB', 11, RTDB_ERR)
+      endif
+
       end
 c=======================================================
 
@@ -1272,7 +1275,7 @@ c          ...
       if (.not. rtdb_cput(rtdb, 'wfat:inp:myerg_s', n, erg_s))
      &     call errquit('WFAT: Failed writing inp:myerg_s to RTDB',
      &     12, RTDB_ERR)
-      if (.not. rtdb_put(rtdb, 'wfat:inp:myerg', mt_dbl, 3*n, erg)) 
+      if (.not. rtdb_put(rtdb, 'wfat:inp:myerg', mt_dbl, n, erg)) 
      &     call errquit('WFAT: Failed writing inp:myerg to RTDB',
      &     13, RTDB_ERR)
       

@@ -59,16 +59,6 @@ c     ==================== EXISTENCE CHECKS ====================
 c     ==========================================================
       
 c     ==== Checking existence of CONDITIONALLY OPTIONAL INPUTS ====
-c     == nktmd ==
-      if (.not. nktmd_exist .and. (print_tmd .or. print_tmd_atom)) then
-         nktmd = def_nktmd
-         nktmd_stat = .true.
-      else if (nktmd_exist .and. .not. (print_tmd .or. print_tmd_atom))
-     &        then
-         write(luout, 201) 'nktmd',
-     &        '* print_tmd       ',
-     &        '* print_tmd_atom  ', ' ', ' ', ' ', ' ', ' '
-      endif
       
 c     ==== Checking existence of OPTIONAL INPUTS ====
       if (.not. omgpos_exist) then
@@ -76,33 +66,10 @@ c     ==== Checking existence of OPTIONAL INPUTS ====
          omgpos = 0.0d0
          omgpos_stat = .true.
       endif
-      if (.not. wfat1_exist) then
-         wfat1 = DEF_WFAT1
-         wfat1_stat = .true.
-      endif
       if (.not. wfat_mask_exist) then
          wfat_mask = DEF_WFAT_MASK
          wfat_mask_param = (/ -1.0d6, -1.0d6 /)
          wfat_mask_stat = .true.
-      endif
-      if (wfat_level == 'oe') then
-         if (.not. movec_exist) then
-            call wfat_def_movecname('oe', rtdb, wfat_movec_name)
-            movec_stat = .true.
-         endif
-      else if (wfat_level == 'me') then
-         if (.not. movec_exist) then
-            call wfat_def_movecname('me0', rtdb, wfat_movec_name)
-            movec_stat = .true.
-         endif
-         if (.not. movec1_exist) then
-            call wfat_def_movecname('me1', rtdb, wfat_movec1_name)
-            movec1_stat = .true.
-         endif
-         if (wfat1) call errquit('MEWFAT: At the moment, MEWFAT '//
-     &        'cannot be used with the first order correction. '//
-     &        'Please remove the ''wfat1'' keyword from your input '//
-     &        'file.', 62, UERR)
       endif
       if (.not. prtb_type_exist) then
          prtb_type = DEF_PRTB_type
@@ -155,14 +122,6 @@ c     =======================================================
 c     ==================== FORMAT CHECKS ====================
 c     =======================================================
             
-c     ==== Checking format of CONDITIONALLY OPTIONAL INPUTS ====
-      if (.not. nktmd_stat .and. (print_tmd .or. print_tmd_atom)) then
-         call errquit('WFAT: The format of input directive '//
-     &        '''nktmd'' is incorrect. The correct format '//
-     &        'should be ''nktmd <integer value>''.',
-     &        0, INPUT_ERR)
-      endif
-
 c     ==== Checking format of OPTIONAL INPUTS ====
       if (.not. omgpos_stat) then
          call errquit('WFAT: Error reading optional input parameter '//
@@ -171,32 +130,6 @@ c     ==== Checking format of OPTIONAL INPUTS ====
      &        '<float valuex  float valuey  float valuez>''',
      &        0, INPUT_ERR)
       endif
-      if (wfat_level == 'oe') then
-         if (.not. movec_stat) then
-            call errquit('WFAT: Error reading optional input '//
-     &           'parameter ''vectors''. Please check if it is '//
-     &           'specified following the format '//
-     &           '''vectors "<string value>"'' '//
-     &           '(do not skip the double quotes).',
-     &           0, INPUT_ERR)
-         endif
-      else if (wfat_level == 'me') then
-         if (.not. (movec_stat .and. movec1_stat)) then
-            call errquit('WFAT: Error reading optional input '//
-     &           'parameter ''vectors''. Please check if it is '//
-     &           'specified following the format '//
-     &           '''vectors "<string value1>" ["<string value2>"]'' '//
-     &           '(do not skip the double quotes).',
-     &           0, INPUT_ERR)
-         endif
-      endif
-      if (.not. wfat1_stat) then
-         call errquit('WFAT: Error reading optional input parameter '//
-     &        '''wfat1''. Please check if it is specified following '//
-     &        'the format ''wfat1''.',
-     &        0, INPUT_ERR)
-      endif
-
       if (.not. wfat_mask_stat) then
          call errquit('WFAT: Error reading optional input parameter '//
      &        '''tailmask''. Please check if it is specified '//
@@ -358,13 +291,8 @@ c=======================================================
       character*1 m
 
 
-      nktmd_need = .false.          ! needed when OE or ME
-      omgpos_need = .false.         ! needed when OE or ME
-      lmax_need = .false.           ! needed when OE or ME
-      movec_need = .false.          ! needed when OE or ME
-      movec1_need = .false.         ! needed when ME
-      wfat1_need = .false.          ! needed when OE or ME
-      wfat_mask_need = .false.      ! needed when oe or me
+      omgpos_need = .true.         ! needed when OE or ME
+      wfat_mask_need = .true.      ! needed when oe or me
       prtb_type_need = .false.      ! needed when OE
       prtb_ord_need = .false.       ! needed when OE
       prtb_bt_need = .false.        ! needed when OE
@@ -380,20 +308,11 @@ c=======================================================
 
       call wfat_prep_printsw(rtdb, 'inp:', sr, rt, yi, avb, avg, tmd, 
      &     tmda)
-      call wfat_need_input0(tmd, tmda, .false., .false., .false., 
-     &     .false., .false., nktmd_need)
-      call wfat_need_input0(sr, rt, tmd, tmda, yi, avb, avg,
-     &     omgpos_need)
-      call wfat_need_input0(sr, rt, tmd, tmda, yi, avb, avg,
-     &     lmax_need)
-      call wfat_need_input0(sr, rt, tmd, tmda, yi, avb, avg,
-     &     movec_need)
-      call wfat_need_input0(sr, rt, tmd, tmda, yi, avb, avg,
-     &     movec1_need)
-      call wfat_need_input0(sr, rt, tmd, tmda, yi, avb, avg,
-     &     wfat1_need)
-      call wfat_need_input0(sr, rt, tmd, tmda, yi, avb, avg,
-     &     wfat_mask_need)
+
+cOLD      call wfat_need_input0(sr, rt, tmd, tmda, yi, avb, avg,
+cOLD     &     omgpos_need)
+cOLD      call wfat_need_input0(sr, rt, tmd, tmda, yi, avb, avg,
+cOLD     &     wfat_mask_need)
 
       end
 c=======================================================
@@ -412,13 +331,8 @@ c=======================================================
       character*1 m
 
       
-      nktmd_need = .false.              ! needed when oe or me
-      omgpos_need = .false.             ! needed when oe or me
-      lmax_need = .false.               ! needed when oe or me
-      movec_need = .false.              ! needed when oe or me
-      movec1_need = .false.             ! needed when me
-      wfat1_need = .false.              ! needed when oe or me
-      wfat_mask_need = .false.          ! needed when oe or me
+      omgpos_need = .true.             ! needed when oe or me
+      wfat_mask_need = .true.          ! needed when oe or me
       prtb_type_need = .false.      ! needed when oe
       prtb_ord_need = .false.       ! needed when oe
       prtb_bt_need = .false.        ! needed when oe
@@ -433,19 +347,12 @@ c=======================================================
 
 
       call wfat_prep_printsw(rtdb, 'inp:', sr, rt, yi, avb, avg, tmd, 
-     &     tmda)      
-      call wfat_need_input0(tmd, tmda, .false., .false., .false., 
-     &     .false., .false., nktmd_need)
-      call wfat_need_input0(sr, rt, tmd, tmda, yi, avb, avg,
-     &     omgpos_need)
-      call wfat_need_input0(sr, rt, tmd, tmda, yi, avb, avg,
-     &     lmax_need)
-      call wfat_need_input0(sr, rt, tmd, tmda, yi, avb, avg,
-     &     movec_need)
-      call wfat_need_input0(sr, rt, tmd, tmda, yi, avb, avg,
-     &     wfat1_need)
-      call wfat_need_input0(sr, rt, tmd, tmda, yi, avb, avg,
-     &     wfat_mask_need)
+     &     tmda)
+      
+cOLD      call wfat_need_input0(sr, rt, tmd, tmda, yi, avb, avg,
+cOLD     &     omgpos_need)
+cOLD      call wfat_need_input0(sr, rt, tmd, tmda, yi, avb, avg,
+cOLD     &     wfat_mask_need)
       call wfat_need_input0(rt, tmd, tmda, .false., .false., .false., 
      &     .false., prtb_type_need)
       call wfat_need_input0(rt, tmd, tmda, .false., .false., .false., 
@@ -521,10 +428,6 @@ c=======================================================
      &     print_yild, print_avbeta, print_avgamma, print_tmd,
      &     print_tmd_atom)
             
-      if (nktmd_need) then
-         call wfat_ival_atleast(nktmd, 1, 'WFAT', '''nktmd''', w, r)
-      endif
-      
       if (wfat_mask_need .and. wfat_mask) then
          call wfat_dval_atleast(wfat_mask_param(1), 0.0d0, 'g', 'WFAT',
      &        '''tailmask:param_1''', 'e', w, r)
@@ -642,12 +545,6 @@ c forcheck      if (.not. rtdb_print(rtdb, .false.))
 c forcheck     &     call errquit('WFAT: Printing rtdb failed', 1, RTDB_ERR)
 
       
-      if (nktmd_need) then
-         if (.not. rtdb_put(rtdb, 'wfat:nktmd', mt_int, 1, nktmd))
-     &        call errquit('WFAT: Failed writing nktmd to rtdb',
-     &        1, INPUT_ERR)
-      endif
-      
       if (omgpos_need) then
          if (.not. rtdb_put(rtdb, 'wfat:autopos', mt_log, 1, autopos))
      &        call errquit('WFAT: Failed writing autopos to rtdb',
@@ -655,28 +552,6 @@ c forcheck     &     call errquit('WFAT: Printing rtdb failed', 1, RTDB_ERR)
          if (.not. rtdb_put(rtdb, 'wfat:omgpos', mt_dbl, 3, omgpos))
      &        call errquit('WFAT: Failed writing omgpos to rtdb',
      &        1, INPUT_ERR)
-      endif
-
-      if (wfat_level == 'oe') then
-         if (movec_need) then
-            if (.not. rtdb_cput(rtdb, 'wfat:movec_name', 1,
-     &           trim(adjustl(wfat_movec_name))))
-     &           call errquit('WFAT: Failed writing movec_name to RTDB',
-     &           1, RTDB_ERR)
-         endif
-      else if (wfat_level == 'me') then
-         if (movec_need) then
-            if (.not. rtdb_cput(rtdb, 'mewfat:movec0_name', 1,
-     &           trim(adjustl(wfat_movec_name))))
-     &           call errquit('WFAT: Failed writing movec0_name to '//
-     &           'RTDB', 1, RTDB_ERR)
-         endif
-         if (movec1_need) then
-            if (.not. rtdb_cput(rtdb, 'mewfat:movec1_name', 1,
-     &           trim(adjustl(wfat_movec1_name))))
-     &           call errquit('WFAT: Failed writing movec1_name to '//
-     &           'RTDB', 1, RTDB_ERR)
-         endif
       endif
 
 cOLD      if (prtb_type_need .and. os) then
@@ -755,12 +630,6 @@ cOLD      if (prtb_ord_need .and. os) then
      &        prtb_maxord))
      &        call errquit('WFAT: Failed writing perturb_maxord to rtdb'
      &        , 1, INPUT_ERR)
-      endif
-
-      if (wfat1_need) then
-         if (.not. rtdb_put(rtdb, 'wfat:wfat1', mt_log, 1, wfat1))
-     &        call errquit('WFAT: Failed writing wfat1 to RTDB', 1,
-     &        RTDB_ERR)
       endif
 
       if (wfat_mask_need) then

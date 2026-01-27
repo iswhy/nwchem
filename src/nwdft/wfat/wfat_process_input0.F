@@ -19,13 +19,24 @@ c=======================================================
       parameter (w='i')
 
 
-c     ==== Print ====
+c     ==== print ====
       call wfat_process_print(rtdb)
 
-c     ==== movec_id ====
+c     ==== vectors ====
       if (.not. rtdb_cget(rtdb,'task:theory', 1, wlv)) 
      &     call errquit('WFAT: Failed reading theory', 0, RTDB_ERR)
+      call wfat_process_vectors(rtdb, wlv)
+
+c     ==== movec_id ====
       if (wlv == 'oe') call wfat_process_movec(rtdb)
+
+c     ==== order ====
+      call wfat_process_idata(rtdb, 'order', .false., def_order, ival)
+      call wfat_ival_inrange(ival, 0, 1, 'WFAT', '''order''', w, r)
+      if (wlv == 'me' .and. ival == 1) call errquit('MEWFAT: At the '//
+     &     'moment, MEWFAT cannot be used with the first order '//
+     &     'correction. Please remove the ''wfat1'' keyword from '//
+     &     'your input file.', 62, UERR)
       
 c     ==== paraqn ====
       call wfat_process_paraqn(rtdb)
@@ -97,7 +108,7 @@ c=======================================================
 c=======================================================
       subroutine wfat_process_adata(rtdb, key, md, defval, aval)
 c     DESCRIPTION:
-c     Checks for an integer-valued entry of the form wfat:inp:<key> in the RTDB. If
+c     Checks for a string-valued entry of the form wfat:inp:<key> in the RTDB. If
 c     found, it will create a new RTDB entry named wfat:<key> with the same value
 c     as wfat:inp:<key>.
 c       rtdb: RTDB handle
@@ -322,6 +333,44 @@ c=======================================================
      &     'tmd_atom are specified for the print directive, then none'//
      &     ' of the keywords yield, avbeta, or avgamma can be '//
      &     'specified simultaneously, and vice versa.', 63, INPUT_ERR)
+
+      end
+c=======================================================
+
+
+c=======================================================
+c=======================================================
+      subroutine wfat_process_vectors(rtdb, wlv)
+
+      implicit none
+#include "rtdb.fh"
+#include "errquit.fh"
+      integer rtdb
+      character*2 wlv
+
+      character*1000 aval
+
+      if (wlv == 'oe') then
+         if (.not. rtdb_cget(rtdb, 'wfat:inp:movec0_name', 1, aval))
+     &        call wfat_def_movecname('oe', rtdb, aval)
+         if (.not. rtdb_cput(rtdb, 'wfat:movec_name', 1, 
+     &        trim(adjustl(aval)))) call errquit('WFAT: Failed '//
+     &        'writing movec_name to RTDB', 70, RTDB_ERR)
+      else if (wlv == 'me') then
+c        ==== Neutral ====
+         if (.not. rtdb_cget(rtdb, 'wfat:inp:movec0_name', 1, aval))
+     &        call wfat_def_movecname('me0', rtdb, aval)
+         if (.not. rtdb_cput(rtdb, 'mewfat:movec0_name', 1, 
+     &        trim(adjustl(aval)))) call errquit('MEWFAT: Failed '//
+     &        'writing movec0_name to RTDB', 69, RTDB_ERR)
+
+c        ==== Cation ====
+         if (.not. rtdb_cget(rtdb, 'wfat:inp:movec1_name', 1, aval))
+     &        call wfat_def_movecname('me1', rtdb, aval)
+         if (.not. rtdb_cput(rtdb, 'mewfat:movec1_name', 1, 
+     &        trim(adjustl(aval)))) call errquit('MEWFAT: Failed '//
+     &        'writing movec1_name to RTDB', 69, RTDB_ERR)
+      endif
 
       end
 c=======================================================
@@ -556,9 +605,9 @@ c=======================================================
 
       character*1 w
       logical r
-      integer i, na
-      double precision a0, an, ulim
-      parameter( w='i' )
+      integer i, na, def_na
+      double precision a0, an, ulim, def_a0, def_an
+      parameter( w='i', def_a0=0.0d0, def_an=0.0d0, def_na=1 )
 
 
       if (c == 'beta') then
@@ -568,32 +617,19 @@ c=======================================================
       else
          call errquit('WFAT: Bad value for the argument c of '//
      &        'wfat_process_angle', 50, UERR)
-      endif      
-         
+      endif               
 
 c     ==== Start angle ====
-      if (.not. rtdb_get(rtdb, 'wfat:inp:'//c//'_start', mt_dbl, 1, a0))
-     &     call errquit('WFAT: Cannot read inp:'//c//'_start from rtdb',
-     &     35, INPUT_ERR)
+      call wfat_process_ddata(rtdb, c//'_start', .false., def_a0, a0)
       call wfat_dval_inrange(a0, 0.0d0, 'q', ulim, 'q', 'WFAT', 
      &     'first '//c, 'f', w, r)
-      if (.not. rtdb_put(rtdb, 'wfat:'//c//'_start', mt_dbl, 1, a0))
-     &     call errquit('WFAT: Cannot write '//c//'_start to rtdb', 
-     &     35, INPUT_ERR)
 
 c     ==== No. of angles ====
-      if (.not. rtdb_get(rtdb, 'wfat:inp:n'//c, mt_int, 1, na))
-     &     call errquit('WFAT: Cannot read n'//c//' from rtdb', 
-     &     35, INPUT_ERR)
+      call wfat_process_idata(rtdb, 'n'//c, .false., def_na, na)
       call wfat_ival_atleast(na, 1, 'WFAT', '''n'//c//'''', 'i', r)
-      if (.not. rtdb_put(rtdb, 'wfat:n'//c, mt_int, 1, na))
-     &     call errquit('WFAT: Cannot write n'//c//' to rtdb', 
-     &     35, INPUT_ERR)
 
 c     ==== Last angle ====
-      if (.not. rtdb_get(rtdb, 'wfat:inp:'//c//'_last', mt_dbl, 1, an))
-     &     call errquit('WFAT: Cannot read inp:'//c//'_last from rtdb',
-     &     35, INPUT_ERR)
+      call wfat_process_ddata(rtdb, c//'_last', .false., def_an, an)
       if (na == 1) then
          call wfat_dval_inrange(an, a0, 'q', ulim, 'q', 'WFAT', 
      &        'last '//c, 'f', w, r)
@@ -604,11 +640,6 @@ c     ==== Last angle ====
      &        'angles, the start and last angles should not be too '//
      &        'close.', 92, INPUT_ERR)
       endif
-      if (.not. rtdb_put(rtdb, 'wfat:'//c//'_last', mt_dbl, 1, an))
-     &     call errquit('WFAT: Cannot write '//c//'_last to rtdb', 
-     &     35, INPUT_ERR)
-      
-      
 
       end
 c=======================================================
@@ -923,11 +954,13 @@ c     ==== Get orbital and spin IDs ====
       
 c     ==== Check spin ID ====
       if (.not. rtdb_get(rtdb, 'wfat:inp:s2a1e', mt_log, 1, s2a1e)) 
-     &     call errquit('WFAT: Failed writing inp:s2a1e to rtdb',
-     &     42, RTDB_ERR)
+     &     s2a1e = .false.
       
       if (s2a1e) then
          nsp = 2
+         if (nch /= 1) call errquit('WFAT: When setting up '//
+     &        'system_2a1e, movec_id must be given just one channel',
+     &        80, INPUT_ERR)
       else
          if (.not. rtdb_get(rtdb, 'dft:ipol', mt_int, 1, nsp))
      &        call errquit('WFAT: Error in getting ipol from RTDB',
@@ -1020,9 +1053,11 @@ c     ==== Write to RTDB ====
      &     call errquit('WFAT: Failed writing spinid to rtdb',
      &     1, INPUT_ERR)
 
-      if (.not. MA_free_heap(l_ndvr))
-     &     call errquit('WFAT: ndvr deallocation failed', 17, MA_ERR)
-      
+      if (s2a1e .and. fedvr) then
+         if (.not. MA_free_heap(l_ndvr))
+     &        call errquit('WFAT: ndvr deallocation failed', 17, MA_ERR)
+      endif
+
       end
 c=======================================================
 
@@ -1245,7 +1280,8 @@ c        actual input.
          if (.not. rtdb_cget(rtdb, 'wfat:inp:mydip_s', ndip, dip_s))
      &        call errquit('WFAT: Failed reading inp:mydip_s from RTDB',
      &        12, RTDB_ERR)
-         if (.not. rtdb_get(rtdb, 'wfat:inp:mydip', mt_dbl, ndip, dip))
+         if (.not. rtdb_get(rtdb, 'wfat:inp:mydip', mt_dbl, 3*ndip,
+     &        dip(:,1:ndip)))
      &        call errquit('WFAT: Failed reading inp:mydip from RTDB',
      &        12, RTDB_ERR)
          if (wlv == 'me' .and. trim(adjustl(dip_s(1))) /= 'all')
@@ -1537,5 +1573,3 @@ c        actual input.
 
       end
 c=======================================================
-      
-      

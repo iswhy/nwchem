@@ -308,22 +308,23 @@ c=======================================================
 #include "mafdecls.fh"
       integer rtdb
       
-      logical pr_srfc, pr_rate, pr_yild, pr_avbeta, pr_avgamma
-      logical pr_tmd, pr_tmd_atom
+      logical p_s, p_r, p_y, p_avb, p_avg, p_t, p_ta, need_angle
       integer nbt, ngm
       double precision bt_start, bt_last, gm_start, gm_last
-      double precision bt_tmd, gm_tmd
       
 
-      call wfat_prep_printsw(rtdb, '', pr_srfc, pr_rate, pr_yild, 
-     &     pr_avbeta, pr_avgamma, pr_tmd, pr_tmd_atom)
+      call wfat_prep_printsw(rtdb, '', p_s, p_r, p_y, p_avb, p_avg, p_t,
+     &     p_ta)
+      need_angle = (p_s .or. p_r .or. p_y .or. p_avb .or. p_avg .or. p_t
+     &     .or. p_ta)
 
-
-      write(luout, '(2/)')
-      call util_print_centered(luout, 'Orientation angle '//
-     &     'information', 20, .true.)
-      write(luout, '(1x)')
-      if (pr_srfc .or. pr_rate .or. pr_tmd) then
+      
+      if (need_angle) then
+         write(luout, '(2/)')
+         call util_print_centered(luout, 'Orientation angle '//
+     &        'information', 20, .true.)
+         write(luout, '(1x)')
+      
 c        ==== Beta ====
          if (.not. rtdb_get(rtdb, 'wfat:beta_start', mt_dbl, 1,
      &        bt_start))
@@ -361,23 +362,12 @@ c        ==== Gamma ====
      &        1, INPUT_ERR)
          write(luout, '(5x, a23, " = ", i7)')
      &        "Number of gamma points ", ngm
+
+c        ==== Notes ====
+         write(luout, '(/, 5x, "Note :")')
+         write(luout, 601)
       endif
       
-      if (pr_tmd .or. pr_tmd_atom) then         
-cOLD         if (.not. rtdb_get(rtdb, 'wfat:beta_tmd', mt_dbl, 1, bt_tmd))
-cOLD     &        call errquit('WFAT: Failed reading bt_tmd from rtdb',
-cOLD     &        1, INPUT_ERR)
-cOLD         write(luout, '(5x, a23, " = ", f10.6)')
-cOLD     &        "Beta (deg) for TMD ", bt_tmd
-cOLD         if (.not. rtdb_get(rtdb, 'wfat:gamma_tmd', mt_dbl, 1, gm_tmd))
-cOLD     &        call errquit('WFAT: Failed reading gm_tmd from rtdb',
-cOLD     &        1, INPUT_ERR)
-cOLD         write(luout, '(5x, a23, " = ", f10.6)')
-cOLD     &        "gamma (deg) for TMD ", gm_tmd
-      endif
-
-      write(luout, '(/, 5x, "Note :")')
-      write(luout, 601)
  601  format(7x,
      &     "To get an idea of how the molecule is oriented with "     ,
      &     "the above values of orientation ",   /,
@@ -490,7 +480,7 @@ c=======================================================
       character*4096 fname
       logical pr_srfc, pr_rate, pr_yild, pr_avbeta, pr_avgamma
       logical pr_tmd, pr_tmd_atom, autopos
-      integer nktmd, lmax, gqual
+      integer lmax, gqual
       double precision fieldmag, omgpos(3)
       
 

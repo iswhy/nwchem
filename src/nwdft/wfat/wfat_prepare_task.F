@@ -268,9 +268,12 @@ c=================================================
       integer nlgl                  ! [output],
       integer nw1x, l_w1x, k_w1x    ! [output],
 
-      if (.not. rtdb_get(rtdb, 'wfat:wfat1', mt_log, 1, wfat1))
+      integer order
+      
+      if (.not. rtdb_get(rtdb, 'wfat:order', mt_int, 1, order))
      &     call errquit('WFAT: Cannot read wfat1 from RTDB', 27,
      &     RTDB_ERR)
+      wfat1 = (order == 1)
       if (wfat1) then
          if (.not. rtdb_get(rtdb, 'wfat:nlgl', mt_int, 1, nlgl))
      &        call errquit('WFAT: Cannot read nlgl from RTDB', 27,

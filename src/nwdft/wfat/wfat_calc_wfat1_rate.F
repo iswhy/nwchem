@@ -141,11 +141,13 @@ cOLD         call wfat_calc_lfpolb(protmat, pb(:,:,i), lpbz)
      &            4*mu(3)*bt0/kp**3 - (10+18*gmm+3*gmm**2)/24/kp**3 -
      &            (9-6*gmm)*bt0/4/kp**4 - (49+2*gmm)*bt0**2/8/kp**5 +
      &            3*bt0**3/2/kp**6 - bt0**4/8/kp**7
-
+c           bb_ is equal to \tilde B_\nu defined in eq. (18b) of this paper: http://dx.doi.org/10.1103/PhysRevA.93.033412.
+            
 cfordebug            write(luout, '("B_nu - 2 Re(a_nu) = ", f15.7)') bb_
             on_ = on(1,iqn,i) + mu(3)*on(2,iqn,i)
             gn_ = sum(gn(:,iqn,i))    ! sum over atomic contributions
             an_ = sum(jn(:,iqn,i)) + sum(kn(:,iqn,i))    ! sum over atomic contributions
+c           an_ is equal to h_\nu defined in eq. (12) of this paper: https://doi.org/10.1103/4xqd-yhdt.
             p_rt(iqn,i) = ffc(iqn,i) *
      &           (abs(gn_)**2 * 
      &           (1+aa*ef*log(ef/4/kp**2)+bb_*ef+2*ef*on_) +
@@ -154,13 +156,22 @@ cfordebug            write(luout, '("B_nu - 2 Re(a_nu) = ", f15.7)') bb_
 
 c           ==== These lines below are only for debugging ====
             an2 = on_ + an_/gn_
+c           an2 is equal to a_\nu defined in eq. (60) of this paper: http://dx.doi.org/10.1103/PhysRevA.93.033412.
             bb2 = bb_ + 2 * real(an2)
+c           bb2 is equal to B_\nu defined immediately below eq. (24) of this paper: http://dx.doi.org/10.1103/PhysRevA.93.033412.
             if (ga_nodeid() == 0 .and. interm) then
                write(luout, '("(beta, gamma) = ", 2f15.6)') bt, gm
-               write(luout, '("   a_nu = ", 2es15.7)') an2
-               write(luout, '("   A_nu = ", es15.7)') aa
-               write(luout, '("   B_nu = ", es15.7)') bb2
-               write(luout, '("   alpha_zz = ", es15.7)') pbl(3,3)
+               write(luout, '("   (itm) a_nu = ", 2es15.7)') an2
+               write(luout, '("   (itm) A_nu = ", es15.7)') aa
+               write(luout, '("   (itm) tilde B_nu = ", es15.7)') bb_
+               write(luout, '("   (itm) B_nu = ", es15.7)') bb2
+               write(luout, '("   (itm) alpha_zz = ", es15.7)') pbl(3,3)
+               write(luout, '("   (itm) o_nu = ", es15.7)') on_
+               write(luout, '("   (itm) Re[g*.j] = ", es15.7)')
+     &              real(conjg(gn_)*sum(jn(:,iqn,i)))
+               write(luout, '("   (itm) Re[g*.k] = ", es15.7)')
+     &              real(conjg(gn_)*sum(kn(:,iqn,i)))
+               write(luout, '("   (itm) g = ", 2es15.7)') gn_
             endif
             
          enddo
