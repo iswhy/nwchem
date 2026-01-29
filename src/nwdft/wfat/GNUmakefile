@@ -64,6 +64,7 @@
 	wfat_print_tm.o \
 	wfat_print_tmar.o \
 	wfat_print_tmd.o \
+	wfat_print_interm.o \
 	wfat_print_info.o \
 	wfat_print_dens.o \
 	wfat_print_integrals.o \

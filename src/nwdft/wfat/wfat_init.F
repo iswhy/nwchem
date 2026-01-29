@@ -65,6 +65,7 @@ c     ==== Variable initiations ====
       WF_SF1_PRINT_READY(1:2) = .false.
       WF_SF1_UNIT = (/ WF_JN_UNIT, WF_KN_UNIT /)
       WF_TM_PRINT_READY = .false.
+      WF_ITM_PRINT_READY = .false.
       tmdfile = 0
 
       

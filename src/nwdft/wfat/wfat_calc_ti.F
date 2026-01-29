@@ -126,6 +126,8 @@ c     ==== When WFAT1 is active ====
          call wfat_print_o(nch, nqn, nid, mid, dbl_mb(k_on))
          if (.not. rtdb_get(rtdb, 'wfat:wfat1_interm', mt_log, 1,
      &        interm)) interm = .false.
+      else
+         interm = .false.
       endif
 
       
@@ -143,6 +145,9 @@ c     ==== Initializing the printings ====
      &     call wfat_initprint_rate(nch, orbid0, spinid, nqn, nid, mid)
       if (ndid == 0 .and. pr_tmd)
      &     call wfat_print_kmax(fieldm, nch, erg, nqn, nid, mid)
+      if (ndid == 0 .and. wfat1 .and. interm) 
+     &     call wfat_initprint_interm(nch, orbid0, spinid, nqn, nid,
+     &     mid, wfat1_exc)
 
       
 c     ==== Calculate and print structure factor and ion yield ====
@@ -177,6 +182,10 @@ c           ==== Print structure factor ====
                if (wfat1) call wfat_print_srfc1(nat, bt, gm, nch, nqn,
      &              dcpl_mb(k_jn), dcpl_mb(k_kn), gap)
             endif
+            if (ndid == 0 .and. wfat1 .and. interm)
+     &           call wfat_print_interm(bt, gm, nat, nqn, nch, nid, mid,
+     &           erg, zi, dcpl_mb(k_gn), dcpl_mb(k_jn), dcpl_mb(k_kn),
+     &           dbl_mb(k_on), chmmt, dbl_mb(k_pbd), wfat1_exc, gap)
 
             if (pr_rate) then
 c              ==== Calculate ionization rate ====
@@ -222,6 +231,8 @@ c     ==== Terminating printings ====
          if (wfat1) call wfat_endprint_srfc1()
       endif
       if (ndid==0 .and. pr_rate) call wfat_endprint_rate()
+      if (ndid == 0 .and. wfat1 .and. interm) 
+     &     call wfat_endprint_interm()
 
       
 c     ==== Deallocations ====

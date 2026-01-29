@@ -4,7 +4,8 @@ c     ==== IO ====
       logical
      &     WF_SF_PRINT_READY, WF_RT_PRINT_READY, WF_IY_PRINT_READY,
      &     WF_ABTIY_PRINT_READY, WF_AGMIY_PRINT_READY,  
-     &     WF_TM_PRINT_READY, WF_TMAR_PRINT_READY, WF_SF1_PRINT_READY(2)
+     &     WF_TM_PRINT_READY, WF_TMAR_PRINT_READY, 
+     &     WF_SF1_PRINT_READY(2), WF_ITM_PRINT_READY
 
       character*12
      &     WF_ORBGAP, WF_QNTGAP, WF_ATMGAP,
@@ -15,9 +16,9 @@ c     ==== IO ====
      &     WF_TMAR_TITFMT, WF_TMAR_VALFMT
 
       character*255
-     &     WF_SF_FNAME, WF_RT_FNAME, WF_IY_FNAME,
-     &     WF_ABTIY_FNAME, WF_AGMIY_FNAME,
-     &     WF_TM_FNAME, WF_TMAR_FNAME, WF_SF1_FNAME(2)
+     &     WF_SF_FNAME, WF_RT_FNAME, WF_IY_FNAME, WF_ABTIY_FNAME, 
+     &     WF_AGMIY_FNAME, WF_TM_FNAME, WF_TMAR_FNAME, WF_SF1_FNAME(2),
+     &     WF_ITM_FNAME
             
       integer
      &     WF_SF_UNIT, WF_RT_UNIT, WF_IY_UNIT, WF_ABTIY_UNIT, 
@@ -27,7 +28,7 @@ c     ==== IO ====
      &     WF_UTEST_UNIT, WF_TAUTEST2_UNIT, WF_OTEST_UNIT,
      &     WF_SF1_UNIT(2), WF_JN_UNIT, WF_KN_UNIT, WF_ERFCTEST_UNIT,
      &     WF_CORB_UNIT, WF_D2LAGFUNTEST_UNIT, WF_MEDIPDIAG_UNIT,
-     &     tmdfile, tmdlim
+     &     tmdfile, tmdlim, WF_ITM_UNIT, WF_NITM
 
       parameter
      &     (WF_ORBGAP='("      ")', WF_QNTGAP='("   ")',
@@ -48,7 +49,7 @@ c     ==== IO ====
      &     WF_UTEST_UNIT=214, WF_TAUTEST2_UNIT=215, WF_OTEST_UNIT=216,
      &     WF_JN_UNIT=217, WF_KN_UNIT=218, WF_ERFCTEST_UNIT=219,
      &     WF_CORB_UNIT=220, WF_D2LAGFUNTEST_UNIT=221,
-     &     WF_MEDIPDIAG_UNIT=222, tmdlim=5)
+     &     WF_MEDIPDIAG_UNIT=222, tmdlim=5, WF_ITM_UNIT=223, WF_NITM=11)
       
 
 c     ==== Calculations ====
@@ -56,8 +57,7 @@ c     ==== Calculations ====
       integer KMAX_FACTOR
       double precision KMAX00
       parameter 
-     &          (wf_msm=10, m_emc=2, nseg=5, KMAX_FACTOR=2,
-     &           KMAX00=0.5d0)
+     &     (wf_msm=10, m_emc=2, nseg=5, KMAX_FACTOR=2, KMAX00=0.5d0)
       
       
 
@@ -67,7 +67,7 @@ c     ==== Calculations ====
      &     WF_TM_PRINT_READY, WF_TMAR_PRINT_READY, WF_SF1_PRINT_READY, 
      &     WF_SF_FNAME, WF_RT_FNAME, WF_IY_FNAME, WF_ABTIY_FNAME, 
      &     WF_AGMIY_FNAME, WF_TM_FNAME, WF_TMAR_FNAME, WF_SF1_FNAME,
-     &     WF_SF1_UNIT, tmdfile
+     &     WF_SF1_UNIT, tmdfile, WF_ITM_PRINT_READY, WF_ITM_FNAME
       
       
      

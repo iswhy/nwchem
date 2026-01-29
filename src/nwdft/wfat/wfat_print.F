@@ -201,4 +201,72 @@ c=======================================================
 c=======================================================
 
 
+c=======================================================
+c=======================================================
+      subroutine wfat_print_orbtitle_fx(unit0, is, io, fmt)
+c     DESCRIPTION:
+c     Flexible version of wfat_print_orbtitle.
+      implicit none
+#include "errquit.fh"
+#include "stdio.fh"
+      integer unit0, is, io
+      character*(*) fmt
+
+      logical isopen
+      character*1 spin0
+      character*6 io_str
+
+
+      inquire(unit=unit0, opened=isopen)
+      if (.not. isopen)
+     &     call errquit('WFAT: Argument unit0 of '//
+     &     'wfat_print_orbtitle_fx corresponds to an unopened file.',
+     &     1, UERR)
+
+
+      if (io /= 0) then
+         write(io_str, '(sp, i5)') io
+      else
+         write(io_str, '(" ")')
+      endif
+            
+      if (is == 1) spin0 = 'a'
+      if (is == 2) spin0 = 'b'
+      write(unit0, fmt, advance='no')
+     &     spin0//'/HOMO'//trim(adjustl(io_str))
+      call flush(unit0)
+
+      end
+c=======================================================
+      
+
+c=======================================================
+c=======================================================
+      subroutine wfat_print_qnttitle_fx(unit0, n, m, fmt)
+c     DESCRIPTION:
+c     Flexible version of wfat_print_qnttitle.
+      implicit none
+#include "stdio.fh"      
+#include "errquit.fh"
+      integer unit0, n, m
+      character*(*) fmt
+
+      logical isopen
+      character*6 n_str, m_str
+
+
+      inquire(unit=unit0, opened=isopen)
+      if (.not. isopen)
+     &     call errquit('WFAT: Argument unit0 of wfat_print_qnttitle '//
+     &     'corresponds to an unopened file.', 1, UERR)
+
+      write(n_str, '(i5)') n
+      write(m_str, '(sp, i5)') m
+      
+      write(unit0, fmt, advance='no')
+     &     '('//trim(adjustl(n_str))//','//trim(adjustl(m_str))//')'
+      call flush(unit0)
+
+      end
+c=======================================================
       
