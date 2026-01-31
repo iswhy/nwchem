@@ -194,7 +194,7 @@ c              ==== Calculate ionization rate ====
      &                 mid, fieldm, erg, zi, dcpl_mb(k_gn),
      &                 dcpl_mb(k_jn), dcpl_mb(k_kn), dbl_mb(k_on), 
      &                 chmmt, dbl_mb(k_pbd), dbl_mb(k_fc), wfat1_exc, 
-     &                 interm, dbl_mb(k_rt), rate)
+     &                 dbl_mb(k_rt), rate)
                else
                   call wfat_calc_rate(nat, nch, nqn, dcpl_mb(k_gn), 
      &                 dbl_mb(k_fc), dbl_mb(k_rt), rate)

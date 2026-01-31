@@ -1,8 +1,8 @@
 c============================================================
 c============================================================
       subroutine wfat_calc_wfat1_rate(bt, gm, nat, nqn, nch, nid, mid,
-     &     ef, erg, zi, gn, jn, kn, on, chmmt, pb, ffc, wfat0, interm, 
-     &     prate, rate)
+     &     ef, erg, zi, gn, jn, kn, on, chmmt, pb, ffc, wfat0, prate, 
+     &     rate)
 
       implicit none
 #include "stdio.fh"
@@ -25,7 +25,6 @@ c============================================================
       double precision pb(3,3,nch)           ! [input],
       double precision ffc(nqn, nch)         ! [input],
       logical wfat0(nqn,nch)                 ! [input],
-      logical interm                         ! [input],
       double precision prate(nqn,nch)        ! [output],
       double precision rate                  ! [output],
 
@@ -33,40 +32,25 @@ c============================================================
       double precision dummy
 
 
-      if (ga_nodeid() == 0 .and. interm) then
-         write(luout, '("")')
-         write(luout, '("ATTENTION: Printing intermediate '//
-     &        'quantities. A_nu, B_nu, and some other intermediate '//
-     &        'quantities will be printed below.")')
-      endif
-       
-      
       do i = 1, nch
          do iqn = 1, nqn
             n = nid(iqn)
             m = mid(iqn)
 
             if (wfat0(iqn,i)) then
-               call wfat_calc_rate(nat, 1, 1, gn(:,iqn,i), 
-     &              ffc(iqn,i), prate(iqn,i), dummy)
+               call wfat_calc_rate(nat, 1, 1, gn(:,iqn,i), ffc(iqn,i),
+     &              prate(iqn,i), dummy)
             else
-               if (ga_nodeid() == 0 .and. interm) then
-                  write(luout, '("Channel = ", i3)') i
-                  write(luout, '("para. quantum no. (n,m) = ", 2i3)')
-     &                 n, m
-               endif
                call wfat_wfat1_rate(bt, gm, nat, 1, 1, n, m, ef, erg(i),
      &              zi, gn(:,iqn,i), jn(:,iqn,i), kn(:,iqn,i), 
      &              on(:,iqn,i), chmmt(:,i), pb(:,:,i), ffc(iqn,i), 
-     &              interm, prate(iqn,i), dummy)
+     &              prate(iqn,i), dummy)
             endif
 
          enddo
       enddo
 
       rate = sum(prate)
-
-      if (ga_nodeid() == 0 .and. interm) write(luout, '("")')
        
       end
 c============================================================
@@ -75,8 +59,7 @@ c============================================================
 c============================================================
 c============================================================
       subroutine wfat_wfat1_rate(bt, gm, nat, nqn, nch, nid, mid,
-     &     ef, erg, zi, gn, jn, kn, on, chmmt, pb, ffc, interm, p_rt,
-     &     rt)
+     &     ef, erg, zi, gn, jn, kn, on, chmmt, pb, ffc, p_rt, rt)
 c     DESCRIPTION:
 c     gn :
 c       $\exp(-\kappa\mu_z) g_\nu$ where $g_\nu$ are structure factors for all
@@ -105,14 +88,13 @@ c       First-order WFAT equivalents of gn.
       double precision chmmt(3,nch)          ! [input],
       double precision pb(3,3,nch)           ! [input],
       double precision ffc(nqn, nch)         ! [input],
-      logical interm                         ! [input],
       double precision p_rt(nqn,nch)         ! [output],
       double precision rt                    ! [output],
       
       integer i, iqn, n, m
       double precision on_, protmat(3,3), mu(3), pbl(3,3), kp, gmm
-      double precision bt0, bt1_1, bt1_2, bt1, aa, bb_, bb2
-      double complex gn_, an_, an2
+      double precision bt0, bt1_1, bt1_2, bt1, aa, bb_
+      double complex gn_, an_
 
       
 c     ==== Get the passive rotation matrix ===
@@ -152,28 +134,6 @@ c           an_ is equal to h_\nu defined in eq. (12) of this paper: https://doi
      &           (abs(gn_)**2 * 
      &           (1+aa*ef*log(ef/4/kp**2)+bb_*ef+2*ef*on_) +
      &           2*ef*real(conjg(gn_)*an_))
-
-
-c           ==== These lines below are only for debugging ====
-            an2 = on_ + an_/gn_
-c           an2 is equal to a_\nu defined in eq. (60) of this paper: http://dx.doi.org/10.1103/PhysRevA.93.033412.
-            bb2 = bb_ + 2 * real(an2)
-c           bb2 is equal to B_\nu defined immediately below eq. (24) of this paper: http://dx.doi.org/10.1103/PhysRevA.93.033412.
-            if (ga_nodeid() == 0 .and. interm) then
-               write(luout, '("(beta, gamma) = ", 2f15.6)') bt, gm
-               write(luout, '("   (itm) a_nu = ", 2es15.7)') an2
-               write(luout, '("   (itm) A_nu = ", es15.7)') aa
-               write(luout, '("   (itm) tilde B_nu = ", es15.7)') bb_
-               write(luout, '("   (itm) B_nu = ", es15.7)') bb2
-               write(luout, '("   (itm) alpha_zz = ", es15.7)') pbl(3,3)
-               write(luout, '("   (itm) o_nu = ", es15.7)') on_
-               write(luout, '("   (itm) Re[g*.j] = ", es15.7)')
-     &              real(conjg(gn_)*sum(jn(:,iqn,i)))
-               write(luout, '("   (itm) Re[g*.k] = ", es15.7)')
-     &              real(conjg(gn_)*sum(kn(:,iqn,i)))
-               write(luout, '("   (itm) g = ", 2es15.7)') gn_
-            endif
-            
          enddo
       enddo
       
@@ -258,11 +218,11 @@ c        ==== Calculate rates ====
          if (las(i) >= 1.0d-13) then
             call wfat_calc_wfat1_rate(bt, gm, nat, nqn, nch, nid, mid,
      &           las(i), erg, zi, gn, jn, kn, on, chmmt, pb, 
-     &           dbl_mb(k_fc), wfat0, .false., dbl_mb(k_pi), rate)
+     &           dbl_mb(k_fc), wfat0, dbl_mb(k_pi), rate)
          else if (las(i) <= -1.0d-13) then
             call wfat_calc_wfat1_rate(180.0d0-bt, 180.0d0+gm, nat, nqn,
      &           nch, nid, mid, abs(las(i)), erg, zi, gnn, jnn, knn, on,
-     &           chmmt, pb, dbl_mb(k_fc), wfat0, .false., dbl_mb(k_pi),
+     &           chmmt, pb, dbl_mb(k_fc), wfat0, dbl_mb(k_pi),
      &           rate)
          else
             dbl_mb(k_pi : k_pi+npi-1) = 0.0d0
