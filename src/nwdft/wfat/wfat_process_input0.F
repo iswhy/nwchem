@@ -1360,7 +1360,7 @@ c     channel indices contained in ffc_s.
      &     ffc_s(MAX_N_LEN*MAX_M_LEN*MAX_N_ORBID)
       logical ffc_l(MAX_N_LEN*MAX_M_LEN, MAX_N_ORBID), p_s, p_r, p_y
       logical p_ab, p_ag, p_t, p_ta
-      integer i, ir, ic, info, nffc
+      integer i, ir, ic, info, nffc, nnegf
       integer nqn, nid(MAX_N_LEN*MAX_M_LEN), mid(MAX_N_LEN*MAX_M_LEN)
       integer nch, orbid0(MAX_N_ORBID), spinid(MAX_N_ORBID)
       double precision ffc0(MAX_N_LEN*MAX_M_LEN*MAX_N_ORBID)
@@ -1420,6 +1420,16 @@ c        actual input.
      &        'set field factor must be specified using the uniform '//
      &        'syntax.', 99, UERR)
 
+c        ==== Ensure there is at most one negative field factor ====
+         nnegf = 0
+         do i = 1, nffc
+            if (ffc0(i) < 0.0d0) nnegf = nnegf + 1
+         enddo
+         if (nnegf > 1) call errquit('WFAT: No more than one user-'//
+     &        'set field factor can be negative (used as a '//
+     &        'normalization factor).', 20, INPUT_ERR)
+
+c        ==== Transfer ffc to a working array ====
          ffc = DEF_MFFC
          ffc_l(1:nqn,1:nch) = .false.
          do i = 1, nffc

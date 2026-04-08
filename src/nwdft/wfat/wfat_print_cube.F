@@ -125,3 +125,382 @@ c              ==== Normalize if requested ====
       end
 c=================================================
       
+
+c=================================================
+c=================================================
+      subroutine wfat_omega0_print(rtdb)
+
+      implicit none
+#include "errquit.fh"
+#include "rtdb.fh"
+#include "inp.fh"
+      integer rtdb
+
+      logical tt
+      integer i, i1, i2, n, m, na, nb, nc, ndim
+      double precision alim(2), blim(2), clim(2), al, ar, bl, br, cl, cr
+      double precision eg
+      character*1 pa, a, b, c
+      character*13 suff
+      integer nprints
+      parameter(nprints=9)
+      character*1000 fname, ss, s0(nprints)
+
+      
+c     "n m eg pa a al ar na"
+c     "n m eg pa a al ar na b bl br nb"
+c     "n m eg pa a al ar na b bl br nb c cl cr nc"
+c     a, b, c = {x, y, z}
+c     pa = {r, i, a}
+c     Example:
+c       "0 -1 r y -3.0 3.0 60 z -4.0 4.0 80"
+c       "0  0 a x -3.0 3.0 60 z -4.0 4.0 80 y -3.0 3.0 60"
+      
+      
+      s0 = ''      
+      if (.not. rtdb_cget(rtdb, 'wfat:print_tau0', nprints, s0))
+     &     return
+      
+      do i = 1, nprints
+         if (len_trim(s0(i)) == 0) cycle
+         
+         ss = s0(i)
+         i1 = 0       ! i1 must be initiated to zero before first call of inp_strtok
+         tt = inp_strtok(ss, ' ', i1, i2)
+         read(ss(i1:i2), *) n
+         tt = tt .and. inp_strtok(ss, ' ', i1, i2)
+         read(ss(i1:i2), *) m
+         tt = tt .and. inp_strtok(ss, ' ', i1, i2)
+         read(ss(i1:i2), *) eg
+         tt = tt .and. inp_strtok(ss, ' ', i1, i2)
+         pa = ss(i1:i2)     ! 'r' for real, 'i' for imag, or 'a' for abs. value
+
+         tt = tt .and. inp_strtok(ss, ' ', i1, i2)
+         a = ss(i1:i2)
+         tt = tt .and. inp_strtok(ss, ' ', i1, i2)
+         read(ss(i1:i2), *) al
+         tt = tt .and. inp_strtok(ss, ' ', i1, i2)
+         read(ss(i1:i2), *) ar
+         tt = tt .and. inp_strtok(ss, ' ', i1, i2)
+         read(ss(i1:i2), *) na
+         if (.not. tt) call errquit('Wrong print_tau0 format', 4, UERR)
+         alim = (/ al, ar /)
+         ndim = 1
+
+         if (inp_strtok(ss, ' ', i1, i2)) then
+            b = ss(i1:i2)
+            tt = inp_strtok(ss, ' ', i1, i2)
+            read(ss(i1:i2), *) bl
+            tt = tt .and. inp_strtok(ss, ' ', i1, i2)
+            read(ss(i1:i2), *) br
+            tt = tt .and. inp_strtok(ss, ' ', i1, i2)
+            read(ss(i1:i2), *) nb
+            if (.not. tt) call errquit('Wrong print_tau0 format',
+     &           5, UERR)
+            blim = (/ bl, br /)
+            ndim = 2
+         endif
+
+         if (inp_strtok(ss, ' ', i1, i2)) then
+            c = ss(i1:i2)
+            tt = inp_strtok(ss, ' ', i1, i2)
+            read(ss(i1:i2), *) cl
+            tt = inp_strtok(ss, ' ', i1, i2)
+            read(ss(i1:i2), *) cr
+            tt = inp_strtok(ss, ' ', i1, i2)
+            read(ss(i1:i2), *) nc
+            if (.not. tt) call errquit('Wrong print_tau0 format',
+     &           6, UERR)
+            clim = (/ cl, cr /)
+            ndim = 3
+         endif
+         
+         if (ndim == 1) then
+            write(suff, '("tau0-", i1, ".", a1, ".1d")') i, pa
+            call util_file_name(suff, .false., .false., fname)
+            call wfat_omega0_print1d(fname, n, m, eg, pa, a, alim, na)
+         else if (ndim == 2) then
+            write(suff, '("tau0-", i1, ".", a1, ".2d")') i, pa
+            call util_file_name(suff, .false., .false., fname)
+            call wfat_omega0_print2d(fname, n, m, eg, pa, a, alim, na,
+     &           b, blim, nb)
+         else if (ndim == 3) then
+            write(suff, '("tau0-", i1, ".", a1, ".cube")') i, pa
+            call util_file_name(suff, .false., .false., fname)
+            call wfat_omega0_print3d(fname, n, m, eg, pa, a, alim, na, 
+     &           b, blim, nb, c, clim, nc)
+         endif
+      enddo            
+
+      end
+c=================================================
+      
+
+c=================================================
+c=================================================
+      subroutine wfat_omega0_print1d(fn, n, m, eg, pa, a, alim, na)
+
+      implicit none
+#include "errquit.fh"
+#include "wfat.fh"
+      character*(*) fn
+      integer n
+      integer m
+      double precision eg
+      character*1 pa
+      character*1 a
+      double precision alim(2)
+      integer na
+
+      integer ia
+      double precision da, va, vpt(3), r, th, ph
+      double precision ff
+      double complex tau0
+
+
+      open(WF_TAU_UNIT, file=fn, action='write')
+      write(WF_TAU_UNIT, '(2x, "# ", a, i2, a, i3, a, es15.6, a)')
+     &     "tau0(eta,xi) with n = ", n, ", m = ", m, ", energy = ", eg,
+     &     " along the "//a//" axis"
+      
+      da = (alim(2) - alim(1)) / (na - 1)
+
+      write(WF_TAU_UNIT, '("#", a13)', advance='no') a//" (a.u.)"
+      write(WF_TAU_UNIT, '(3x, a13)') "Omega0"
+      
+      
+c     ==== Print the omega ====
+      do ia = 1, na
+c        ==== Evaluate omega ====
+         va = alim(1) + (ia-1)*da
+         write(WF_TAU_UNIT, '(1x, e13.5)', advance='no') a
+
+         if (a == 'x') vpt = (/ va, 0.0d0, 0.0d0 /)
+         if (a == 'y') vpt = (/ 0.0d0, va, 0.0d0 /)
+         if (a == 'z') vpt = (/ 0.0d0, 0.0d0, va /)
+         
+         r = sqrt(sum(vpt**2))
+         th = acos(vpt(3)/r)
+         ph = atan2(vpt(2), vpt(1))
+         call wfat_calc_tau0(n, m, 1, r, th, ph, eg, 1.0d0, tau0)
+         if (pa == 'r') then
+            ff = real(tau0)
+         else if (pa == 'i') then
+            ff = imag(tau0)
+         else if (pa == 'a') then
+            ff = abs(tau0)
+         else
+            call errquit('WFAT: argument pa of wfat_omega_cube0'//
+     &           ' must be either r, i, or a.', 77, UERR)
+         endif
+         write(WF_TAU_UNIT, '(3x, e13.5)') ff
+      enddo
+      
+      close(WF_TAU_UNIT)
+
+
+      end
+c=================================================
+
+      
+c=================================================
+c=================================================
+      subroutine wfat_omega0_print2d(fn, n, m, eg, pa, a, alim, na,
+     &     b, blim, nb)
+
+      implicit none
+#include "errquit.fh"
+#include "wfat.fh"
+#include "stdio.fh"
+#include "inp.fh"
+      character*(*) fn
+      integer n
+      integer m
+      double precision eg
+      character*1 pa
+      character*1 a
+      double precision alim(2)
+      integer na
+      character*1 b
+      double precision blim(2)
+      integer nb
+
+      character*1 axes(2)
+      logical tx, ty, tz
+      integer ia, ib, kx, ky, kz
+      double precision da, db, va, vb, vpt0(2), vpt(3), r, th, ph
+      double precision ff
+      double complex tau0
+
+
+      axes = (/ a, b /)
+      tx = inp_match(2, .false., 'x', axes, kx)
+      ty = inp_match(2, .false., 'y', axes, ky)
+      tz = inp_match(2, .false., 'z', axes, kz)
+
+      open(WF_TAU_UNIT, file=fn, action='write')
+      write(WF_TAU_UNIT, '(2x, "# ", a, i2, a, i3, a, es15.6, a)')
+     &     "tau0(eta,xi) with n = ", n, ", m = ", m, ", energy = ", eg,
+     &     " on the "//a//b//" plane"
+      
+      da = (alim(2) - alim(1)) / (na - 1)
+      db = (blim(2) - blim(1)) / (nb - 1)
+
+      write(WF_TAU_UNIT, '("#", 2a13)', advance='no')
+     &     a//" (a.u.)", b//" (a.u.)"
+      write(WF_TAU_UNIT, '(3x, a13)') "Omega0"
+      
+      
+c     ==== Print the omega ====
+      do ib = 1, nb
+         do ia = 1, na
+c           ==== Evaluate the wavefunction ====
+            va = alim(1) + (ia-1)*da
+            vb = blim(1) + (ib-1)*db
+            write(WF_TAU_UNIT, '(1x, 2e13.5)', advance='no') va, vb
+            vpt0 = (/ va, vb /)
+
+            if (kx == -1) vpt = (/ 0.0d0, vpt0(ky), vpt0(kz) /)
+            if (ky == -1) vpt = (/ vpt0(kx), 0.0d0, vpt0(kz) /)
+            if (kz == -1) vpt = (/ vpt0(kx), vpt0(ky), 0.0d0 /)
+            
+            r = sqrt(sum(vpt**2))
+            th = acos(vpt(3)/r)
+            ph = atan2(vpt(2), vpt(1))
+            call wfat_calc_tau0(n, m, 1, r, th, ph, eg, 1.0d0, tau0)
+            if (pa == 'r') then
+               ff = real(tau0)
+            else if (pa == 'i') then
+               ff = imag(tau0)
+            else if (pa == 'a') then
+               ff = abs(tau0)
+            else
+               call errquit('WFAT: argument pa of wfat_omega_cube0'//
+     &              ' must be either r, i, or a.', 77, UERR)
+            endif
+            write(WF_TAU_UNIT, '(3x, e13.5)') ff
+         enddo
+         write(WF_TAU_UNIT, '(" ")')
+      enddo
+      
+      close(WF_TAU_UNIT)
+
+
+      end
+c=================================================
+      
+      
+c=================================================
+c=================================================
+      subroutine wfat_omega0_print3d(fn, n, m, eg, pa, a, alim, na,
+     &     b, blim, nb, c, clim, nc)
+
+      implicit none
+#include "errquit.fh"
+#include "wfat.fh"
+#include "inp.fh"
+      character*(*) fn
+      integer n
+      integer m
+      double precision eg
+      character*1 pa
+      character*1 a
+      double precision alim(2)
+      integer na
+      character*1 b
+      double precision blim(2)
+      integer nb
+      character*1 c
+      double precision clim(2)
+      integer nc
+
+      character*1 axes(3)
+      logical tx, ty, tz
+      integer ix, iy, iz, nx, ny, nz, np(3), kx, ky, kz
+      double precision orig(3), dx(3), dy(3), dz(3), x, y, z, r, th, ph
+      double precision ff, lims(2,3), xlim(2), ylim(2), zlim(2)
+      double complex tau0
+      
+      
+      axes = (/ a, b, c /)
+      np = (/ na, nb, nc /)
+      lims(:,1) = alim
+      lims(:,2) = blim
+      lims(:,3) = clim
+      tx = inp_match(3, .false., 'x', axes, kx)
+      ty = inp_match(3, .false., 'y', axes, ky)
+      tz = inp_match(3, .false., 'z', axes, kz)
+      if (tx .and. ty .and. tz) then
+         nx = np(kx)
+         xlim = lims(:,kx)
+         ny = np(ky)
+         ylim = lims(:,ky)
+         nz = np(kz)
+         zlim = lims(:,kz)
+      else
+         call errquit('WFAT: Either there are duplicate axes or '//
+     &        'unkown ones in wfat_omega0_print.', 25, INPUT_ERR)
+      endif
+      
+
+      open(WF_TAU_UNIT, file=fn, action='write')
+      write(WF_TAU_UNIT, '(2x, a)')
+     &     "Cube file generated by NWChem's WFAT module"
+      write(WF_TAU_UNIT, '(2x, a, i2, a, i3, a, es15.6)')
+     &     "tau0(eta,xi) with n = ", n, ", m = ", m, ", energy = ", eg
+
+      
+      orig = (/ xlim(1), ylim(1), zlim(1) /)
+      write(WF_TAU_UNIT, '(2x, i4, 3es13.5)') 1, orig
+
+
+c     ==== No. of voxels ====
+      dx = 0.0d0
+      dy = 0.0d0
+      dz = 0.0d0
+      dx(1) = (xlim(2) - xlim(1)) / (nx - 1)
+      dy(2) = (ylim(2) - ylim(1)) / (ny - 1)
+      dz(3) = (zlim(2) - zlim(1)) / (nz - 1)
+      write(WF_TAU_UNIT, '(2x, i4, 3es13.5)') nx, dx
+      write(WF_TAU_UNIT, '(2x, i4, 3es13.5)') ny, dy
+      write(WF_TAU_UNIT, '(2x, i4, 3es13.5)') nz, dz
+      write(WF_TAU_UNIT, '(2x, i4, 4es13.5)') 1, 0.0d0, 
+     &     (/ 0.0d0, 0.0d0, 0.0d0 /)
+
+      
+c     ==== Print the wavefunction ====
+      do ix = 1, nx
+         do iy = 1, ny
+            do iz = 1, nz               
+               
+c              ==== Evaluate the wavefunction ====
+               x = xlim(1) + (ix-1)*dx(1)
+               y = ylim(1) + (iy-1)*dy(2)
+               z = zlim(1) + (iz-1)*dz(3)
+               r = sqrt(x**2 + y**2 + z**2)
+               th = acos(z/r)
+               ph = atan2(y, x)
+               call wfat_calc_tau0(n, m, 1, r, th, ph, eg, 1.0d0, tau0)
+               if (pa == 'r') then
+                  ff = real(tau0)
+               else if (pa == 'i') then
+                  ff = imag(tau0)
+               else if (pa == 'a') then
+                  ff = abs(tau0)
+               else
+                  call errquit('WFAT: argument pa of wfat_omega_cube0'//
+     &                 ' must be either r, i, or a.', 77, UERR)
+               endif
+               write(WF_TAU_UNIT, '(" ")', advance='no')
+               write(WF_TAU_UNIT, '(1x, e13.5)', advance='no') ff
+               if (mod(iz,6)==0) write(WF_TAU_UNIT, '(" ")')
+            enddo
+            write(WF_TAU_UNIT, '(" ")')
+         enddo
+      enddo
+      
+      close(WF_TAU_UNIT)
+
+
+      end
+c=================================================

@@ -207,7 +207,11 @@ c     ==== Get mask parameters ====
       
 c     ==== Print grid info ====#
 c      call wfat_print_grid()
-      
+
+
+      rtdb_stat = rtdb_parallel(.false.)
+      if (ndid == 0) call wfat_omega0_print(rtdb)
+      rtdb_stat = rtdb_parallel(.true.)
       
 c     ==== Calculate or store OEWFAT integrals ====
       smh = 0.0d0

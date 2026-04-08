@@ -32,6 +32,7 @@ c=======================================================
       implicit none
 #include "rtdb.fh"
 #include "errquit.fh"
+#include "stdio.fh"
 #include "mafdecls.fh"
       integer rtdb
       integer nch
@@ -45,7 +46,7 @@ c=======================================================
 
       logical ffc_l(nqn,nch)
       integer ic, iq
-      double precision mffc(nqn,nch)
+      double precision mffc(nqn,nch), norm
 
       if (.not. rtdb_get(rtdb, 'wfat:use_manffc', mt_log, nqn*nch,
      &     ffc_l)) call errquit('WFAT: Cannot read use_manffc from '//
@@ -53,13 +54,30 @@ c=======================================================
       if (.not. rtdb_get(rtdb, 'wfat:manffc', mt_dbl, nqn*nch, mffc)) 
      &     call errquit('WFAT: Cannot read manffc from RTDB.', 30, UERR)
 
+c     ==== Determine normalization factor ====
+      norm = 1.0d0
+      do ic = 1, nch
+         do iq = 1, nqn
+            if (mffc(iq,ic) < 0.0d0) then
+               call wfat_field_factor(ef, erg(ic), zi, nid(iq), mid(iq),
+     &              norm)
+            endif
+         enddo
+      enddo
+
+c     ==== Determine field factors ====
       do ic = 1, nch
          do iq = 1, nqn
             if (ffc_l(iq,ic)) then
-               ffc(iq,ic) = mffc(iq,ic)
+               if (mffc(iq,ic) < 0.0d0) then
+                  ffc(iq,ic) = 1.0d0
+               else
+                  ffc(iq,ic) = mffc(iq,ic) / norm
+               endif
             else
                call wfat_field_factor(ef, erg(ic), zi, nid(iq), mid(iq),
      &              ffc(iq,ic))
+               ffc(iq,ic) = ffc(iq,ic) / norm
             endif
          enddo
       enddo
