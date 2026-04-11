@@ -159,32 +159,22 @@ c=======================================================
 
 c=======================================================
 c=======================================================
-      subroutine wfat_collect_maskf(geom, natom, nch, cgrid, nptp, 
-     &     nptop, chpos, v_m, v_oc, mask_param, maskf, maskfo)
+      subroutine wfat_collect_maskf(geom, natom, nch, nptp, v_m, 
+     &     mask_param, maskf)
 
       implicit none
 #include "errquit.fh"
       integer geom
       integer natom
       integer nch
-      logical cgrid(nch)
       integer nptp
-      integer nptop
-      double precision chpos(3,nch)
       double precision v_m(3,nptp)      ! [input], Cartesian coordinate of the nucleus-grid evaluation points in molecular frame.
-      double precision v_oc(3,nptop)    ! [input], Cartesian coordinate of the channel-origin-grid evaluation points in channel-origin frame.
       double precision mask_param(2)
       double precision maskf(nptp)
-      double precision maskfo(nptop,nch)
 
-      logical t
-      integer i, j
-      double complex maskf_, v_t(3)
+      integer i
+      double complex maskf_
 
-
-cnopw      call errquit('WFAT: Make sure all instances of call '//
-cnopw     &     'wfat_collect_maskf have used the new list of '//
-cnopw     &     'arguments', 54, UERR)
 
 c     ==== Evaluating mask function at nucleus grids ====
       do i = 1, nptp
@@ -193,6 +183,32 @@ c     ==== Evaluating mask function at nucleus grids ====
      &        mask_param, maskf_)
          maskf(i) = real(maskf_)
       enddo
+
+      end
+c=======================================================
+
+
+c=======================================================
+c=======================================================
+      subroutine wfat_collect_maskf_o(geom, natom, nch, cgrid, nptop, 
+     &     chpos, v_oc, mask_param, maskfo)
+
+      implicit none
+#include "errquit.fh"
+      integer geom
+      integer natom
+      integer nch
+      logical cgrid(nch)
+      integer nptop
+      double precision chpos(3,nch)
+      double precision v_oc(3,nptop)    ! [input], Cartesian coordinate of the channel-origin-grid evaluation points in channel-origin frame.
+      double precision mask_param(2)
+      double precision maskfo(nptop,nch)
+
+      logical t
+      integer i, j
+      double complex maskf_, v_t(3)
+
 
 c     ==== Evaluating mask function at channel-origin grids ====
       do j = 1, nch
@@ -215,4 +231,4 @@ c              geom_arb2cent will not verify it if icent2=0, which it is in the 
 
       end
 c=======================================================
-    
+      

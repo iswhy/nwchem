@@ -126,7 +126,9 @@ c     3) Since geomo contains only one center, we have icpo = natop = 1.
 c     2) Although this subroutine returns grids in molecular frame, since
 c     the coordinate of the only center in geomo is the zero vector (see
 c     note 1)), the output is effectively the grids in the frame of the
-c     channel center.
+c     channel center. So, k_pto contains grid coordinates of the channel center
+c     relative to the channel center itself, that's why they are independent of
+c     ionizd orbitals.
       if (.not. geom_destroy(geomo))
      &     call errquit('WFAT: Cannot destroy geomo.', 52, GEOM_ERR)
       call wfat_need_cgrid(rtdb, geom, nch, chpos, cgrid)
@@ -142,8 +144,7 @@ c     ====  take care of wfat1 when it is .true.   ====
       if (.not. MA_alloc_get(MT_DBL, 3*(nch+nch1), 'chpos1',
      &     l_pos, k_pos))
      &     call errquit('WFAT: chpos1 allocation failed', 59, MA_ERR)
-      call wfat_get_wfat1_sppos(wfat1, nch, spinid, chpos, int_mb(k_si),
-     &     dbl_mb(k_pos))
+      
 
 c     ==== Calculate and gather V_c|psi> at all grid points ====
       if (.not. MA_alloc_get(MT_DBL, nptp*(nch+nch1), 'vc_psi',
@@ -152,10 +153,11 @@ c     ==== Calculate and gather V_c|psi> at all grid points ====
       if (.not. MA_alloc_get(MT_DBL, nptop*(nch+nch1), 'vc_psi_o',
      &     l_vco, k_vco))
      &     call errquit('WFAT: vc_psi_o allocation failed', 81, MA_ERR)
-      call wfat_collect_vcpsi(geom, bas, nb, ns, nch, wfat1, vch,
-     &     int_mb(k_si), dbl_mb(k_pos), nptp, nptop, dbl_mb(k_pt), 
-     &     dbl_mb(k_pto), cgrid, rdm, zi, smh, ismask_e, ergmask, amsk,
-     &     bmsk, dbl_mb(k_vc), dbl_mb(k_vco))
+      if (ismask_e) call errquit('WFAT: ismask_e must not be true '//
+     &     'when not using partial wave WFAT.', 60, UERR)
+      call wfat_collect_vfpsi(geom, bas, nb, ns, nch, wfat1, vch,
+     &     int_mb(k_si), nptp, dbl_mb(k_pt), rdm, smh, .false., 
+     &     ergmask, amsk, bmsk, dbl_mb(k_vc))
       
 c     ==== Calculate and gather the mask ====
 c     ====  function at all grid points  ====
@@ -165,9 +167,8 @@ c     ====  function at all grid points  ====
          if (.not. MA_alloc_get(MT_DBL, nptop*nch, 'maskfo',
      &        l_mao, k_mao))
      &        call errquit('WFAT: maskfo allocation failed', 81, MA_ERR)
-         call wfat_collect_maskf(geom, natom, nch, cgrid, nptp, nptop,
-     &        chpos, dbl_mb(k_pt), dbl_mb(k_pto), mask_param, 
-     &        dbl_mb(k_ma), dbl_mb(k_mao))
+         call wfat_collect_maskf(geom, natom, nch, nptp, dbl_mb(k_pt), 
+     &        mask_param, dbl_mb(k_ma))
       endif
 
 c     ==== Allocate tau at all grid points and as. coeff. ====
@@ -199,9 +200,6 @@ c     ====  function at all grid points  ====
       if (.not. MA_alloc_get(MT_DBL, nptop*nch, 'celfo',
      &     l_clo, k_clo))
      &     call errquit('WFAT: celfo allocation failed', 81, MA_ERR)
-      call wfat_collect_celf(geom, nch, natp, int_mb(k_icp),
-     &     int_mb(k_ipp), nptp, nptop, ozn, cgrid, chpos, dbl_mb(k_pt),
-     &     dbl_mb(k_pto), celm, dbl_mb(k_cl), dbl_mb(k_clo))
 
 c     ==== Obtain field factor ====
       call wfat_get_field_factor(rtdb, nch, nqn, nid, mid, zi, fieldm,
@@ -291,15 +289,39 @@ c     ==== Scan over the orientation angles ====
             else
                gap = .true.
             endif
+
+            construct mu-diagonalizing MOs here
+            lincomb vcpsi at nuclear coords calc.ed outside of loop
+
+            call wfat_need_cgrid(rtdb, geom, nch, chpos0, cgrid) 
+            call wfat_get_wfat1_sppos(wfat1, nch, spinid, chpos0, 
+     &           int_mb(k_si), dbl_mb(k_pos)) 
+            
+            
+            call wfat_collect_vfpsi_o() resolve this
+            call wfat_collect_vspsi() resolve this
+
+
+
+            call wfat_collect_celf(geom, nch, natp, int_mb(k_icp),
+     &           int_mb(k_ipp), nptp, nptop, ozn, cgrid, chpos0, 
+     &           dbl_mb(k_pt), dbl_mb(k_pto), celm, dbl_mb(k_cl),
+     &           dbl_mb(k_clo))   resolve this
+
+            if (ismask) call wfat_collect_maskf_o()
+
+            
+
             
 c           ==== Calculate tau ====
             if (pr_srfc .or. pr_rate .or. pr_tmd) then
-               call wfat_collect_tau0(geom, nch, nqn, cgrid, chpos, erg,
-     &              nid, mid, bt, gm, nptp, nptop, zi, dbl_mb(k_pt),
-     &              dbl_mb(k_pto), dcpl_mb(k_tu0), dcpl_mb(k_tu0o))
+               call wfat_collect_tau0(geom, nch, nqn, cgrid, chpos0, 
+     &              erg, nid, mid, bt, gm, nptp, nptop, zi, 
+     &              dbl_mb(k_pt), dbl_mb(k_pto), dcpl_mb(k_tu0),
+     &              dcpl_mb(k_tu0o))
                if (wfat1) then
                   call wfat_collect_tau1(geom, nch, nqn, cgrid, chmmt,
-     &                 chpos, erg, nid, mid, bt, gm, nptp, nptop, zi, 
+     &                 chpos0, erg, nid, mid, bt, gm, nptp, nptop, zi, 
      &                 dbl_mb(k_pt), dbl_mb(k_pto), wfat1_exc,
      &                 dcpl_mb(k_tu1), dcpl_mb(k_tu1o))
                endif

@@ -159,7 +159,7 @@ c        caused by the unitary transform is assumed very close to the old
 c        one. This requires that the off-diagonal elements of the
 c        interaction matrix are much smaller than the diagonal elements.
 c        Because of this assumption, the dipole moment is not updated.
-c     2) I turns out that the eigenvalues of the interaction operator
+c     2) It turns out that the eigenvalues of the interaction operator
 c        provide a consistent way of ordering the diagonalizing degenerate
 c        orbitals. Therefore, no additional ordering is needed beyond
 c        that imposed by the diagonalizing subroutine which automatically
@@ -308,6 +308,43 @@ c     ==== Replace the old structure factors with the new ones ====
 c============================================================
 
 
+c============================================================
+c============================================================
+      subroutine wfat_lincomb_vec(nb, nch, n, cf, cid, scr, vch)
+c     DESCRIPTION:
+c     Perform linear combinations of n vectors among the columns of vch.
+c     The result of the combinations replace the columns in vch that
+c     were mixed.
+      implicit none
+      integer nb
+      integer nch
+      integer n
+      double precision cf(n,n)
+      integer cid(n)               ! [input], 1 <= cid(i) <= nch
+      double complex scr(nb, n)    ! [output],
+      double complex vch(nb, nch)  ! [in/output],
+
+      integer j, j_, i, i_
+      
+c     ==== Construct the linear combinations ====
+      do j = 1, n
+         scr(:,j) = 0.0d0
+         do i = 1, n
+            i_ = cid(i)
+            scr(:,j) = scr(:,j) + cf(i,j)*vch(:,i_)
+         enddo
+      enddo
+
+c     ==== Replace the old vectors with the new ones ====
+      do j = 1, n
+         j_ = cid(j)
+         vch(:,j_) = scr(:,j)
+      enddo
+
+      end
+c============================================================
+
+      
 c============================================================
 c============================================================
       subroutine wfat_print_degdip1(bt, gm, isdiag, ndeg, dip_old, u)

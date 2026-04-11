@@ -132,3 +132,72 @@ c=======================================================
 
       end
 c=======================================================
+
+
+c=======================================================
+c=======================================================
+      subroutine wfat_diag_update_w0(bt, gm, vcp)
+
+      implicit none
+      integer nb
+      double precision vcp(nb,*)
+
+
+      do i = 1, nsub
+         nn = ndgs(i)
+         isdiag = .true.
+
+c        ==== Calculate static polarizability tensor ====
+         if (nn > 1) then
+c           ==== Construct H_int within the degenerate MO's ====
+            scr(p_hi:p_hi+nn**2-1) = 0.0d0
+            do k = 1, 3
+               call wfat_matrix_sumabsorb(nn, nn, scr(p_hi),
+     &              dps(1:nn,1:nn,k,i), 1.0d0, cu(k))
+            enddo
+            call wfat_isdiag(nn, scr(p_hi), dthr, isdiag)
+
+c           ==== If the above H_int is not diagonal ... ====
+            if (.not. isdiag) then
+c              == Diagonalize H_int in this manifold ==
+               call wfat_dsyev_wrap(nn, scr(p_hi), scr(p_ev)) ! 2)
+
+               call wfat_lincomb_vec(nb, nch, nn, scr(p_hi), dgs(:,i),
+     &scrx(p_lc), vch)
+
+c              == Update the polarizabilities using ==
+c              == the H_int-diagonalizing channels  ==          ! 1)
+               do j = 1, nn    ! Loop over the H_int-diagonalizing channels.
+                  i_hi = p_hi + (j-1)*nn
+
+
+
+                  
+                  jj = dgs(j,i)      ! Where in pb the j-th eigenstate should go.
+                  call wfat_construct_polb_cf(nn, scr(i_hi), 
+     &                 pbs(1:nn,1:nn,:,i), pb(:,:,jj))
+c                  write(luout, '("nondiag: ", 2f10.5, i6, 3es21.12)',
+c     &                 advance='no') bt, gm, j, scr(p_ev+j-1), dum(j),
+c     &                 dum(3)
+               enddo
+c           ==== If the above H_int is diagonal ... ====
+            else
+               do j = 1, nn    ! Loop over the H_int-diagonalizing channels.
+                  jj = dgs(j,i)      ! Where in pb the j-th eigenstate should go.
+                  call wfat_construct_polb(pbs(j,j,:,i), pb(:,:,jj))
+               enddo
+            endif
+
+c        ==== If non-degenerate ====
+         else
+            jj = dgs(1,i)      ! Where in pb the j-th eigenstate should go.
+            call wfat_construct_polb(pbs(1,1,:,i), pb(:,:,jj))
+         endif
+      enddo
+      
+
+
+
+      end
+c=======================================================
+      

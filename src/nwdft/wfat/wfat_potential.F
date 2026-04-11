@@ -252,6 +252,398 @@ c=======================================================
 
 c=======================================================
 c=======================================================
+      subroutine wfat_dft_vfpsi_1pt_c(icent, ghan, bhan, nbas, nspin,
+     &           nch, wfat1, vch, spinid, chpos, vpt, cgrid, rdm, zi, 
+     &           smh, scr, mask, ergmask, amsk, bmsk, vf_psi)
+      
+c     DESCRIPTION:
+c     When wfat is false, vch, spinid, chpos, and vf_psi must have nch columns
+c     containing the GTO coefficients of the unperturbed orbital. Otherwise, they must
+c     have 3*nch more columns (thus 4*nch columns in total) containing the Cartesian
+c     components of the correction of each orbital arranged in this way,
+c       orb1_x orb1_y orb1_z orb2_x orb2_y orb2_z ... orb<nch>_x orb<nch>_y orb<nch>_z.
+      implicit none
+#include "mafdecls.fh"
+#include "errquit.fh"
+      integer icent
+      integer ghan
+      integer bhan
+      integer nbas
+      integer nspin
+      integer nch                     ! [input], the number of unperturbed channels.
+      logical wfat1
+      double precision vch(nbas,*)    ! [input], no. of column is nch if wfat1 is false, otherwise, 4*nch.
+      integer spinid(*)               ! [input], no. of elements is nch if wfat1 is false, otherwise, 4*nch.
+      double precision chpos(3,*)     ! [input], no. of column is nch if wfat1 is false, otherwise, 4*nch.
+      double precision vpt(3, nch)    ! [input], Cartesian coordinate of the evaluation point in the molecular frame.
+      logical cgrid(nch)
+      double precision rdm(nbas, nbas, nspin)
+      double precision zi
+      double precision smh
+      double precision scr(1:*)    ! [input], scratch array with min. no. of elements being 21*nbas+4*nspin + nbas * (3*nbas+1+nspin) + 4*(nch+nch1) where nch1=3*nch if wfat1=.true., otherwise, nch1=0.
+      logical mask
+      double precision ergmask      !< [Input]. Only used when mask=.true.
+      double precision amsk         !< [Input]. Only used when mask=.true.
+      double precision bmsk         !< [Input]. Only used when mask=.true.
+      double precision vf_psi(*)    ! [output], no. of elements is nch if wfat1 is false, otherwise, 4*nch.
+
+      integer i, nch1, l_cf, k_cf, i_cf, b, i1, i2
+      double precision vfp(4)
+
+      
+      nch1 = 0
+      b = 0
+      if (wfat1) then
+         nch1 = 3*nch
+         b = 3
+      endif
+      
+      if (icent /= -1) then
+c        When icent /= -1, the columns of vpt should all be identical. In this
+c        case, the first column will be used for the following calculation.
+         call wfat_dft_vfpsi_1pt(ghan, bhan, nbas, nspin, nch+nch1, vch,
+     &        spinid, chpos, vpt(:,1), rdm, zi, smh, scr, mask, ergmask,
+     &        amsk, bmsk, vf_psi)
+      else
+         if (.not. MA_push_get(MT_DBL, nbas*(1+b), 'vf', l_cf, k_cf))
+     &        call errquit('WFAT: vf allocation failed', 24, MA_ERR)
+
+         do i = 1, nch
+            if (wfat1) then
+               i1 = 1 + nch + (i-1)*3
+               i2 = i1 + 2
+            endif
+            
+            if (cgrid(i)) then
+               dbl_mb(k_cf:k_cf+nbas-1) = vch(:,i)
+               if (wfat1) then
+                  i_cf = k_cf + nbas
+                  call dcopy(nbas*3, vch(1,i1), 1, dbl_mb(i_cf), 1)
+               endif
+               call wfat_dft_vfpsi_1pt(ghan, bhan, nbas, nspin, 1+b, 
+     &              dbl_mb(k_cf), spinid(i), chpos(:,i), vpt(:,i), rdm, 
+     &              zi, smh, scr, mask, ergmask, amsk, bmsk, vfp)
+               vf_psi(i) = vfp(1)
+               if (wfat1) vf_psi(i1:i2) = vfp(2:4)
+            else
+               vf_psi(i) = 0.0d0
+               if (wfat1) vf_psi(i1:i2) = 0.0d0
+            endif
+         enddo
+
+         if (.not. MA_pop_stack(l_cf))
+     &        call errquit('WFAT: vf deallocation failed', 24, GA_ERR)
+      endif
+      
+      end
+c=======================================================
+
+      
+c=======================================================
+c=======================================================
+      subroutine wfat_dft_vfpsi_1pt(ghan, bhan, nbas, nspin,
+     &           nch, vch, spinid, chpos, vpt, rdm, zi, smh,
+     &           scr, mask, ergmask, amsk, bmsk, vf_psi)
+
+
+      implicit none
+#include "stdio.fh"      
+#include "errquit.fh"      
+      integer ghan
+      integer bhan
+      integer nbas
+      integer nspin
+      integer nch
+      double precision vch(nbas, nch)    ! [input], nbasis*nch
+      integer spinid(nch)
+      double precision chpos(3, nch)
+      double precision vpt(3)      ! [input], Cartesian coordinate of the evaluation point in the molecular frame.
+      double precision rdm(nbas, nbas, nspin)
+      double precision zi
+      double precision smh
+      double precision scr(1:*)    ! [input], scratch array with min. no. of elements being 21*nbas+4*nspin + nbas * (3*nbas+1+nspin) + 4*nch
+      logical mask
+      double precision ergmask      !< [Input]. Only used when mask=.true.
+      double precision amsk         !< [Input]. Only used when mask=.true.
+      double precision bmsk         !< [Input]. Only used when mask=.true.
+      double precision vf_psi(nch)
+
+      character*4 xclvl
+      integer nb0, nb1, nb2, nb3, nd0, nd1, nsc1, nsc2, nve, nvn, nrf
+      integer pb0, pb1, pb2, pb3, pd0, pd1, psc1, psc2, pve, pvn, prf
+      integer io, i, ib
+      integer dbas
+
+      double precision vn_new, kp, maskf
+
+      logical xc_gotxc, xc_chkgrad, xc_chktau, xc_hassrhf
+      external xc_gotxc, xc_chkgrad, xc_chktau, xc_hassrhf
+
+      
+      
+      if (xc_chktau()) then
+         call errquit('WFAT: At the moment, mGGA functional is not '//
+     &                'yet supported in WFAT.', 11, UERR)
+      endif
+
+      dbas = 0
+      xclvl = 'none'
+      if (xc_gotxc()) then
+         dbas = 0
+         xclvl = 'lda'
+      endif
+      if (xc_chkgrad()) then
+         dbas = 2
+         xclvl = 'gga'
+      endif      
+      if (xc_chktau()) then
+         dbas = 2
+         xclvl = 'mgga'
+      endif
+cOLD      if (xc_hascam(rtdb)) then
+cOLD         call errquit('WFAT: At the moment, WFAT cannot be used with '//
+cOLD     &                'CAM functionals.', 1, UERR)
+cOLD      endif
+      if (xc_hassrhf()) then
+         call errquit('WFAT: At the moment, WFAT cannot be used with '//
+     &                'short-range Hartree-Fock functionals.', 1, UERR)
+      endif
+
+
+c     ==== Assign indexes for scratch array ====
+      nb0 = nbas
+      nb1 =  3 * nbas
+      nb2 =  6 * nbas
+      nb3 = 10 * nbas
+      nd0 = nspin
+      nd1 = 3 * nspin
+cOLD      nsc1 = nbas * (2*nbas+1+nspin)
+      nsc1 = nbas * (3*nbas+1+nspin)      
+      nsc2 = nch
+      nve = nch
+      nvn = nch
+      nrf = nbas
+
+      pb0 = 1             !! basis functions
+      pb1 = pb0 + nb0     !! 1st derivative of basis functions
+      pb2 = pb1 + nb1     !! 2nd derivative of basis functions
+      pb3 = pb2 + nb2     !! 3rd derivative of basis functions
+      pd0 = pb3 + nb3     !! density functions
+      pd1 = pd0 + nd0     !! 1st derivative of density functions
+      psc1 = pd1 + nd1    !! scratch array for wfat_dft_veepsi_1ptbas
+      psc2 = psc1 + nsc1  !! scratch array for wfat_vnucpsi_1ptbas
+      pve = psc2 + nsc2   !! vee|psi> array
+      pvn = pve + nve     !! vnuc|psi> array
+      prf = pvn + nvn     !! radial part of basis functions
+
+      
+c     ==== Calculate basis and its derivatives ====
+      call wfat_eval_basis_radf(ghan, bhan, dbas, vpt,
+     &                         scr(prf : prf+nrf-1),
+     &                         scr(pb0 : pb0+nb0-1),
+     &                         scr(pb1 : pb1+nb1-1),
+     &                         scr(pb2 : pb2+nb2-1),
+     &                         scr(pb3 : pb3+nb3-1))     !! 1)
+
+      if (mask) then
+         do ib = 1, nbas
+            kp = sqrt(2*abs(ergmask))
+            call wfat_mask_exp(1, vpt, chpos(:,1), zi, kp, amsk, bmsk,
+     &           scr(prf+ib-1), maskf)
+            scr(pb0+ib-1) = scr(pb0+ib-1) * maskf
+         enddo
+      endif
+         
+      
+c     ==== Calculate vee_psi ====
+      call wfat_dft_veepsi_1ptbas(bhan, nbas, nspin, vpt,
+     &     scr(pb0 : pb0+nb0-1),
+     &     scr(pb1 : pb1+nb1-1),
+     &     scr(pb2 : pb2+nb2-1),
+     &     nch, vch, spinid, rdm, xclvl,
+     &     scr(psc1 : psc1+nsc1-1),
+     &     scr(pve : pve+nve-1))
+
+
+c     ==== Calculate vn_psi ====
+      call wfat_vnucpsi_1ptbas(ghan, smh, vpt, nbas,
+     &     scr(pb0 : pb0+nb0-1), nch, vch,
+     &     scr(psc2 : psc2+nsc2-1),
+     &     scr(pvn : pvn+nvn-1))
+
+
+c     ==== Calculate vf_psi ====
+c      vf_psi = scr(pve : pve+nve-1) +
+c     &         scr(pvn : pvn+nvn-1) -
+c     &         scr(pvs : pvs+nvs-1)      
+
+      vf_psi = -(scr(pve : pve+nve-1) +
+     &           scr(pvn : pvn+nvn-1))
+      
+      end
+c Notes:      
+c   1) The 3rd (pb3) derivative is currently not used.
+c=======================================================
+
+
+c=======================================================
+c=======================================================
+      subroutine wfat_dft_vspsi_1pt_c(icent, ghan, bhan, nbas, nch,
+     &           wfat1, vch, chpos, vpt, cgrid, zi, smh, scr, mask, 
+     &           ergmask, amsk, bmsk, vs_psi)
+      
+c     DESCRIPTION:
+c     When wfat is false, vch, spinid, chpos, and vs_psi must have nch columns
+c     containing the GTO coefficients of the unperturbed orbital. Otherwise, they must
+c     have 3*nch more columns (thus 4*nch columns in total) containing the Cartesian
+c     components of the correction of each orbital arranged in this way,
+c       orb1_x orb1_y orb1_z orb2_x orb2_y orb2_z ... orb<nch>_x orb<nch>_y orb<nch>_z.
+      implicit none
+#include "mafdecls.fh"
+#include "errquit.fh"
+      integer icent
+      integer ghan
+      integer bhan
+      integer nbas
+      integer nch                     ! [input], the number of unperturbed channels.
+      logical wfat1
+      double precision vch(nbas,*)    ! [input], no. of column is nch if wfat1 is false, otherwise, 4*nch.
+      double precision chpos(3,*)     ! [input], no. of column is nch if wfat1 is false, otherwise, 4*nch.
+      double precision vpt(3, nch)    ! [input], Cartesian coordinate of the evaluation point in the molecular frame.
+      logical cgrid(nch)
+      double precision zi
+      double precision smh
+      double precision scr(1:*)    ! [input], scratch array with min. no. of elements being 21*nbas+4*nspin + nbas * (3*nbas+1+nspin) + 4*(nch+nch1) where nch1=3*nch if wfat1=.true., otherwise, nch1=0.
+      logical mask
+      double precision ergmask      !< [Input]. Only used when mask=.true.
+      double precision amsk         !< [Input]. Only used when mask=.true.
+      double precision bmsk         !< [Input]. Only used when mask=.true.
+      double precision vs_psi(*)    ! [output], no. of elements is nch if wfat1 is false, otherwise, 4*nch.
+
+      integer i, nch1, l_cf, k_cf, i_cf, b, i1, i2
+      double precision vsp(4)
+
+      
+      nch1 = 0
+      b = 0
+      if (wfat1) then
+         nch1 = 3*nch
+         b = 3
+      endif
+      
+      if (icent /= -1) then
+c        When icent /= -1, the columns of vpt should all be identical. In this
+c        case, the first column will be used for the following calculation.
+         call wfat_dft_vspsi_1pt(ghan, bhan, nbas, nch+nch1, vch, chpos,
+     &        vpt(:,1), zi, smh, scr, mask, ergmask, amsk, bmsk, vs_psi)
+      else
+         if (.not. MA_push_get(MT_DBL, nbas*(1+b), 'vs', l_cf, k_cf))
+     &        call errquit('WFAT: vs allocation failed', 24, MA_ERR)
+
+         do i = 1, nch
+            if (wfat1) then
+               i1 = 1 + nch + (i-1)*3
+               i2 = i1 + 2
+            endif
+            
+            if (cgrid(i)) then
+               dbl_mb(k_cf:k_cf+nbas-1) = vch(:,i)
+               if (wfat1) then
+                  i_cf = k_cf + nbas
+                  call dcopy(nbas*3, vch(1,i1), 1, dbl_mb(i_cf), 1)
+               endif
+               call wfat_dft_vspsi_1pt(ghan, bhan, nbas, 1+b, 
+     &              dbl_mb(k_cf), chpos(:,i), vpt(:,i), zi, smh, scr, 
+     &              mask, ergmask, amsk, bmsk, vsp)
+               vs_psi(i) = vsp(1)
+               if (wfat1) vs_psi(i1:i2) = vsp(2:4)
+            else
+               vs_psi(i) = 0.0d0
+               if (wfat1) vs_psi(i1:i2) = 0.0d0
+            endif
+         enddo
+
+         if (.not. MA_pop_stack(l_cf))
+     &        call errquit('WFAT: vs deallocation failed', 24, GA_ERR)
+      endif
+      
+
+      end
+c=======================================================
+
+      
+c=======================================================
+c=======================================================
+      subroutine wfat_dft_vspsi_1pt(ghan, bhan, nbas, nch, vch, chpos,
+     &           vpt, zi, smh, scr, mask, ergmask, amsk, bmsk, vs_psi)
+
+      implicit none
+#include "stdio.fh"      
+#include "errquit.fh"      
+      integer ghan
+      integer bhan
+      integer nbas
+      integer nch
+      double precision vch(nbas, nch)    ! [input], nbasis*nch
+      double precision chpos(3, nch)
+      double precision vpt(3)      ! [input], Cartesian coordinate of the evaluation point in the molecular frame.
+      double precision zi
+      double precision smh
+      double precision scr(1:*)    ! [input], scratch array with min. no. of elements being 21*nbas
+      logical mask
+      double precision ergmask      !< [Input]. Only used when mask=.true.
+      double precision amsk         !< [Input]. Only used when mask=.true.
+      double precision bmsk         !< [Input]. Only used when mask=.true.
+      double precision vs_psi(nch)
+
+      integer nb0, nb1, nb2, nb3, nrf, pb0, pb1, pb2, pb3, prf
+      integer io, i, ib
+      double precision kp, maskf
+
+      
+c     ==== Assign indexes for scratch array ====
+      nb0 = nbas
+      nb1 =  3 * nbas
+      nb2 =  6 * nbas
+      nb3 = 10 * nbas
+      nrf = nbas
+
+      pb0 = 1             !! basis functions
+      pb1 = pb0 + nb0     !! 1st derivative of basis functions
+      pb2 = pb1 + nb1     !! 2nd derivative of basis functions
+      pb3 = pb2 + nb2     !! 3rd derivative of basis functions
+      prf = pb3 + nb3     !! radial part of basis functions
+
+      
+c     ==== Calculate basis and its derivatives ====
+      call wfat_eval_basis_radf(ghan, bhan, 0, vpt, scr(prf), scr(pb0),
+     &     scr(pb1), scr(pb2), scr(pb3))    !! 1)
+
+      if (mask) then
+         do ib = 1, nbas
+            kp = sqrt(2*abs(ergmask))
+            call wfat_mask_exp(1, vpt, chpos(:,1), zi, kp, amsk, bmsk,
+     &           scr(prf+ib-1), maskf)
+            scr(pb0+ib-1) = scr(pb0+ib-1) * maskf
+         enddo
+      endif
+         
+            
+c     ==== Calculate vs_psi ====
+cchecklater      zi = 1.0d0
+      do io = 1, nch
+         call wfat_vhpsi_1ptbas(chpos(:,io), zi, smh, vpt, nbas,
+     &        scr(pb0), 1, vch(:,io), vs_psi(io))
+      enddo
+      
+      end
+c Notes:      
+c   1) The 3rd (pb3) derivative is currently not used.
+c=======================================================
+
+      
+c=======================================================
+c=======================================================
       subroutine wfat_dft_vcpsi_getcoef(rtdb, geom, bas, nb, ns, rdm,
      &           nv, vin, sid, rc, vnucvin, vhfvin, vxcvin, vsvin)
 
@@ -474,9 +866,73 @@ c=======================================================
 
 c=======================================================
 c=======================================================
-      subroutine wfat_collect_vcpsi(geom, bas, nb, ns, nch, wfat1, vch,
-     &     spinid, chpos, nptp, nptop, vpt, vpto, cgrid, rdm, zi, smh, 
-     &     ismask, ergmask, amsk, bmsk, vc_psi, vc_psio)
+      subroutine wfat_collect_vfpsi(geom, bas, nb, ns, nch, wfat1, vch,
+     &     spinid, nptp, vpt, rdm, smh, ismask, ergmask, amsk, bmsk,
+     &     vc_psi)
+
+      implicit none
+#include "mafdecls.fh"
+#include "stdio.fh"
+#include "errquit.fh"
+      integer geom
+      integer bas
+      integer nb
+      integer ns
+      integer nch                       ! [input], the number of unperturbed channels.
+      logical wfat1
+      double precision vch(nb,*)        ! [input], no. of column is nch if wfat1 is false, otherwise, 4*nch.
+      integer spinid(*)                 ! [input], no. of elements is nch if wfat1 is false, otherwise, 4*nch.
+      integer nptp
+      double precision vpt(3,nptp)      ! [input], Cartesian coordinate of the nucleus-grid evaluation points in molecular frame.
+      double precision rdm(nb,nb,ns)
+      double precision smh
+      logical ismask
+      double precision ergmask
+      double precision amsk             !< [Input]. Only used when mask=.true.
+      double precision bmsk             !< [Input]. Only used when mask=.true.
+      double precision vc_psi(nptp,*)   ! [output], V_c|psi> evaluated at nucleus grid points. The no. of columns is nch if wfat1 is false, otherwise, 4*nch.
+
+      logical dumloc(nch)
+      integer nch1, nscr, i, l_sc, k_sc
+      double precision vpta(3,nch), dumvec(3,4*nch)
+
+      
+      nch1 = 0
+      if (wfat1) nch1 = 3*nch
+      nscr = 21*nb + 4*ns + nb * (3*nb+1+ns) + 4*(nch+nch1)
+      if (.not. MA_alloc_get(MT_DBL, nscr, 'scratch', l_sc, k_sc))
+     &     call errquit('WFAT: scratch allocation failed', 59, MA_ERR)
+
+      dumvec = 0.0d0
+      dumlog = .false.
+      
+c     ==== Evaluating V_eff|psi> at nucleus grids ====
+      do i = 1, nptp
+         vpta(1,:) = vpt(1,i)
+         vpta(2,:) = vpt(2,i)
+         vpta(3,:) = vpt(3,i)
+         call wfat_dft_vfpsi_1pt_c(500, geom, bas, nb, ns, nch, wfat1,
+     &        vch, spinid, dumvec, vpta, dumlog, rdm, 0.0d0, smh,
+     &        dbl_mb(k_sc), .false., 0.0d0, 0.0d0, 0.0d0,
+     &        vc_psi(i,1:nch+nch1))
+c        ^^ dumvec takes the place of chpos. Although it might be needed when
+c        icent=500, it is only needed for wavefunction masking inside 
+c        wfat_dft_vfpsi_1pt_c. Which is prohibited at the moment when running
+c        none partial wave wfat.
+      enddo
+
+      if (.not. MA_free_heap(l_sc))
+     &     call errquit('WFAT: scratch deallocation failed', 61, MA_ERR)
+
+      end
+c=======================================================
+
+
+c=======================================================
+c=======================================================
+      subroutine wfat_collect_vfpsi_o(geom, bas, nb, ns, nch, wfat1,
+     &     vch, spinid, chpos, nptop, vpto, cgrid, rdm, zi, smh, ismask,
+     &     ergmask, amsk, bmsk, vc_psio)
 
       implicit none
 #include "mafdecls.fh"
@@ -491,9 +947,7 @@ c=======================================================
       double precision vch(nb,*)        ! [input], no. of column is nch if wfat1 is false, otherwise, 4*nch.
       integer spinid(*)                 ! [input], no. of elements is nch if wfat1 is false, otherwise, 4*nch.
       double precision chpos(3,*)       ! [input], no. of column is nch if wfat1 is false, otherwise, 4*nch.
-      integer nptp
       integer nptop
-      double precision vpt(3,nptp)      ! [input], Cartesian coordinate of the nucleus-grid evaluation points in molecular frame.
       double precision vpto(3,nptop)    ! [input], Cartesian coordinate of the channel-origin-grid evaluation points in channel origin frame.
       logical cgrid(nch)
       double precision rdm(nb,nb,ns)
@@ -503,18 +957,71 @@ c=======================================================
       double precision ergmask
       double precision amsk             !< [Input]. Only used when mask=.true.
       double precision bmsk             !< [Input]. Only used when mask=.true.
-      double precision vc_psi(nptp,*)   ! [output], V_c|psi> evaluated at nucleus grid points. The no. of columns is nch if wfat1 is false, otherwise, 4*nch.
       double precision vc_psio(nptop,*) ! [output], V_c|psi> evaluated at channel-origin grid points. The no. of columns is nch if wfat1 is false, otherwise, 4*nch.
 
       integer nch1, nscr, i, l_sc, k_sc
       double precision vpta(3,nch)
 
       
-cnopw      call errquit('WFAT: Make sure all instances of call '//
-cnopw     &     'wfat_collect_vcpsi have used the new list of '//
-cnopw     &     'arguments', 54, UERR)
+      nch1 = 0
+      if (wfat1) nch1 = 3*nch
+      nscr = 21*nb + 4*ns + nb * (3*nb+1+ns) + 4*(nch+nch1)
+      if (.not. MA_alloc_get(MT_DBL, nscr, 'scratch', l_sc, k_sc))
+     &     call errquit('WFAT: scratch allocation failed', 59, MA_ERR)
 
 
+c     ==== Evaluating V_c|psi> at channel-origin grids ====
+      do i = 1, nptop
+         call wfat_mf_ogrid(nch, chpos, vpto(:,i), vpta)
+         call wfat_dft_vcpsi_1pt_c(-1, geom, bas, nb, ns, nch, wfat1,
+     &        vch, spinid, chpos, vpta, cgrid, rdm, zi, smh,
+     &        dbl_mb(k_sc), .false., 0.0d0, 0.0d0, 0.0d0,
+     &        vc_psio(i,1:nch+nch1))
+      enddo
+      
+
+      if (.not. MA_free_heap(l_sc))
+     &     call errquit('WFAT: scratch deallocation failed', 61, MA_ERR)
+
+      end
+c=======================================================
+      
+
+c=======================================================
+c=======================================================
+      subroutine wfat_collect_vspsi(geom, bas, nb, nch, wfat1, vch,
+     &     chpos, nptp, nptop, vpt, vpto, cgrid, zi, smh, ismask, 
+     &     ergmask, amsk, bmsk, vs_psi, vs_psio)
+
+      implicit none
+#include "mafdecls.fh"
+#include "stdio.fh"
+#include "errquit.fh"
+      integer geom
+      integer bas
+      integer nb
+      integer nch                       ! [input], the number of unperturbed channels.
+      logical wfat1
+      double precision vch(nb,*)        ! [input], no. of column is nch if wfat1 is false, otherwise, 4*nch.
+      double precision chpos(3,*)       ! [input], no. of column is nch if wfat1 is false, otherwise, 4*nch.
+      integer nptp
+      integer nptop
+      double precision vpt(3,nptp)      ! [input], Cartesian coordinate of the nucleus-grid evaluation points in molecular frame.
+      double precision vpto(3,nptop)    ! [input], Cartesian coordinate of the channel-origin-grid evaluation points in channel origin frame.
+      logical cgrid(nch)
+      double precision zi
+      double precision smh
+      logical ismask
+      double precision ergmask
+      double precision amsk             !< [Input]. Only used when mask=.true.
+      double precision bmsk             !< [Input]. Only used when mask=.true.
+      double precision vs_psi(nptp,*)   ! [output], V_c|psi> evaluated at nucleus grid points. The no. of columns is nch if wfat1 is false, otherwise, 4*nch.
+      double precision vs_psio(nptop,*) ! [output], V_c|psi> evaluated at channel-origin grid points. The no. of columns is nch if wfat1 is false, otherwise, 4*nch.
+
+      integer nch1, nscr, i, l_sc, k_sc
+      double precision vpta(3,nch)
+
+      
       nch1 = 0
       if (wfat1) nch1 = 3*nch
       nscr = 21*nb + 4*ns + nb * (3*nb+1+ns) + 4*(nch+nch1)
@@ -526,21 +1033,17 @@ c     ==== Evaluating V_c|psi> at nucleus grids ====
          vpta(1,:) = vpt(1,i)
          vpta(2,:) = vpt(2,i)
          vpta(3,:) = vpt(3,i)
-         call wfat_dft_vcpsi_1pt_c(500, geom, bas, nb, ns, nch, wfat1,
-     &        vch, spinid, chpos, vpta, cgrid, rdm, zi, smh,
-     &        dbl_mb(k_sc), ismask, ergmask, amsk, bmsk,
-     &        vc_psi(i,1:nch+nch1))
+         call wfat_dft_vspsi_1pt_c(500, geom, bas, nb, nch, wfat1, vch, 
+     &        chpos, vpta, cgrid, zi, smh, dbl_mb(k_sc), ismask, 
+     &        ergmask, amsk, bmsk, vs_psi(i,1:nch+nch1))
       enddo
 
 c     ==== Evaluating V_c|psi> at channel-origin grids ====
       do i = 1, nptop
-         call wfat_mf_ogrid(nch, chpos, vpto(:,i), vpta)
-         call wfat_dft_vcpsi_1pt_c(-1, geom, bas, nb, ns, nch, wfat1,
-     &        vch, spinid, chpos, vpta, cgrid, rdm, zi, smh,
-     &        dbl_mb(k_sc), ismask, ergmask, amsk, bmsk,
-     &        vc_psio(i,1:nch+nch1))
-cdebug         write(luout, '("@grid-vcpsi: ", i8, 3es16.6, es20.10)')
-cdebug     &        i, vpta(:,1), vc_psio(i,1)
+         call wfat_mf_ogrid(nch, chpos, vpto(:,i), vpta)    ! Transform vpto from channel center coord to MF center coord.
+         call wfat_dft_vspsi_1pt_c(-1, geom, bas, nb, nch, wfat1, vch,
+     &        chpos, vpta, cgrid, zi, smh, dbl_mb(k_sc), ismask, 
+     &        ergmask, amsk, bmsk, vs_psio(i,1:nch+nch1))
       enddo
       
 
@@ -548,5 +1051,4 @@ cdebug     &        i, vpta(:,1), vc_psio(i,1)
      &     call errquit('WFAT: scratch deallocation failed', 61, MA_ERR)
 
       end
-c=======================================================
-      
+c=======================================================      

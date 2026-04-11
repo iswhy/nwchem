@@ -266,6 +266,15 @@ c        ====    into degenerate subspaces     ====
          call wfat_dgn_sub(nch, int_mb(k_or), int_mb(k_sp), ndgsub, 
      &        max_ndgsub, int_mb(k_dgs), int_mb(k_dgss),
      &        int_mb(k_ndgs))
+c        >> k_dgs is a matrix with its columns enumerating degenerate
+c        subspaces that can be identified from among the ionized orbitals.
+c        The rows of a given column contains the ID's of the ionized
+c        orbitals as specified in the input file (adjusted so that it
+c        starts from 1) that belongs to the degenrate subspace identified
+c        by the column.
+c        >> k_dgss is a vector containing the spin channel of the
+c        degenerate subspaces. A degenerate subspace does not mix
+c        ionized orbitals from different spin channels.
 
          ndpo = nbas0 * nbas0 * nspin0 * 3
          if (.not. MA_alloc_get(MT_DBL, ndpo, 'dpmo', l_dpo, k_dpo))
