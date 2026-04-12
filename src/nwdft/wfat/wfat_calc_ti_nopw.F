@@ -58,19 +58,22 @@ c=======================================================
       integer l_sg, l_fc, l_rt, l_icp, l_ipp, l_pt, l_wt, l_vc, l_cl
       integer l_ma, l_tu0, l_tu1, l_acg, l_acj, l_ack, l_dum, l_sc, l_sx
       integer l_pbd, l_sj, l_sk, l_on, l_si, l_pos, l_pto, l_wto, l_vco
-      integer l_clo, l_mao, l_tu0o, l_tu1o
+      integer l_clo, l_mao, l_tu0o, l_tu1o, l_vf, l_vs, l_vso, l_ch
+      integer l_sc0
       integer k_sg, k_fc, k_rt, k_icp, k_ipp, k_pt, k_wt, k_vc, k_cl
       integer k_ma, k_tu0, k_tu1, k_acg, k_acj, k_ack, k_dum, k_sc, k_sx
       integer k_pbd, k_sj, k_sk, k_on, k_si, k_pos, k_pto, k_wto, k_vco
-      integer k_clo, k_mao, k_tu0o, k_tu1o
+      integer k_clo, k_mao, k_tu0o, k_tu1o, k_vf, k_vs, k_vso, k_ch
+      integer k_sc0
       integer natom, n_sg, nfc, nrt, n_pt, n_wt, n_pto, n_wto, n_acg
       integer n_acj, n_ack, n_dum, nsc, nsx, npbd, n_sj, n_sk, n_on
       integer nch1, ndid, nbt, ngm, natp, natop, nptp, nptop, i, k, iqn
       integer i_on, ig, ib, i_tu0, i_tu0o, i_vc, i_vco, i_acj, icpo
-      integer ippo(2), ozn, geomo, pr_chk(20), nang, kk
+      integer ippo(2), ozn, geomo, pr_chk(20), nang, kk, j_vc, i_ch
       double precision bt_start, bt_last, dbt, dbtr, gm_start, gm_last
       double precision dgm, dgmr, dthr, bt, gm, rate, vdum(3), fieldm
       double precision deg2rad, t_now, t_last, t_start, dt_all, dt_prog
+      double precision chpos0(3,nch)
       parameter(deg2rad=0.01745329251994d0)
 
 
@@ -323,12 +326,12 @@ c           ==== Update wfat(1) quantities depending on diagonalization ====
             if (wfat1) then
                i_ch = k_ch + nb*nch
                call dcopy(nb*3*nch, vch(:,nch+1:), 1, dbl_mb(i_ch), 1)
-               i_vc = k_vc + nptp*nch
+               j_vc = k_vc + nptp*nch
                call dcopy(nptp*3*nch, dbl_mb(k_vf+nptp*nch), 1, 
-     &              dbl_mb(i_vc), 1)
+     &              dbl_mb(j_vc), 1)
                call wfat_diag_update_w1(bt, gm, zi, nch, nsub, maxn, 
      &              dgs, ndgs, dthr, dps, pbs, dbl_mb(k_sc0), nb, nptp,
-     &              dbl_mb(i_ch), dbl_mb(i_vc), dbl_mb(k_pbd))
+     &              dbl_mb(i_ch), dbl_mb(j_vc), dbl_mb(k_pbd))
             endif
 
             call wfat_get_wfat1_sppos(wfat1, nch, spinid, chpos0, 
@@ -424,12 +427,16 @@ c                 * 4) Unlike k_acj, k_ack is not decomposed into its two
 c                      orientation-independent components. This is because
 c                      tau1 has been calculated as a whole, not decomposed
 c                      into the two components above.
-                  call wfat_get_srfc1(bt, gm, natom, nch, nqn, 0, mid, 
-     &                 erg, chmmt, dcpl_mb(k_acg), dcpl_mb(k_acj),
-     &                 dcpl_mb(k_ack), dcpl_mb(k_dum), nsub, maxn, dgs, 
-     &                 ndgs, dthr, dps, pbs, .true., dbl_mb(k_sc),
-     &                 dcpl_mb(k_sx), dbl_mb(k_pbd), dcpl_mb(k_sg),
-     &                 dcpl_mb(k_sj), dcpl_mb(k_sk))    ! 5)
+cOLD                  call wfat_get_srfc1(bt, gm, natom, nch, nqn, 0, mid, 
+cOLD     &                 erg, chmmt, dcpl_mb(k_acg), dcpl_mb(k_acj),
+cOLD     &                 dcpl_mb(k_ack), dcpl_mb(k_dum), nsub, maxn, dgs, 
+cOLD     &                 ndgs, dthr, dps, pbs, .true., dbl_mb(k_sc),
+cOLD     &                 dcpl_mb(k_sx), dbl_mb(k_pbd), dcpl_mb(k_sg),
+cOLD     &                 dcpl_mb(k_sj), dcpl_mb(k_sk)) ! 5)
+                  call wfat_get_srfc1_ndiag(bt, gm, natom, nch, nqn, 0, 
+     &                 mid, erg, chmmt, dcpl_mb(k_acg), dcpl_mb(k_acj),
+     &                 dcpl_mb(k_ack), dcpl_mb(k_dum), .true., 
+     &                 dcpl_mb(k_sg), dcpl_mb(k_sj), dcpl_mb(k_sk))    ! 5)
 c                 * 5) k_dum takes the place of the second component of
 c                      k_ack in the argument list of wfat_get_srfc1.
 c                      Related to note 4).

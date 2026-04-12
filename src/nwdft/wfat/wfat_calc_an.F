@@ -3,7 +3,8 @@ c============================================================
       subroutine wfat_get_srfc1(bt, gm, nat, nch, nqn, lmax, mid, erg, 
      &     chmmt, intl, intl_j, intl_k1, intl_k2, nsub, maxn, dgs, ndgs,
      &     dthr, dps, pbs, nopw, scr, scrx, pb, gn, jn, kn)
-
+c     DESCRIPTION:
+c     Calculates structure factors of wfat(0) and wfat(1), G_n, J_n, and K_n.
       implicit none
 #include "stdio.fh"      
 #include "errquit.fh"
@@ -167,6 +168,59 @@ c        orders the these new orbitals based on their associated
 c        eigenvalues. A consistent ordering can be checked by looking
 c        at the 2D plot of the absolute value of structure factors, and
 c        checking that no abrupt changes are present.
+c============================================================
+
+
+c============================================================
+c============================================================
+      subroutine wfat_get_srfc1_ndiag(bt, gm, nat, nch, nqn, lmax, mid,
+     &     erg, chmmt, intl, intl_j, intl_k1, intl_k2, nopw, gn, jn, kn)
+c     DESCRIPTION:
+c     The same as wfat_get_srfc1 except that no diagonalizations are done because
+c     it is assumed that the input asymptotic coefficients correspond to orbitals
+c     that diagonalize H_int already.
+      implicit none
+#include "errquit.fh"
+      double precision bt
+      double precision gm
+      integer nat
+      integer nch
+      integer nqn
+      integer lmax
+      integer mid(nqn)                                      ! [input],
+      double precision erg(nch)
+      double precision chmmt(3,nch)
+      double complex intl((1+lmax)**2, nat, nqn, nch)       ! [input],
+      double complex intl_j((1+lmax)**2, nat, nqn, 3, nch)  ! [input],
+      double complex intl_k1((1+lmax)**2, nat, nqn, nch)    ! [input],
+      double complex intl_k2((1+lmax)**2, nat, nqn, nch)    ! [input],
+      logical nopw                                ! [input],
+      double complex gn(nat, nqn, nch)            ! [output], G_n = \exp{-\kappa*\mu_z} * g_n
+      double complex jn(nat, nqn, nch)            ! [output], J_n = \exp{-\kappa*\mu_z} * j_n
+      double complex kn(nat, nqn, nch)            ! [output], K_n = \exp{-\kappa*\mu_z} * k_n
+
+      integer i
+
+
+      if (nopw .and. lmax /= 0)
+     &     call errquit('WFAT: If nopw is .true., then lmax must be '//
+     &     'equal to zero (wfat_get_srfc1_ndiag).', 43, UERR)
+
+c     ==== Calculate structure factors ====
+      do i = 1, nch
+         call wfat_calc_gn(nat, nqn, mid, lmax, bt, gm, 
+     &        intl(:,:,:,i), nopw, gn(:,:,i))
+         call wfat_calc_an(nat, nqn, mid, lmax, bt, gm, chmmt(:,i),
+     &        intl_j(:,:,:,:,i), intl_k1(:,:,:,i),
+     &        intl_k2(:,:,:,i), nopw, jn(:,:,i), kn(:,:,i))
+
+         call wfat_calc_srfc0(nat, nqn, bt, gm, erg(i), chmmt(:,i), 
+     &        gn(:,:,i))
+         call wfat_calc_srfc1(nat, nqn, bt, gm, erg(i), chmmt(:,i),
+     &        jn(:,:,i), kn(:,:,i))
+      enddo
+      
+      end
 c============================================================
 
 

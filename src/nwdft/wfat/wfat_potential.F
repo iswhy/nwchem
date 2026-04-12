@@ -917,7 +917,7 @@ c     ==== Evaluating V_eff|psi> at nucleus grids ====
      &        vc_psi(i,1:nch+nch1))
 c        ^^ dumvec takes the place of chpos. Although it might be needed when
 c        icent=500, it is only needed for wavefunction masking inside 
-c        wfat_dft_vfpsi_1pt_c. Which is prohibited at the moment when running
+c        wfat_dft_vfpsi_1pt_c, which is prohibited at the moment when running
 c        none partial wave wfat.
       enddo
 
