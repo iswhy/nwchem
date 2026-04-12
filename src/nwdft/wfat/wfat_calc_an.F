@@ -25,8 +25,8 @@ c============================================================
       integer dgs(maxn, nsub)                     ! [input], the channel ID arranged into degenerate subspaces (columns). Each subspace (column) must only have states of the same spin.
       integer ndgs(nsub)                          ! [input], the dimension of each degenerate subspace.
       double precision dthr
-      double precision dps(maxn, maxn, 3, nsub)   ! [input], The electronic dipole moment matrix in MF in each degenerate subspace. The 3 indices in the 3rd dimension corresponds to x, y, z.
-      double precision pbs(maxn, maxn, 6, nsub)   ! [input], The static polarizability matrix in MF in each degenerate subspace. The 6 indices in the 3rd dimension corresponds to xx, yy, zz, xy, xz, yz.
+      double precision dps(maxn, maxn, 3, nsub)   ! [input], electronic dipole moment matrix in MF in each degenerate subspace. The 3 indices in the 3rd dimension corresponds to x, y, z.
+      double precision pbs(maxn, maxn, 6, nsub)   ! [input], static polarizability matrix in MF in each degenerate subspace. The 6 indices in the 3rd dimension corresponds to xx, yy, zz, xy, xz, yz.
       logical nopw                                ! [input],
       double precision scr(1:*)                   ! [output], scratch array, its minimum size is maxn**2 + maxn.
       double complex scrx(1:*)                    ! [output], scratch array, its minimum size is nat*nqn*nch.
@@ -36,7 +36,7 @@ c============================================================
       double complex kn(nat, nqn, nch)            ! [output], K_n = \exp{-\kappa*\mu_z} * k_n
 
       logical isdiag
-      integer p_hi, p_ev, p_lc, i, nn, k, j, i_hi, jj, iu
+      integer p_hi, p_ev, p_lc, i, nn, k, j, i_hi, jj
       double precision protmat(3,3), cu(3)
 
 
@@ -316,15 +316,19 @@ c     Perform linear combinations of n vectors among the columns of vch.
 c     The result of the combinations replace the columns in vch that
 c     were mixed.
       implicit none
+#include "errquit.fh"
       integer nb
       integer nch
       integer n
       double precision cf(n,n)
-      integer cid(n)               ! [input], 1 <= cid(i) <= nch
-      double complex scr(nb, n)    ! [output],
-      double complex vch(nb, nch)  ! [in/output],
+      integer cid(n)               ! [input], 1 <= cid(i) <= nch. The ID's of n columns of vch to be mixed.
+      double precision scr(nb, n)    ! [output],
+      double precision vch(nb, nch)  ! [in/output],
 
       integer j, j_, i, i_
+
+      if (n > nch) call errquit('WFAT: n must be less than or equal '//
+     &     'to nch.', 60, UERR)
       
 c     ==== Construct the linear combinations ====
       do j = 1, n

@@ -41,7 +41,7 @@ c=======================================================
       double precision ergmask        ! [input]. Only used when ismask_e=.true.. Must always be supplied regardless.
       double precision amsk           ! [input]. Only used when ismask_e=.true.. Must always be supplied regardless.
       double precision bmsk           ! [input]. Only used when ismask_e=.true.. Must always be supplied regardless.
-      logical ismask                  ! [input], 
+      logical ismask                  ! [input],
       double precision mask_param(2)  ! [input]. Only used when ismask=.true.. Must always be supplied regardless.
       logical wfat1                   ! [input]
       integer nsub                    ! [input]. Only used when wfat1=.true..
@@ -135,8 +135,8 @@ c     ionizd orbitals.
       call wfat_print_gridpt(rtdb, geom, gq, ozn, nch, cgrid, chpos)
       
 
-c     ==== Construct new spinid and chpos that can ====
-c     ====  take care of wfat1 when it is .true.   ====
+c     ==== Allocate new spinid and chpos that can ====
+c     ====  take care of wfat1 when it is .true.  ====
       nch1 = 0
       if (wfat1) nch1 = 3 * nch
       if (.not. MA_alloc_get(MT_INT, nch+nch1, 'spinid1', l_si, k_si))
@@ -144,9 +144,21 @@ c     ====  take care of wfat1 when it is .true.   ====
       if (.not. MA_alloc_get(MT_DBL, 3*(nch+nch1), 'chpos1',
      &     l_pos, k_pos))
      &     call errquit('WFAT: chpos1 allocation failed', 59, MA_ERR)
-      
+      call wfat_get_wfat1_sppos(wfat1, nch, spinid, chpos, int_mb(k_si),
+     &     dbl_mb(k_pos))
+c     ^^ At this step, only k_si is needed for wfat_collect_vfpsi below.
+c     k_pos obtained above is not needed.
 
-c     ==== Calculate and gather V_c|psi> at all grid points ====
+c     ==== Calculate and gather V_eff|psi> at nuclear grid points ====
+      if (.not. MA_alloc_get(MT_DBL, nptp*(nch+nch1), 'vf_psi',
+     &     l_vf, k_vf))
+     &     call errquit('WFAT: vf_psi allocation failed', 81, MA_ERR)
+      if (.not. MA_alloc_get(MT_DBL, nptp*(nch+nch1), 'vs_psi',
+     &     l_vs, k_vs))
+     &     call errquit('WFAT: vs_psi allocation failed', 81, MA_ERR)
+      if (.not. MA_alloc_get(MT_DBL, nptop*(nch+nch1), 'vs_psi_o',
+     &     l_vso, k_vso))
+     &     call errquit('WFAT: vs_psi_o allocation failed', 81, MA_ERR)
       if (.not. MA_alloc_get(MT_DBL, nptp*(nch+nch1), 'vc_psi',
      &     l_vc, k_vc))
      &     call errquit('WFAT: vc_psi allocation failed', 81, MA_ERR)
@@ -156,11 +168,11 @@ c     ==== Calculate and gather V_c|psi> at all grid points ====
       if (ismask_e) call errquit('WFAT: ismask_e must not be true '//
      &     'when not using partial wave WFAT.', 60, UERR)
       call wfat_collect_vfpsi(geom, bas, nb, ns, nch, wfat1, vch,
-     &     int_mb(k_si), nptp, dbl_mb(k_pt), rdm, smh, .false., 
-     &     ergmask, amsk, bmsk, dbl_mb(k_vc))
+     &     int_mb(k_si), nptp, dbl_mb(k_pt), rdm, smh, .false., ergmask,
+     &     amsk, bmsk, dbl_mb(k_vf))
       
-c     ==== Calculate and gather the mask ====
-c     ====  function at all grid points  ====
+c     ==== Calculate and gather the mask function  ====
+c     ====         at nuclear grid points          ====
       if (ismask) then
          if (.not. MA_alloc_get(MT_DBL, nptp, 'maskf', l_ma, k_ma))
      &        call errquit('WFAT: maskf allocation failed', 81, MA_ERR)
@@ -193,8 +205,7 @@ c     k_acg is a 3D array with the size of natom*nqn*nch.
 c     k_acj is a 3D array with the size of natom*nqn*3*nch.
 c     k_ack is a 3D array with the size of natom*nqn*nch.
 
-c     ==== Calculate and gather the cell ====
-c     ====  function at all grid points  ====
+c     ==== Allocate cell functions at all grid points ====
       if (.not. MA_alloc_get(MT_DBL, nptp*nch, 'celf', l_cl, k_cl))
      &     call errquit('WFAT: celf allocation failed', 81, MA_ERR)
       if (.not. MA_alloc_get(MT_DBL, nptop*nch, 'celfo',
@@ -274,6 +285,14 @@ c     ==== Scan over the orientation angles ====
       if (ndid == 0) write(luout, '(5x, "The total number of '//
      &     'orientation angles is ", i9, ".")') nbt*ngm
 
+      
+      if (.not. MA_alloc_get(MT_DBL, maxn*(maxn+1+max(nb,nptp)), 
+     &     'scratch0', l_sc0, k_sc0))
+     &     call errquit('WFAT: scratch0 allocation failed', 59, MA_ERR)
+      if (.not. MA_alloc_get(MT_DBL, nb*(nch+nch1), 'vch', l_ch, k_ch))
+     &     call errquit('WFAT: vch allocation failed', 59, MA_ERR)
+
+      
       t_last = util_cpusec()
       t_start = t_last
       nang = 0
@@ -290,30 +309,64 @@ c     ==== Scan over the orientation angles ====
                gap = .true.
             endif
 
-            construct mu-diagonalizing MOs here
-            lincomb vcpsi at nuclear coords calc.ed outside of loop
+c           ==== Update wfat(0) quantities depending on diagonalization ====
+            chpos0 = chpos
+            call dcopy(nb*nch, vch(:,:nch), 1, dbl_mb(k_ch), 1)
+            call dcopy(nptp*nch, dbl_mb(k_vf), 1, dbl_mb(k_vc), 1)
+c           ^^ vch and k_vf must be preserved because they are used to construct
+c           new vectors that diagonalize H_int at every orientation.
+            call wfat_diag_update_w0(bt, gm, zi, nch, chmmt, nsub, maxn,
+     &           dgs, ndgs, dthr, dps, dbl_mb(k_sc0), nb, nptp, 
+     &           dbl_mb(k_ch), dbl_mb(k_vc), chpos0)
 
-            call wfat_need_cgrid(rtdb, geom, nch, chpos0, cgrid) 
+c           ==== Update wfat(1) quantities depending on diagonalization ====
+            if (wfat1) then
+               i_ch = k_ch + nb*nch
+               call dcopy(nb*3*nch, vch(:,nch+1:), 1, dbl_mb(i_ch), 1)
+               i_vc = k_vc + nptp*nch
+               call dcopy(nptp*3*nch, dbl_mb(k_vf+nptp*nch), 1, 
+     &              dbl_mb(i_vc), 1)
+               call wfat_diag_update_w1(bt, gm, zi, nch, nsub, maxn, 
+     &              dgs, ndgs, dthr, dps, pbs, dbl_mb(k_sc0), nb, nptp,
+     &              dbl_mb(i_ch), dbl_mb(i_vc), dbl_mb(k_pbd))
+            endif
+
             call wfat_get_wfat1_sppos(wfat1, nch, spinid, chpos0, 
-     &           int_mb(k_si), dbl_mb(k_pos)) 
+     &           int_mb(k_si), dbl_mb(k_pos))
+            call wfat_need_cgrid(rtdb, geom, nch, chpos0, cgrid)
             
+c           ==== Calculates V_eff|psi(0)> and V_eff|psi(1)> ====
+c           ====        at channel center grid points       ====
+            call wfat_collect_vfpsi_o(geom, bas, nb, ns, nch, wfat1, 
+     &           dbl_mb(k_ch), int_mb(k_si), dbl_mb(k_pos), nptop, 
+     &           dbl_mb(k_pto), cgrid, rdm, zi, smh, .false., ergmask,
+     &           amsk, bmsk, dbl_mb(k_vco))
             
-            call wfat_collect_vfpsi_o() resolve this
-            call wfat_collect_vspsi() resolve this
+c           ==== Calculates V_s|psi(0)> and V_s|psi(1)> at all grid points ====
+            call wfat_collect_vspsi(geom, bas, nb, nch, wfat1, 
+     &           dbl_mb(k_ch), dbl_mb(k_pos), nptp, nptop, dbl_mb(k_pt),
+     &           dbl_mb(k_pto), cgrid, zi, smh, .false., ergmask, amsk,
+     &           bmsk, dbl_mb(k_vs), dbl_mb(k_vso))
 
+c           ==== Calculates V_c|psi(0)> and V_c|psi(1)> at all grid points ====
+            call daxpy(nptp*(nch+nch1), 1.0d0, dbl_mb(k_vs), 1,
+     &           dbl_mb(k_vc), 1)
+            call daxpy(nptop*(nch+nch1), 1.0d0, dbl_mb(k_vso), 1,
+     &           dbl_mb(k_vco), 1)
 
-
+c           ==== Calculates cell function at all grid points ====
             call wfat_collect_celf(geom, nch, natp, int_mb(k_icp),
      &           int_mb(k_ipp), nptp, nptop, ozn, cgrid, chpos0, 
      &           dbl_mb(k_pt), dbl_mb(k_pto), celm, dbl_mb(k_cl),
-     &           dbl_mb(k_clo))   resolve this
+     &           dbl_mb(k_clo))
 
-            if (ismask) call wfat_collect_maskf_o()
+c           ==== Calculates mask function at channel center grid points ====
+            if (ismask) call wfat_collect_maskf_o(geom, natom, nch, 
+     &           cgrid, nptop, chpos0, dbl_mb(k_pto), mask_param,
+     &           dbl_mb(k_mao))
 
             
-
-            
-c           ==== Calculate tau ====
+c           ==== Calculate tau at all grid points ====
             if (pr_srfc .or. pr_rate .or. pr_tmd) then
                call wfat_collect_tau0(geom, nch, nqn, cgrid, chpos0, 
      &              erg, nid, mid, bt, gm, nptp, nptop, zi, 
@@ -464,6 +517,12 @@ c     ==== Deallocations ====
       call wfat_erase_allgrid(l_pt, l_wt)
       call wfat_erase_allgrid(l_pto, l_wto)
       call wfat_erase_acoef(wfat1, l_acg, l_acj, l_ack, l_dum)
+      if (.not. MA_free_heap(l_vf))
+     &     call errquit('WFAT: vf_psi deallocation failed', 3, MA_ERR)
+      if (.not. MA_free_heap(l_vs))
+     &     call errquit('WFAT: vs_psi deallocation failed', 3, MA_ERR)
+      if (.not. MA_free_heap(l_vso))
+     &     call errquit('WFAT: vs_psi_o deallocation failed', 3, MA_ERR)
       if (.not. MA_free_heap(l_vc))
      &     call errquit('WFAT: vc_psi deallocation failed', 3, MA_ERR)
       if (.not. MA_free_heap(l_vco))
@@ -472,6 +531,10 @@ c     ==== Deallocations ====
      &     call errquit('WFAT: celf deallocation failed', 3, MA_ERR)
       if (.not. MA_free_heap(l_clo))
      &     call errquit('WFAT: celfo deallocation failed', 3, MA_ERR)
+      if (.not. MA_free_heap(l_sc0))
+     &     call errquit('WFAT: scratch0 deallocation failed', 3, MA_ERR)
+      if (.not. MA_free_heap(l_ch))
+     &     call errquit('WFAT: vch deallocation failed', 3, MA_ERR)
       if (ismask) then
          if (.not. MA_free_heap(l_ma))
      &        call errquit('WFAT: maskf deallocation failed', 3, MA_ERR)
