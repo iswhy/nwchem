@@ -35,8 +35,8 @@ c       orb1_x orb1_y orb1_z orb2_x orb2_y orb2_z ... orb<nch>_x orb<nch>_y orb<
       double precision bmsk         !< [Input]. Only used when mask=.true.
       double precision vc_psi(*)    ! [output], no. of elements is nch if wfat1 is false, otherwise, 4*nch.
 
-      integer i, nch1, l_cf, k_cf, i_cf, b, i1, i2
-      double precision vcp(4)
+      integer i, nch1, l_cf, k_cf, i_cf, b, i1, i2, spinid0(4)
+      double precision chpos0(3,4), vcp(4)
 
       
       nch1 = 0
@@ -64,13 +64,17 @@ c        case, the first column will be used for the following calculation.
             
             if (cgrid(i)) then
                dbl_mb(k_cf:k_cf+nbas-1) = vch(:,i)
+               chpos0(:,1) = chpos(:,i)
+               spinid0(1) = spinid(i)
                if (wfat1) then
                   i_cf = k_cf + nbas
                   call dcopy(nbas*3, vch(1,i1), 1, dbl_mb(i_cf), 1)
+                  chpos0(:,2:4) = chpos(:,i)
+                  spinid0(2:4) = spinid(i)
                endif
                call wfat_dft_vcpsi_1pt(ghan, bhan, nbas, nspin, 1+b, 
-     &              dbl_mb(k_cf), spinid(i), chpos(:,i), vpt(:,i), rdm, 
-     &              zi, smh, scr, mask, ergmask, amsk, bmsk, vcp)
+     &              dbl_mb(k_cf), spinid0, chpos0, vpt(:,i), rdm, zi,
+     &              smh, scr, mask, ergmask, amsk, bmsk, vcp)
                vc_psi(i) = vcp(1)
                if (wfat1) vc_psi(i1:i2) = vcp(2:4)
             else
@@ -287,8 +291,8 @@ c       orb1_x orb1_y orb1_z orb2_x orb2_y orb2_z ... orb<nch>_x orb<nch>_y orb<
       double precision bmsk         !< [Input]. Only used when mask=.true.
       double precision vf_psi(*)    ! [output], no. of elements is nch if wfat1 is false, otherwise, 4*nch.
 
-      integer i, nch1, l_cf, k_cf, i_cf, b, i1, i2
-      double precision vfp(4)
+      integer i, nch1, l_cf, k_cf, i_cf, b, i1, i2, spinid0(4)
+      double precision chpos0(3,4), vfp(4)
 
       
       nch1 = 0
@@ -316,17 +320,17 @@ c        case, the first column will be used for the following calculation.
             
             if (cgrid(i)) then
                dbl_mb(k_cf:k_cf+nbas-1) = vch(:,i)
-c               chpos0(:,1) = chpos(:,i)
-c               spinid0(1) = spinid(i)
+               chpos0(:,1) = chpos(:,i)
+               spinid0(1) = spinid(i)
                if (wfat1) then
                   i_cf = k_cf + nbas
                   call dcopy(nbas*3, vch(1,i1), 1, dbl_mb(i_cf), 1)
-c                  chpos0(:,2:4) = chpos(:,i)
-c                  spinid0(2:4) = spinid(i)
+                  chpos0(:,2:4) = chpos(:,i)
+                  spinid0(2:4) = spinid(i)
                endif
                call wfat_dft_vfpsi_1pt(ghan, bhan, nbas, nspin, 1+b, 
-     &              dbl_mb(k_cf), spinid(i), chpos(:,i), vpt(:,i), rdm, 
-     &              zi, smh, scr, mask, ergmask, amsk, bmsk, vfp)
+     &              dbl_mb(k_cf), spinid0, chpos0, vpt(:,i), rdm, zi,
+     &              smh, scr, mask, ergmask, amsk, bmsk, vfp)
                vf_psi(i) = vfp(1)
                if (wfat1) vf_psi(i1:i2) = vfp(2:4)
             else
@@ -525,7 +529,7 @@ c       orb1_x orb1_y orb1_z orb2_x orb2_y orb2_z ... orb<nch>_x orb<nch>_y orb<
       double precision vs_psi(*)    ! [output], no. of elements is nch if wfat1 is false, otherwise, 4*nch.
 
       integer i, nch1, l_cf, k_cf, i_cf, b, i1, i2
-      double precision vsp(4)
+      double precision chpos0(3,4), vsp(4)
 
       
       nch1 = 0
@@ -552,13 +556,15 @@ c        case, the first column will be used for the following calculation.
             
             if (cgrid(i)) then
                dbl_mb(k_cf:k_cf+nbas-1) = vch(:,i)
+               chpos0(:,1) = chpos(:,i)
                if (wfat1) then
                   i_cf = k_cf + nbas
                   call dcopy(nbas*3, vch(1,i1), 1, dbl_mb(i_cf), 1)
+                  chpos0(:,2:4) = chpos(:,i)
                endif
                call wfat_dft_vspsi_1pt(ghan, bhan, nbas, 1+b, 
-     &              dbl_mb(k_cf), chpos(:,i), vpt(:,i), zi, smh, scr, 
-     &              mask, ergmask, amsk, bmsk, vsp)
+     &              dbl_mb(k_cf), chpos0, vpt(:,i), zi, smh, scr, mask,
+     &              ergmask, amsk, bmsk, vsp)
                vs_psi(i) = vsp(1)
                if (wfat1) vs_psi(i1:i2) = vsp(2:4)
             else
