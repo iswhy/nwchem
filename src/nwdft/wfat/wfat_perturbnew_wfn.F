@@ -140,6 +140,8 @@ c=======================================================
      &     maxn, dgs, ndgs, dthr, dps, scr, nb, nptp, psi, vfpsi, pos)
 
       implicit none
+#include "stdio.fh"
+#include "global.fh"
       double precision bt
       double precision gm
       double precision zi
@@ -151,7 +153,7 @@ c=======================================================
       integer ndgs(nsub)                          ! [input], the dimension of each degenerate subspace.
       double precision dthr
       double precision dps(maxn, maxn, 3, nsub)   ! [input], electronic dipole moment matrix in MF in each degenerate subspace. The 3 indices in the 3rd dimension corresponds to x, y, z.
-      double precision scr(1:*)                   ! [input], scratch array, its minimum size is maxn**2 + maxn + nb*maxn. 
+      double precision scr(1:*)                   ! [input], scratch array, its minimum size is maxn**2 + maxn + max(nb,nptp)*maxn. 
       integer nb                                  ! [input], number of basis representing psi.
       integer nptp                                ! [input], number of points where vfpsi is evaluated.
       double precision psi(nb,nch)                ! [in/output], some vectors to be mixed.
@@ -163,6 +165,14 @@ c=======================================================
       double precision protmat(3,3), cu(3), pos0(3,nch), d_tot(3)
       
 
+      if (ga_nodeid()==0) then
+         do j = 1, nch
+            write(luout, '("before", i4)') j
+            write(luout, '("  chmmt = ", 3es12.5)') chmmt(:,j)
+            write(luout, '("  pos = ", 3es12.5)') pos(:,j)
+         enddo
+      endif
+      
 c     ==== Double precision scratch pointer ====
       p_hi = 1
       p_ev = p_hi + maxn**2
@@ -172,7 +182,9 @@ c     ==== Get a passive rotation matrix ===
       call wfat_passrot(bt, gm, protmat)
       cu = protmat(:,3)
 
-      d_tot = zi*pos(:,1) - chmmt(:,1)    ! See eq. (B1) in Ref. [1]. Any orbital works, and here, the one with ID=1 is chosen.
+c      d_tot = zi*pos(:,1) - chmmt(:,1) ! See eq. (B1) in Ref. [1]. Any orbital works, and here, the one with ID=1 is chosen.
+      d_tot = -chmmt(:,1)    ! See eq. (B1) in Ref. [1]. Any orbital works, and here, the one with ID=1 is chosen.
+      if (ga_nodeid()==0) write(luout, '("neutral D = "3es12.5)') d_tot
       
       do i = 1, nsub
          nn = ndgs(i)
@@ -208,6 +220,13 @@ c              == Update channel positions ==
          endif
       enddo
 
+      if (ga_nodeid()==0) then
+         do j = 1, nch
+            write(luout, '("after", i4)') j
+            write(luout, '("  pos = ", 3es12.5)') pos(:,j)
+         enddo
+      endif
+      
       end
 c     References:
 c     [1] doi.org/10.1103/4xqd-yhdt
@@ -220,6 +239,8 @@ c=======================================================
      &     ndgs, dthr, dps, pbs, scr, nb, nptp, psi, vfpsi, pb)
 
       implicit none
+#include "global.fh"
+#include "stdio.fh"
       double precision bt
       double precision gm
       double precision zi
@@ -231,7 +252,7 @@ c=======================================================
       double precision dthr
       double precision dps(maxn, maxn, 3, nsub)   ! [input], electronic dipole moment matrix in MF in each degenerate subspace. The 3 indices in the 3rd dimension corresponds to x, y, z.
       double precision pbs(maxn, maxn, 6, nsub)   ! [input], static polarizability matrix in MF in each degenerate subspace. The 6 indices in the 3rd dimension corresponds to xx, yy, zz, xy, xz, yz.
-      double precision scr(1:*)                   ! [input], scratch array, its minimum size is maxn**2 + maxn + nb*maxn.
+      double precision scr(1:*)                   ! [input], scratch array, its minimum size is maxn**2 + maxn + max(nb,nptp)*maxn.
       integer nb                                  ! [input], number of bases representing psi.
       integer nptp                                ! [input], number of points where vfpsi is evaluated.
       double precision psi(nb,3*nch)              ! [in/output], some vectors to be mixed, it can be orbitals or potential acting on orbitals.
@@ -269,12 +290,22 @@ c           ==== Construct H_int within the degenerate MO's ====
 
 c           ==== If the above H_int is not diagonal ... ====
             if (.not. isdiag) then
+               if (ga_nodeid()==0)
+     &              write(luout, '("not diag. ", 2f8.4)') bt, gm
+               
 c              == Diagonalize H_int in this manifold ==
                call wfat_dsyev_wrap(nn, scr(p_hi), scr(p_ev))     ! 2)
 
 c              == Update x, y, and z correction vectors ==
+
+               if (ga_nodeid()==0)
+     &              write(luout, '("before sum x ", es13.6)')
+     &              sum(psi(:,1::3))
                call wfat_lincomb_vec(nb, nch, nn, scr(p_hi), dgs(:,i),
      &              scr(p_lc), psi(:,1::3))
+               if (ga_nodeid()==0)
+     &              write(luout, '("after sum x ", es13.6)')
+     &              sum(psi(:,1::3))
                call wfat_lincomb_vec(nb, nch, nn, scr(p_hi), dgs(:,i),
      &              scr(p_lc), psi(:,2::3))
                call wfat_lincomb_vec(nb, nch, nn, scr(p_hi), dgs(:,i),
@@ -298,6 +329,9 @@ c              == the H_int-diagonalizing channels  ==           ! 1)
                enddo
 c           ==== If the above H_int is diagonal ... ====
             else
+               if (ga_nodeid()==0)
+     &              write(luout, '("diag. ", 2f8.4)') bt, gm
+               
                do j = 1, nn    ! Loop over the H_int-diagonalizing channels.
                   jj = dgs(j,i)      ! Where in pb the j-th eigenstate should go.
                   call wfat_construct_polb(pbs(j,j,:,i), pb(:,:,jj))
@@ -330,6 +364,7 @@ c     dipole matrices are known.
       double precision zi
       double precision pos(3,n)  ! [output], channel positions of the desired/new orbitals.
 
+      integer i, k
       double precision mu_new(3)
 
       do i = 1, n

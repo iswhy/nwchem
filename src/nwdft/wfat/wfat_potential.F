@@ -280,7 +280,7 @@ c       orb1_x orb1_y orb1_z orb2_x orb2_y orb2_z ... orb<nch>_x orb<nch>_y orb<
       double precision rdm(nbas, nbas, nspin)
       double precision zi
       double precision smh
-      double precision scr(1:*)    ! [input], scratch array with min. no. of elements being 21*nbas+4*nspin + nbas * (3*nbas+1+nspin) + 4*(nch+nch1) where nch1=3*nch if wfat1=.true., otherwise, nch1=0.
+      double precision scr(1:*)    ! [input], scratch array with min. no. of elements being 21*nbas+4*nspin + nbas * (3*nbas+1+nspin) + 3*(nch+nch1) where nch1=3*nch if wfat1=.true., otherwise, nch1=0.
       logical mask
       double precision ergmask      !< [Input]. Only used when mask=.true.
       double precision amsk         !< [Input]. Only used when mask=.true.
@@ -316,9 +316,13 @@ c        case, the first column will be used for the following calculation.
             
             if (cgrid(i)) then
                dbl_mb(k_cf:k_cf+nbas-1) = vch(:,i)
+c               chpos0(:,1) = chpos(:,i)
+c               spinid0(1) = spinid(i)
                if (wfat1) then
                   i_cf = k_cf + nbas
                   call dcopy(nbas*3, vch(1,i1), 1, dbl_mb(i_cf), 1)
+c                  chpos0(:,2:4) = chpos(:,i)
+c                  spinid0(2:4) = spinid(i)
                endif
                call wfat_dft_vfpsi_1pt(ghan, bhan, nbas, nspin, 1+b, 
      &              dbl_mb(k_cf), spinid(i), chpos(:,i), vpt(:,i), rdm, 
@@ -361,7 +365,7 @@ c=======================================================
       double precision rdm(nbas, nbas, nspin)
       double precision zi
       double precision smh
-      double precision scr(1:*)    ! [input], scratch array with min. no. of elements being 21*nbas+4*nspin + nbas * (3*nbas+1+nspin) + 4*nch
+      double precision scr(1:*)    ! [input], scratch array with min. no. of elements being 21*nbas+4*nspin + nbas * (3*nbas+1+nspin) + 3*nch
       logical mask
       double precision ergmask      !< [Input]. Only used when mask=.true.
       double precision amsk         !< [Input]. Only used when mask=.true.
@@ -513,7 +517,7 @@ c       orb1_x orb1_y orb1_z orb2_x orb2_y orb2_z ... orb<nch>_x orb<nch>_y orb<
       logical cgrid(nch)
       double precision zi
       double precision smh
-      double precision scr(1:*)    ! [input], scratch array with min. no. of elements being 21*nbas+4*nspin + nbas * (3*nbas+1+nspin) + 4*(nch+nch1) where nch1=3*nch if wfat1=.true., otherwise, nch1=0.
+      double precision scr(1:*)       ! [input], scratch array with min. no. of elements being 21*nbas
       logical mask
       double precision ergmask      !< [Input]. Only used when mask=.true.
       double precision amsk         !< [Input]. Only used when mask=.true.
@@ -868,7 +872,7 @@ c=======================================================
 c=======================================================
       subroutine wfat_collect_vfpsi(geom, bas, nb, ns, nch, wfat1, vch,
      &     spinid, nptp, vpt, rdm, smh, ismask, ergmask, amsk, bmsk,
-     &     vc_psi)
+     &     vf_psi)
 
       implicit none
 #include "mafdecls.fh"
@@ -890,16 +894,16 @@ c=======================================================
       double precision ergmask
       double precision amsk             !< [Input]. Only used when mask=.true.
       double precision bmsk             !< [Input]. Only used when mask=.true.
-      double precision vc_psi(nptp,*)   ! [output], V_c|psi> evaluated at nucleus grid points. The no. of columns is nch if wfat1 is false, otherwise, 4*nch.
+      double precision vf_psi(nptp,*)   ! [output], V_c|psi> evaluated at nucleus grid points. The no. of columns is nch if wfat1 is false, otherwise, 4*nch.
 
-      logical dumloc(nch)
+      logical dumlog(nch)
       integer nch1, nscr, i, l_sc, k_sc
       double precision vpta(3,nch), dumvec(3,4*nch)
 
       
       nch1 = 0
       if (wfat1) nch1 = 3*nch
-      nscr = 21*nb + 4*ns + nb * (3*nb+1+ns) + 4*(nch+nch1)
+      nscr = 21*nb + 4*ns + nb * (3*nb+1+ns) + 3*(nch+nch1)
       if (.not. MA_alloc_get(MT_DBL, nscr, 'scratch', l_sc, k_sc))
      &     call errquit('WFAT: scratch allocation failed', 59, MA_ERR)
 
@@ -914,7 +918,7 @@ c     ==== Evaluating V_eff|psi> at nucleus grids ====
          call wfat_dft_vfpsi_1pt_c(500, geom, bas, nb, ns, nch, wfat1,
      &        vch, spinid, dumvec, vpta, dumlog, rdm, 0.0d0, smh,
      &        dbl_mb(k_sc), .false., 0.0d0, 0.0d0, 0.0d0,
-     &        vc_psi(i,1:nch+nch1))
+     &        vf_psi(i,1:nch+nch1))
 c        ^^ dumvec takes the place of chpos. Although it might be needed when
 c        icent=500, it is only needed for wavefunction masking inside 
 c        wfat_dft_vfpsi_1pt_c, which is prohibited at the moment when running
@@ -932,7 +936,7 @@ c=======================================================
 c=======================================================
       subroutine wfat_collect_vfpsi_o(geom, bas, nb, ns, nch, wfat1,
      &     vch, spinid, chpos, nptop, vpto, cgrid, rdm, zi, smh, ismask,
-     &     ergmask, amsk, bmsk, vc_psio)
+     &     ergmask, amsk, bmsk, vf_psio)
 
       implicit none
 #include "mafdecls.fh"
@@ -957,7 +961,7 @@ c=======================================================
       double precision ergmask
       double precision amsk             !< [Input]. Only used when mask=.true.
       double precision bmsk             !< [Input]. Only used when mask=.true.
-      double precision vc_psio(nptop,*) ! [output], V_c|psi> evaluated at channel-origin grid points. The no. of columns is nch if wfat1 is false, otherwise, 4*nch.
+      double precision vf_psio(nptop,*) ! [output], V_c|psi> evaluated at channel-origin grid points. The no. of columns is nch if wfat1 is false, otherwise, 4*nch.
 
       integer nch1, nscr, i, l_sc, k_sc
       double precision vpta(3,nch)
@@ -965,7 +969,7 @@ c=======================================================
       
       nch1 = 0
       if (wfat1) nch1 = 3*nch
-      nscr = 21*nb + 4*ns + nb * (3*nb+1+ns) + 4*(nch+nch1)
+      nscr = 21*nb + 4*ns + nb * (3*nb+1+ns) + 3*(nch+nch1)
       if (.not. MA_alloc_get(MT_DBL, nscr, 'scratch', l_sc, k_sc))
      &     call errquit('WFAT: scratch allocation failed', 59, MA_ERR)
 
@@ -973,10 +977,10 @@ c=======================================================
 c     ==== Evaluating V_c|psi> at channel-origin grids ====
       do i = 1, nptop
          call wfat_mf_ogrid(nch, chpos, vpto(:,i), vpta)
-         call wfat_dft_vcpsi_1pt_c(-1, geom, bas, nb, ns, nch, wfat1,
+         call wfat_dft_vfpsi_1pt_c(-1, geom, bas, nb, ns, nch, wfat1,
      &        vch, spinid, chpos, vpta, cgrid, rdm, zi, smh,
      &        dbl_mb(k_sc), .false., 0.0d0, 0.0d0, 0.0d0,
-     &        vc_psio(i,1:nch+nch1))
+     &        vf_psio(i,1:nch+nch1))
       enddo
       
 
@@ -1018,14 +1022,14 @@ c=======================================================
       double precision vs_psi(nptp,*)   ! [output], V_c|psi> evaluated at nucleus grid points. The no. of columns is nch if wfat1 is false, otherwise, 4*nch.
       double precision vs_psio(nptop,*) ! [output], V_c|psi> evaluated at channel-origin grid points. The no. of columns is nch if wfat1 is false, otherwise, 4*nch.
 
-      integer nch1, nscr, i, l_sc, k_sc
+      integer nch1, i, l_sc, k_sc
       double precision vpta(3,nch)
 
       
       nch1 = 0
       if (wfat1) nch1 = 3*nch
-      nscr = 21*nb + 4*ns + nb * (3*nb+1+ns) + 4*(nch+nch1)
-      if (.not. MA_alloc_get(MT_DBL, nscr, 'scratch', l_sc, k_sc))
+cOLD      nscr = 21*nb + 4*ns + nb * (3*nb+1+ns) + 4*(nch+nch1)
+      if (.not. MA_alloc_get(MT_DBL, 21*nb, 'scratch', l_sc, k_sc))
      &     call errquit('WFAT: scratch allocation failed', 59, MA_ERR)
 
 c     ==== Evaluating V_c|psi> at nucleus grids ====

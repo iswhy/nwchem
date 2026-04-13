@@ -96,7 +96,7 @@ c     ==== Obtaining info on gamma ====
       dgmr = dgm * deg2rad
 
 c     ==== Obtaining laser field ====
-      call wfat_prep_dcfield(rtdb, fieldm)
+      if (pr_rate) call wfat_prep_dcfield(rtdb, fieldm)
       
 c     ==== Calculate and gather nuclei grid points ====
       call wfat_alloc_gridrange(natom, l_icp, k_icp, l_ipp, k_ipp)
@@ -325,7 +325,8 @@ c           new vectors that diagonalize H_int at every orientation.
 c           ==== Update wfat(1) quantities depending on diagonalization ====
             if (wfat1) then
                i_ch = k_ch + nb*nch
-               call dcopy(nb*3*nch, vch(:,nch+1:), 1, dbl_mb(i_ch), 1)
+               call dcopy(nb*3*nch, vch(:,nch+1:4*nch), 1, dbl_mb(i_ch),
+     &              1)
                j_vc = k_vc + nptp*nch
                call dcopy(nptp*3*nch, dbl_mb(k_vf+nptp*nch), 1, 
      &              dbl_mb(j_vc), 1)
@@ -352,9 +353,9 @@ c           ==== Calculates V_s|psi(0)> and V_s|psi(1)> at all grid points ====
      &           bmsk, dbl_mb(k_vs), dbl_mb(k_vso))
 
 c           ==== Calculates V_c|psi(0)> and V_c|psi(1)> at all grid points ====
-            call daxpy(nptp*(nch+nch1), 1.0d0, dbl_mb(k_vs), 1,
+            call daxpy(nptp*(nch+nch1), -1.0d0, dbl_mb(k_vs), 1,
      &           dbl_mb(k_vc), 1)
-            call daxpy(nptop*(nch+nch1), 1.0d0, dbl_mb(k_vso), 1,
+            call daxpy(nptop*(nch+nch1), -1.0d0, dbl_mb(k_vso), 1,
      &           dbl_mb(k_vco), 1)
 
 c           ==== Calculates cell function at all grid points ====

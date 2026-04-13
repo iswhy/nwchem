@@ -124,8 +124,10 @@ c     ==== Obtaining parabolic quantum numbers ====
       
 
 c     ==== Obtaining WFAT(1) information ====
+      if (ndid==0) write(luout, '("hereu0")')
       call wfat_prep_wfat1(rtdb, nch, nqn, wfat1, nlgl, nw1x, l_w1x,
      &     k_w1x)
+      if (ndid==0) write(luout, '("hereu1")')
 
       
 c     ==== Check if research mode is enabled ====
@@ -133,6 +135,7 @@ c     ==== Check if research mode is enabled ====
 
 
 c     ==== Obtaining print switches ====
+      if (ndid==0) write(luout, '("hereu2")')
       call wfat_prep_printsw(rtdb, '', pr_srfc, pr_rate, pr_yild, 
      &     pr_avbeta, pr_avgamma, pr_tmd, pr_tmd_atom)
 
@@ -151,6 +154,7 @@ cfordebug      call wfat_test_numerfexch(rtdb)
       
 
 c     ==== Allocate channel properties ====
+      if (ndid==0) write(luout, '("hereu3")')
       call wfat_prep_channelprop(nch, nerg, ncpos, ncmm, niond,
      &     l_eg, k_eg, l_ps, k_ps, l_cmm, k_cmm, l_idp, k_idp)
       
@@ -177,10 +181,13 @@ c     ==== Printing the corrected ionizing orbital ====
 
       
 c     ==== GTO coefficients of ionized orbitals and their properties ====
+      if (ndid==0) write(luout, '("hereu4")')
       call wfat_prep_cf(nch, nbas0, wfat1, ncf, nch1, l_cf, k_cf)
+      if (ndid==0) write(luout, '("hereu5")')
       call wfat_orb_property(rtdb, nch, int_mb(k_or), int_mb(k_sp), 
      &     dbl_mb(k_cf), dbl_mb(k_eg), dbl_mb(k_ps), dbl_mb(k_cmm),
      &     dbl_mb(k_idp))
+      if (ndid==0) write(luout, '("hereu6")')
       if (wfat1) then
          call wfat_orb1_property(nch, int_mb(k_sp), int_mb(k_or),
      &        dbl_mb(k_cf+nbas0*nch), dbl_mb(k_pb))
