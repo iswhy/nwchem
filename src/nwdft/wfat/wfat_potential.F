@@ -35,7 +35,7 @@ c       orb1_x orb1_y orb1_z orb2_x orb2_y orb2_z ... orb<nch>_x orb<nch>_y orb<
       double precision bmsk         !< [Input]. Only used when mask=.true.
       double precision vc_psi(*)    ! [output], no. of elements is nch if wfat1 is false, otherwise, 4*nch.
 
-      integer i, nch1, l_cf, k_cf, i_cf, b, i1, i2, spinid0(4)
+      integer i, j, nch1, l_cf, k_cf, i_cf, b, i1, i2, spinid0(4)
       double precision chpos0(3,4), vcp(4)
 
       
@@ -69,7 +69,9 @@ c        case, the first column will be used for the following calculation.
                if (wfat1) then
                   i_cf = k_cf + nbas
                   call dcopy(nbas*3, vch(1,i1), 1, dbl_mb(i_cf), 1)
-                  chpos0(:,2:4) = chpos(:,i)
+                  do j = 2,4
+                     chpos0(:,j) = chpos(:,i)
+                  enddo
                   spinid0(2:4) = spinid(i)
                endif
                call wfat_dft_vcpsi_1pt(ghan, bhan, nbas, nspin, 1+b, 
@@ -291,7 +293,7 @@ c       orb1_x orb1_y orb1_z orb2_x orb2_y orb2_z ... orb<nch>_x orb<nch>_y orb<
       double precision bmsk         !< [Input]. Only used when mask=.true.
       double precision vf_psi(*)    ! [output], no. of elements is nch if wfat1 is false, otherwise, 4*nch.
 
-      integer i, nch1, l_cf, k_cf, i_cf, b, i1, i2, spinid0(4)
+      integer i, j, nch1, l_cf, k_cf, i_cf, b, i1, i2, spinid0(4)
       double precision chpos0(3,4), vfp(4)
 
       
@@ -325,7 +327,9 @@ c        case, the first column will be used for the following calculation.
                if (wfat1) then
                   i_cf = k_cf + nbas
                   call dcopy(nbas*3, vch(1,i1), 1, dbl_mb(i_cf), 1)
-                  chpos0(:,2:4) = chpos(:,i)
+                  do j = 2,4
+                     chpos0(:,j) = chpos(:,i)
+                  enddo
                   spinid0(2:4) = spinid(i)
                endif
                call wfat_dft_vfpsi_1pt(ghan, bhan, nbas, nspin, 1+b, 
@@ -528,7 +532,7 @@ c       orb1_x orb1_y orb1_z orb2_x orb2_y orb2_z ... orb<nch>_x orb<nch>_y orb<
       double precision bmsk         !< [Input]. Only used when mask=.true.
       double precision vs_psi(*)    ! [output], no. of elements is nch if wfat1 is false, otherwise, 4*nch.
 
-      integer i, nch1, l_cf, k_cf, i_cf, b, i1, i2
+      integer j, i, nch1, l_cf, k_cf, i_cf, b, i1, i2
       double precision chpos0(3,4), vsp(4)
 
       
@@ -560,7 +564,9 @@ c        case, the first column will be used for the following calculation.
                if (wfat1) then
                   i_cf = k_cf + nbas
                   call dcopy(nbas*3, vch(1,i1), 1, dbl_mb(i_cf), 1)
-                  chpos0(:,2:4) = chpos(:,i)
+                  do j = 2,4
+                     chpos0(:,j) = chpos(:,i)
+                  enddo
                endif
                call wfat_dft_vspsi_1pt(ghan, bhan, nbas, 1+b, 
      &              dbl_mb(k_cf), chpos0, vpt(:,i), zi, smh, scr, mask,

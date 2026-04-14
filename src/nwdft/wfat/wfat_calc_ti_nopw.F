@@ -238,6 +238,8 @@ c     ==== When WFAT1 is active ====
      &        call wfat_print_o(nch, nqn, nid, mid, dbl_mb(k_on))
          if (.not. rtdb_get(rtdb, 'wfat:wfat1_interm', mt_log, 1,
      &        interm)) interm = .false.
+      else
+         interm = .false.
       endif
 
 
@@ -257,6 +259,9 @@ c     ==== Initializing the printings ====
      &     call wfat_initprint_rate(nch, orbid0, spinid, nqn, nid, mid)
       if (ndid == 0 .and. pr_tmd)
      &     call wfat_print_kmax(fieldm, nch, erg, nqn, nid, mid)
+      if (ndid == 0 .and. wfat1 .and. interm) 
+     &     call wfat_initprint_interm(nch, orbid0, spinid, nqn, nid,
+     &     mid, wfat1_exc)
 
 
       if (ndid == 0) then
@@ -455,6 +460,12 @@ c              ==== Print structure factor ====
                endif
             endif
 
+            if (ndid == 0 .and. wfat1 .and. interm)
+     &           call wfat_print_interm(bt, gm, natom, nqn, nch, nid, 
+     &           mid, erg, zi, dcpl_mb(k_sg), dcpl_mb(k_sj), 
+     &           dcpl_mb(k_sk), dbl_mb(k_on), chmmt, dbl_mb(k_pbd),
+     &           wfat1_exc, gap)
+            
             if (pr_rate) then
 c              ==== Calculate ionization rate ====
                if (wfat1) then
@@ -474,7 +485,7 @@ c              ==== Print ionization rate ====
      &              rate, gap)
             endif
 
-c     ==== Print TMD ====
+c           ==== Print TMD ====
             rtdb_stat = rtdb_parallel(.false.)
             if (ndid == 0 .and. pr_tmd) then
                if (wfat1) then
@@ -517,6 +528,8 @@ c     ==== Terminating printings ====
          if (wfat1) call wfat_endprint_srfc1()
       endif
       if (ndid==0 .and. pr_rate) call wfat_endprint_rate()
+      if (ndid == 0 .and. wfat1 .and. interm) 
+     &     call wfat_endprint_interm()
       
 
 c     ==== Deallocations ====
