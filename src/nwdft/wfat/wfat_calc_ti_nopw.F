@@ -54,22 +54,23 @@ c=======================================================
 
       character*12 dt_str
       character*16 tagt
-      logical gap, interm, cgrid(nch), rtdb_stat
+      logical gap, interm, cgrid(nch), rtdb_stat, isdiag(nsub)
       integer l_sg, l_fc, l_rt, l_icp, l_ipp, l_pt, l_wt, l_vc, l_cl
       integer l_ma, l_tu0, l_tu1, l_acg, l_acj, l_ack, l_dum, l_sc, l_sx
       integer l_pbd, l_sj, l_sk, l_on, l_si, l_pos, l_pto, l_wto, l_vco
       integer l_clo, l_mao, l_tu0o, l_tu1o, l_vf, l_vs, l_vso, l_ch
-      integer l_sc0
+      integer l_hi
       integer k_sg, k_fc, k_rt, k_icp, k_ipp, k_pt, k_wt, k_vc, k_cl
       integer k_ma, k_tu0, k_tu1, k_acg, k_acj, k_ack, k_dum, k_sc, k_sx
       integer k_pbd, k_sj, k_sk, k_on, k_si, k_pos, k_pto, k_wto, k_vco
       integer k_clo, k_mao, k_tu0o, k_tu1o, k_vf, k_vs, k_vso, k_ch
-      integer k_sc0
+      integer k_hi
       integer natom, n_sg, nfc, nrt, n_pt, n_wt, n_pto, n_wto, n_acg
       integer n_acj, n_ack, n_dum, nsc, nsx, npbd, n_sj, n_sk, n_on
       integer nch1, ndid, nbt, ngm, natp, natop, nptp, nptop, i, k, iqn
       integer i_on, ig, ib, i_tu0, i_tu0o, i_vc, i_vco, i_acj, icpo
       integer ippo(2), ozn, geomo, pr_chk(20), nang, kk, j_vc, i_ch
+      integer i_ev, i_lc, nsc0
       double precision bt_start, bt_last, dbt, dbtr, gm_start, gm_last
       double precision dgm, dgmr, dthr, bt, gm, rate, vdum(3), fieldm
       double precision deg2rad, t_now, t_last, t_start, dt_all, dt_prog
@@ -293,13 +294,14 @@ c     ==== Scan over the orientation angles ====
       if (ndid == 0) write(luout, '(5x, "The total number of '//
      &     'orientation angles is ", i9, ".")') nbt*ngm
 
-      
-      if (.not. MA_alloc_get(MT_DBL, maxn*(maxn+1+max(nb,nptp)), 
-     &     'scratch0', l_sc0, k_sc0))
+
+      nsc0 = maxn**2*nsub + maxn*nsub + maxn*max(nb,nptp)
+      if (.not. MA_alloc_get(MT_DBL, nsc0, 'scratch0', l_hi, k_hi))
      &     call errquit('WFAT: scratch0 allocation failed', 59, MA_ERR)
       if (.not. MA_alloc_get(MT_DBL, nb*(nch+nch1), 'vch', l_ch, k_ch))
      &     call errquit('WFAT: vch allocation failed', 59, MA_ERR)
-
+      i_ev = k_hi + maxn**2*nsub
+      i_lc = i_ev + maxn*nsub
       
       t_last = util_cpusec()
       t_start = t_last
@@ -317,6 +319,9 @@ c     ==== Scan over the orientation angles ====
                gap = .true.
             endif
 
+            call wfat_hint_diag(bt, gm, nsub, maxn, ndgs, dthr, dps,
+     &           isdiag, dbl_mb(k_hi), dbl_mb(i_ev))
+            
 c           ==== Update wfat(0) quantities depending on diagonalization ====
             chpos0 = chpos
             call dcopy(nb*nch, vch(:,:nch), 1, dbl_mb(k_ch), 1)
@@ -324,8 +329,9 @@ c           ==== Update wfat(0) quantities depending on diagonalization ====
 c           ^^ vch and k_vf must be preserved because they are used to construct
 c           new vectors that diagonalize H_int at every orientation.
             call wfat_diag_update_w0(bt, gm, zi, nch, chmmt, nsub, maxn,
-     &           dgs, ndgs, dthr, dps, dbl_mb(k_sc0), nb, nptp, 
-     &           dbl_mb(k_ch), dbl_mb(k_vc), chpos0)
+     &           dgs, ndgs, dthr, dps, dbl_mb(k_hi), isdiag, 
+     &           dbl_mb(i_lc), nb, nptp, dbl_mb(k_ch), dbl_mb(k_vc),
+     &           chpos0)
 
 c           ==== Update wfat(1) quantities depending on diagonalization ====
             if (wfat1) then
@@ -336,8 +342,9 @@ c           ==== Update wfat(1) quantities depending on diagonalization ====
                call dcopy(nptp*3*nch, dbl_mb(k_vf+nptp*nch), 1, 
      &              dbl_mb(j_vc), 1)
                call wfat_diag_update_w1(bt, gm, zi, nch, nsub, maxn, 
-     &              dgs, ndgs, dthr, dps, pbs, dbl_mb(k_sc0), nb, nptp,
-     &              dbl_mb(i_ch), dbl_mb(j_vc), dbl_mb(k_pbd))
+     &              dgs, ndgs, dthr, dps, pbs, dbl_mb(k_hi), isdiag, 
+     &              dbl_mb(i_lc), nb, nptp, dbl_mb(i_ch), dbl_mb(j_vc),
+     &              dbl_mb(k_pbd))
             endif
 
             call wfat_get_wfat1_sppos(wfat1, nch, spinid, chpos0, 
@@ -552,7 +559,7 @@ c     ==== Deallocations ====
      &     call errquit('WFAT: celf deallocation failed', 3, MA_ERR)
       if (.not. MA_free_heap(l_clo))
      &     call errquit('WFAT: celfo deallocation failed', 3, MA_ERR)
-      if (.not. MA_free_heap(l_sc0))
+      if (.not. MA_free_heap(l_hi))
      &     call errquit('WFAT: scratch0 deallocation failed', 3, MA_ERR)
       if (.not. MA_free_heap(l_ch))
      &     call errquit('WFAT: vch deallocation failed', 3, MA_ERR)
