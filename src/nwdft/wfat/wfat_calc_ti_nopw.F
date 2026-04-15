@@ -627,8 +627,9 @@ c=======================================================
       double complex acf(natom,nqn,nch)   ! [output]
 
       integer nac, nac_p, l_acp, k_acp, l_acop, k_acop, g_ac
-      double complex czero
-      parameter ( czero = cmplx(0.0d0, 0.0d0, kind=kind(1.0d0)) )
+      double complex czero, cone
+      parameter ( czero = cmplx(0.0d0, 0.0d0, kind=kind(1.0d0)),
+     &          cone = cmplx(1.0d0, 0.0d0, kind=kind(1.0d0)) )
 
 
 cnopw      call errquit('WFAT: Make sure all instances of call '//
@@ -644,7 +645,7 @@ c        element of acf (it only modifies elements that correspond to the center
 c        of the current process). This means that the elements that are not
 c        modified will have their whatever initial values at the input of this
 c        subroutine, which is undesireable.
-
+      
       nac = natom * nqn * nch
       if (.not. ga_create(mt_dcpl, nac, 1, 'acf', 0, 0, g_ac))
      &     call errquit('WFAT: Cannot create acf global array.',
@@ -675,10 +676,10 @@ c     ====          in the array that holds all atoms            ====
 c     2) At this point, acf contains the current process' contribution to the
 c        asymptotic coefficients. It will be added with the contributions of
 c        all the other processes below in the call to ga_acc.
-
+      
 c     ==== Accumulate the asymptotic coefficients across all processes ====
       call ga_sync()
-      call ga_acc(g_ac, 1, nac, 1, 1, acf, nac, 1.0d0)      
+      call ga_acc(g_ac, 1, nac, 1, 1, acf, nac, cone)
       call ga_sync()
       acf = czero    ! For safety
       call ga_get(g_ac, 1, nac, 1, 1, acf, nac)       ! 3)

@@ -221,19 +221,11 @@ c=======================================================
       integer i, nn, k, j
       double precision pos0(3,nch), d_tot(3)
       
-
-      if (ga_nodeid()==0) then
-         do j = 1, nch
-            write(luout, '("before", i4)') j
-            write(luout, '("  chmmt = ", 3es12.5)') chmmt(:,j)
-            write(luout, '("  pos = ", 3es12.5)') pos(:,j)
-         enddo
-      endif
       
 c     ==== Get a passive rotation matrix ===
 c      d_tot = zi*pos(:,1) - chmmt(:,1) ! See eq. (B1) in Ref. [1]. Any orbital works, and here, the one with ID=1 is chosen.
       d_tot = -chmmt(:,1)    ! See eq. (B1) in Ref. [1]. Any orbital works, and here, the one with ID=1 is chosen.
-      if (ga_nodeid()==0) write(luout, '("neutral D = "3es12.5)') d_tot
+cdebug      if (ga_nodeid()==0) write(luout, '("neutral D = "3es12.5)') d_tot
       
       do i = 1, nsub
          nn = ndgs(i)
@@ -255,13 +247,6 @@ c              == Update channel positions ==
             endif
          endif
       enddo
-
-      if (ga_nodeid()==0) then
-         do j = 1, nch
-            write(luout, '("after", i4)') j
-            write(luout, '("  pos = ", 3es12.5)') pos(:,j)
-         enddo
-      endif
       
       end
 c     References:
