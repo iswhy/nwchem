@@ -313,12 +313,13 @@ c     ==== Scan over the orientation angles ====
          do ib = 1, nbt
             bt = bt_start + dbt*(ib-1)
 
-            if (ib /= nbt) then
+            if (nbt == 1 .or. ib /= nbt) then
                gap = .false.
             else
                gap = .true.
             endif
 
+c           ==== Diagonalize H_int ====
             call wfat_hint_diag(bt, gm, nsub, maxn, ndgs, dthr, dps,
      &           isdiag, dbl_mb(k_hi), dbl_mb(i_ev))
             
@@ -328,10 +329,9 @@ c           ==== Update wfat(0) quantities depending on diagonalization ====
             call dcopy(nptp*nch, dbl_mb(k_vf), 1, dbl_mb(k_vc), 1)
 c           ^^ vch and k_vf must be preserved because they are used to construct
 c           new vectors that diagonalize H_int at every orientation.
-            call wfat_diag_update_w0(bt, gm, zi, nch, chmmt, nsub, maxn,
-     &           dgs, ndgs, dthr, dps, dbl_mb(k_hi), isdiag, 
-     &           dbl_mb(i_lc), nb, nptp, dbl_mb(k_ch), dbl_mb(k_vc),
-     &           chpos0)
+            call wfat_diag_update_w0(zi, nch, chmmt, nsub, maxn,
+     &           dgs, ndgs, dps, dbl_mb(k_hi), isdiag, dbl_mb(i_lc), nb,
+     &           nptp, dbl_mb(k_ch), dbl_mb(k_vc), chpos0)
 
 c           ==== Update wfat(1) quantities depending on diagonalization ====
             if (wfat1) then
@@ -341,10 +341,9 @@ c           ==== Update wfat(1) quantities depending on diagonalization ====
                j_vc = k_vc + nptp*nch
                call dcopy(nptp*3*nch, dbl_mb(k_vf+nptp*nch), 1, 
      &              dbl_mb(j_vc), 1)
-               call wfat_diag_update_w1(bt, gm, zi, nch, nsub, maxn, 
-     &              dgs, ndgs, dthr, dps, pbs, dbl_mb(k_hi), isdiag, 
-     &              dbl_mb(i_lc), nb, nptp, dbl_mb(i_ch), dbl_mb(j_vc),
-     &              dbl_mb(k_pbd))
+               call wfat_diag_update_w1(nch, nsub, maxn, dgs, ndgs, pbs,
+     &              dbl_mb(k_hi), isdiag, dbl_mb(i_lc), nb, nptp, 
+     &              dbl_mb(i_ch), dbl_mb(j_vc), dbl_mb(k_pbd))
             endif
 
             call wfat_get_wfat1_sppos(wfat1, nch, spinid, chpos0, 

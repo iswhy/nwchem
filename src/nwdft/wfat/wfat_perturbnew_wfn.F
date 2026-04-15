@@ -194,15 +194,13 @@ c=======================================================
 
 c=======================================================
 c=======================================================
-      subroutine wfat_diag_update_w0(bt, gm, zi, nch, chmmt, nsub, 
-     &     maxn, dgs, ndgs, dthr, dps, cf, isdiag, scr, nb, nptp, psi, 
-     &     vfpsi, pos)
+      subroutine wfat_diag_update_w0(zi, nch, chmmt, nsub, maxn,
+     &     dgs, ndgs, dps, cf, isdiag, scr, nb, nptp, psi, vfpsi,
+     &     pos)
 
       implicit none
 #include "stdio.fh"
 #include "global.fh"
-      double precision bt
-      double precision gm
       double precision zi
       integer nch
       double precision chmmt(3,nch)
@@ -210,8 +208,7 @@ c=======================================================
       integer maxn                                ! [input], the largest dimension of all degenerate subspaces, i.e. maxn=maxval(ndgs).
       integer dgs(maxn, nsub)                     ! [input], the channel ID arranged into degenerate subspaces (columns). Each subspace (column) must only have states of the same spin.
       integer ndgs(nsub)                          ! [input], the dimension of each degenerate subspace.
-      double precision dthr
-      double precision dps(maxn, maxn, 3, nsub) ! [input], electronic dipole moment matrix in MF in each degenerate subspace. The 3 indices in the 3rd dimension corresponds to x, y, z.
+      double precision dps(maxn, maxn, 3, nsub)   ! [input], electronic dipole moment matrix in MF in each degenerate subspace. The 3 indices in the 3rd dimension corresponds to x, y, z.
       double precision cf(maxn**2,nsub)
       logical isdiag(nsub)
       double precision scr(1:*)                   ! [input], scratch array, its minimum size is maxn**2 + maxn + max(nb,nptp)*maxn. 
@@ -221,8 +218,8 @@ c=======================================================
       double precision vfpsi(nptp,nch)            ! [in/output], vectors resulting from the action of V_eff on the vectors in psi.
       double precision pos(3,nch)                 ! [in/output], channel positions.
 
-      integer p_hi, p_ev, p_lc, i, nn, k, j
-      double precision protmat(3,3), cu(3), pos0(3,nch), d_tot(3)
+      integer i, nn, k, j
+      double precision pos0(3,nch), d_tot(3)
       
 
       if (ga_nodeid()==0) then
@@ -233,43 +230,21 @@ c=======================================================
          enddo
       endif
       
-c     ==== Double precision scratch pointer ====
-c      p_hi = 1
-c      p_ev = p_hi + maxn**2
-c      p_lc = p_ev + maxn
-      p_lc = 1
-      
 c     ==== Get a passive rotation matrix ===
-c      call wfat_passrot(bt, gm, protmat)
-c      cu = protmat(:,3)
-
 c      d_tot = zi*pos(:,1) - chmmt(:,1) ! See eq. (B1) in Ref. [1]. Any orbital works, and here, the one with ID=1 is chosen.
       d_tot = -chmmt(:,1)    ! See eq. (B1) in Ref. [1]. Any orbital works, and here, the one with ID=1 is chosen.
       if (ga_nodeid()==0) write(luout, '("neutral D = "3es12.5)') d_tot
       
       do i = 1, nsub
          nn = ndgs(i)
-c         isdiag = .true.
 
-c        ==== Calculate static polarizability tensor ====
          if (nn > 1) then
-c           ==== Construct H_int within the degenerate MO's ====
-c            scr(p_hi:p_hi+nn**2-1) = 0.0d0
-c            do k = 1, 3
-c               call wfat_matrix_sumabsorb(nn, nn, scr(p_hi),
-c     &              dps(1:nn,1:nn,k,i), 1.0d0, cu(k))
-c            enddo
-c            call wfat_isdiag(nn, scr(p_hi), dthr, isdiag)
-
             if (.not. isdiag(i)) then
-c              == Diagonalize H_int in this manifold ==
-c               call wfat_dsyev_wrap(nn, scr(p_hi), scr(p_ev))    ! 2)
-
 c              == Update vectors ==
                call wfat_lincomb_vec(nb, nch, nn, cf(1,i), dgs(:,i),
-     &              scr(p_lc), psi)
+     &              scr, psi)
                call wfat_lincomb_vec(nptp, nch, nn, cf(1,i), dgs(:,i),
-     &              scr(p_lc), vfpsi)
+     &              scr, vfpsi)
 
 c              == Update channel positions ==
                call wfat_chpos_cf(nn, cf(1,i), dps(:nn,:nn,:,i), d_tot,
@@ -296,23 +271,17 @@ c=======================================================
 
 c=======================================================
 c=======================================================
-      subroutine wfat_diag_update_w1(bt, gm, zi, nch, nsub, maxn, dgs, 
-     &     ndgs, dthr, dps, pbs, cf, isdiag, scr, nb, nptp, psi, vfpsi,
-     &     pb)
+      subroutine wfat_diag_update_w1(nch, nsub, maxn, dgs, ndgs, pbs, 
+     &     cf, isdiag, scr, nb, nptp, psi, vfpsi, pb)
 
       implicit none
 #include "global.fh"
 #include "stdio.fh"
-      double precision bt
-      double precision gm
-      double precision zi
       integer nch
       integer nsub                                ! [input], the number of degenerate subspaces, a nondegenerate state is considered a degenerate state in a subspace of dimension 1.
       integer maxn                                ! [input], the largest dimension of all degenerate subspaces, i.e. maxn=maxval(ndgs).
       integer dgs(maxn, nsub)                     ! [input], the channel ID arranged into degenerate subspaces (columns). Each subspace (column) must only have states of the same spin.
       integer ndgs(nsub)                          ! [input], the dimension of each degenerate subspace.
-      double precision dthr
-      double precision dps(maxn, maxn, 3, nsub)   ! [input], electronic dipole moment matrix in MF in each degenerate subspace. The 3 indices in the 3rd dimension corresponds to x, y, z.
       double precision pbs(maxn, maxn, 6, nsub) ! [input], static polarizability matrix in MF in each degenerate subspace. The 6 indices in the 3rd dimension corresponds to xx, yy, zz, xy, xz, yz.
       double precision cf(maxn**2,nsub)
       logical isdiag(nsub)
@@ -323,65 +292,31 @@ c=======================================================
       double precision vfpsi(nptp,3*nch)          ! [in/output], some vectors to be mixed, it can be orbitals or potential acting on orbitals.
       double precision pb(3,3,nch)                ! [output], MF polarizability tensor for each ionized channels.
       
-      integer p_hi, p_ev, p_lc, i_hi, i, nn, k, j, jj
-      double precision protmat(3,3), cu(3)
-
-
-c     ==== Double precision scratch pointer ====
-c      p_hi = 1
-c      p_ev = p_hi + maxn**2
-c      p_lc = p_ev + maxn
-      p_lc = 1
-
-c     ==== Get a passive rotation matrix ===
-      call wfat_passrot(bt, gm, protmat)
-      cu = protmat(:,3)
+      integer i_hi, i, nn, j, jj
 
 
       do i = 1, nsub
          nn = ndgs(i)
-c         isdiag = .true.
 
 c        ==== Calculate static polarizability tensor ====
          if (nn > 1) then
-c           ==== Construct H_int within the degenerate MO's ====
-c            scr(p_hi:p_hi+nn**2-1) = 0.0d0
-c            do k = 1, 3
-c               call wfat_matrix_sumabsorb(nn, nn, scr(p_hi),
-c     &              dps(1:nn,1:nn,k,i), 1.0d0, cu(k))
-c            enddo
-c            call wfat_isdiag(nn, scr(p_hi), dthr, isdiag)
 
-c           ==== If the above H_int is not diagonal ... ====
             if (.not. isdiag(i)) then
-               if (ga_nodeid()==0)
-     &              write(luout, '("not diag. ", 2f8.4)') bt, gm
-               
-c              == Diagonalize H_int in this manifold ==
-c               call wfat_dsyev_wrap(nn, scr(p_hi), scr(p_ev))     ! 2)
-
 c              == Update x, y, and z correction vectors ==
-
-               if (ga_nodeid()==0)
-     &              write(luout, '("before sum x ", es13.6)')
-     &              sum(psi(:,1::3))
                call wfat_lincomb_vec(nb, nch, nn, cf(1,i), dgs(:,i),
-     &              scr(p_lc), psi(:,1::3))
-               if (ga_nodeid()==0)
-     &              write(luout, '("after sum x ", es13.6)')
-     &              sum(psi(:,1::3))
+     &              scr, psi(:,1::3))
                call wfat_lincomb_vec(nb, nch, nn, cf(1,i), dgs(:,i),
-     &              scr(p_lc), psi(:,2::3))
+     &              scr, psi(:,2::3))
                call wfat_lincomb_vec(nb, nch, nn, cf(1,i), dgs(:,i),
-     &              scr(p_lc), psi(:,3::3))
+     &              scr, psi(:,3::3))
                
 c              == Update V_eff acting on the x, y, and z correction vectors ==
                call wfat_lincomb_vec(nptp, nch, nn, cf(1,i), dgs(:,i),
-     &              scr(p_lc), vfpsi(:,1::3))
+     &              scr, vfpsi(:,1::3))
                call wfat_lincomb_vec(nptp, nch, nn, cf(1,i), dgs(:,i),
-     &              scr(p_lc), vfpsi(:,2::3))
+     &              scr, vfpsi(:,2::3))
                call wfat_lincomb_vec(nptp, nch, nn, cf(1,i), dgs(:,i),
-     &              scr(p_lc), vfpsi(:,3::3))
+     &              scr, vfpsi(:,3::3))
 
 c              == Update the polarizabilities using ==
 c              == the H_int-diagonalizing channels  ==           ! 1)
@@ -391,11 +326,7 @@ c              == the H_int-diagonalizing channels  ==           ! 1)
                   call wfat_construct_polb_cf(nn, cf(i_hi,i),
      &                 pbs(1:nn,1:nn,:,i), pb(:,:,jj))
                enddo
-c           ==== If the above H_int is diagonal ... ====
             else
-               if (ga_nodeid()==0)
-     &              write(luout, '("diag. ", 2f8.4)') bt, gm
-               
                do j = 1, nn    ! Loop over the H_int-diagonalizing channels.
                   jj = dgs(j,i)      ! Where in pb the j-th eigenstate should go.
                   call wfat_construct_polb(pbs(j,j,:,i), pb(:,:,jj))

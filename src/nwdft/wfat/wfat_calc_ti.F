@@ -157,7 +157,7 @@ c     ==== Calculate and print structure factor and ion yield ====
          do ib = 1, nbt
             bt = bt_start + dbt*(ib-1)
 
-            if (ib /= nbt) then
+            if (nbt == 1 .or. ib /= nbt) then
                gap = .false.
             else
                gap = .true.
