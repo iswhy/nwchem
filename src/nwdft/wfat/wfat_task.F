@@ -156,8 +156,13 @@ c     ==== Allocate channel properties ====
       
 
 c     ==== Calculate (or load) WFAT integrals ====
-      nsh = (1 + lmax)**2
-      nintg = nsh * natm * nqn * nch
+      if (lmax >= 0) then
+         nsh = (1 + lmax)**2
+         nintg = nsh * natm * nqn * nch
+      else
+         nsh = 1
+         nintg = 1
+      endif
       if (.not. ga_create(mt_dcpl, nintg, 1, 'intgl', 0, 0, g_il))
      &     call errquit('WFAT: Cannot create intgl global array.',
      &     1, GA_ERR)
@@ -293,6 +298,10 @@ c        ==== Obtain degenerate subspaces polarizability ====
      &        max_ndgsub, int_mb(k_dgs), int_mb(k_dgss), 
      &        int_mb(k_ndgs), nbas0, nspin0, dbl_mb(k_dpo),
      &        dbl_mb(k_moerg), dbl_mb(k_pbs))
+         
+cdebug         vvv Print dipole mat. elements and orb. energies to debug polarizability.
+cdebug         if (ndid == 0) call wfat_debug_pol(nbas0, nspin0, 
+cdebug     &        dbl_mb(k_dpo), dbl_mb(k_moerg))
       endif
          
 

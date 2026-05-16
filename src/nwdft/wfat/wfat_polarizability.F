@@ -547,4 +547,52 @@ c        polarizabilities. Assigining an Infinity or NaN to these elements
 c        helps in identifying when they are mistakenly used in the above
 c        computations.
 c============================================================
+
+
+c============================================================
+c============================================================
+      subroutine wfat_debug_pol(nb, ns, dpmo, erg)
+
+      implicit none
+#include "stdio.fh"
+      integer nb                              ! [input]
+      integer ns                              ! [input]
+      double precision dpmo(nb,nb,ns,3)       ! [input]
+      double precision erg(nb,ns)             ! [input]
+
+      integer i, j, k, target
+
+      target = 1                ! ID of target MO
+
+      write(luout, '("spin, MO ID, dip x, dip y, dip z, erg:")')
+      
+      do j = 1, ns
+         do i = 1, nb
+            write(luout, '(i1, 1x, i4, 3x)', advance='no') j, i
+            do k = 1, 3
+               write(luout, '(1x, es14.6)', advance='no')
+     &              dpmo(i,target,j,k)
+            enddo
+            write(luout, '(3x, es14.6)') erg(i,j)
+         enddo
+      enddo
+
+
+
+      write(luout,
+     &     '("spin, MO ID, diag dip x, diag dip y, diag dip z")')
+      
+      do j = 1, ns
+         do i = 1, nb
+            write(luout, '(i1, 1x, i4, 3x)', advance='no') j, i
+            do k = 1, 3
+               write(luout, '(1x, es14.6)', advance='no')
+     &              dpmo(i,i,j,k)
+            enddo
+            write(luout, '("")')
+         enddo
+      enddo
+            
+      end
+c============================================================
       
